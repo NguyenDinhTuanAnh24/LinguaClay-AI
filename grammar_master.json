@@ -1,0 +1,4535 @@
+[
+    {
+        "id": 1,
+        "title": "Động từ 'To Be' hiện tại (am / is / are)",
+        "level": "BEGINNER",
+        "structure": "S + am/is/are + (N / Adj / Adv)",
+        "breakdown": {
+            "S": "Chủ ngữ (I, you, he, she, it, we, they hoặc danh từ)",
+            "am": "Dùng với I",
+            "is": "Dùng với he, she, it hoặc danh từ số ít",
+            "are": "Dùng với you, we, they hoặc danh từ số nhiều",
+            "N": "Danh từ bổ nghĩa (e.g. a teacher)",
+            "Adj": "Tính từ mô tả trạng thái (e.g. happy)",
+            "Adv": "Trạng từ chỉ nơi chốn (e.g. here)"
+        },
+        "usage": [
+            "Diễn tả danh tính, nghề nghiệp hoặc quốc tịch của chủ ngữ.",
+            "Diễn tả trạng thái, đặc điểm, tính chất của người hoặc vật.",
+            "Diễn tả vị trí hoặc nơi chốn của người hoặc vật."
+        ],
+        "signs": [
+            "am",
+            "is",
+            "are",
+            "be"
+        ],
+        "example_en": "She is a friendly teacher at our school.",
+        "example_vi": "Cô ấy là một giáo viên thân thiện tại trường chúng tôi."
+    },
+    {
+        "id": 2,
+        "title": "Phủ định với 'To Be' (am not / isn't / aren't)",
+        "level": "BEGINNER",
+        "structure": "S + am not / isn't / aren't + (N / Adj / Adv)",
+        "breakdown": {
+            "S": "Chủ ngữ",
+            "am not": "Phủ định dùng với I (không có dạng rút gọn chuẩn)",
+            "isn't": "Rút gọn của is not, dùng với he/she/it",
+            "aren't": "Rút gọn của are not, dùng với you/we/they"
+        },
+        "usage": [
+            "Phủ nhận một danh tính, trạng thái hoặc vị trí.",
+            "Dùng dạng rút gọn (isn't, aren't) trong văn nói và văn viết thông thường."
+        ],
+        "signs": [
+            "not",
+            "isn't",
+            "aren't",
+            "am not"
+        ],
+        "example_en": "They aren't ready for the big exam tomorrow.",
+        "example_vi": "Họ chưa sẵn sàng cho kỳ thi lớn vào ngày mai."
+    },
+    {
+        "id": 3,
+        "title": "Câu hỏi Yes/No với 'To Be'",
+        "level": "BEGINNER",
+        "structure": "Am/Is/Are + S + (N / Adj / Adv)?",
+        "breakdown": {
+            "Am/Is/Are": "Trợ động từ đảo lên đầu câu để tạo câu hỏi",
+            "S": "Chủ ngữ",
+            "N/Adj/Adv": "Thành phần bổ nghĩa cho chủ ngữ"
+        },
+        "usage": [
+            "Dùng để hỏi về danh tính, trạng thái hoặc vị trí của người/vật.",
+            "Trả lời ngắn gọn bằng Yes, S + am/is/are hoặc No, S + am not/isn't/aren't."
+        ],
+        "signs": [
+            "Is...?",
+            "Are...?",
+            "Am...?"
+        ],
+        "example_en": "Is your brother a professional football player?",
+        "example_vi": "Anh trai của bạn có phải là cầu thủ bóng đá chuyên nghiệp không?"
+    },
+    {
+        "id": 4,
+        "title": "Thì Hiện tại Đơn (Affirmative)",
+        "level": "BEGINNER",
+        "structure": "S + V-base (+ s/es) + (O / Adv)",
+        "breakdown": {
+            "S": "Chủ ngữ",
+            "V-base": "Động từ nguyên thể (không to)",
+            "s/es": "Thêm vào động từ khi chủ ngữ là he/she/it hoặc danh từ số ít",
+            "O": "Tân ngữ (nếu có)",
+            "Adv": "Trạng từ chỉ tần suất hoặc thời gian (e.g. every day, always)"
+        },
+        "usage": [
+            "Diễn tả thói quen hoặc hành động lặp đi lặp lại.",
+            "Diễn tả sự thật hiển nhiên, quy luật tự nhiên hoặc chân lý khoa học.",
+            "Diễn tả lịch trình cố định trong tương lai (tàu, xe, máy bay)."
+        ],
+        "signs": [
+            "always",
+            "usually",
+            "often",
+            "sometimes",
+            "rarely",
+            "never",
+            "every day/week/month",
+            "on Mondays"
+        ],
+        "example_en": "My father always drinks coffee before going to work.",
+        "example_vi": "Bố tôi luôn uống cà phê trước khi đi làm."
+    },
+    {
+        "id": 5,
+        "title": "Thì Hiện tại Đơn – Phủ định (don't / doesn't)",
+        "level": "BEGINNER",
+        "structure": "S + don't / doesn't + V-base + (O / Adv)",
+        "breakdown": {
+            "S": "Chủ ngữ",
+            "don't": "Dùng với I, you, we, they",
+            "doesn't": "Dùng với he, she, it (động từ giữ nguyên V-base, không thêm s/es)",
+            "V-base": "Động từ nguyên thể không to"
+        },
+        "usage": [
+            "Phủ nhận một thói quen hoặc hành động thường xuyên.",
+            "Lưu ý: Khi dùng doesn't thì động từ chính không thêm -s/-es nữa."
+        ],
+        "signs": [
+            "don't",
+            "doesn't",
+            "not"
+        ],
+        "example_en": "She doesn't like eating spicy food at all.",
+        "example_vi": "Cô ấy hoàn toàn không thích ăn đồ cay."
+    },
+    {
+        "id": 6,
+        "title": "Thì Hiện tại Đơn – Câu hỏi (Do/Does)",
+        "level": "BEGINNER",
+        "structure": "Do / Does + S + V-base + (O / Adv)?",
+        "breakdown": {
+            "Do": "Trợ động từ dùng với I, you, we, they",
+            "Does": "Trợ động từ dùng với he, she, it",
+            "S": "Chủ ngữ",
+            "V-base": "Động từ nguyên thể không to"
+        },
+        "usage": [
+            "Dùng để hỏi về thói quen, sở thích hoặc hành động thường xuyên.",
+            "Trả lời: Yes, S + do/does hoặc No, S + don't/doesn't."
+        ],
+        "signs": [
+            "Do...?",
+            "Does...?",
+            "How often",
+            "What time"
+        ],
+        "example_en": "Does your sister work at the city hospital?",
+        "example_vi": "Chị gái của bạn có làm việc ở bệnh viện thành phố không?"
+    },
+    {
+        "id": 7,
+        "title": "Thì Hiện tại Tiếp diễn (Affirmative)",
+        "level": "BEGINNER",
+        "structure": "S + am/is/are + V-ing + (O / Adv)",
+        "breakdown": {
+            "S": "Chủ ngữ",
+            "am/is/are": "Trợ động từ 'to be' chia theo chủ ngữ",
+            "V-ing": "Động từ thêm đuôi -ing (hiện tại phân từ)"
+        },
+        "usage": [
+            "Diễn tả hành động đang xảy ra ngay tại thời điểm nói.",
+            "Diễn tả hành động xảy ra xung quanh thời điểm nói (không nhất thiết ngay lúc đó).",
+            "Diễn tả kế hoạch đã được sắp xếp trong tương lai gần."
+        ],
+        "signs": [
+            "now",
+            "right now",
+            "at the moment",
+            "currently",
+            "at present",
+            "Look!",
+            "Listen!"
+        ],
+        "example_en": "The children are playing happily in the garden right now.",
+        "example_vi": "Những đứa trẻ đang chơi vui vẻ trong vườn ngay lúc này."
+    },
+    {
+        "id": 8,
+        "title": "Thì Hiện tại Tiếp diễn – Phủ định",
+        "level": "BEGINNER",
+        "structure": "S + am not / isn't / aren't + V-ing + (O / Adv)",
+        "breakdown": {
+            "S": "Chủ ngữ",
+            "am not / isn't / aren't": "Trợ động từ 'to be' dạng phủ định",
+            "V-ing": "Động từ thêm đuôi -ing"
+        },
+        "usage": [
+            "Phủ nhận một hành động đang diễn ra tại thời điểm nói.",
+            "Dùng dạng rút gọn (isn't, aren't) trong giao tiếp thông thường."
+        ],
+        "signs": [
+            "not",
+            "isn't",
+            "aren't",
+            "am not",
+            "now"
+        ],
+        "example_en": "I am not watching TV. I am reading a book.",
+        "example_vi": "Tôi không đang xem TV. Tôi đang đọc sách."
+    },
+    {
+        "id": 9,
+        "title": "Thì Hiện tại Tiếp diễn – Câu hỏi",
+        "level": "BEGINNER",
+        "structure": "Am/Is/Are + S + V-ing + (O / Adv)?",
+        "breakdown": {
+            "Am/Is/Are": "Trợ động từ đảo lên đầu câu",
+            "S": "Chủ ngữ",
+            "V-ing": "Động từ thêm đuôi -ing"
+        },
+        "usage": [
+            "Hỏi về một hành động đang diễn ra ngay lúc nói.",
+            "Hỏi về kế hoạch trong tương lai gần."
+        ],
+        "signs": [
+            "Are you...?",
+            "Is he/she...?",
+            "What are you doing?",
+            "now"
+        ],
+        "example_en": "Are you studying for your final exams this week?",
+        "example_vi": "Bạn có đang ôn thi cuối kỳ trong tuần này không?"
+    },
+    {
+        "id": 10,
+        "title": "Thì Quá khứ Đơn – Động từ có quy tắc",
+        "level": "BEGINNER",
+        "structure": "S + V-ed + (O / Adv of time)",
+        "breakdown": {
+            "S": "Chủ ngữ",
+            "V-ed": "Động từ thêm đuôi -ed (e.g. walked, played, visited)",
+            "Adv of time": "Trạng từ chỉ thời gian trong quá khứ (e.g. yesterday, last week, in 2010)"
+        },
+        "usage": [
+            "Diễn tả hành động đã hoàn thành tại một thời điểm xác định trong quá khứ.",
+            "Diễn tả một chuỗi hành động xảy ra liên tiếp trong quá khứ.",
+            "Diễn tả thói quen hoặc trạng thái trong quá khứ (không còn xảy ra nữa)."
+        ],
+        "signs": [
+            "yesterday",
+            "last night/week/month/year",
+            "ago",
+            "in [year]",
+            "when I was young"
+        ],
+        "example_en": "We visited the old temple last summer holiday.",
+        "example_vi": "Chúng tôi đã thăm ngôi đền cổ vào kỳ nghỉ hè năm ngoái."
+    },
+    {
+        "id": 11,
+        "title": "Thì Quá khứ Đơn – Động từ bất quy tắc",
+        "level": "BEGINNER",
+        "structure": "S + V2 (irregular) + (O / Adv of time)",
+        "breakdown": {
+            "S": "Chủ ngữ",
+            "V2": "Dạng quá khứ bất quy tắc của động từ (e.g. went, saw, ate, had, bought)"
+        },
+        "usage": [
+            "Diễn tả hành động đã xảy ra trong quá khứ, nhưng động từ không theo quy tắc thêm -ed.",
+            "Phải học thuộc danh sách động từ bất quy tắc (Base form – Past simple – Past participle)."
+        ],
+        "signs": [
+            "yesterday",
+            "last",
+            "ago",
+            "in [year]",
+            "went",
+            "saw",
+            "ate",
+            "had"
+        ],
+        "example_en": "She went to the market and bought fresh vegetables yesterday.",
+        "example_vi": "Cô ấy đã đi chợ và mua rau tươi vào hôm qua."
+    },
+    {
+        "id": 12,
+        "title": "Thì Quá khứ Đơn – Phủ định (didn't)",
+        "level": "BEGINNER",
+        "structure": "S + didn't + V-base + (O / Adv of time)",
+        "breakdown": {
+            "S": "Chủ ngữ",
+            "didn't": "Rút gọn của did not, dùng cho tất cả các chủ ngữ",
+            "V-base": "Động từ trở về dạng nguyên thể (không thêm -ed hay V2)"
+        },
+        "usage": [
+            "Phủ nhận một hành động không xảy ra trong quá khứ.",
+            "Sau didn't luôn dùng V-base, không dùng V-ed hoặc V2."
+        ],
+        "signs": [
+            "didn't",
+            "did not"
+        ],
+        "example_en": "He didn't finish his homework before the deadline.",
+        "example_vi": "Anh ấy đã không hoàn thành bài tập về nhà trước hạn chót."
+    },
+    {
+        "id": 13,
+        "title": "Thì Quá khứ Đơn – Câu hỏi (Did)",
+        "level": "BEGINNER",
+        "structure": "Did + S + V-base + (O / Adv of time)?",
+        "breakdown": {
+            "Did": "Trợ động từ quá khứ, dùng cho tất cả chủ ngữ",
+            "S": "Chủ ngữ",
+            "V-base": "Động từ nguyên thể không to"
+        },
+        "usage": [
+            "Hỏi về một hành động có/không xảy ra trong quá khứ.",
+            "Trả lời: Yes, S + did hoặc No, S + didn't."
+        ],
+        "signs": [
+            "Did...?",
+            "What did...?",
+            "Where did...?",
+            "When did...?"
+        ],
+        "example_en": "Did you see the new movie at the cinema last weekend?",
+        "example_vi": "Bạn có xem bộ phim mới ở rạp chiếu phim vào cuối tuần trước không?"
+    },
+    {
+        "id": 14,
+        "title": "Thì Tương lai Đơn (will)",
+        "level": "BEGINNER",
+        "structure": "S + will + V-base + (O / Adv of time)",
+        "breakdown": {
+            "S": "Chủ ngữ",
+            "will": "Trợ động từ tương lai, không chia theo ngôi",
+            "V-base": "Động từ nguyên thể không to"
+        },
+        "usage": [
+            "Diễn tả quyết định được đưa ra ngay tại thời điểm nói.",
+            "Diễn tả dự đoán về tương lai (không có bằng chứng cụ thể).",
+            "Diễn tả lời hứa, đề nghị giúp đỡ hoặc sự sẵn lòng."
+        ],
+        "signs": [
+            "tomorrow",
+            "next week/month/year",
+            "in the future",
+            "soon",
+            "I think",
+            "I believe",
+            "probably"
+        ],
+        "example_en": "I think she will become a successful doctor in the future.",
+        "example_vi": "Tôi nghĩ cô ấy sẽ trở thành một bác sĩ thành công trong tương lai."
+    },
+    {
+        "id": 15,
+        "title": "Tương lai gần với 'be going to'",
+        "level": "BEGINNER",
+        "structure": "S + am/is/are + going to + V-base + (O / Adv)",
+        "breakdown": {
+            "S": "Chủ ngữ",
+            "am/is/are": "Trợ động từ 'to be' chia theo chủ ngữ",
+            "going to": "Cụm từ chỉ tương lai có kế hoạch hoặc dự đoán có bằng chứng",
+            "V-base": "Động từ nguyên thể không to"
+        },
+        "usage": [
+            "Diễn tả kế hoạch hoặc dự định đã được quyết định từ trước.",
+            "Diễn tả dự đoán dựa trên bằng chứng hiện tại rõ ràng."
+        ],
+        "signs": [
+            "going to",
+            "plan to",
+            "intend to",
+            "Look! (dự đoán có bằng chứng)"
+        ],
+        "example_en": "We are going to visit my grandparents next Sunday morning.",
+        "example_vi": "Chúng tôi định đến thăm ông bà ngoại vào sáng Chủ nhật tới."
+    },
+    {
+        "id": 16,
+        "title": "Mạo từ xác định 'the'",
+        "level": "BEGINNER",
+        "structure": "the + N (số ít / số nhiều / không đếm được)",
+        "breakdown": {
+            "the": "Mạo từ xác định, chỉ một danh từ cụ thể đã biết",
+            "N": "Danh từ số ít, số nhiều, hoặc không đếm được"
+        },
+        "usage": [
+            "Dùng khi cả người nói và người nghe đều biết đến đối tượng được nhắc đến.",
+            "Dùng khi danh từ được đề cập lần thứ hai trở đi trong cuộc hội thoại.",
+            "Dùng trước danh từ chỉ có một trên thế giới (the sun, the moon, the Earth)."
+        ],
+        "signs": [
+            "the sun",
+            "the moon",
+            "the same",
+            "the first",
+            "the only",
+            "the + danh từ đã đề cập"
+        ],
+        "example_en": "The book on the table belongs to my older sister.",
+        "example_vi": "Quyển sách trên bàn là của chị gái tôi."
+    },
+    {
+        "id": 17,
+        "title": "Mạo từ không xác định 'a / an'",
+        "level": "BEGINNER",
+        "structure": "a / an + N số ít đếm được",
+        "breakdown": {
+            "a": "Dùng trước danh từ bắt đầu bằng phụ âm (consonant sound)",
+            "an": "Dùng trước danh từ bắt đầu bằng nguyên âm (vowel sound: a, e, i, o, u)",
+            "N số ít": "Danh từ đếm được số ít"
+        },
+        "usage": [
+            "Dùng khi đề cập đến một người/vật chưa xác định, lần đầu tiên nhắc đến.",
+            "Dùng để chỉ một thành viên bất kỳ trong một nhóm (a cat = any cat).",
+            "Dùng trong định nghĩa nghề nghiệp hoặc quốc tịch (She is a teacher)."
+        ],
+        "signs": [
+            "a",
+            "an",
+            "first mention",
+            "one of"
+        ],
+        "example_en": "She found an old letter inside the wooden drawer.",
+        "example_vi": "Cô ấy tìm thấy một bức thư cũ bên trong ngăn kéo gỗ."
+    },
+    {
+        "id": 18,
+        "title": "Danh từ số nhiều (quy tắc và bất quy tắc)",
+        "level": "BEGINNER",
+        "structure": "N + s / es / ies | N bất quy tắc",
+        "breakdown": {
+            "N + s": "Hầu hết danh từ thêm -s (cats, books)",
+            "N + es": "Danh từ kết thúc bằng s, sh, ch, x, z thêm -es (buses, watches)",
+            "N + ies": "Danh từ kết thúc bằng phụ âm + y → đổi y thành i rồi thêm -es (baby → babies)",
+            "N bất quy tắc": "man → men, child → children, foot → feet, tooth → teeth, mouse → mice"
+        },
+        "usage": [
+            "Dùng danh từ số nhiều khi nói đến hơn một người hoặc vật.",
+            "Cần phân biệt danh từ không đếm được (không thêm -s): water, rice, information."
+        ],
+        "signs": [
+            "two, three, many, several, some, a lot of + N"
+        ],
+        "example_en": "The children are playing with their new toys in the yard.",
+        "example_vi": "Những đứa trẻ đang chơi với đồ chơi mới của chúng trong sân."
+    },
+    {
+        "id": 19,
+        "title": "Đại từ nhân xưng (Chủ ngữ & Tân ngữ)",
+        "level": "BEGINNER",
+        "structure": "Subject pronoun + V ... / V + Object pronoun",
+        "breakdown": {
+            "Subject pronouns": "I, you, he, she, it, we, they – đứng trước động từ, làm chủ ngữ",
+            "Object pronouns": "me, you, him, her, it, us, them – đứng sau động từ hoặc giới từ, làm tân ngữ"
+        },
+        "usage": [
+            "Subject pronoun thay thế danh từ làm chủ ngữ trong câu.",
+            "Object pronoun thay thế danh từ làm tân ngữ (sau động từ hoặc sau giới từ)."
+        ],
+        "signs": [
+            "he, she, it, they, me, him, her, us, them"
+        ],
+        "example_en": "She gave him a beautiful birthday gift last week.",
+        "example_vi": "Cô ấy đã tặng anh ấy một món quà sinh nhật đẹp vào tuần trước."
+    },
+    {
+        "id": 20,
+        "title": "Tính từ sở hữu (Possessive Adjectives)",
+        "level": "BEGINNER",
+        "structure": "Possessive Adj + N",
+        "breakdown": {
+            "Possessive Adj": "my, your, his, her, its, our, their – đứng trước danh từ để chỉ sự sở hữu",
+            "N": "Danh từ được sở hữu"
+        },
+        "usage": [
+            "Dùng trước danh từ để chỉ ai đang sở hữu hoặc liên quan đến danh từ đó.",
+            "Không dùng kèm với mạo từ a/an/the."
+        ],
+        "signs": [
+            "my",
+            "your",
+            "his",
+            "her",
+            "its",
+            "our",
+            "their"
+        ],
+        "example_en": "My sister left her umbrella on the school bus this morning.",
+        "example_vi": "Chị gái tôi đã bỏ quên ô của cô ấy trên xe buýt trường sáng nay."
+    },
+    {
+        "id": 21,
+        "title": "Đại từ sở hữu (Possessive Pronouns)",
+        "level": "BEGINNER",
+        "structure": "S + V + Possessive Pronoun",
+        "breakdown": {
+            "Possessive Pronoun": "mine, yours, his, hers, ours, theirs – đứng độc lập, không kèm danh từ",
+            "S + V": "Chủ ngữ và động từ của câu"
+        },
+        "usage": [
+            "Thay thế cho tổ hợp Possessive Adjective + Noun để tránh lặp từ.",
+            "Đứng độc lập, không đứng trước danh từ."
+        ],
+        "signs": [
+            "mine",
+            "yours",
+            "his",
+            "hers",
+            "ours",
+            "theirs"
+        ],
+        "example_en": "This red bag is mine, not yours.",
+        "example_vi": "Chiếc túi đỏ này là của tôi, không phải của bạn."
+    },
+    {
+        "id": 22,
+        "title": "Tính từ (Adjectives) – Vị trí và Chức năng",
+        "level": "BEGINNER",
+        "structure": "Adj + N | S + be + Adj",
+        "breakdown": {
+            "Adj + N": "Tính từ đứng trước danh từ (attributive position) – e.g. a tall man",
+            "S + be + Adj": "Tính từ đứng sau động từ liên kết (predicative position) – e.g. He is tall"
+        },
+        "usage": [
+            "Tính từ mô tả đặc điểm của danh từ, không thêm -s/-es dù danh từ số nhiều.",
+            "Có thể đứng trước danh từ hoặc sau động từ liên kết (be, look, feel, seem, sound, taste)."
+        ],
+        "signs": [
+            "beautiful",
+            "small",
+            "hot",
+            "cold",
+            "interesting",
+            "delicious",
+            "tall",
+            "old"
+        ],
+        "example_en": "The small white kitten looks very cute and friendly.",
+        "example_vi": "Chú mèo con nhỏ màu trắng trông rất đáng yêu và thân thiện."
+    },
+    {
+        "id": 23,
+        "title": "Trạng từ chỉ tần suất (Adverbs of Frequency)",
+        "level": "BEGINNER",
+        "structure": "S + Adv-freq + V-base(+s/es) | S + be + Adv-freq",
+        "breakdown": {
+            "Adv-freq": "always (100%) > usually > often > sometimes > rarely > never (0%)",
+            "Vị trí": "Đứng trước động từ thường, đứng sau động từ 'to be'"
+        },
+        "usage": [
+            "Diễn tả mức độ thường xuyên của một hành động trong hiện tại.",
+            "Vị trí: trước động từ thường nhưng sau 'be', 'have' (trợ động từ)."
+        ],
+        "signs": [
+            "always",
+            "usually",
+            "often",
+            "sometimes",
+            "rarely",
+            "seldom",
+            "never",
+            "ever"
+        ],
+        "example_en": "My parents always have breakfast together on Sunday mornings.",
+        "example_vi": "Bố mẹ tôi luôn ăn sáng cùng nhau vào các buổi sáng Chủ nhật."
+    },
+    {
+        "id": 24,
+        "title": "Giới từ chỉ thời gian (at / in / on)",
+        "level": "BEGINNER",
+        "structure": "at / in / on + time expression",
+        "breakdown": {
+            "at": "Dùng với giờ cụ thể và các cụm đặc biệt: at 7 o'clock, at noon, at night, at the weekend",
+            "in": "Dùng với tháng, năm, mùa, buổi trong ngày: in January, in 2025, in summer, in the morning",
+            "on": "Dùng với ngày tháng cụ thể và ngày trong tuần: on Monday, on March 8th, on my birthday"
+        },
+        "usage": [
+            "Phân biệt rõ: at (thời điểm chính xác), in (khoảng thời gian dài hơn), on (ngày cụ thể).",
+            "Một số cụm cố định: at night (KHÔNG dùng in/on), in the morning/afternoon/evening (KHÔNG dùng at/on)."
+        ],
+        "signs": [
+            "at",
+            "in",
+            "on",
+            "+ time"
+        ],
+        "example_en": "The meeting will start at nine o'clock on Monday morning.",
+        "example_vi": "Cuộc họp sẽ bắt đầu lúc chín giờ vào sáng thứ Hai."
+    },
+    {
+        "id": 25,
+        "title": "Giới từ chỉ nơi chốn (at / in / on)",
+        "level": "BEGINNER",
+        "structure": "at / in / on + place expression",
+        "breakdown": {
+            "at": "Điểm vị trí cụ thể: at school, at the bus stop, at home, at the corner",
+            "in": "Không gian bên trong: in the room, in the city, in Vietnam, in a box",
+            "on": "Trên bề mặt: on the table, on the wall, on the floor, on the bus/train/plane"
+        },
+        "usage": [
+            "at = tại một điểm; in = bên trong một không gian; on = trên một bề mặt.",
+            "Cụm cố định cần nhớ: on the bus/train (KHÔNG dùng in); in the car/taxi (KHÔNG dùng on)."
+        ],
+        "signs": [
+            "at",
+            "in",
+            "on",
+            "+ place"
+        ],
+        "example_en": "There is a beautiful painting on the wall in the living room.",
+        "example_vi": "Có một bức tranh đẹp trên tường trong phòng khách."
+    },
+    {
+        "id": 26,
+        "title": "Câu hỏi với từ để hỏi Wh-",
+        "level": "BEGINNER",
+        "structure": "Wh-word + aux + S + V-base + (O)?",
+        "breakdown": {
+            "Wh-word": "What (cái gì), Where (ở đâu), When (khi nào), Who (ai), Why (tại sao), How (như thế nào)",
+            "aux": "Trợ động từ (do/does/did/is/are/will...)",
+            "S": "Chủ ngữ",
+            "V-base": "Động từ nguyên thể"
+        },
+        "usage": [
+            "Dùng để hỏi thông tin cụ thể (không trả lời Yes/No).",
+            "Khi Wh-word là chủ ngữ của câu (Who, What): Wh-word + V (không cần trợ động từ)."
+        ],
+        "signs": [
+            "What",
+            "Where",
+            "When",
+            "Who",
+            "Why",
+            "How",
+            "Which",
+            "Whose",
+            "How many",
+            "How much"
+        ],
+        "example_en": "Where did you buy that beautiful traditional dress?",
+        "example_vi": "Bạn mua chiếc váy truyền thống đẹp đó ở đâu vậy?"
+    },
+    {
+        "id": 27,
+        "title": "Câu mệnh lệnh (Imperative)",
+        "level": "BEGINNER",
+        "structure": "V-base + (O/Adv) | Don't + V-base + (O/Adv)",
+        "breakdown": {
+            "V-base": "Động từ nguyên thể đứng đầu câu (không có chủ ngữ hiện rõ, chủ ngữ ngầm là 'you')",
+            "Don't + V-base": "Dạng phủ định của câu mệnh lệnh"
+        },
+        "usage": [
+            "Dùng để ra lệnh, chỉ dẫn, yêu cầu hoặc đưa ra lời khuyên.",
+            "Dùng 'Please + V-base' để lịch sự hơn."
+        ],
+        "signs": [
+            "Open!",
+            "Please...",
+            "Don't...",
+            "Be careful!",
+            "Never..."
+        ],
+        "example_en": "Please open your textbooks and turn to page twenty.",
+        "example_vi": "Hãy mở sách giáo khoa của bạn và lật đến trang hai mươi."
+    },
+    {
+        "id": 28,
+        "title": "There is / There are",
+        "level": "BEGINNER",
+        "structure": "There is + N số ít / không đếm được | There are + N số nhiều",
+        "breakdown": {
+            "There is": "Dùng với danh từ số ít đếm được hoặc danh từ không đếm được",
+            "There are": "Dùng với danh từ số nhiều",
+            "N": "Danh từ chỉ sự tồn tại hoặc hiện diện"
+        },
+        "usage": [
+            "Diễn tả sự tồn tại hoặc hiện diện của người/vật tại một nơi nào đó.",
+            "Phủ định: There isn't / There aren't. Câu hỏi: Is there...? / Are there...?"
+        ],
+        "signs": [
+            "there is",
+            "there are",
+            "there isn't",
+            "there aren't",
+            "Is there?",
+            "Are there?"
+        ],
+        "example_en": "There are three comfortable sofas in our living room.",
+        "example_vi": "Có ba chiếc ghế sofa thoải mái trong phòng khách của chúng tôi."
+    },
+    {
+        "id": 29,
+        "title": "Đếm: How many / How much",
+        "level": "BEGINNER",
+        "structure": "How many + N (đếm được số nhiều) + is/are there? | How much + N (không đếm được) + is there?",
+        "breakdown": {
+            "How many": "Dùng với danh từ đếm được số nhiều",
+            "How much": "Dùng với danh từ không đếm được",
+            "is/are there": "Hỏi về số lượng hoặc số đếm tồn tại"
+        },
+        "usage": [
+            "How many: hỏi số lượng thứ đếm được (apples, chairs, people...).",
+            "How much: hỏi số lượng thứ không đếm được (water, money, rice, time...).",
+            "How much cũng dùng để hỏi giá tiền."
+        ],
+        "signs": [
+            "How many",
+            "How much"
+        ],
+        "example_en": "How many students are there in your English class?",
+        "example_vi": "Có bao nhiêu học sinh trong lớp tiếng Anh của bạn?"
+    },
+    {
+        "id": 30,
+        "title": "Động từ khuyết thiếu 'can' (Khả năng)",
+        "level": "BEGINNER",
+        "structure": "S + can + V-base + (O)",
+        "breakdown": {
+            "S": "Chủ ngữ",
+            "can": "Động từ khuyết thiếu chỉ khả năng, không chia theo ngôi, không thêm -s",
+            "V-base": "Động từ nguyên thể không to"
+        },
+        "usage": [
+            "Diễn tả khả năng hoặc năng lực tự nhiên của chủ ngữ.",
+            "Phủ định: cannot / can't. Câu hỏi: Can + S + V-base?"
+        ],
+        "signs": [
+            "can",
+            "cannot",
+            "can't",
+            "Can...?",
+            "be able to"
+        ],
+        "example_en": "My little brother can swim very fast in the pool.",
+        "example_vi": "Em trai nhỏ của tôi có thể bơi rất nhanh trong hồ bơi."
+    },
+    {
+        "id": 31,
+        "title": "Động từ khuyết thiếu 'can' (Xin phép & Đề nghị)",
+        "level": "BEGINNER",
+        "structure": "Can + I/we + V-base + (O)? | Can + S + V-base + (O)?",
+        "breakdown": {
+            "Can I...?": "Xin phép (ngôn ngữ thông thường, không trang trọng)",
+            "Can you...?": "Đề nghị hoặc yêu cầu ai đó làm gì"
+        },
+        "usage": [
+            "Dùng 'Can I...?' để xin phép một cách thân mật, không trang trọng.",
+            "Dùng 'Can you...?' để nhờ ai đó làm gì.",
+            "Dùng 'Could I/you...?' thay thế để lịch sự hơn."
+        ],
+        "signs": [
+            "Can I...?",
+            "Can you...?",
+            "Could I...?"
+        ],
+        "example_en": "Can you help me carry these heavy boxes upstairs please?",
+        "example_vi": "Bạn có thể giúp tôi mang những thùng nặng này lên lầu không?"
+    },
+    {
+        "id": 32,
+        "title": "Động từ khuyết thiếu 'must' (Nghĩa vụ)",
+        "level": "BEGINNER",
+        "structure": "S + must + V-base + (O)",
+        "breakdown": {
+            "must": "Diễn tả nghĩa vụ mạnh mẽ, quy định bắt buộc – do chính người nói áp đặt",
+            "V-base": "Động từ nguyên thể không to"
+        },
+        "usage": [
+            "Diễn tả điều bắt buộc phải làm, thường do chính người nói hoặc do quy định nội tâm.",
+            "Phủ định: mustn't (cấm đoán). Must not = bị cấm làm điều gì."
+        ],
+        "signs": [
+            "must",
+            "mustn't",
+            "must not",
+            "have to"
+        ],
+        "example_en": "You must wear a helmet when you ride a motorbike.",
+        "example_vi": "Bạn phải đội mũ bảo hiểm khi đi xe máy."
+    },
+    {
+        "id": 33,
+        "title": "Động từ khuyết thiếu 'should' (Lời khuyên)",
+        "level": "BEGINNER",
+        "structure": "S + should + V-base + (O)",
+        "breakdown": {
+            "should": "Diễn tả lời khuyên, khuyến nghị hoặc điều được coi là đúng đắn",
+            "V-base": "Động từ nguyên thể không to",
+            "shouldn't": "Dạng phủ định: không nên"
+        },
+        "usage": [
+            "Dùng để đưa ra lời khuyên hoặc gợi ý nhẹ nhàng.",
+            "Yếu hơn 'must' vì không mang tính bắt buộc."
+        ],
+        "signs": [
+            "should",
+            "shouldn't",
+            "ought to",
+            "had better"
+        ],
+        "example_en": "You should drink more water and get enough sleep every night.",
+        "example_vi": "Bạn nên uống nhiều nước hơn và ngủ đủ giấc mỗi đêm."
+    },
+    {
+        "id": 34,
+        "title": "Động từ khuyết thiếu 'would like' (Mong muốn lịch sự)",
+        "level": "BEGINNER",
+        "structure": "S + would like + to + V-inf | Would + S + like + to + V-inf?",
+        "breakdown": {
+            "would like": "Cách diễn đạt mong muốn lịch sự hơn 'want'",
+            "to + V-inf": "Động từ nguyên thể có 'to'"
+        },
+        "usage": [
+            "Dùng thay cho 'want' để nghe lịch sự hơn, thường trong tình huống trang trọng hoặc nhà hàng.",
+            "Câu hỏi: Would you like to...? / Would you like + N?"
+        ],
+        "signs": [
+            "would like to",
+            "I'd like",
+            "Would you like?"
+        ],
+        "example_en": "I would like to order a bowl of pho and a glass of iced tea.",
+        "example_vi": "Tôi muốn gọi một tô phở và một ly trà đá."
+    },
+    {
+        "id": 35,
+        "title": "Liên từ kết hợp (and / but / or / so / because)",
+        "level": "BEGINNER",
+        "structure": "Clause 1 + and/but/or/so/because + Clause 2",
+        "breakdown": {
+            "and": "Thêm thông tin (và)",
+            "but": "Đối lập (nhưng)",
+            "or": "Lựa chọn (hoặc)",
+            "so": "Kết quả (vì vậy, do đó)",
+            "because": "Nguyên nhân (bởi vì) – thường đứng trước mệnh đề chỉ lý do"
+        },
+        "usage": [
+            "Nối hai mệnh đề độc lập để tạo thành câu ghép.",
+            "Vị trí: đứng ở giữa hai vế câu; nếu dùng 'because' đứng đầu câu thì cần dấu phẩy."
+        ],
+        "signs": [
+            "and",
+            "but",
+            "or",
+            "so",
+            "because"
+        ],
+        "example_en": "She was very tired after work but she still cooked dinner for her family.",
+        "example_vi": "Cô ấy rất mệt sau khi làm việc nhưng cô ấy vẫn nấu bữa tối cho gia đình."
+    },
+    {
+        "id": 36,
+        "title": "Câu điều kiện loại 0 (Sự thật hiển nhiên)",
+        "level": "BEGINNER",
+        "structure": "If + S1 + V (Hiện tại đơn), S2 + V (Hiện tại đơn)",
+        "breakdown": {
+            "If + S1 + V (HTĐ)": "Mệnh đề điều kiện – điều kiện luôn đúng",
+            "S2 + V (HTĐ)": "Mệnh đề kết quả – kết quả luôn xảy ra khi điều kiện đúng"
+        },
+        "usage": [
+            "Diễn tả quy luật tự nhiên, sự thật khoa học hoặc thói quen chung.",
+            "Cả hai mệnh đề đều dùng thì Hiện tại Đơn. 'If' có thể thay bằng 'When'."
+        ],
+        "signs": [
+            "if",
+            "when",
+            "always",
+            "every time"
+        ],
+        "example_en": "If you heat ice, it melts and turns into water.",
+        "example_vi": "Nếu bạn đun nóng nước đá, nó sẽ tan chảy và biến thành nước."
+    },
+    {
+        "id": 37,
+        "title": "Câu điều kiện loại 1 (Có thể xảy ra ở hiện tại/tương lai)",
+        "level": "BEGINNER",
+        "structure": "If + S1 + V (Hiện tại đơn), S2 + will + V-base",
+        "breakdown": {
+            "If + S1 + V (HTĐ)": "Mệnh đề điều kiện – dùng Hiện tại Đơn (không dùng will)",
+            "S2 + will + V-base": "Mệnh đề kết quả – dùng will + V-base"
+        },
+        "usage": [
+            "Diễn tả điều kiện có thể xảy ra ở hiện tại hoặc tương lai và kết quả của nó.",
+            "Lưu ý: Không dùng 'will' trong mệnh đề if. Thứ tự hai mệnh đề có thể đổi."
+        ],
+        "signs": [
+            "if",
+            "will",
+            "unless"
+        ],
+        "example_en": "If it rains tomorrow, we will cancel the outdoor picnic.",
+        "example_vi": "Nếu ngày mai trời mưa, chúng ta sẽ hủy buổi dã ngoại ngoài trời."
+    },
+    {
+        "id": 38,
+        "title": "Câu hỏi đuôi (Question Tags) với 'to be'",
+        "level": "BEGINNER",
+        "structure": "S + am/is/are + Adj/N, + isn't/aren't/am I?",
+        "breakdown": {
+            "Câu khẳng định + tag âm": "Khi vế chính là khẳng định, tag là phủ định",
+            "Câu phủ định + tag dương": "Khi vế chính là phủ định, tag là khẳng định",
+            "Tag": "Gồm trợ động từ + đại từ chủ ngữ"
+        },
+        "usage": [
+            "Dùng để xác nhận lại thông tin, thường kỳ vọng người nghe đồng ý.",
+            "Câu khẳng định → tag âm (is he? / are you?). Câu phủ định → tag dương (isn't she?)."
+        ],
+        "signs": [
+            "isn't it?",
+            "aren't you?",
+            "is she?",
+            "am I?"
+        ],
+        "example_en": "The weather is beautiful today, isn't it?",
+        "example_vi": "Thời tiết hôm nay thật đẹp, phải không?"
+    },
+    {
+        "id": 39,
+        "title": "Sở hữu cách (Possessive 's)",
+        "level": "BEGINNER",
+        "structure": "N (người/vật) + 's + N (vật sở hữu)",
+        "breakdown": {
+            "N + 's": "Thêm 's sau danh từ chỉ người, động vật hoặc thời gian",
+            "Danh từ số nhiều kết thúc -s": "Chỉ thêm dấu nháy (') – không thêm s: the students' books"
+        },
+        "usage": [
+            "Dùng để chỉ sự sở hữu hoặc mối quan hệ giữa người/vật và thứ khác.",
+            "Dùng phổ biến hơn 'of' khi chỉ sự sở hữu của người hoặc động vật."
+        ],
+        "signs": [
+            "'s",
+            "of"
+        ],
+        "example_en": "My teacher's explanation was very clear and easy to understand.",
+        "example_vi": "Lời giải thích của giáo viên tôi rất rõ ràng và dễ hiểu."
+    },
+    {
+        "id": 40,
+        "title": "Đại từ chỉ định (this / that / these / those)",
+        "level": "BEGINNER",
+        "structure": "This/That/These/Those + N | This/That/These/Those + be + ...",
+        "breakdown": {
+            "this": "Số ít, gần người nói",
+            "that": "Số ít, xa người nói",
+            "these": "Số nhiều, gần người nói",
+            "those": "Số nhiều, xa người nói"
+        },
+        "usage": [
+            "Dùng như tính từ chỉ định đứng trước danh từ, hoặc như đại từ thay thế danh từ.",
+            "Phân biệt gần (this/these) và xa (that/those) so với người nói."
+        ],
+        "signs": [
+            "this",
+            "that",
+            "these",
+            "those"
+        ],
+        "example_en": "This book is very interesting but those magazines are quite boring.",
+        "example_vi": "Quyển sách này rất thú vị nhưng những tạp chí kia khá nhàm chán."
+    },
+    {
+        "id": 41,
+        "title": "Từ lượng: some / any",
+        "level": "BEGINNER",
+        "structure": "some/any + N (đếm được số nhiều / không đếm được)",
+        "breakdown": {
+            "some": "Dùng trong câu khẳng định hoặc câu hỏi mang tính đề nghị/mời",
+            "any": "Dùng trong câu phủ định và câu hỏi thông thường"
+        },
+        "usage": [
+            "some: Tôi có một số... (câu xác nhận); Would you like some...? (đề nghị lịch sự)",
+            "any: Không có bất kỳ... (phủ định); Is there any...? (câu hỏi trung tính)."
+        ],
+        "signs": [
+            "some",
+            "any",
+            "Would you like some?",
+            "not any",
+            "without any"
+        ],
+        "example_en": "Would you like some coffee? There isn't any milk left.",
+        "example_vi": "Bạn có muốn dùng cà phê không? Không còn sữa nữa rồi."
+    },
+    {
+        "id": 42,
+        "title": "Từ lượng: much / many / a lot of",
+        "level": "BEGINNER",
+        "structure": "much + N (không đếm được) | many + N (đếm được số nhiều) | a lot of + N (cả hai)",
+        "breakdown": {
+            "much": "Số lượng lớn, dùng với danh từ không đếm được (thường trong câu phủ định/câu hỏi)",
+            "many": "Số lượng lớn, dùng với danh từ đếm được số nhiều (thường trong câu phủ định/câu hỏi)",
+            "a lot of / lots of": "Số lượng lớn, dùng cho cả hai loại danh từ, phổ biến trong câu khẳng định"
+        },
+        "usage": [
+            "much/many thường dùng trong câu phủ định và câu hỏi.",
+            "a lot of / lots of dùng trong câu khẳng định là phổ biến hơn."
+        ],
+        "signs": [
+            "much",
+            "many",
+            "a lot of",
+            "lots of",
+            "How much",
+            "How many"
+        ],
+        "example_en": "There are a lot of interesting activities at the cultural festival.",
+        "example_vi": "Có rất nhiều hoạt động thú vị tại lễ hội văn hóa."
+    },
+    {
+        "id": 43,
+        "title": "Từ lượng: a few / a little",
+        "level": "BEGINNER",
+        "structure": "a few + N (đếm được số nhiều) | a little + N (không đếm được)",
+        "breakdown": {
+            "a few": "Một vài (số lượng nhỏ nhưng đủ dùng) – dùng với danh từ đếm được",
+            "a little": "Một chút (số lượng nhỏ nhưng đủ dùng) – dùng với danh từ không đếm được",
+            "few / little (không có 'a')": "Hầu như không có → mang nghĩa tiêu cực"
+        },
+        "usage": [
+            "a few / a little: Có một chút/một vài (đủ dùng, mang nghĩa tích cực nhẹ).",
+            "few / little: Hầu như không có (không đủ, mang nghĩa tiêu cực)."
+        ],
+        "signs": [
+            "a few",
+            "a little",
+            "few",
+            "little"
+        ],
+        "example_en": "I have a little time left, so let me help you with the last question.",
+        "example_vi": "Tôi còn một chút thời gian, vậy để tôi giúp bạn câu hỏi cuối nhé."
+    },
+    {
+        "id": 44,
+        "title": "Động từ nguyên thể có 'to' (to-infinitive) – Mục đích",
+        "level": "BEGINNER",
+        "structure": "S + V + to + V-inf (để diễn đạt mục đích)",
+        "breakdown": {
+            "to + V-inf": "Cụm động từ nguyên thể có to, trả lời cho câu hỏi 'Why?' / 'What for?'",
+            "Vị trí": "Thường đứng sau động từ chính của câu, cuối câu"
+        },
+        "usage": [
+            "Dùng để diễn tả mục đích của hành động (để làm gì).",
+            "Có thể thay bằng 'in order to + V-inf' hoặc 'so as to + V-inf' cho trang trọng hơn."
+        ],
+        "signs": [
+            "to + V",
+            "in order to",
+            "so as to",
+            "Why...? – To..."
+        ],
+        "example_en": "She studied hard every day to pass the university entrance exam.",
+        "example_vi": "Cô ấy học chăm chỉ mỗi ngày để vượt qua kỳ thi đại học."
+    },
+    {
+        "id": 45,
+        "title": "Động từ nguyên thể có 'to' sau một số động từ thông dụng",
+        "level": "BEGINNER",
+        "structure": "S + V1 + to + V2-inf",
+        "breakdown": {
+            "V1": "Động từ chính: want, need, hope, plan, decide, agree, refuse, learn, forget, try, like (formal)",
+            "to + V2-inf": "Động từ bổ nghĩa dạng nguyên thể có to"
+        },
+        "usage": [
+            "Một số động từ đòi hỏi theo sau là to-infinitive, không dùng V-ing.",
+            "Cần ghi nhớ danh sách động từ đi với to-inf: want, need, hope, plan, decide, agree, refuse, learn..."
+        ],
+        "signs": [
+            "want to",
+            "need to",
+            "hope to",
+            "plan to",
+            "decide to",
+            "agree to"
+        ],
+        "example_en": "He decided to quit his job and start his own business.",
+        "example_vi": "Anh ấy quyết định bỏ việc và bắt đầu kinh doanh riêng."
+    },
+    {
+        "id": 46,
+        "title": "Động từ + V-ing (Gerund sau động từ)",
+        "level": "BEGINNER",
+        "structure": "S + V1 + V2-ing",
+        "breakdown": {
+            "V1": "Động từ chính đòi hỏi V-ing: like, love, hate, enjoy, finish, stop, keep, avoid, mind",
+            "V2-ing": "Gerund – danh động từ đóng vai trò như danh từ"
+        },
+        "usage": [
+            "Một số động từ đòi hỏi theo sau là V-ing, không dùng to-inf.",
+            "Cần ghi nhớ: enjoy, finish, stop, avoid, mind, keep, consider, suggest + V-ing."
+        ],
+        "signs": [
+            "enjoy",
+            "finish",
+            "stop",
+            "avoid",
+            "mind",
+            "keep",
+            "love + V-ing"
+        ],
+        "example_en": "She enjoys listening to classical music while doing her homework.",
+        "example_vi": "Cô ấy thích nghe nhạc cổ điển trong khi làm bài tập về nhà."
+    },
+    {
+        "id": 47,
+        "title": "Giới từ chỉ hướng (to / into / out of / up / down)",
+        "level": "BEGINNER",
+        "structure": "V (chuyển động) + to/into/out of/up/down + N (địa điểm)",
+        "breakdown": {
+            "to": "Hướng đến (go to school)",
+            "into": "Vào bên trong (walk into the room)",
+            "out of": "Ra ngoài (come out of the house)",
+            "up": "Lên (go up the stairs)",
+            "down": "Xuống (walk down the hill)"
+        },
+        "usage": [
+            "Đi kèm với động từ chỉ sự chuyển động (go, come, walk, run, fly...).",
+            "Phân biệt: 'in' (trạng thái ở bên trong) vs 'into' (chuyển động vào trong)."
+        ],
+        "signs": [
+            "to",
+            "into",
+            "out of",
+            "up",
+            "down",
+            "onto",
+            "off",
+            "past",
+            "through"
+        ],
+        "example_en": "The cat jumped out of the box and ran into the garden.",
+        "example_vi": "Con mèo nhảy ra khỏi hộp và chạy vào vườn."
+    },
+    {
+        "id": 48,
+        "title": "Thì Quá khứ Tiếp diễn",
+        "level": "BEGINNER",
+        "structure": "S + was/were + V-ing + (when/while + S + V-ed)",
+        "breakdown": {
+            "was": "Dùng với I, he, she, it",
+            "were": "Dùng với you, we, they",
+            "V-ing": "Hành động đang diễn ra liên tục trong quá khứ",
+            "when + V-ed": "Hành động xảy ra đột ngột xen vào (Quá khứ Đơn)",
+            "while + V-ing": "Nhấn mạnh hai hành động song song"
+        },
+        "usage": [
+            "Diễn tả hành động đang xảy ra ở một thời điểm cụ thể trong quá khứ.",
+            "Diễn tả hành động đang xảy ra thì bị một hành động khác xen vào (kết hợp với Quá khứ Đơn)."
+        ],
+        "signs": [
+            "when",
+            "while",
+            "at that time",
+            "at 8 o'clock yesterday",
+            "all morning"
+        ],
+        "example_en": "She was cooking dinner when her phone suddenly rang.",
+        "example_vi": "Cô ấy đang nấu bữa tối thì điện thoại của cô ấy đột nhiên reo."
+    },
+    {
+        "id": 49,
+        "title": "Thì Hiện tại Hoàn thành (have/has + V3)",
+        "level": "BEGINNER",
+        "structure": "S + have/has + V3 (past participle) + (O)",
+        "breakdown": {
+            "have": "Dùng với I, you, we, they",
+            "has": "Dùng với he, she, it",
+            "V3": "Dạng quá khứ phân từ (V3/past participle) của động từ"
+        },
+        "usage": [
+            "Diễn tả hành động xảy ra trong quá khứ nhưng có liên quan đến hiện tại.",
+            "Diễn tả kinh nghiệm hoặc trải nghiệm từ trước đến nay.",
+            "Dùng với: already, yet, ever, never, just, since, for, recently."
+        ],
+        "signs": [
+            "already",
+            "yet",
+            "ever",
+            "never",
+            "just",
+            "since",
+            "for",
+            "recently",
+            "lately",
+            "so far"
+        ],
+        "example_en": "I have never eaten durian before in my life.",
+        "example_vi": "Tôi chưa bao giờ ăn sầu riêng trong suốt cuộc đời tôi."
+    },
+    {
+        "id": 50,
+        "title": "Hiện tại Hoàn thành – already / yet",
+        "level": "BEGINNER",
+        "structure": "S + have/has + already + V3 | S + haven't/hasn't + V3 + yet",
+        "breakdown": {
+            "already": "Nhấn mạnh hành động đã hoàn thành sớm hơn mong đợi – vị trí: trước V3",
+            "yet": "Dùng trong câu phủ định (chưa) và câu hỏi (chưa/rồi?) – vị trí: cuối câu"
+        },
+        "usage": [
+            "already: Hành động đã xong rồi (thường trong câu khẳng định và câu hỏi bày tỏ ngạc nhiên).",
+            "yet: Trong câu phủ định: 'chưa xong'. Trong câu hỏi: 'đã xong chưa?'"
+        ],
+        "signs": [
+            "already",
+            "yet",
+            "Have you...yet?",
+            "haven't...yet"
+        ],
+        "example_en": "I have already finished my project, but she hasn't submitted hers yet.",
+        "example_vi": "Tôi đã hoàn thành dự án của mình rồi, nhưng cô ấy vẫn chưa nộp bài của mình."
+    },
+    {
+        "id": 51,
+        "title": "Hiện tại Hoàn thành – for / since",
+        "level": "BEGINNER",
+        "structure": "S + have/has + V3 + for + khoảng thời gian | since + mốc thời gian",
+        "breakdown": {
+            "for": "Dùng với khoảng thời gian (duration): for two years, for a long time",
+            "since": "Dùng với mốc thời gian cụ thể (point in time): since 2020, since Monday, since I was a child"
+        },
+        "usage": [
+            "for + khoảng thời gian: cho thấy hành động kéo dài bao lâu.",
+            "since + mốc thời gian: cho thấy hành động bắt đầu từ khi nào đến nay."
+        ],
+        "signs": [
+            "for",
+            "since",
+            "how long",
+            "have/has + V3"
+        ],
+        "example_en": "My family has lived in this city since I was born.",
+        "example_vi": "Gia đình tôi đã sống ở thành phố này từ khi tôi còn mới chào đời."
+    },
+    {
+        "id": 52,
+        "title": "So sánh bằng (as...as)",
+        "level": "BEGINNER",
+        "structure": "S1 + V + as + Adj/Adv + as + S2",
+        "breakdown": {
+            "as...as": "Cấu trúc so sánh bằng nhau",
+            "Adj/Adv": "Tính từ hoặc trạng từ gốc (không thêm -er hoặc more)",
+            "not as...as": "Phủ định: S1 không bằng S2"
+        },
+        "usage": [
+            "Dùng để so sánh hai đối tượng có đặc điểm ngang nhau.",
+            "Phủ định not as/so...as: S1 kém hơn S2."
+        ],
+        "signs": [
+            "as...as",
+            "not as...as",
+            "the same as",
+            "equally"
+        ],
+        "example_en": "This coffee shop is as popular as the one near my school.",
+        "example_vi": "Quán cà phê này nổi tiếng không kém gì quán gần trường tôi."
+    },
+    {
+        "id": 53,
+        "title": "So sánh hơn (Comparative)",
+        "level": "BEGINNER",
+        "structure": "S1 + V + adj-er / more + Adj + than + S2",
+        "breakdown": {
+            "adj-er": "Dùng với tính từ ngắn (1 âm tiết): taller, faster, bigger",
+            "more + Adj": "Dùng với tính từ dài (2+ âm tiết): more beautiful, more interesting",
+            "than": "Từ nối dùng trong so sánh hơn"
+        },
+        "usage": [
+            "Tính từ 1 âm tiết: thêm -er (tall → taller). Một số bất quy tắc: good → better, bad → worse.",
+            "Tính từ 2+ âm tiết: dùng more + Adj (không thêm -er)."
+        ],
+        "signs": [
+            "than",
+            "-er",
+            "more",
+            "better",
+            "worse",
+            "farther/further"
+        ],
+        "example_en": "The new library is much bigger and more modern than the old one.",
+        "example_vi": "Thư viện mới lớn hơn nhiều và hiện đại hơn cái cũ."
+    },
+    {
+        "id": 54,
+        "title": "So sánh nhất (Superlative)",
+        "level": "BEGINNER",
+        "structure": "S + V + the + adj-est / most + Adj + (in/of + N)",
+        "breakdown": {
+            "the + adj-est": "Dùng với tính từ ngắn: the tallest, the fastest",
+            "the most + Adj": "Dùng với tính từ dài: the most beautiful, the most interesting",
+            "in + N (nhóm/nơi)": "e.g. in the class, in the world",
+            "of + N (tập hợp)": "e.g. of all the students, of the three"
+        },
+        "usage": [
+            "Dùng để so sánh một đối tượng nổi bật nhất trong một nhóm.",
+            "Luôn dùng 'the' trước dạng so sánh nhất."
+        ],
+        "signs": [
+            "the...est",
+            "the most",
+            "best",
+            "worst",
+            "in",
+            "of all"
+        ],
+        "example_en": "She is the most hardworking student in our entire class.",
+        "example_vi": "Cô ấy là học sinh chăm chỉ nhất trong toàn bộ lớp chúng tôi."
+    },
+    {
+        "id": 55,
+        "title": "Câu bị động – Hiện tại Đơn",
+        "level": "BEGINNER",
+        "structure": "S (tân ngữ gốc) + am/is/are + V3 + (by + agent)",
+        "breakdown": {
+            "S": "Chủ ngữ mới (từng là tân ngữ trong câu chủ động)",
+            "am/is/are": "Trợ động từ 'be' chia theo chủ ngữ mới và thì Hiện tại Đơn",
+            "V3": "Động từ dạng quá khứ phân từ (past participle)",
+            "by + agent": "Bởi... (ai/cái gì thực hiện hành động) – có thể bỏ nếu không quan trọng"
+        },
+        "usage": [
+            "Dùng khi muốn nhấn mạnh đối tượng chịu tác động chứ không phải người/vật thực hiện.",
+            "Hay dùng khi không biết hoặc không cần nêu chủ thể hành động."
+        ],
+        "signs": [
+            "is/are + V3",
+            "by",
+            "được",
+            "bị"
+        ],
+        "example_en": "English is spoken by millions of people around the world.",
+        "example_vi": "Tiếng Anh được hàng triệu người trên khắp thế giới nói."
+    },
+    {
+        "id": 56,
+        "title": "Câu bị động – Quá khứ Đơn",
+        "level": "BEGINNER",
+        "structure": "S + was/were + V3 + (by + agent)",
+        "breakdown": {
+            "was": "Dùng với I, he, she, it (số ít)",
+            "were": "Dùng với you, we, they (số nhiều)",
+            "V3": "Động từ dạng quá khứ phân từ"
+        },
+        "usage": [
+            "Diễn tả hành động đã xảy ra trong quá khứ mà đối tượng chịu tác động là chủ ngữ.",
+            "Tương ứng với câu chủ động: S + V-ed + O."
+        ],
+        "signs": [
+            "was/were + V3",
+            "was built",
+            "was written",
+            "were made",
+            "by"
+        ],
+        "example_en": "This beautiful bridge was built by local workers in 1990.",
+        "example_vi": "Cây cầu đẹp này được xây dựng bởi những công nhân địa phương vào năm 1990."
+    },
+    {
+        "id": 57,
+        "title": "Danh từ không đếm được",
+        "level": "BEGINNER",
+        "structure": "Uncountable N + V số ít | a piece/bottle/cup of + Uncountable N",
+        "breakdown": {
+            "Uncountable N": "Danh từ không thể đếm: water, rice, money, information, advice, furniture",
+            "Không thêm -s/-es": "Không dùng a/an trực tiếp trước danh từ không đếm được",
+            "Đơn vị đo lường": "a glass of water, a bowl of rice, a piece of advice, a bag of flour"
+        },
+        "usage": [
+            "Danh từ không đếm được luôn dùng động từ số ít.",
+            "Dùng đơn vị đo lường (a piece of, a cup of...) để diễn tả số lượng."
+        ],
+        "signs": [
+            "water",
+            "money",
+            "information",
+            "advice",
+            "rice",
+            "sugar",
+            "music",
+            "furniture"
+        ],
+        "example_en": "She gave me some useful advice about learning English effectively.",
+        "example_vi": "Cô ấy đã cho tôi một số lời khuyên hữu ích về việc học tiếng Anh hiệu quả."
+    },
+    {
+        "id": 58,
+        "title": "Trạng từ chỉ mức độ (very / quite / too / enough)",
+        "level": "BEGINNER",
+        "structure": "very/quite/too + Adj/Adv | Adj/Adv + enough + to-inf",
+        "breakdown": {
+            "very": "Rất (tăng mức độ, trung tính)",
+            "quite": "Khá (mức độ vừa phải, hơi thấp hơn 'very')",
+            "too": "Quá (mức độ vượt giới hạn, thường mang nghĩa tiêu cực)",
+            "enough": "Đủ (đạt mức cần thiết) – đứng SAU adj/adv, TRƯỚC noun"
+        },
+        "usage": [
+            "too + adj: quá... đến mức không thể làm gì (e.g. too tired to work).",
+            "adj + enough + to-inf: đủ... để làm gì (e.g. old enough to drive)."
+        ],
+        "signs": [
+            "very",
+            "quite",
+            "too",
+            "enough",
+            "so",
+            "rather",
+            "extremely"
+        ],
+        "example_en": "The soup is too hot to eat right now. Wait a few minutes.",
+        "example_vi": "Canh quá nóng để ăn ngay bây giờ. Hãy đợi thêm vài phút."
+    },
+    {
+        "id": 59,
+        "title": "Liên từ phụ thuộc: when / while / before / after",
+        "level": "BEGINNER",
+        "structure": "When/While/Before/After + S1 + V1, S2 + V2 | S2 + V2 + when/while/before/after + S1 + V1",
+        "breakdown": {
+            "when": "Khi (thời điểm một hành động xảy ra)",
+            "while": "Trong khi (hai hành động song song)",
+            "before": "Trước khi",
+            "after": "Sau khi"
+        },
+        "usage": [
+            "Nối hai mệnh đề chỉ thời gian; mệnh đề phụ theo sau liên từ.",
+            "Nếu mệnh đề phụ đứng đầu câu, cần có dấu phẩy ngăn cách."
+        ],
+        "signs": [
+            "when",
+            "while",
+            "before",
+            "after",
+            "as soon as",
+            "until"
+        ],
+        "example_en": "After she finished cooking, she called her mother on the phone.",
+        "example_vi": "Sau khi cô ấy nấu xong, cô ấy gọi điện cho mẹ."
+    },
+    {
+        "id": 60,
+        "title": "Thứ tự tính từ trong câu (Order of Adjectives)",
+        "level": "BEGINNER",
+        "structure": "Determiner + Opinion + Size + Age + Shape + Color + Origin + Material + Purpose + N",
+        "breakdown": {
+            "Opinion": "Nhận xét chủ quan: beautiful, lovely, nice",
+            "Size": "Kích thước: big, small, tiny",
+            "Age": "Tuổi tác: old, new, young",
+            "Shape": "Hình dạng: round, square",
+            "Color": "Màu sắc: red, blue",
+            "Origin": "Xuất xứ: Vietnamese, French",
+            "Material": "Chất liệu: wooden, silk",
+            "Purpose": "Mục đích: cooking, sleeping"
+        },
+        "usage": [
+            "Khi dùng nhiều tính từ liên tiếp, phải tuân theo thứ tự: Opinion → Size → Age → Shape → Color → Origin → Material → Purpose.",
+            "Trong thực tế, hiếm khi dùng quá 3-4 tính từ liên tiếp."
+        ],
+        "signs": [
+            "many adjectives before a noun",
+            "a beautiful old wooden table"
+        ],
+        "example_en": "She bought a lovely small round blue Vietnamese ceramic bowl.",
+        "example_vi": "Cô ấy mua một chiếc bát gốm sứ Việt Nam màu xanh, tròn, nhỏ xinh."
+    },
+    {
+        "id": 61,
+        "title": "Câu hỏi gián tiếp (Embedded Questions) – dạng cơ bản",
+        "level": "BEGINNER",
+        "structure": "Do you know + where/what/when/how + S + V (trật tự câu kể)?",
+        "breakdown": {
+            "Do you know / Could you tell me / I wonder": "Cụm mở đầu câu hỏi gián tiếp",
+            "Wh-word": "Từ để hỏi chuyển sang giữa câu",
+            "S + V (trật tự câu kể)": "Không đảo ngữ, không dùng trợ động từ như câu hỏi thông thường"
+        },
+        "usage": [
+            "Câu hỏi gián tiếp dùng trật tự của câu trần thuật (S + V), không đảo ngược.",
+            "Thường dùng để hỏi lịch sự hơn hoặc lồng câu hỏi vào câu phức."
+        ],
+        "signs": [
+            "Do you know...?",
+            "Could you tell me...?",
+            "I wonder...",
+            "I'd like to know..."
+        ],
+        "example_en": "Could you tell me where the nearest pharmacy is, please?",
+        "example_vi": "Bạn có thể cho tôi biết hiệu thuốc gần nhất ở đâu không?"
+    },
+    {
+        "id": 62,
+        "title": "Cấu trúc 'like' và 'look like'",
+        "level": "BEGINNER",
+        "structure": "S + look like + N | S + be + like + N",
+        "breakdown": {
+            "look like + N": "Trông giống như (ngoại hình)",
+            "be like + N": "Giống như / Như thế nào về tính cách (What is he like?)",
+            "like + V-ing": "Thích làm gì (sở thích)"
+        },
+        "usage": [
+            "look like + noun/pronoun: diễn tả sự tương đồng về ngoại hình.",
+            "What is he/she like? Hỏi về tính cách/mô tả chung. What does he/she look like? Hỏi về ngoại hình."
+        ],
+        "signs": [
+            "look like",
+            "be like",
+            "What is...like?",
+            "What does...look like?"
+        ],
+        "example_en": "He looks like his father but his personality is like his mother's.",
+        "example_vi": "Anh ấy trông giống bố nhưng tính cách giống mẹ."
+    },
+    {
+        "id": 63,
+        "title": "Cấu trúc 'used to' (Thói quen quá khứ)",
+        "level": "BEGINNER",
+        "structure": "S + used to + V-base",
+        "breakdown": {
+            "used to": "Cụm từ chỉ thói quen hoặc trạng thái trong quá khứ (nay không còn nữa)",
+            "V-base": "Động từ nguyên thể không to"
+        },
+        "usage": [
+            "Diễn tả thói quen hoặc trạng thái đã từng có trong quá khứ nhưng nay đã thay đổi hoặc không còn.",
+            "Phủ định: didn't use to + V-base. Câu hỏi: Did S use to + V-base?"
+        ],
+        "signs": [
+            "used to",
+            "didn't use to",
+            "Did...use to?",
+            "no longer",
+            "anymore"
+        ],
+        "example_en": "My grandfather used to walk to school every day when he was young.",
+        "example_vi": "Ông tôi đã từng đi bộ đến trường mỗi ngày khi ông còn trẻ."
+    },
+    {
+        "id": 64,
+        "title": "Cấu trúc 'have to' (Nghĩa vụ khách quan)",
+        "level": "BEGINNER",
+        "structure": "S + have to / has to + V-base",
+        "breakdown": {
+            "have to": "Dùng với I, you, we, they",
+            "has to": "Dùng với he, she, it",
+            "V-base": "Động từ nguyên thể không to"
+        },
+        "usage": [
+            "Diễn tả nghĩa vụ bắt buộc do hoàn cảnh bên ngoài áp đặt (quy định, luật lệ...), không phải ý kiến cá nhân.",
+            "Phân biệt với 'must': must là ý kiến người nói; have to là quy định bên ngoài."
+        ],
+        "signs": [
+            "have to",
+            "has to",
+            "had to",
+            "don't have to",
+            "doesn't have to"
+        ],
+        "example_en": "Students have to wear their school uniforms every day.",
+        "example_vi": "Học sinh phải mặc đồng phục trường mỗi ngày."
+    },
+    {
+        "id": 65,
+        "title": "Câu ước (wish) – Hiện tại không có thực",
+        "level": "BEGINNER",
+        "structure": "S + wish + S2 + V-ed (quá khứ đơn) / were",
+        "breakdown": {
+            "wish": "Động từ chính diễn đạt điều ước",
+            "V-ed / were": "Động từ trong mệnh đề wish dùng thì Quá khứ Đơn (dù ước ở hiện tại)",
+            "were": "Dùng cho tất cả chủ ngữ trong văn chuẩn (I/he/she/it wish I were...)"
+        },
+        "usage": [
+            "Diễn tả điều ước về một thực tế hiện tại không có thật hoặc trái ngược.",
+            "Sau 'wish' dùng Quá khứ Đơn, không phải Hiện tại Đơn."
+        ],
+        "signs": [
+            "wish",
+            "if only",
+            "I wish I were",
+            "I wish I had"
+        ],
+        "example_en": "I wish I could speak English as fluently as my best friend.",
+        "example_vi": "Tôi ước mình có thể nói tiếng Anh trôi chảy như người bạn thân của tôi."
+    },
+    {
+        "id": 66,
+        "title": "Cấu trúc 'both...and / either...or / neither...nor'",
+        "level": "BEGINNER",
+        "structure": "both A and B | either A or B | neither A nor B",
+        "breakdown": {
+            "both...and": "Cả A lẫn B (khẳng định cả hai)",
+            "either...or": "Hoặc A hoặc B (một trong hai)",
+            "neither...nor": "Không A cũng không B (phủ định cả hai)"
+        },
+        "usage": [
+            "both...and: Động từ chia theo số nhiều.",
+            "either...or / neither...nor: Động từ chia theo danh từ đứng gần hơn (quy tắc gần nhất)."
+        ],
+        "signs": [
+            "both...and",
+            "either...or",
+            "neither...nor"
+        ],
+        "example_en": "Both my mother and my sister enjoy cooking traditional Vietnamese food.",
+        "example_vi": "Cả mẹ lẫn chị gái tôi đều thích nấu ăn các món truyền thống Việt Nam."
+    },
+    {
+        "id": 67,
+        "title": "Câu hỏi gián tiếp dạng Yes/No",
+        "level": "BEGINNER",
+        "structure": "Could you tell me / Do you know + if/whether + S + V (trật tự câu kể)?",
+        "breakdown": {
+            "if / whether": "Thay thế cho câu hỏi Yes/No trong câu hỏi gián tiếp",
+            "S + V (câu kể)": "Không đảo ngữ, không dùng trợ động từ ở phần sau"
+        },
+        "usage": [
+            "Dùng 'if' hoặc 'whether' để chuyển câu hỏi Yes/No thành câu hỏi gián tiếp.",
+            "Trật tự mệnh đề phụ là S + V (như câu trần thuật)."
+        ],
+        "signs": [
+            "if",
+            "whether",
+            "Do you know if...?",
+            "Could you tell me whether...?"
+        ],
+        "example_en": "Do you know if the post office is open on Saturdays?",
+        "example_vi": "Bạn có biết bưu điện có mở cửa vào thứ Bảy không?"
+    },
+    {
+        "id": 68,
+        "title": "Cấu trúc 'enough' (đủ...để)",
+        "level": "BEGINNER",
+        "structure": "Adj/Adv + enough + to + V-inf | enough + N + to + V-inf",
+        "breakdown": {
+            "Adj + enough": "Tính từ đứng TRƯỚC enough (e.g. strong enough)",
+            "Adv + enough": "Trạng từ đứng TRƯỚC enough (e.g. fast enough)",
+            "enough + N": "enough đứng TRƯỚC danh từ (e.g. enough money)",
+            "to + V-inf": "Mục đích, kết quả (để làm gì)"
+        },
+        "usage": [
+            "Diễn tả mức độ đủ để thực hiện điều gì đó.",
+            "Adj/Adv + enough: 'enough' đứng sau. Enough + N: 'enough' đứng trước danh từ."
+        ],
+        "signs": [
+            "enough",
+            "to + V-inf",
+            "enough to",
+            "old enough",
+            "enough money"
+        ],
+        "example_en": "She is confident enough to give a speech in front of the whole school.",
+        "example_vi": "Cô ấy đủ tự tin để phát biểu trước toàn trường."
+    },
+    {
+        "id": 69,
+        "title": "Cấu trúc 'too...to' (quá...đến nỗi không thể)",
+        "level": "BEGINNER",
+        "structure": "S + V + too + Adj/Adv + to + V-inf",
+        "breakdown": {
+            "too": "Quá mức (mang nghĩa tiêu cực – vượt giới hạn)",
+            "Adj/Adv": "Tính từ hoặc trạng từ diễn tả mức độ",
+            "to + V-inf": "Động từ nguyên thể có to chỉ hành động không thể thực hiện"
+        },
+        "usage": [
+            "Diễn tả mức độ quá lớn đến mức không thể thực hiện hành động nào đó.",
+            "Câu với too...to mang nghĩa phủ định ngầm (quá X nên không thể Y)."
+        ],
+        "signs": [
+            "too",
+            "to + V-inf",
+            "too tired to",
+            "too young to",
+            "too heavy to"
+        ],
+        "example_en": "The backpack is too heavy for me to carry up the mountain alone.",
+        "example_vi": "Chiếc ba lô quá nặng đến nỗi tôi không thể một mình mang lên núi."
+    },
+    {
+        "id": 70,
+        "title": "Trạng từ chỉ nơi chốn (here / there / everywhere / somewhere / nowhere / anywhere)",
+        "level": "BEGINNER",
+        "structure": "S + V + here/there/somewhere/everywhere/nowhere/anywhere",
+        "breakdown": {
+            "here": "Ở đây (gần người nói)",
+            "there": "Ở đó/ở đây (xa người nói)",
+            "somewhere": "Ở đâu đó (không xác định, câu khẳng định)",
+            "anywhere": "Bất cứ đâu (câu hỏi/phủ định)",
+            "everywhere": "Khắp nơi",
+            "nowhere": "Không ở đâu"
+        },
+        "usage": [
+            "Đứng sau động từ chính để chỉ nơi chốn của hành động.",
+            "somewhere/anywhere/everywhere/nowhere: quy tắc tương tự some/any/every/no."
+        ],
+        "signs": [
+            "here",
+            "there",
+            "somewhere",
+            "anywhere",
+            "everywhere",
+            "nowhere"
+        ],
+        "example_en": "I looked everywhere but I couldn't find my glasses anywhere.",
+        "example_vi": "Tôi tìm khắp nơi nhưng không thể tìm thấy kính của mình ở đâu cả."
+    },
+    {
+        "id": 71,
+        "title": "Thì Hiện tại Hoàn thành Tiếp diễn",
+        "level": "ELEMENTARY",
+        "structure": "S + have/has + been + V-ing + for/since + (time expression)",
+        "breakdown": {
+            "have/has": "Trợ động từ hoàn thành, chia theo chủ ngữ",
+            "been": "Dạng V3 của 'be', bắt buộc trong thì này",
+            "V-ing": "Hiện tại phân từ, nhấn mạnh tính liên tục của hành động",
+            "for": "Dùng với khoảng thời gian: for three hours, for a week",
+            "since": "Dùng với mốc thời gian: since 8 a.m., since last Monday"
+        },
+        "usage": [
+            "Diễn tả hành động bắt đầu trong quá khứ, vẫn đang tiếp diễn đến hiện tại và có thể tiếp tục.",
+            "Nhấn mạnh tính liên tục và kéo dài của hành động (khác HTTD chỉ nêu kết quả).",
+            "Thường dùng với for, since, all day/morning/week, how long."
+        ],
+        "signs": [
+            "for",
+            "since",
+            "how long",
+            "all day",
+            "all morning",
+            "recently",
+            "lately"
+        ],
+        "example_en": "She has been studying English for three hours without a break.",
+        "example_vi": "Cô ấy đã học tiếng Anh liên tục ba tiếng đồng hồ không nghỉ."
+    },
+    {
+        "id": 72,
+        "title": "Thì Quá khứ Hoàn thành (had + V3)",
+        "level": "ELEMENTARY",
+        "structure": "S + had + V3 + before/when/by the time + S2 + V-ed",
+        "breakdown": {
+            "had": "Trợ động từ hoàn thành quá khứ, dùng cho tất cả chủ ngữ",
+            "V3": "Dạng quá khứ phân từ của động từ",
+            "before/when/by the time": "Liên từ xác định hành động nào xảy ra trước"
+        },
+        "usage": [
+            "Diễn tả hành động xảy ra TRƯỚC một hành động khác trong quá khứ (hành động xảy ra trước dùng QKHT).",
+            "Thường kết hợp với Quá khứ Đơn để làm rõ trình tự thời gian.",
+            "Dùng với: before, when, after, by the time, already, just, never."
+        ],
+        "signs": [
+            "before",
+            "after",
+            "when",
+            "by the time",
+            "already",
+            "just",
+            "never...before"
+        ],
+        "example_en": "By the time we arrived at the cinema, the movie had already started.",
+        "example_vi": "Khi chúng tôi đến rạp chiếu phim, bộ phim đã bắt đầu rồi."
+    },
+    {
+        "id": 73,
+        "title": "Thì Tương lai Hoàn thành (will have + V3)",
+        "level": "ELEMENTARY",
+        "structure": "S + will have + V3 + by + (future time expression)",
+        "breakdown": {
+            "will have": "Trợ động từ tương lai hoàn thành",
+            "V3": "Dạng quá khứ phân từ",
+            "by + time": "Vào/trước thời điểm... trong tương lai (by next Monday, by the end of this year)"
+        },
+        "usage": [
+            "Diễn tả hành động sẽ hoàn thành TRƯỚC một thời điểm hoặc hành động khác trong tương lai.",
+            "Thường đi với 'by + time expression' hoặc 'by the time + clause'."
+        ],
+        "signs": [
+            "by",
+            "by the time",
+            "by then",
+            "before + future time"
+        ],
+        "example_en": "I will have finished this report by the time you wake up tomorrow.",
+        "example_vi": "Tôi sẽ hoàn thành bản báo cáo này trước khi bạn thức dậy vào ngày mai."
+    },
+    {
+        "id": 74,
+        "title": "Câu điều kiện loại 2 (Không có thực ở hiện tại)",
+        "level": "ELEMENTARY",
+        "structure": "If + S1 + V-ed (quá khứ đơn) / were, S2 + would + V-base",
+        "breakdown": {
+            "If + V-ed / were": "Mệnh đề điều kiện – dùng Quá khứ Đơn (were cho tất cả ngôi trong văn chuẩn)",
+            "would + V-base": "Mệnh đề kết quả – dùng would/could/might + V-base",
+            "were": "Dùng thay cho 'was' trong tất cả ngôi (I/he/she/it) trong văn viết trang trọng"
+        },
+        "usage": [
+            "Diễn tả điều kiện KHÔNG CÓ THẬT hoặc khó xảy ra ở hiện tại/tương lai.",
+            "Mệnh đề if dùng Quá khứ Đơn (không phải quá khứ về nghĩa, chỉ là hình thức).",
+            "Kết quả dùng would/could/might + V-base."
+        ],
+        "signs": [
+            "If I were",
+            "would",
+            "could",
+            "might",
+            "If only",
+            "imagining"
+        ],
+        "example_en": "If I had more free time, I would travel around Southeast Asia.",
+        "example_vi": "Nếu tôi có nhiều thời gian rảnh hơn, tôi sẽ đi du lịch khắp Đông Nam Á."
+    },
+    {
+        "id": 75,
+        "title": "Câu điều kiện loại 3 (Không có thực trong quá khứ)",
+        "level": "ELEMENTARY",
+        "structure": "If + S1 + had + V3, S2 + would have + V3",
+        "breakdown": {
+            "If + had + V3": "Mệnh đề điều kiện – dùng Quá khứ Hoàn thành",
+            "would have + V3": "Mệnh đề kết quả – dùng would/could/might + have + V3"
+        },
+        "usage": [
+            "Diễn tả điều kiện KHÔNG CÓ THẬT trong quá khứ – điều đã không xảy ra.",
+            "Thể hiện sự hối tiếc hoặc suy đoán về một tình huống trong quá khứ."
+        ],
+        "signs": [
+            "If I had known",
+            "would have",
+            "could have",
+            "might have",
+            "had + V3"
+        ],
+        "example_en": "If she had studied harder, she would have passed the final exam.",
+        "example_vi": "Nếu cô ấy đã học chăm hơn, cô ấy đã vượt qua kỳ thi cuối kỳ rồi."
+    },
+    {
+        "id": 76,
+        "title": "Câu điều kiện hỗn hợp (Mixed Conditionals)",
+        "level": "ELEMENTARY",
+        "structure": "If + S1 + had + V3 (loại 3), S2 + would + V-base (loại 2)",
+        "breakdown": {
+            "If + had + V3": "Điều kiện trong quá khứ (loại 3) – điều không xảy ra",
+            "would + V-base": "Kết quả ảnh hưởng đến hiện tại (loại 2)"
+        },
+        "usage": [
+            "Dùng khi điều kiện thuộc về quá khứ nhưng kết quả ảnh hưởng đến hiện tại.",
+            "Phối hợp cấu trúc của loại 2 và loại 3."
+        ],
+        "signs": [
+            "If I had + V3... would now",
+            "still",
+            "now",
+            "today"
+        ],
+        "example_en": "If she had taken the job offer, she would be living in New York now.",
+        "example_vi": "Nếu cô ấy nhận lời mời việc làm đó, giờ cô ấy đã đang sống ở New York rồi."
+    },
+    {
+        "id": 77,
+        "title": "Câu bị động – Hiện tại Tiếp diễn",
+        "level": "ELEMENTARY",
+        "structure": "S + am/is/are + being + V3 + (by + agent)",
+        "breakdown": {
+            "am/is/are": "Trợ động từ 'be' chia theo chủ ngữ và thì Hiện tại Tiếp diễn",
+            "being": "Phần tiếp diễn bổ sung vào cấu trúc bị động",
+            "V3": "Dạng quá khứ phân từ"
+        },
+        "usage": [
+            "Diễn tả hành động đang được thực hiện bởi ai đó tại thời điểm nói (bị động tiếp diễn).",
+            "Thường dùng khi muốn nhấn mạnh quá trình đang diễn ra."
+        ],
+        "signs": [
+            "is/are being + V3",
+            "right now",
+            "at the moment",
+            "currently"
+        ],
+        "example_en": "The old bridge is being repaired by the construction workers right now.",
+        "example_vi": "Cây cầu cũ đang được sửa chữa bởi các công nhân xây dựng ngay lúc này."
+    },
+    {
+        "id": 78,
+        "title": "Câu bị động – Hiện tại Hoàn thành",
+        "level": "ELEMENTARY",
+        "structure": "S + have/has + been + V3 + (by + agent)",
+        "breakdown": {
+            "have/has": "Trợ động từ hoàn thành, chia theo chủ ngữ",
+            "been": "V3 của 'be', bắt buộc trong bị động hoàn thành",
+            "V3": "Dạng quá khứ phân từ của động từ chính"
+        },
+        "usage": [
+            "Diễn tả hành động đã được hoàn thành và có liên quan đến hiện tại (bị động hoàn thành).",
+            "Tương ứng với câu chủ động: S + have/has + V3 + O."
+        ],
+        "signs": [
+            "have/has been + V3",
+            "already",
+            "just",
+            "recently",
+            "yet"
+        ],
+        "example_en": "The annual report has been completed by the finance team this morning.",
+        "example_vi": "Báo cáo hàng năm đã được nhóm tài chính hoàn thành vào sáng nay."
+    },
+    {
+        "id": 79,
+        "title": "Câu bị động – Tương lai Đơn",
+        "level": "ELEMENTARY",
+        "structure": "S + will be + V3 + (by + agent)",
+        "breakdown": {
+            "will be": "Trợ động từ tương lai + be (bất biến)",
+            "V3": "Dạng quá khứ phân từ"
+        },
+        "usage": [
+            "Diễn tả hành động sẽ được thực hiện trong tương lai (bị động tương lai).",
+            "Tương ứng với câu chủ động: S + will + V + O."
+        ],
+        "signs": [
+            "will be + V3",
+            "will be built",
+            "will be sent",
+            "will be announced"
+        ],
+        "example_en": "The new community center will be opened next month by the mayor.",
+        "example_vi": "Trung tâm cộng đồng mới sẽ được thị trưởng khánh thành vào tháng tới."
+    },
+    {
+        "id": 80,
+        "title": "Câu bị động với động từ khuyết thiếu",
+        "level": "ELEMENTARY",
+        "structure": "S + modal + be + V3 + (by + agent)",
+        "breakdown": {
+            "modal": "Động từ khuyết thiếu: can, must, should, may, might, could, would",
+            "be": "Bất biến sau động từ khuyết thiếu",
+            "V3": "Dạng quá khứ phân từ"
+        },
+        "usage": [
+            "Dùng để diễn đạt nghĩa vụ, khả năng, lời khuyên... ở dạng bị động.",
+            "Cấu trúc: modal + be + V3 (be không chia, V3 không thay đổi)."
+        ],
+        "signs": [
+            "should be + V3",
+            "must be + V3",
+            "can be + V3",
+            "could be + V3",
+            "may be + V3"
+        ],
+        "example_en": "This medicine must be kept in a cool and dry place at all times.",
+        "example_vi": "Thuốc này phải được bảo quản ở nơi thoáng mát và khô ráo mọi lúc."
+    },
+    {
+        "id": 81,
+        "title": "Mệnh đề quan hệ xác định – who / which / that",
+        "level": "ELEMENTARY",
+        "structure": "N + who/which/that + V (+ O)",
+        "breakdown": {
+            "who": "Đại từ quan hệ thay thế cho người (chủ ngữ hoặc tân ngữ)",
+            "which": "Đại từ quan hệ thay thế cho vật, con vật",
+            "that": "Dùng thay cho cả who và which trong mệnh đề quan hệ xác định",
+            "Mệnh đề xác định": "Không có dấu phẩy; bỏ đi thì câu mất nghĩa"
+        },
+        "usage": [
+            "Mệnh đề quan hệ xác định cung cấp thông tin cần thiết để xác định danh từ đứng trước.",
+            "Không dùng dấu phẩy ngăn cách mệnh đề quan hệ xác định."
+        ],
+        "signs": [
+            "who",
+            "which",
+            "that",
+            "the man who",
+            "the book that",
+            "the car which"
+        ],
+        "example_en": "The student who won the competition will represent our school nationally.",
+        "example_vi": "Học sinh đã giành chiến thắng trong cuộc thi sẽ đại diện cho trường chúng tôi ở cấp quốc gia."
+    },
+    {
+        "id": 82,
+        "title": "Mệnh đề quan hệ xác định – whose / where / when",
+        "level": "ELEMENTARY",
+        "structure": "N + whose + N + V | N + where + S + V | N + when + S + V",
+        "breakdown": {
+            "whose": "Sở hữu, thay thế cho 'his/her/its/their' – dùng cho cả người lẫn vật",
+            "where": "Thay cho 'in/at/on which' – dùng với danh từ chỉ nơi chốn",
+            "when": "Thay cho 'in/at which' – dùng với danh từ chỉ thời gian"
+        },
+        "usage": [
+            "whose + N: chỉ sự sở hữu (the man whose car was stolen).",
+            "where: thay thế cho nơi chốn (the city where I was born).",
+            "when: thay thế cho thời gian (the year when I graduated)."
+        ],
+        "signs": [
+            "whose",
+            "where",
+            "when",
+            "the place where",
+            "the time when"
+        ],
+        "example_en": "This is the village where my grandparents have lived for over fifty years.",
+        "example_vi": "Đây là ngôi làng nơi ông bà tôi đã sinh sống hơn năm mươi năm qua."
+    },
+    {
+        "id": 83,
+        "title": "Mệnh đề quan hệ không xác định (Non-defining)",
+        "level": "ELEMENTARY",
+        "structure": "N (cụ thể), + who/which + V (+ O), + ...",
+        "breakdown": {
+            "Dấu phẩy": "Bắt buộc ngăn cách mệnh đề quan hệ không xác định",
+            "who": "Dùng cho người",
+            "which": "Dùng cho vật (KHÔNG dùng 'that' trong mệnh đề không xác định)",
+            "Mệnh đề không xác định": "Bỏ đi câu vẫn đủ nghĩa; chỉ thêm thông tin phụ"
+        },
+        "usage": [
+            "Cung cấp thông tin bổ sung về danh từ đã xác định rõ; có thể bỏ mà không ảnh hưởng nghĩa chính.",
+            "Bắt buộc có dấu phẩy; KHÔNG dùng 'that' thay thế."
+        ],
+        "signs": [
+            ", who",
+            ", which",
+            ", whose",
+            "comma + relative pronoun"
+        ],
+        "example_en": "My sister, who works as a doctor, lives in Ho Chi Minh City.",
+        "example_vi": "Chị gái tôi, người làm bác sĩ, sống ở Thành phố Hồ Chí Minh."
+    },
+    {
+        "id": 84,
+        "title": "Lời nói gián tiếp – Câu trần thuật",
+        "level": "ELEMENTARY",
+        "structure": "S + said (that) + S2 + V (lùi thì) + (O)",
+        "breakdown": {
+            "said / told + O": "Động từ tường thuật (told phải có tân ngữ: told me; said không cần)",
+            "that": "Liên từ nối (có thể bỏ trong văn nói)",
+            "Lùi thì": "HTĐ→QKĐ; HTTD→QKTD; QKĐ/HTTD→QKHT; will→would; can→could; must→had to"
+        },
+        "usage": [
+            "Khi chuyển sang lời nói gián tiếp: động từ tường thuật ở quá khứ → lùi thì động từ trong mệnh đề.",
+            "Đổi đại từ nhân xưng cho phù hợp với người nói mới."
+        ],
+        "signs": [
+            "said",
+            "told",
+            "reported",
+            "mentioned",
+            "explained",
+            "that"
+        ],
+        "example_en": "She said that she was very tired after the long journey.",
+        "example_vi": "Cô ấy nói rằng cô ấy rất mệt sau chuyến đi dài."
+    },
+    {
+        "id": 85,
+        "title": "Lời nói gián tiếp – Câu hỏi",
+        "level": "ELEMENTARY",
+        "structure": "S + asked + (O) + Wh-word / if/whether + S2 + V (lùi thì, trật tự câu kể)",
+        "breakdown": {
+            "asked": "Động từ tường thuật cho câu hỏi,",
+            "Wh-word": "Từ để hỏi giữ nguyên (what, where, when, why, how...)",
+            "if / whether": "Dùng cho câu hỏi Yes/No",
+            "S2 + V (câu kể)": "Không đảo ngữ, lùi thì như câu trần thuật"
+        },
+        "usage": [
+            "Câu hỏi Wh: dùng Wh-word + S + V (câu kể, không đảo ngữ).",
+            "Câu hỏi Yes/No: dùng if/whether + S + V (câu kể, không đảo ngữ).",
+            "Lùi thì động từ như câu trần thuật gián tiếp."
+        ],
+        "signs": [
+            "asked",
+            "wanted to know",
+            "wondered",
+            "inquired",
+            "if",
+            "whether"
+        ],
+        "example_en": "He asked me where I had bought that beautiful traditional dress.",
+        "example_vi": "Anh ấy hỏi tôi đã mua chiếc váy truyền thống đẹp đó ở đâu."
+    },
+    {
+        "id": 86,
+        "title": "Lời nói gián tiếp – Câu mệnh lệnh",
+        "level": "ELEMENTARY",
+        "structure": "S + told / asked / ordered + O + to + V-inf | not + to + V-inf",
+        "breakdown": {
+            "told / asked / ordered / warned": "Động từ tường thuật cho câu mệnh lệnh",
+            "O": "Tân ngữ chỉ người nhận lệnh (me, him, her, them...)",
+            "to + V-inf": "Mệnh lệnh khẳng định",
+            "not to + V-inf": "Mệnh lệnh phủ định"
+        },
+        "usage": [
+            "Câu mệnh lệnh trực tiếp chuyển sang: told/asked + O + to-inf (khẳng định) hoặc not to-inf (phủ định).",
+            "Không cần lùi thì động từ vì đã dùng to-inf."
+        ],
+        "signs": [
+            "told to",
+            "asked to",
+            "ordered to",
+            "warned not to",
+            "advised to"
+        ],
+        "example_en": "The teacher told the students not to use their phones during the exam.",
+        "example_vi": "Giáo viên bảo học sinh không dùng điện thoại trong suốt kỳ thi."
+    },
+    {
+        "id": 87,
+        "title": "Danh động từ (Gerund) làm chủ ngữ",
+        "level": "ELEMENTARY",
+        "structure": "V-ing + V số ít + (O / Complement)",
+        "breakdown": {
+            "V-ing (Gerund)": "Động từ thêm -ing đóng vai trò như danh từ, làm chủ ngữ của câu",
+            "V số ít": "Vì Gerund làm chủ ngữ nên động từ chia dạng số ít (is, was, takes...)"
+        },
+        "usage": [
+            "Gerund làm chủ ngữ giúp câu văn trang trọng và súc tích hơn.",
+            "Gerund chủ ngữ luôn đi với động từ số ít."
+        ],
+        "signs": [
+            "V-ing + is/was/takes",
+            "Swimming is...",
+            "Learning is...",
+            "Reading helps..."
+        ],
+        "example_en": "Learning a new language every day requires consistent effort and patience.",
+        "example_vi": "Học một ngôn ngữ mới mỗi ngày đòi hỏi sự nỗ lực kiên trì và kiên nhẫn."
+    },
+    {
+        "id": 88,
+        "title": "Danh động từ (Gerund) sau giới từ",
+        "level": "ELEMENTARY",
+        "structure": "Prep + V-ing",
+        "breakdown": {
+            "Prep": "Giới từ: in, on, at, about, of, for, without, after, before, by, instead of",
+            "V-ing": "Bắt buộc sau giới từ là Gerund, không dùng to-inf"
+        },
+        "usage": [
+            "Sau tất cả giới từ đều phải dùng V-ing, không bao giờ dùng to-inf.",
+            "Một số cụm hay gặp: interested in, good at, fond of, thank you for, instead of, without."
+        ],
+        "signs": [
+            "interested in",
+            "good at",
+            "fond of",
+            "without",
+            "instead of",
+            "after",
+            "before",
+            "by"
+        ],
+        "example_en": "She improved her English by watching movies without using subtitles.",
+        "example_vi": "Cô ấy cải thiện tiếng Anh bằng cách xem phim mà không dùng phụ đề."
+    },
+    {
+        "id": 89,
+        "title": "Động từ vừa đi với to-inf vừa đi với V-ing (đổi nghĩa)",
+        "level": "ELEMENTARY",
+        "structure": "S + V (remember/forget/stop/try/regret) + to-inf (nghĩa A) | + V-ing (nghĩa B)",
+        "breakdown": {
+            "remember to V": "Nhớ phải làm gì (chưa làm)",
+            "remember V-ing": "Nhớ lại đã từng làm gì (đã làm rồi)",
+            "forget to V": "Quên mất phải làm gì",
+            "forget V-ing": "Quên rằng đã từng làm gì",
+            "stop to V": "Dừng lại để làm việc khác",
+            "stop V-ing": "Dừng hẳn không làm nữa",
+            "try to V": "Cố gắng làm gì (mục tiêu)",
+            "try V-ing": "Thử làm gì xem sao"
+        },
+        "usage": [
+            "Một số động từ thay đổi hoàn toàn nghĩa khi theo sau là to-inf hoặc V-ing.",
+            "Cần ghi nhớ cặp nghĩa của từng động từ để dùng đúng."
+        ],
+        "signs": [
+            "remember",
+            "forget",
+            "stop",
+            "try",
+            "regret",
+            "mean",
+            "go on"
+        ],
+        "example_en": "I remember meeting her at the conference, but I forgot to bring her business card.",
+        "example_vi": "Tôi nhớ đã gặp cô ấy tại hội nghị, nhưng tôi quên mang theo danh thiếp của cô ấy."
+    },
+    {
+        "id": 90,
+        "title": "Tính từ + giới từ thông dụng",
+        "level": "ELEMENTARY",
+        "structure": "S + be + Adj + Prep + N/V-ing",
+        "breakdown": {
+            "Adj + of": "afraid of, proud of, ashamed of, capable of, fond of, tired of",
+            "Adj + in": "interested in, successful in, experienced in",
+            "Adj + at": "good at, bad at, surprised at, amazed at",
+            "Adj + about": "worried about, excited about, happy about, angry about",
+            "Adj + with": "satisfied with, pleased with, bored with, familiar with",
+            "Adj + for": "responsible for, famous for, ready for, sorry for"
+        },
+        "usage": [
+            "Mỗi tính từ cố định đi với một giới từ nhất định, không thay thế được.",
+            "Sau tính từ + giới từ, nếu theo sau là động từ thì dùng V-ing."
+        ],
+        "signs": [
+            "afraid of",
+            "good at",
+            "interested in",
+            "worried about",
+            "proud of",
+            "famous for"
+        ],
+        "example_en": "She is very proud of her daughter for winning the national math competition.",
+        "example_vi": "Cô ấy rất tự hào về con gái vì đã giành chiến thắng trong cuộc thi toán quốc gia."
+    },
+    {
+        "id": 91,
+        "title": "Cụm động từ (Phrasal Verbs) thông dụng",
+        "level": "ELEMENTARY",
+        "structure": "V + particle (adverb/preposition) = new meaning",
+        "breakdown": {
+            "Separable phrasal verb": "Tân ngữ có thể đứng giữa: turn it off / turn off the light",
+            "Inseparable phrasal verb": "Tân ngữ phải đứng sau cả cụm: look after the baby (KHÔNG: look the baby after)",
+            "particle": "Tiểu từ (off, up, down, out, in, on, away, back...) thay đổi hoàn toàn nghĩa động từ"
+        },
+        "usage": [
+            "Phrasal verb là đơn vị ý nghĩa trọn vẹn, không thể suy nghĩa từng từ riêng lẻ.",
+            "Cần phân biệt phrasal verb tách được và không tách được để đặt tân ngữ đúng vị trí."
+        ],
+        "signs": [
+            "give up",
+            "take off",
+            "look after",
+            "put off",
+            "turn on/off",
+            "run out of",
+            "look forward to"
+        ],
+        "example_en": "You should never give up on your dreams no matter how difficult things get.",
+        "example_vi": "Bạn không bao giờ nên từ bỏ ước mơ của mình dù mọi thứ khó khăn đến đâu."
+    },
+    {
+        "id": 92,
+        "title": "Động từ + tân ngữ + to-inf (Causative with make/let/help)",
+        "level": "ELEMENTARY",
+        "structure": "make/let/help + O + V-base | help + O + to + V-inf",
+        "breakdown": {
+            "make + O + V-base": "Bắt buộc ai làm gì (không dùng to)",
+            "let + O + V-base": "Cho phép ai làm gì (không dùng to)",
+            "help + O + V-base / to-inf": "Giúp ai làm gì (cả hai dạng đều chấp nhận)"
+        },
+        "usage": [
+            "make, let, help (causative): theo sau là V-base (không có 'to').",
+            "Bị động của make: S + was/were + made + to + V-inf (có 'to' trong bị động)."
+        ],
+        "signs": [
+            "make someone do",
+            "let someone do",
+            "help someone do",
+            "have someone do"
+        ],
+        "example_en": "The funny movie made everyone in the room laugh out loud.",
+        "example_vi": "Bộ phim hài đó đã khiến tất cả mọi người trong phòng cười phá lên."
+    },
+    {
+        "id": 93,
+        "title": "Cấu trúc nhân quả (Causative): have / get",
+        "level": "ELEMENTARY",
+        "structure": "S + have + O (vật) + V3 | S + get + O (vật) + V3",
+        "breakdown": {
+            "have + O + V3": "Nhờ/thuê ai làm gì cho mình (O là vật chịu tác động)",
+            "get + O + V3": "Tương tự 'have' nhưng hàm ý có chút nỗ lực thuyết phục",
+            "have/get + O (người) + V-base/to-inf": "Nhờ người khác làm gì"
+        },
+        "usage": [
+            "have/get something done: thuê hoặc nhờ người khác thực hiện hành động cho mình.",
+            "Phổ biến khi nói về các dịch vụ: cắt tóc, sửa xe, chụp ảnh..."
+        ],
+        "signs": [
+            "have + O + V3",
+            "get + O + V3",
+            "have your hair cut",
+            "get the car repaired"
+        ],
+        "example_en": "She had her dress altered by a tailor before the wedding ceremony.",
+        "example_vi": "Cô ấy đã nhờ thợ may chỉnh lại chiếc váy trước buổi lễ cưới."
+    },
+    {
+        "id": 94,
+        "title": "Phân từ hiện tại làm tính từ (V-ing adjective)",
+        "level": "ELEMENTARY",
+        "structure": "V-ing + N | S + be + V-ing (tính từ)",
+        "breakdown": {
+            "V-ing làm tính từ": "Diễn tả đặc điểm của người/vật gây ra cảm xúc hoặc đang trong trạng thái đó",
+            "V-ing trước N": "e.g. an interesting book, a boring lecture, an amazing view",
+            "S + be + V-ing": "e.g. The movie is exciting. The game is tiring."
+        },
+        "usage": [
+            "V-ing adjective mô tả đặc điểm của người/vật TẠO RA cảm xúc đó.",
+            "Phân biệt: interesting (thú vị – tính chất của sự vật) vs interested (thấy hứng thú – cảm xúc người)."
+        ],
+        "signs": [
+            "interesting",
+            "boring",
+            "exciting",
+            "tiring",
+            "surprising",
+            "amazing",
+            "confusing"
+        ],
+        "example_en": "The documentary about ocean life was absolutely fascinating to watch.",
+        "example_vi": "Bộ phim tài liệu về đời sống đại dương thật sự rất hấp dẫn để xem."
+    },
+    {
+        "id": 95,
+        "title": "Phân từ quá khứ làm tính từ (V3 adjective)",
+        "level": "ELEMENTARY",
+        "structure": "V3 + N | S + be/feel/seem + V3 (tính từ)",
+        "breakdown": {
+            "V3 làm tính từ": "Diễn tả cảm xúc hoặc trạng thái CỦA NGƯỜI chịu tác động từ bên ngoài",
+            "V3 trước N": "e.g. a bored student, a tired worker, a confused tourist",
+            "S + feel/be + V3": "e.g. I feel bored. She was confused."
+        },
+        "usage": [
+            "V3 adjective mô tả cảm xúc hoặc trạng thái của người/vật CHỊU TÁC ĐỘNG.",
+            "Phân biệt: bored (cảm thấy chán – cảm xúc người) vs boring (nhàm chán – tính chất sự vật)."
+        ],
+        "signs": [
+            "interested",
+            "bored",
+            "excited",
+            "tired",
+            "surprised",
+            "amazed",
+            "confused",
+            "satisfied"
+        ],
+        "example_en": "The students felt confused by the complicated grammar explanation.",
+        "example_vi": "Học sinh cảm thấy bối rối trước lời giải thích ngữ pháp phức tạp."
+    },
+    {
+        "id": 96,
+        "title": "Cụm phân từ (Participial Phrases)",
+        "level": "ELEMENTARY",
+        "structure": "V-ing / V3 + (O/Complement), S + V + ...",
+        "breakdown": {
+            "V-ing phrase": "Hành động xảy ra đồng thời hoặc ngay trước hành động chính",
+            "V3 phrase": "Hành động bị động hoặc hoàn thành trước hành động chính",
+            "Vị trí": "Đầu câu (có dấu phẩy) hoặc cuối câu (không cần dấu phẩy)"
+        },
+        "usage": [
+            "Dùng cụm phân từ để rút gọn mệnh đề trạng ngữ hoặc mệnh đề quan hệ.",
+            "Chủ ngữ của cụm phân từ phải trùng với chủ ngữ của mệnh đề chính."
+        ],
+        "signs": [
+            "Walking along",
+            "Having finished",
+            "Written in",
+            "Feeling tired"
+        ],
+        "example_en": "Walking along the river bank, she noticed a small boat drifting away.",
+        "example_vi": "Đi dọc bờ sông, cô ấy nhận ra một chiếc thuyền nhỏ đang trôi đi."
+    },
+    {
+        "id": 97,
+        "title": "Trạng ngữ chỉ mục đích: so that / in order that",
+        "level": "ELEMENTARY",
+        "structure": "S1 + V1 + so that / in order that + S2 + can/could/will/would + V2",
+        "breakdown": {
+            "so that": "Để (mục đích), theo sau là mệnh đề hoàn chỉnh S + V",
+            "in order that": "Trang trọng hơn 'so that', cùng cấu trúc",
+            "can/will": "Dùng khi mệnh đề chính ở thì hiện tại/tương lai",
+            "could/would": "Dùng khi mệnh đề chính ở thì quá khứ"
+        },
+        "usage": [
+            "so that + mệnh đề: diễn tả mục đích có chủ thể khác với câu chính.",
+            "Phân biệt với 'in order to + V-inf': in order to dùng khi chủ ngữ hai vế giống nhau."
+        ],
+        "signs": [
+            "so that",
+            "in order that",
+            "can",
+            "could",
+            "will",
+            "would"
+        ],
+        "example_en": "She spoke slowly so that everyone in the audience could understand her clearly.",
+        "example_vi": "Cô ấy nói chậm để mọi người trong khán giả có thể hiểu cô ấy rõ ràng."
+    },
+    {
+        "id": 98,
+        "title": "Trạng ngữ chỉ kết quả: so...that / such...that",
+        "level": "ELEMENTARY",
+        "structure": "so + Adj/Adv + that + clause | such (a/an) + (Adj) + N + that + clause",
+        "breakdown": {
+            "so + Adj + that": "Quá... đến nỗi... (đứng sau so là adj/adv)",
+            "such + (a/an) + Adj + N + that": "Quá... đến nỗi... (đứng sau such là cụm danh từ)",
+            "that + clause": "Mệnh đề chỉ kết quả"
+        },
+        "usage": [
+            "so + adj/adv + that: nhấn mạnh mức độ của tính từ/trạng từ dẫn đến kết quả.",
+            "such + (a/an) + adj + noun + that: nhấn mạnh mức độ của cả cụm danh từ."
+        ],
+        "signs": [
+            "so...that",
+            "such...that",
+            "such a/an",
+            "so much/many/little/few + that"
+        ],
+        "example_en": "The weather was so hot that we decided to stay inside all afternoon.",
+        "example_vi": "Thời tiết nóng đến mức chúng tôi quyết định ở trong nhà suốt buổi chiều."
+    },
+    {
+        "id": 99,
+        "title": "Trạng ngữ chỉ sự nhượng bộ: although / even though / though",
+        "level": "ELEMENTARY",
+        "structure": "Although / Even though / Though + S1 + V1, S2 + V2",
+        "breakdown": {
+            "although / even though / though": "Mặc dù, dù rằng – giới thiệu mệnh đề nhượng bộ",
+            "even though": "Mạnh hơn 'although', nhấn mạnh sự tương phản",
+            "Vị trí": "Mệnh đề nhượng bộ có thể đứng đầu hoặc cuối câu"
+        },
+        "usage": [
+            "Nối hai vế trái ngược nghĩa nhau; mệnh đề sau 'although' là thực tế đáng ngạc nhiên.",
+            "Phân biệt với 'but' (đứng giữa câu) và 'however' (đứng đầu câu, có dấu phẩy)."
+        ],
+        "signs": [
+            "although",
+            "even though",
+            "though",
+            "despite",
+            "in spite of"
+        ],
+        "example_en": "Although it was raining heavily, they continued their outdoor training session.",
+        "example_vi": "Mặc dù trời mưa to, họ vẫn tiếp tục buổi tập luyện ngoài trời."
+    },
+    {
+        "id": 100,
+        "title": "Despite / In spite of (Nhượng bộ với cụm danh từ/Gerund)",
+        "level": "ELEMENTARY",
+        "structure": "Despite / In spite of + N / V-ing / the fact that + clause",
+        "breakdown": {
+            "Despite / In spite of": "Mặc dù – theo sau là danh từ, gerund, hoặc 'the fact that + clause'",
+            "N / V-ing": "Không phải mệnh đề; không có S + V trực tiếp sau despite",
+            "the fact that": "Dùng khi muốn theo sau là mệnh đề hoàn chỉnh"
+        },
+        "usage": [
+            "despite/in spite of + N/V-ing: không có subject + verb trực tiếp theo sau.",
+            "Muốn dùng mệnh đề: despite the fact that + S + V."
+        ],
+        "signs": [
+            "despite",
+            "in spite of",
+            "despite the fact that"
+        ],
+        "example_en": "Despite feeling unwell, she still went to school and took the test.",
+        "example_vi": "Mặc dù cảm thấy không khỏe, cô ấy vẫn đến trường và làm bài kiểm tra."
+    },
+    {
+        "id": 101,
+        "title": "Liên từ tương phản: however / nevertheless / on the other hand",
+        "level": "ELEMENTARY",
+        "structure": "Clause 1. However / Nevertheless / On the other hand, Clause 2.",
+        "breakdown": {
+            "however": "Tuy nhiên – đứng đầu câu 2, sau dấu chấm hoặc chấm phẩy, có dấu phẩy theo sau",
+            "nevertheless": "Tuy vậy, dẫu sao – trang trọng hơn 'however'",
+            "on the other hand": "Mặt khác – trình bày khía cạnh đối lập"
+        },
+        "usage": [
+            "Khác với 'but' (đứng giữa câu), các liên từ này đứng đầu câu mới.",
+            "Dùng dấu chấm phẩy hoặc dấu chấm trước và dấu phẩy sau liên từ này."
+        ],
+        "signs": [
+            "however",
+            "nevertheless",
+            "on the other hand",
+            "yet",
+            "still"
+        ],
+        "example_en": "The price of the apartment was quite high. However, the location was perfect for us.",
+        "example_vi": "Giá căn hộ khá cao. Tuy nhiên, vị trí lại hoàn toàn phù hợp với chúng tôi."
+    },
+    {
+        "id": 102,
+        "title": "Liên từ nguyên nhân – kết quả: therefore / as a result / consequently",
+        "level": "ELEMENTARY",
+        "structure": "Clause 1. Therefore / As a result / Consequently, Clause 2.",
+        "breakdown": {
+            "therefore": "Do đó, vì vậy – diễn đạt kết quả logic",
+            "as a result": "Kết quả là – nhấn mạnh hậu quả",
+            "consequently": "Do đó – trang trọng, dùng trong văn viết học thuật"
+        },
+        "usage": [
+            "Diễn đạt quan hệ nguyên nhân – kết quả giữa hai câu/mệnh đề.",
+            "Đứng đầu câu 2, sau dấu chấm hoặc chấm phẩy, luôn có dấu phẩy theo sau."
+        ],
+        "signs": [
+            "therefore",
+            "as a result",
+            "consequently",
+            "thus",
+            "hence",
+            "so"
+        ],
+        "example_en": "She practiced speaking English every day. As a result, her fluency improved dramatically.",
+        "example_vi": "Cô ấy luyện nói tiếng Anh mỗi ngày. Kết quả là, khả năng nói lưu loát của cô ấy đã cải thiện đáng kể."
+    },
+    {
+        "id": 103,
+        "title": "Đảo ngữ với phủ định (Negative Inversion)",
+        "level": "ELEMENTARY",
+        "structure": "Negative adv + aux + S + V-base",
+        "breakdown": {
+            "Negative adv": "Never, rarely, seldom, hardly ever, not only, no sooner, scarcely, little",
+            "aux": "Trợ động từ (do/does/did/have/has/will/can...) đảo lên trước chủ ngữ",
+            "S + V-base": "Chủ ngữ và động từ chính theo sau trợ động từ"
+        },
+        "usage": [
+            "Dùng trong văn viết trang trọng hoặc văn học để nhấn mạnh.",
+            "Trạng từ phủ định đứng đầu câu kéo theo đảo ngữ (như câu hỏi)."
+        ],
+        "signs": [
+            "Never have I",
+            "Rarely does",
+            "Not only...but also",
+            "Hardly...when",
+            "Seldom"
+        ],
+        "example_en": "Never have I seen such a breathtaking sunrise over the mountains before.",
+        "example_vi": "Tôi chưa bao giờ chứng kiến một bình minh đẹp đến vậy trên núi trước đây."
+    },
+    {
+        "id": 104,
+        "title": "Cấu trúc đảo ngữ với 'only'",
+        "level": "ELEMENTARY",
+        "structure": "Only + adv/prep phrase + aux + S + V-base",
+        "breakdown": {
+            "Only + when/if/after/by/then": "Cụm trạng từ với 'only' đứng đầu câu gây đảo ngữ",
+            "aux": "Trợ động từ đảo lên trước chủ ngữ (như câu hỏi)",
+            "S + V-base": "Chủ ngữ và động từ nguyên thể"
+        },
+        "usage": [
+            "Khi 'only + adverbial' đứng đầu câu, phần còn lại của câu đảo ngữ.",
+            "Nhấn mạnh điều kiện duy nhất hoặc thời điểm duy nhất."
+        ],
+        "signs": [
+            "Only when",
+            "Only if",
+            "Only after",
+            "Only by",
+            "Only then"
+        ],
+        "example_en": "Only by working together can we solve these complex environmental problems.",
+        "example_vi": "Chỉ bằng cách làm việc cùng nhau chúng ta mới có thể giải quyết những vấn đề môi trường phức tạp này."
+    },
+    {
+        "id": 105,
+        "title": "Câu chẻ (Cleft Sentences) với 'It is/was...that/who'",
+        "level": "ELEMENTARY",
+        "structure": "It is/was + [phần được nhấn mạnh] + that/who + [phần còn lại]",
+        "breakdown": {
+            "It is/was": "Cấu trúc mở đầu câu chẻ",
+            "Phần nhấn mạnh": "Chủ ngữ, tân ngữ, trạng từ hoặc cụm trạng từ cần nhấn mạnh",
+            "that / who": "'who' khi phần nhấn mạnh là người; 'that' cho các trường hợp còn lại"
+        },
+        "usage": [
+            "Dùng để nhấn mạnh một thành phần cụ thể trong câu.",
+            "Phần còn lại của câu đặt sau 'that/who' với trật tự bình thường."
+        ],
+        "signs": [
+            "It is...that",
+            "It was...who",
+            "It is...which"
+        ],
+        "example_en": "It was my English teacher who encouraged me to join the speaking contest.",
+        "example_vi": "Chính giáo viên tiếng Anh của tôi đã khuyến khích tôi tham gia cuộc thi nói."
+    },
+    {
+        "id": 106,
+        "title": "Câu ước với 'wish' – Quá khứ",
+        "level": "ELEMENTARY",
+        "structure": "S + wish + S2 + had + V3",
+        "breakdown": {
+            "wish + had + V3": "Ước về một điều không xảy ra hoặc đã xảy ra ngược lại trong quá khứ",
+            "had + V3": "Quá khứ Hoàn thành trong mệnh đề wish"
+        },
+        "usage": [
+            "Diễn tả sự hối tiếc về điều đã không xảy ra hoặc đã xảy ra khác đi trong quá khứ.",
+            "Phân biệt: wish + V-ed/were (ước hiện tại) vs wish + had V3 (ước quá khứ)."
+        ],
+        "signs": [
+            "wish",
+            "had + V3",
+            "if only",
+            "regret"
+        ],
+        "example_en": "I wish I had taken more photos during our trip to Da Nang last year.",
+        "example_vi": "Tôi ước mình đã chụp nhiều ảnh hơn trong chuyến đi Đà Nẵng năm ngoái."
+    },
+    {
+        "id": 107,
+        "title": "Câu ước với 'wish' – Tương lai (wish + would)",
+        "level": "ELEMENTARY",
+        "structure": "S + wish + S2 + would + V-base",
+        "breakdown": {
+            "wish + would + V-base": "Ước ai đó sẽ làm gì / mong điều gì sẽ thay đổi trong tương lai",
+            "Chủ ngữ": "S2 thường là người/vật khác với S1; ít dùng 'I wish I would'"
+        },
+        "usage": [
+            "Diễn tả sự mong muốn về hành vi/hành động của người khác trong tương lai, thường mang hàm ý không hài lòng.",
+            "Phân biệt: wish + would (hành động tương lai) vs wish + were/V-ed (trạng thái hiện tại)."
+        ],
+        "signs": [
+            "wish...would",
+            "I wish you would stop",
+            "I wish it would stop raining"
+        ],
+        "example_en": "I wish my neighbor would stop playing loud music late at night.",
+        "example_vi": "Tôi ước hàng xóm của tôi sẽ ngừng mở nhạc to vào đêm khuya."
+    },
+    {
+        "id": 108,
+        "title": "Mạo từ zero (Zero article)",
+        "level": "ELEMENTARY",
+        "structure": "Ø + N (số nhiều / không đếm được / danh từ riêng / khái niệm chung)",
+        "breakdown": {
+            "Ø + N số nhiều": "Khi nói về loại/nhóm chung: Dogs are loyal animals.",
+            "Ø + N không đếm được": "Khi nói chung: Water is essential for life.",
+            "Ø + danh từ riêng": "Tên người, thành phố, quốc gia (thông thường): Vietnam, Hanoi, Tom",
+            "Ø + môn học/bữa ăn/thể thao": "I study math. We had breakfast. She plays tennis."
+        },
+        "usage": [
+            "Không dùng mạo từ khi nói về khái niệm chung chung (không xác định cụ thể).",
+            "Không dùng mạo từ với tên riêng, môn học, thể thao, bữa ăn, ngôn ngữ, ngày/tháng."
+        ],
+        "signs": [
+            "Ø + plural noun",
+            "Ø + uncountable noun",
+            "Ø + proper noun",
+            "languages, sports, meals"
+        ],
+        "example_en": "Children need love and education to grow up happily and successfully.",
+        "example_vi": "Trẻ em cần tình yêu thương và giáo dục để lớn lên một cách hạnh phúc và thành công."
+    },
+    {
+        "id": 109,
+        "title": "Đại từ phản thân (Reflexive Pronouns)",
+        "level": "ELEMENTARY",
+        "structure": "S + V + myself/yourself/himself/herself/itself/ourselves/yourselves/themselves",
+        "breakdown": {
+            "Reflexive pronoun": "myself, yourself, himself, herself, itself, ourselves, yourselves, themselves",
+            "Dùng khi S = O": "Chủ ngữ và tân ngữ cùng chỉ một người/vật",
+            "Dùng nhấn mạnh": "Đứng ngay sau chủ ngữ hoặc cuối câu (I myself did it / I did it myself)"
+        },
+        "usage": [
+            "Dùng khi hành động phản chiếu lại chính chủ ngữ (S tự làm gì cho chính mình).",
+            "Dùng để nhấn mạnh: chính tôi, tự mình... (emphatic use)."
+        ],
+        "signs": [
+            "myself",
+            "yourself",
+            "himself",
+            "herself",
+            "themselves",
+            "by oneself"
+        ],
+        "example_en": "He taught himself how to play the guitar by watching online tutorials.",
+        "example_vi": "Anh ấy tự học cách chơi đàn guitar bằng cách xem các video hướng dẫn trực tuyến."
+    },
+    {
+        "id": 110,
+        "title": "Trạng từ liên kết (Linking Adverbs): firstly / moreover / furthermore",
+        "level": "ELEMENTARY",
+        "structure": "Firstly, ... . Moreover / Furthermore / In addition, ... . Finally, ...",
+        "breakdown": {
+            "firstly / to begin with": "Liệt kê ý đầu tiên",
+            "moreover / furthermore / in addition / besides": "Thêm thông tin bổ sung, cùng chiều",
+            "finally / lastly": "Ý cuối cùng trong danh sách",
+            "Vị trí": "Đầu câu + dấu phẩy, hoặc giữa câu giữa hai dấu phẩy"
+        },
+        "usage": [
+            "Dùng để liệt kê và phát triển lập luận trong văn viết học thuật và bài thuyết trình.",
+            "Giúp bài viết mạch lạc, có tính liên kết cao."
+        ],
+        "signs": [
+            "firstly",
+            "secondly",
+            "moreover",
+            "furthermore",
+            "in addition",
+            "besides",
+            "finally"
+        ],
+        "example_en": "Learning English is important. Moreover, it opens many career opportunities worldwide.",
+        "example_vi": "Học tiếng Anh rất quan trọng. Hơn nữa, nó mở ra nhiều cơ hội nghề nghiệp trên toàn thế giới."
+    },
+    {
+        "id": 111,
+        "title": "Cấu trúc 'It takes + O + time + to-inf'",
+        "level": "ELEMENTARY",
+        "structure": "It takes + (O) + time expression + to + V-inf",
+        "breakdown": {
+            "It": "Chủ ngữ giả",
+            "takes": "Động từ (chia theo thì)",
+            "O": "Người thực hiện hành động (me, him, her, us...)",
+            "time expression": "Khoảng thời gian (two hours, a week, ten minutes)",
+            "to + V-inf": "Hành động cần thực hiện"
+        },
+        "usage": [
+            "Diễn tả khoảng thời gian cần thiết để hoàn thành một hành động.",
+            "O (tân ngữ người) có thể bỏ nếu không cần xác định ai."
+        ],
+        "signs": [
+            "It takes",
+            "It took",
+            "It will take",
+            "How long does it take?"
+        ],
+        "example_en": "It takes me about thirty minutes to walk from home to school every morning.",
+        "example_vi": "Tôi mất khoảng ba mươi phút để đi bộ từ nhà đến trường mỗi sáng."
+    },
+    {
+        "id": 112,
+        "title": "Cấu trúc 'It is + Adj + to-inf / that-clause'",
+        "level": "ELEMENTARY",
+        "structure": "It is/was + Adj + to + V-inf | It is + Adj + that + S + V",
+        "breakdown": {
+            "It": "Chủ ngữ hình thức (formal subject)",
+            "Adj": "Tính từ mô tả (important, necessary, possible, difficult, easy, interesting)",
+            "to + V-inf": "Chủ ngữ thực sự của câu",
+            "that + clause": "Thay thế cho to-inf khi muốn có chủ ngữ riêng"
+        },
+        "usage": [
+            "Dùng It làm chủ ngữ giả, chủ ngữ thực đứng ở cuối câu dạng to-inf hoặc that-clause.",
+            "Giúp câu tự nhiên hơn khi chủ ngữ thực quá dài."
+        ],
+        "signs": [
+            "It is important to",
+            "It is necessary that",
+            "It is difficult to",
+            "It is possible that"
+        ],
+        "example_en": "It is very important to practice speaking English with native speakers regularly.",
+        "example_vi": "Thực hành nói tiếng Anh với người bản ngữ thường xuyên là rất quan trọng."
+    },
+    {
+        "id": 113,
+        "title": "Cấu trúc 'S + V + O + to-inf' (Object + Infinitive)",
+        "level": "ELEMENTARY",
+        "structure": "S + V + O + to + V-inf",
+        "breakdown": {
+            "V": "Động từ chính: want, ask, tell, advise, allow, expect, encourage, remind, warn, invite",
+            "O": "Tân ngữ chỉ người thực hiện hành động (me, him, her, them, the students...)",
+            "to + V-inf": "Hành động mà tân ngữ được yêu cầu/mong đợi thực hiện"
+        },
+        "usage": [
+            "Cấu trúc SVOO với to-inf: chủ thể thứ hai (O) thực hiện hành động ở to-inf.",
+            "Phổ biến với: want, tell, ask, advise, allow, expect, encourage, warn, invite, remind."
+        ],
+        "signs": [
+            "want someone to",
+            "tell someone to",
+            "ask someone to",
+            "advise someone to",
+            "expect someone to"
+        ],
+        "example_en": "My parents encouraged me to pursue my passion for music and art.",
+        "example_vi": "Bố mẹ tôi khuyến khích tôi theo đuổi niềm đam mê âm nhạc và nghệ thuật."
+    },
+    {
+        "id": 114,
+        "title": "Cấu trúc 'would rather + V-base'",
+        "level": "ELEMENTARY",
+        "structure": "S + would rather + V-base (+ than + V-base)",
+        "breakdown": {
+            "would rather": "Thích làm hơn, muốn làm hơn (thể hiện sở thích lựa chọn)",
+            "V-base": "Động từ nguyên thể không to ngay sau 'would rather'",
+            "than + V-base": "So sánh với lựa chọn thứ hai (không ưa thích hơn)"
+        },
+        "usage": [
+            "Diễn tả sở thích lựa chọn giữa hai hành động.",
+            "would rather + V-base (không có to). Phân biệt với 'prefer to V-inf / prefer V-ing'."
+        ],
+        "signs": [
+            "would rather",
+            "I'd rather",
+            "would rather...than"
+        ],
+        "example_en": "I would rather stay home and cook than eat out at a restaurant tonight.",
+        "example_vi": "Tôi thích ở nhà nấu ăn hơn là ra ngoài nhà hàng tối nay."
+    },
+    {
+        "id": 115,
+        "title": "Cấu trúc 'prefer' (Sở thích so sánh)",
+        "level": "ELEMENTARY",
+        "structure": "S + prefer + V-ing + to + V-ing | S + prefer + to + V-inf + rather than + V-base",
+        "breakdown": {
+            "prefer + V-ing + to + V-ing": "Thích A hơn B (nói chung, dạng danh động từ)",
+            "prefer + to-inf + rather than + V-base": "Thích làm A hơn làm B (trong tình huống cụ thể)"
+        },
+        "usage": [
+            "prefer + V-ing to V-ing: sở thích thông thường, tổng quát.",
+            "prefer to V rather than V: sở thích trong tình huống cụ thể."
+        ],
+        "signs": [
+            "prefer...to",
+            "prefer to...rather than",
+            "would prefer to"
+        ],
+        "example_en": "She prefers reading books to watching television in her spare time.",
+        "example_vi": "Cô ấy thích đọc sách hơn xem tivi trong thời gian rảnh rỗi."
+    },
+    {
+        "id": 116,
+        "title": "Trạng từ chỉ cách thức (Adverbs of Manner)",
+        "level": "ELEMENTARY",
+        "structure": "S + V + Adv-manner | S + V + O + Adv-manner",
+        "breakdown": {
+            "Adv-manner": "Thường tạo bằng cách thêm -ly vào tính từ: quick→quickly, beautiful→beautifully",
+            "Vị trí": "Thường đứng SAU động từ chính hoặc SAU tân ngữ; không đứng giữa V và O",
+            "Bất quy tắc": "good → well; fast → fast; hard → hard; late → late"
+        },
+        "usage": [
+            "Diễn tả cách thức hành động được thực hiện.",
+            "Vị trí linh hoạt nhưng thông thường đứng sau động từ/tân ngữ, không giữa V và O."
+        ],
+        "signs": [
+            "-ly",
+            "quickly",
+            "slowly",
+            "carefully",
+            "well",
+            "hard",
+            "fast",
+            "loudly"
+        ],
+        "example_en": "She spoke confidently and clearly in front of the entire school assembly.",
+        "example_vi": "Cô ấy nói một cách tự tin và rõ ràng trước toàn thể hội trường của trường."
+    },
+    {
+        "id": 117,
+        "title": "Trạng từ chỉ thời gian và vị trí của trạng từ trong câu",
+        "level": "ELEMENTARY",
+        "structure": "Manner + Place + Time (cuối câu) | Time + S + V + Manner + Place (đầu câu)",
+        "breakdown": {
+            "Thứ tự chuẩn": "Manner (cách) → Place (nơi) → Time (thời gian)",
+            "Time đầu câu": "Trạng từ thời gian có thể đứng đầu câu để nhấn mạnh",
+            "Manner": "Quickly, carefully, well...",
+            "Place": "Here, there, at school, in the garden...",
+            "Time": "Yesterday, last week, every day, soon..."
+        },
+        "usage": [
+            "Khi câu có nhiều trạng từ, sắp xếp theo thứ tự: Manner → Place → Time.",
+            "Trạng từ thời gian có thể linh hoạt đứng đầu câu để nhấn mạnh."
+        ],
+        "signs": [
+            "yesterday",
+            "last week",
+            "at school",
+            "here",
+            "quickly",
+            "carefully"
+        ],
+        "example_en": "She practiced her speech carefully in front of the mirror every morning.",
+        "example_vi": "Cô ấy luyện tập bài phát biểu cẩn thận trước gương mỗi buổi sáng."
+    },
+    {
+        "id": 118,
+        "title": "Danh từ ghép (Compound Nouns)",
+        "level": "ELEMENTARY",
+        "structure": "N1 + N2 (N1 bổ nghĩa cho N2 như tính từ)",
+        "breakdown": {
+            "N1": "Danh từ đóng vai trò bổ nghĩa (như tính từ), luôn ở dạng số ít",
+            "N2": "Danh từ chính mang ý nghĩa trung tâm",
+            "Dạng viết": "Viết liền (bedroom, notebook), có gạch ngang (well-being), hoặc tách rời (bus stop)"
+        },
+        "usage": [
+            "N1 luôn ở dạng số ít dù N2 số nhiều (a shoes shop → ĐÚNG: a shoe shop).",
+            "Nhấn trọng âm vào từ đầu tiên trong danh từ ghép (khác với adj + noun)."
+        ],
+        "signs": [
+            "bedroom",
+            "bus stop",
+            "coffee shop",
+            "toothbrush",
+            "football",
+            "notebook"
+        ],
+        "example_en": "She forgot her notebook and water bottle at the bus stop this morning.",
+        "example_vi": "Cô ấy quên vở ghi chú và bình nước ở trạm xe buýt sáng nay."
+    },
+    {
+        "id": 119,
+        "title": "Hậu tố tạo từ: danh từ, tính từ, động từ (Word Formation – Suffixes)",
+        "level": "ELEMENTARY",
+        "structure": "Root + suffix → N / Adj / V / Adv mới",
+        "breakdown": {
+            "Hậu tố danh từ": "-tion/-sion (education), -ment (development), -ness (happiness), -er/-or (teacher), -ity (ability)",
+            "Hậu tố tính từ": "-ful (beautiful), -less (careless), -ous (dangerous), -al (natural), -ive (creative)",
+            "Hậu tố trạng từ": "-ly (quickly, carefully)",
+            "Hậu tố động từ": "-ize/-ise (organize), -en (strengthen), -ify (simplify)"
+        },
+        "usage": [
+            "Nhận biết từ loại qua hậu tố để dùng đúng trong câu.",
+            "Biết cách tạo ra các dạng từ khác nhau của cùng một gốc từ (word family)."
+        ],
+        "signs": [
+            "-tion",
+            "-ment",
+            "-ness",
+            "-ful",
+            "-less",
+            "-ly",
+            "-ize",
+            "-ous"
+        ],
+        "example_en": "Her creativity and dedication led to the development of a successful project.",
+        "example_vi": "Sự sáng tạo và tận tâm của cô ấy đã dẫn đến sự phát triển của một dự án thành công."
+    },
+    {
+        "id": 120,
+        "title": "Tiền tố phủ định (Negative Prefixes: un-, in-, im-, dis-, mis-, il-, ir-)",
+        "level": "ELEMENTARY",
+        "structure": "Prefix + Root word → antonym",
+        "breakdown": {
+            "un-": "Phủ định tính từ/động từ: unhappy, unable, unfair, undo",
+            "in-": "Thường trước gốc Latin: incorrect, independent, informal",
+            "im-": "Trước b, m, p: impossible, impolite, impatient",
+            "dis-": "Phủ định trạng thái: disagree, dishonest, disappear",
+            "mis-": "Sai/nhầm: misunderstand, misspell, mislead",
+            "il-": "Trước l: illegal, illogical",
+            "ir-": "Trước r: irregular, irresponsible"
+        },
+        "usage": [
+            "Tiền tố phủ định thay đổi nghĩa của từ gốc thành nghĩa đối lập hoặc phủ nhận.",
+            "Cần nhớ quy tắc chọn tiền tố phù hợp theo chữ cái đầu của từ gốc."
+        ],
+        "signs": [
+            "un-",
+            "in-",
+            "im-",
+            "dis-",
+            "mis-",
+            "il-",
+            "ir-"
+        ],
+        "example_en": "It is irresponsible and illegal to throw rubbish into the river.",
+        "example_vi": "Việc vứt rác xuống sông là vô trách nhiệm và bất hợp pháp."
+    },
+    {
+        "id": 121,
+        "title": "Câu hỏi đuôi với các thì khác nhau",
+        "level": "ELEMENTARY",
+        "structure": "S + aux + V ..., + neg-aux / aux + pronoun?",
+        "breakdown": {
+            "Quy tắc chung": "Câu khẳng định → tag âm; Câu phủ định → tag dương",
+            "Chọn trợ động từ": "Dùng cùng trợ động từ với mệnh đề chính (did, have, will, can, should...)",
+            "Đại từ": "Thay thế chủ ngữ bằng đại từ tương ứng trong tag"
+        },
+        "usage": [
+            "Tag question dùng đúng trợ động từ của thì trong mệnh đề chính.",
+            "Một số trường hợp đặc biệt: I am... → aren't I?; Let's... → shall we?; Never/rarely → tag dương."
+        ],
+        "signs": [
+            "...didn't they?",
+            "...haven't you?",
+            "...won't she?",
+            "...can he?",
+            "...shall we?"
+        ],
+        "example_en": "You have already submitted your application form, haven't you?",
+        "example_vi": "Bạn đã nộp đơn đăng ký rồi, phải không?"
+    },
+    {
+        "id": 122,
+        "title": "Cấu trúc phủ định kép (Double negatives – cách dùng đúng)",
+        "level": "ELEMENTARY",
+        "structure": "S + V (phủ định) + any-/ever / S + V + no- (KHÔNG dùng cả hai)",
+        "breakdown": {
+            "Đúng": "I don't have any money. / I have no money.",
+            "Sai (double negative)": "I don't have no money. (không dùng trong tiếng Anh chuẩn)",
+            "any": "Dùng trong câu phủ định và câu hỏi",
+            "no": "Dùng trong câu khẳng định với nghĩa phủ định"
+        },
+        "usage": [
+            "Tiếng Anh chuẩn không dùng hai phủ định trong cùng một mệnh đề.",
+            "Chọn: không + any HOẶC không có not + no, nothing, nobody, never..."
+        ],
+        "signs": [
+            "not any",
+            "no",
+            "nobody",
+            "nothing",
+            "nowhere",
+            "never",
+            "not ever"
+        ],
+        "example_en": "Nobody in the class knew the answer to that difficult question.",
+        "example_vi": "Không ai trong lớp biết câu trả lời cho câu hỏi khó đó."
+    },
+    {
+        "id": 123,
+        "title": "Động từ giác quan (Sense Verbs) + O + V-base/V-ing",
+        "level": "ELEMENTARY",
+        "structure": "see/hear/watch/notice/feel + O + V-base (toàn bộ) | V-ing (đang diễn ra)",
+        "breakdown": {
+            "V-base (bare infinitive)": "Chứng kiến toàn bộ hành động từ đầu đến cuối",
+            "V-ing": "Chứng kiến hành động đang trong quá trình diễn ra",
+            "Động từ giác quan": "see, hear, watch, notice, feel, smell, observe"
+        },
+        "usage": [
+            "V-base: toàn bộ hành động được quan sát trọn vẹn.",
+            "V-ing: hành động đang xảy ra tại thời điểm quan sát, chưa kết thúc."
+        ],
+        "signs": [
+            "see someone do/doing",
+            "hear someone say/saying",
+            "watch someone run/running",
+            "feel something move/moving"
+        ],
+        "example_en": "I heard the children singing a beautiful song in the school garden.",
+        "example_vi": "Tôi nghe thấy những đứa trẻ đang hát một bài hát đẹp trong vườn trường."
+    },
+    {
+        "id": 124,
+        "title": "Cấu trúc 'no matter + Wh-word'",
+        "level": "ELEMENTARY",
+        "structure": "No matter + wh-word + S + V, S2 + V2",
+        "breakdown": {
+            "no matter what/who/where/when/how": "Dù... gì/ai/đâu/khi nào/thế nào",
+            "S + V": "Mệnh đề phụ diễn tả điều kiện bất kể thế nào",
+            "S2 + V2": "Mệnh đề chính – kết quả luôn đúng"
+        },
+        "usage": [
+            "Diễn tả sự bất biến của kết quả bất kể điều kiện thay đổi như thế nào.",
+            "Có thể thay bằng 'whatever/wherever/whenever/however + clause'."
+        ],
+        "signs": [
+            "no matter what",
+            "no matter how",
+            "no matter where",
+            "whatever",
+            "however"
+        ],
+        "example_en": "No matter how hard the challenge is, you should never stop believing in yourself.",
+        "example_vi": "Dù thử thách khó khăn đến đâu, bạn không bao giờ nên ngừng tin vào bản thân."
+    },
+    {
+        "id": 125,
+        "title": "Cấu trúc 'as soon as' và 'the moment'",
+        "level": "ELEMENTARY",
+        "structure": "As soon as / The moment + S1 + V1, S2 + V2",
+        "breakdown": {
+            "as soon as / the moment": "Ngay khi, ngay lúc – nhấn mạnh hai hành động xảy ra kế tiếp tức thì",
+            "Thì dùng": "Câu hiện tại: HTĐ trong cả hai vế; Câu tương lai: HTĐ (mệnh đề as soon as) + will (mệnh đề chính)"
+        },
+        "usage": [
+            "Diễn tả hành động xảy ra ngay lập tức sau hành động khác.",
+            "Không dùng will trong mệnh đề as soon as kể cả khi chỉ tương lai."
+        ],
+        "signs": [
+            "as soon as",
+            "the moment",
+            "the minute",
+            "once",
+            "immediately after"
+        ],
+        "example_en": "As soon as she heard the good news, she called her family to celebrate.",
+        "example_vi": "Ngay khi nghe tin vui, cô ấy đã gọi điện cho gia đình để ăn mừng."
+    },
+    {
+        "id": 126,
+        "title": "Cấu trúc 'not only...but also'",
+        "level": "ELEMENTARY",
+        "structure": "Not only + [A], but + S + also + [B] | Not only + [A] but also + [B]",
+        "breakdown": {
+            "not only...but also": "Không chỉ A mà còn B – nhấn mạnh cả hai điều đều đúng",
+            "Đảo ngữ": "Khi 'not only' đứng đầu câu: Not only does S V, but S also V"
+        },
+        "usage": [
+            "Nhấn mạnh thêm thông tin ngoài điều đã đề cập (A và B đều quan trọng).",
+            "Đảo ngữ khi 'not only' đứng đầu câu (trang trọng, văn viết)."
+        ],
+        "signs": [
+            "not only...but also",
+            "not only...but...as well",
+            "Not only does"
+        ],
+        "example_en": "She is not only a talented singer but also an excellent songwriter.",
+        "example_vi": "Cô ấy không chỉ là một ca sĩ tài năng mà còn là một nhạc sĩ xuất sắc."
+    },
+    {
+        "id": 127,
+        "title": "Cụm giới từ chỉ sự tương phản: in spite of / despite",
+        "level": "ELEMENTARY",
+        "structure": "In spite of / Despite + N / V-ing / the fact that + clause, S + V",
+        "breakdown": {
+            "in spite of / despite": "Bất chấp, mặc dù – theo sau là N hoặc V-ing (không phải mệnh đề S+V trực tiếp)",
+            "the fact that": "Mở rộng sau 'in spite of / despite' nếu muốn dùng mệnh đề"
+        },
+        "usage": [
+            "Diễn tả sự tương phản giữa hoàn cảnh và kết quả.",
+            "in spite of = despite (có thể thay đổi nhau tự do, dùng danh từ/gerund theo sau)."
+        ],
+        "signs": [
+            "in spite of",
+            "despite",
+            "in spite of the fact that",
+            "despite the fact that"
+        ],
+        "example_en": "In spite of the bad weather, the outdoor concert attracted thousands of fans.",
+        "example_vi": "Mặc dù thời tiết xấu, buổi hòa nhạc ngoài trời vẫn thu hút hàng nghìn người hâm mộ."
+    },
+    {
+        "id": 128,
+        "title": "Cấu trúc 'the + Comparative, the + Comparative'",
+        "level": "ELEMENTARY",
+        "structure": "The + Comparative Adj/Adv + S + V, the + Comparative Adj/Adv + S + V",
+        "breakdown": {
+            "the + comparative": "Dùng 'the' trước cả hai vế so sánh hơn",
+            "Ý nghĩa": "Càng A thì càng B – hai sự thay đổi xảy ra song song và tỷ lệ thuận"
+        },
+        "usage": [
+            "Diễn tả mối quan hệ tỷ lệ thuận giữa hai sự thay đổi.",
+            "Cả hai vế đều dùng cấu trúc 'the + comparative' và trật tự S + V."
+        ],
+        "signs": [
+            "The more...the better",
+            "The harder...the more",
+            "The bigger...the more"
+        ],
+        "example_en": "The more you practice speaking English, the more confident you will become.",
+        "example_vi": "Bạn càng luyện tập nói tiếng Anh nhiều thì bạn sẽ càng trở nên tự tin hơn."
+    },
+    {
+        "id": 129,
+        "title": "Động từ tường thuật đặc biệt (Reporting Verbs)",
+        "level": "ELEMENTARY",
+        "structure": "V + that-clause | V + O + to-inf | V + V-ing",
+        "breakdown": {
+            "V + that-clause": "admit, agree, claim, deny, explain, promise, suggest, warn + that",
+            "V + O + to-inf": "advise, ask, beg, encourage, invite, remind, tell, warn + O + to",
+            "V + V-ing": "admit, deny, recommend, suggest + V-ing"
+        },
+        "usage": [
+            "Mỗi động từ tường thuật có cấu trúc cú pháp riêng; cần học theo từng nhóm.",
+            "suggest và recommend không theo sau bởi to-inf trực tiếp."
+        ],
+        "signs": [
+            "admitted",
+            "denied",
+            "suggested",
+            "agreed",
+            "promised",
+            "warned",
+            "reminded"
+        ],
+        "example_en": "She denied taking the money and suggested checking the security camera footage.",
+        "example_vi": "Cô ấy phủ nhận việc lấy tiền và gợi ý kiểm tra footage camera an ninh."
+    },
+    {
+        "id": 130,
+        "title": "Mệnh đề quan hệ rút gọn (Reduced Relative Clauses)",
+        "level": "ELEMENTARY",
+        "structure": "N + V-ing (rút gọn who/which is/are + V-ing) | N + V3 (rút gọn who/which is/are + V3)",
+        "breakdown": {
+            "N + V-ing": "Rút gọn từ 'who/which + is/are + V-ing' (hành động đang xảy ra)",
+            "N + V3": "Rút gọn từ 'who/which + is/are/was/were + V3' (trạng thái bị động)",
+            "Điều kiện rút gọn": "Chủ ngữ của mệnh đề quan hệ trùng với antecedent"
+        },
+        "usage": [
+            "V-ing rút gọn: The man standing at the door = The man who is standing at the door.",
+            "V3 rút gọn: The book written by her = The book which was written by her."
+        ],
+        "signs": [
+            "N + V-ing",
+            "N + V3/past participle",
+            "the girl sitting",
+            "the car stolen"
+        ],
+        "example_en": "The students taking part in the competition must submit their forms by Friday.",
+        "example_vi": "Những học sinh tham gia cuộc thi phải nộp biểu mẫu của mình trước thứ Sáu."
+    },
+    {
+        "id": 131,
+        "title": "Câu bị động với 'have something done' – Causative Passive",
+        "level": "ELEMENTARY",
+        "structure": "S + have/get + O + V3",
+        "breakdown": {
+            "have + O + V3": "Đã đề cập ở #93; nhắc lại như một dạng bị động chức năng",
+            "get + O + V3": "Tương tự nhưng hàm ý hơi không chủ động hoặc có phần đáng tiếc (get your wallet stolen)",
+            "Phân biệt": "have your hair cut (nhờ ai cắt) vs your hair was cut (bị động thuần túy)"
+        },
+        "usage": [
+            "have/get + O + V3 nhấn mạnh dịch vụ hoặc nhờ cậy người ngoài làm gì.",
+            "get + O + V3 còn dùng khi chủ ngữ trải qua điều gì đó ngoài ý muốn."
+        ],
+        "signs": [
+            "had...done",
+            "got...done",
+            "have your car washed",
+            "get your photo taken"
+        ],
+        "example_en": "She had her laptop repaired at the service center before the deadline.",
+        "example_vi": "Cô ấy đã mang máy tính xách tay đến trung tâm bảo hành để sửa trước hạn chót."
+    },
+    {
+        "id": 132,
+        "title": "Cấu trúc 'be supposed to'",
+        "level": "ELEMENTARY",
+        "structure": "S + am/is/are + supposed to + V-base",
+        "breakdown": {
+            "be supposed to": "Được cho là, đáng lẽ phải (kỳ vọng từ quy tắc/thỏa thuận/xã hội)",
+            "Quá khứ: was/were supposed to": "Đáng lẽ ra phải làm gì (nhưng đã không làm)"
+        },
+        "usage": [
+            "Diễn tả điều được kỳ vọng hoặc quy định phải xảy ra (theo quy tắc, lịch, xã hội).",
+            "was/were supposed to: Đáng lẽ ra... (hàm ý không thực hiện)."
+        ],
+        "signs": [
+            "supposed to",
+            "was supposed to",
+            "were supposed to",
+            "be expected to"
+        ],
+        "example_en": "You are supposed to arrive at the exam room at least fifteen minutes early.",
+        "example_vi": "Bạn đáng lẽ phải đến phòng thi ít nhất mười lăm phút trước giờ thi."
+    },
+    {
+        "id": 133,
+        "title": "Cấu trúc 'be about to'",
+        "level": "ELEMENTARY",
+        "structure": "S + am/is/are + about to + V-base",
+        "breakdown": {
+            "be about to": "Sắp sửa (hành động sẽ xảy ra rất sớm, trong tương lai gần ngay lập tức)",
+            "Phân biệt với 'be going to'": "be about to: ngay lập tức; be going to: kế hoạch đã định trước"
+        },
+        "usage": [
+            "Diễn tả hành động sắp xảy ra ngay lập tức (trong vài giây hoặc vài phút tới).",
+            "Thường không đi kèm trạng từ thời gian vì 'about to' đã mang nghĩa 'ngay bây giờ'."
+        ],
+        "signs": [
+            "about to",
+            "just about to",
+            "on the verge of"
+        ],
+        "example_en": "Hurry up! The train is about to leave the station in two minutes.",
+        "example_vi": "Nhanh lên! Tàu sắp khởi hành khỏi nhà ga trong hai phút nữa."
+    },
+    {
+        "id": 134,
+        "title": "Động từ khuyết thiếu 'may / might' (Khả năng và Suy đoán)",
+        "level": "ELEMENTARY",
+        "structure": "S + may / might + V-base | S + may / might + be + V-ing | S + may / might + have + V3",
+        "breakdown": {
+            "may": "Khả năng khoảng 50% (có thể...)",
+            "might": "Khả năng thấp hơn may (có lẽ..., khoảng 30%)",
+            "may/might + be + V-ing": "Có thể đang xảy ra ở hiện tại",
+            "may/might + have + V3": "Có thể đã xảy ra trong quá khứ"
+        },
+        "usage": [
+            "may/might: suy đoán về điều có thể xảy ra ở hiện tại hoặc tương lai.",
+            "may/might + have + V3: suy đoán về điều có thể đã xảy ra trong quá khứ."
+        ],
+        "signs": [
+            "may",
+            "might",
+            "perhaps",
+            "possibly",
+            "maybe",
+            "probably"
+        ],
+        "example_en": "She might have missed the bus, so she may arrive a little late tonight.",
+        "example_vi": "Cô ấy có thể đã lỡ xe buýt, vì vậy cô ấy có lẽ sẽ đến hơi muộn tối nay."
+    },
+    {
+        "id": 135,
+        "title": "Động từ khuyết thiếu 'must / can't' (Suy đoán chắc chắn)",
+        "level": "ELEMENTARY",
+        "structure": "S + must + V-base / be + V-ing (suy đoán khẳng định) | S + can't + V-base (suy đoán phủ định)",
+        "breakdown": {
+            "must + V-base": "Chắc chắn là... (suy đoán dựa trên bằng chứng rõ ràng)",
+            "can't + V-base": "Chắc chắn không thể... (phủ định suy đoán mạnh)",
+            "must/can't + be + V-ing": "Suy đoán về hành động đang xảy ra",
+            "must/can't + have + V3": "Suy đoán về điều đã xảy ra trong quá khứ"
+        },
+        "usage": [
+            "must (suy đoán): chắc chắn là (KHÔNG phải nghĩa vụ trong ngữ cảnh này).",
+            "can't: không thể đúng được, chắc chắn là không."
+        ],
+        "signs": [
+            "must be",
+            "can't be",
+            "must have + V3",
+            "can't have + V3"
+        ],
+        "example_en": "You must be very tired after such a long and exhausting journey today.",
+        "example_vi": "Bạn chắc chắn rất mệt sau một hành trình dài và vất vả như vậy hôm nay."
+    },
+    {
+        "id": 136,
+        "title": "Động từ khuyết thiếu 'could / should / would + have + V3' (Quá khứ)",
+        "level": "ELEMENTARY",
+        "structure": "S + could/should/would + have + V3",
+        "breakdown": {
+            "should have + V3": "Đáng lẽ ra phải làm (nhưng không làm) – trách cứ hoặc hối tiếc",
+            "shouldn't have + V3": "Đáng lẽ không nên làm (nhưng đã làm)",
+            "could have + V3": "Lẽ ra có thể làm được (nhưng không làm)",
+            "would have + V3": "Lẽ ra đã làm (trong điều kiện loại 3)"
+        },
+        "usage": [
+            "Diễn tả sự hối tiếc, trách cứ hoặc khả năng không được tận dụng trong quá khứ.",
+            "should have + V3: phổ biến nhất để bày tỏ nuối tiếc hoặc phê bình."
+        ],
+        "signs": [
+            "should have",
+            "shouldn't have",
+            "could have",
+            "would have",
+            "might have"
+        ],
+        "example_en": "You should have told me about the problem earlier so I could have helped you.",
+        "example_vi": "Lẽ ra bạn phải nói cho tôi biết về vấn đề đó sớm hơn để tôi có thể giúp bạn."
+    },
+    {
+        "id": 137,
+        "title": "Câu bị động với hai tân ngữ (Indirect + Direct Object)",
+        "level": "ELEMENTARY",
+        "structure": "IO + be + V3 + DO (by agent) | DO + be + V3 + to/for + IO",
+        "breakdown": {
+            "IO (Indirect Object)": "Tân ngữ gián tiếp – người nhận",
+            "DO (Direct Object)": "Tân ngữ trực tiếp – vật được trao",
+            "Hai dạng bị động": "Cả tân ngữ trực tiếp lẫn gián tiếp đều có thể làm chủ ngữ bị động"
+        },
+        "usage": [
+            "Khi câu chủ động có 2 tân ngữ (IO + DO), có thể tạo ra 2 câu bị động khác nhau.",
+            "IO làm chủ ngữ bị động phổ biến hơn: She was given a prize."
+        ],
+        "signs": [
+            "give",
+            "send",
+            "show",
+            "tell",
+            "offer",
+            "teach",
+            "lend",
+            "pay"
+        ],
+        "example_en": "She was given a scholarship by the university for her outstanding academic performance.",
+        "example_vi": "Cô ấy được trường đại học trao học bổng vì thành tích học tập xuất sắc."
+    },
+    {
+        "id": 138,
+        "title": "Đảo ngữ với 'so / neither / nor'",
+        "level": "ELEMENTARY",
+        "structure": "So + aux + S (đồng ý khẳng định) | Neither / Nor + aux + S (đồng ý phủ định)",
+        "breakdown": {
+            "So + aux + S": "Cũng vậy (đồng ý với câu khẳng định): 'I like coffee.' – 'So do I.'",
+            "Neither/Nor + aux + S": "Cũng không (đồng ý với câu phủ định): 'I don't like spam.' – 'Neither do I.'"
+        },
+        "usage": [
+            "Dùng đảo ngữ so/neither để đồng ý với ý kiến của người khác một cách ngắn gọn.",
+            "Trợ động từ phải khớp với thì và chủ ngữ của câu phản hồi."
+        ],
+        "signs": [
+            "So do I",
+            "So am I",
+            "So can she",
+            "Neither do I",
+            "Nor did he"
+        ],
+        "example_en": "'I have never been to Japan.' 'Neither have I, but I'd love to go someday.'",
+        "example_vi": "'Tôi chưa bao giờ đến Nhật Bản.' 'Tôi cũng vậy, nhưng tôi rất muốn đến đó một ngày nào đó.'"
+    },
+    {
+        "id": 139,
+        "title": "Cấu trúc 'so do I / I do too' vs 'neither do I / I don't either'",
+        "level": "ELEMENTARY",
+        "structure": "Affirmative agreement: So + aux + S / S + aux + too | Negative agreement: Neither + aux + S / S + aux + either",
+        "breakdown": {
+            "So + aux + S": "Trang trọng hơn, đảo ngữ",
+            "S + aux + too": "Thông thường hơn, cuối câu: 'I do too.'",
+            "Neither + aux + S": "Đảo ngữ, trang trọng",
+            "S + aux + either": "Thông thường hơn, cuối câu: 'I don't either.'"
+        },
+        "usage": [
+            "Cả hai cách đều chính xác; dạng với 'too/either' phổ biến hơn trong giao tiếp hàng ngày.",
+            "Dạng 'So/Neither + aux + S' trang trọng hơn, dùng nhiều trong văn viết."
+        ],
+        "signs": [
+            "So do I",
+            "I do too",
+            "Neither do I",
+            "I don't either",
+            "Me too",
+            "Me neither"
+        ],
+        "example_en": "Tom loves travelling abroad, and so does his wife. They make a perfect pair.",
+        "example_vi": "Tom rất thích du lịch nước ngoài, và vợ anh ấy cũng vậy. Họ thật sự là một cặp hoàn hảo."
+    },
+    {
+        "id": 140,
+        "title": "Cấu trúc 'What + a/an + Adj + N!' (Câu cảm thán)",
+        "level": "ELEMENTARY",
+        "structure": "What + a/an + Adj + N (số ít)! | What + Adj + N (số nhiều / không đếm được)!",
+        "breakdown": {
+            "What + a/an + adj + N!": "Câu cảm thán với danh từ số ít đếm được",
+            "What + adj + N!": "Câu cảm thán với danh từ số nhiều hoặc không đếm được",
+            "How + adj/adv!": "Câu cảm thán với tính từ/trạng từ (không có danh từ)"
+        },
+        "usage": [
+            "What: theo sau bởi cụm danh từ (adj + N).",
+            "How: theo sau bởi tính từ hoặc trạng từ (không có danh từ)."
+        ],
+        "signs": [
+            "What a/an + adj + N!",
+            "What + adj + N!",
+            "How + adj/adv!"
+        ],
+        "example_en": "What a breathtaking view of the mountains from the top of the hill!",
+        "example_vi": "Quang cảnh núi non từ đỉnh đồi thật choáng ngợp làm sao!"
+    },
+    {
+        "id": 141,
+        "title": "Past Perfect Continuous (Khẳng định)",
+        "level": "INTERMEDIATE",
+        "structure": "S + had + been + V-ing",
+        "breakdown": {
+            "S": "Chủ ngữ",
+            "had been": "Trợ động từ cố định của thì",
+            "V-ing": "Động từ chính dạng hiện tại phân từ"
+        },
+        "usage": [
+            "Nhấn mạnh tính liên tục, kéo dài của một hành động đã diễn ra trong quá khứ.",
+            "Hành động này xảy ra và kết thúc trước một hành động hoặc thời điểm khác trong quá khứ."
+        ],
+        "signs": [
+            "for + khoảng thời gian",
+            "since + mốc thời gian",
+            "before",
+            "by the time"
+        ],
+        "example_en": "They had been working for three hours before the manager arrived.",
+        "example_vi": "Họ đã làm việc liên tục ba tiếng đồng hồ trước khi người quản lý đến."
+    },
+    {
+        "id": 142,
+        "title": "Past Perfect Continuous (Phủ định)",
+        "level": "INTERMEDIATE",
+        "structure": "S + had + not + been + V-ing",
+        "breakdown": {
+            "had not/hadn't": "Trợ động từ mang nghĩa phủ định",
+            "been + V-ing": "Phần còn lại của cụm động từ"
+        },
+        "usage": [
+            "Diễn tả một hành động đã KHÔNG xảy ra liên tục cho đến một thời điểm xác định trong quá khứ.",
+            "Thường dùng để giải thích nguyên nhân cho một sự việc trong quá khứ."
+        ],
+        "signs": [
+            "for",
+            "since",
+            "until",
+            "by the time"
+        ],
+        "example_en": "She had not been studying English long before she moved to London.",
+        "example_vi": "Cô ấy đã không học tiếng Anh lâu trước khi chuyển đến London."
+    },
+    {
+        "id": 143,
+        "title": "Past Perfect Continuous (Nghi vấn)",
+        "level": "INTERMEDIATE",
+        "structure": "Had + S + been + V-ing?",
+        "breakdown": {
+            "Had": "Trợ động từ đảo lên trước chủ ngữ",
+            "been + V-ing": "Động từ chính giữ nguyên dạng"
+        },
+        "usage": [
+            "Dùng để hỏi xem một hành động có đang diễn ra liên tục trước một thời điểm trong quá khứ hay không.",
+            "Có thể thêm từ để hỏi (Wh-) đứng trước 'Had'."
+        ],
+        "signs": [
+            "how long",
+            "before",
+            "by the time"
+        ],
+        "example_en": "How long had you been waiting when the train finally arrived?",
+        "example_vi": "Bạn đã đợi bao lâu khi chuyến tàu cuối cùng cũng đến?"
+    },
+    {
+        "id": 144,
+        "title": "Future Continuous (Khẳng định)",
+        "level": "INTERMEDIATE",
+        "structure": "S + will + be + V-ing",
+        "breakdown": {
+            "will be": "Cụm trợ động từ chỉ tương lai tiếp diễn",
+            "V-ing": "Động từ chính mang ý nghĩa hành động"
+        },
+        "usage": [
+            "Diễn tả một hành động sẽ ĐANG diễn ra tại một thời điểm xác định cụ thể trong tương lai.",
+            "Dùng để dự đoán một việc chắc chắn sẽ xảy ra theo kế hoạch."
+        ],
+        "signs": [
+            "at this time tomorrow",
+            "at + giờ + in the future",
+            "next week"
+        ],
+        "example_en": "At eight o'clock tomorrow evening, I will be watching a movie.",
+        "example_vi": "Vào lúc tám giờ tối mai, tôi sẽ đang xem một bộ phim."
+    },
+    {
+        "id": 145,
+        "title": "Future Continuous (Phủ định)",
+        "level": "INTERMEDIATE",
+        "structure": "S + will + not + be + V-ing",
+        "breakdown": {
+            "will not / won't": "Trợ động từ phủ định",
+            "be + V-ing": "Cấu trúc tiếp diễn"
+        },
+        "usage": [
+            "Phủ định một hành động sẽ đang diễn ra tại một mốc thời gian cụ thể trong tương lai.",
+            "Nói về một việc không nằm trong dự định tương lai."
+        ],
+        "signs": [
+            "at this time next month",
+            "in the future"
+        ],
+        "example_en": "I will not be attending the meeting at two o'clock tomorrow.",
+        "example_vi": "Tôi sẽ không tham gia cuộc họp vào lúc hai giờ ngày mai."
+    },
+    {
+        "id": 146,
+        "title": "Future Continuous (Nghi vấn)",
+        "level": "INTERMEDIATE",
+        "structure": "Will + S + be + V-ing?",
+        "breakdown": {
+            "Will": "Trợ động từ đảo lên đầu câu",
+            "be + V-ing": "Động từ đứng sau chủ ngữ"
+        },
+        "usage": [
+            "Hỏi một cách lịch sự về kế hoạch, dự định của ai đó trong tương lai.",
+            "Xác nhận xem ai đó có đang làm gì vào một thời điểm tương lai không."
+        ],
+        "signs": [
+            "at + thời gian",
+            "tomorrow",
+            "next year"
+        ],
+        "example_en": "Will you be working at this time next Monday?",
+        "example_vi": "Bạn có đang làm việc vào giờ này thứ Hai tuần sau không?"
+    },
+    {
+        "id": 147,
+        "title": "Future Perfect (Khẳng định)",
+        "level": "INTERMEDIATE",
+        "structure": "S + will + have + V3/ed",
+        "breakdown": {
+            "will have": "Cụm trợ động từ cố định",
+            "V3/ed": "Động từ ở dạng quá khứ phân từ"
+        },
+        "usage": [
+            "Diễn tả một hành động sẽ HOÀN THÀNH trước một thời điểm trong tương lai.",
+            "Nhấn mạnh vào kết quả đạt được tính đến một mốc thời gian tương lai."
+        ],
+        "signs": [
+            "by + mốc thời gian tương lai",
+            "by the time",
+            "before"
+        ],
+        "example_en": "I will have finished my homework by the time you arrive.",
+        "example_vi": "Tôi sẽ hoàn thành xong bài tập về nhà trước lúc bạn đến."
+    },
+    {
+        "id": 148,
+        "title": "Future Perfect (Phủ định)",
+        "level": "INTERMEDIATE",
+        "structure": "S + will + not + have + V3/ed",
+        "breakdown": {
+            "will not / won't": "Phủ định tương lai",
+            "have + V3/ed": "Hoàn thành"
+        },
+        "usage": [
+            "Chỉ một hành động sẽ CHƯA được hoàn thành tính đến một thời điểm cụ thể trong tương lai."
+        ],
+        "signs": [
+            "by the end of",
+            "by tomorrow"
+        ],
+        "example_en": "She will not have completed the report by Friday.",
+        "example_vi": "Cô ấy sẽ chưa hoàn thành báo cáo trước thứ Sáu."
+    },
+    {
+        "id": 149,
+        "title": "Future Perfect (Nghi vấn)",
+        "level": "INTERMEDIATE",
+        "structure": "Will + S + have + V3/ed?",
+        "breakdown": {
+            "Will": "Đứng trước chủ ngữ",
+            "have + V3/ed": "Động từ chính ở dạng hoàn thành"
+        },
+        "usage": [
+            "Hỏi xem một hành động liệu có kịp hoàn thành trước một mốc thời gian trong tương lai hay không."
+        ],
+        "signs": [
+            "by next year",
+            "by the time"
+        ],
+        "example_en": "Will you have graduated from university by next summer?",
+        "example_vi": "Bạn có tốt nghiệp đại học trước mùa hè năm sau không?"
+    },
+    {
+        "id": 150,
+        "title": "Future Perfect Continuous (Khẳng định)",
+        "level": "INTERMEDIATE",
+        "structure": "S + will + have + been + V-ing",
+        "breakdown": {
+            "will have been": "Cụm trợ động từ dài",
+            "V-ing": "Động từ chính"
+        },
+        "usage": [
+            "Nhấn mạnh KHOẢNG THỜI GIAN kéo dài của một hành động tính đến một thời điểm cụ thể trong tương lai.",
+            "Hành động có thể vẫn còn tiếp tục sau thời điểm đó."
+        ],
+        "signs": [
+            "by + thời gian + for + khoảng thời gian"
+        ],
+        "example_en": "By next month, we will have been living here for ten years.",
+        "example_vi": "Tính đến tháng sau, chúng tôi sẽ sống ở đây được mười năm."
+    },
+    {
+        "id": 151,
+        "title": "Future Perfect Continuous (Phủ định)",
+        "level": "INTERMEDIATE",
+        "structure": "S + will + not + have + been + V-ing",
+        "breakdown": {
+            "will not / won't": "Trợ động từ phủ định",
+            "have been V-ing": "Động từ chính"
+        },
+        "usage": [
+            "Diễn tả một hành động sẽ KHÔNG xảy ra liên tục cho đến một mốc thời gian trong tương lai."
+        ],
+        "signs": [
+            "by + mốc thời gian + for"
+        ],
+        "example_en": "By December, I will not have been working here for a full year.",
+        "example_vi": "Tính đến tháng 12, tôi sẽ không làm việc ở đây trọn vẹn một năm."
+    },
+    {
+        "id": 152,
+        "title": "Future Perfect Continuous (Nghi vấn)",
+        "level": "INTERMEDIATE",
+        "structure": "Will + S + have + been + V-ing?",
+        "breakdown": {
+            "Will": "Đứng đầu câu",
+            "have been V-ing": "Cụm tiếp diễn hoàn thành"
+        },
+        "usage": [
+            "Dùng với 'How long' để hỏi về độ dài thời gian của một hành động tính đến một mốc trong tương lai."
+        ],
+        "signs": [
+            "how long",
+            "by the time"
+        ],
+        "example_en": "How long will you have been studying by the time the exam starts?",
+        "example_vi": "Bạn sẽ học liên tục được bao lâu tính đến lúc bài thi bắt đầu?"
+    },
+    {
+        "id": 153,
+        "title": "Modals in the past: Must have",
+        "level": "INTERMEDIATE",
+        "structure": "S + must + have + V3/ed",
+        "breakdown": {
+            "must have": "Chắc hẳn là đã",
+            "V3/ed": "Quá khứ phân từ"
+        },
+        "usage": [
+            "Đưa ra một suy luận logic, CHẮC CHẮN về một sự việc đã xảy ra trong quá khứ.",
+            "Dựa trên những bằng chứng rõ ràng ở hiện tại."
+        ],
+        "signs": [
+            "Ngữ cảnh thể hiện sự chắc chắn 100% về quá khứ"
+        ],
+        "example_en": "The streets are wet, so it must have rained last night.",
+        "example_vi": "Đường phố ẩm ướt, nên chắc hẳn đêm qua trời đã mưa."
+    },
+    {
+        "id": 154,
+        "title": "Modals in the past: Can't/Couldn't have",
+        "level": "INTERMEDIATE",
+        "structure": "S + can't/couldn't + have + V3/ed",
+        "breakdown": {
+            "can't / couldn't have": "Không thể nào đã",
+            "V3/ed": "Quá khứ phân từ"
+        },
+        "usage": [
+            "Suy luận chắc chắn rằng một sự việc KHÔNG THỂ đã xảy ra trong quá khứ.",
+            "Là thể phủ định của 'must have' mang tính suy luận."
+        ],
+        "signs": [
+            "Ngữ cảnh vô lý hoặc bất khả thi trong quá khứ"
+        ],
+        "example_en": "He can't have stolen the car because he was with me all day.",
+        "example_vi": "Anh ta không thể nào đã trộm xe vì anh ấy ở cùng tôi cả ngày."
+    },
+    {
+        "id": 155,
+        "title": "Modals in the past: Should have",
+        "level": "INTERMEDIATE",
+        "structure": "S + should + have + V3/ed",
+        "breakdown": {
+            "should have": "Lẽ ra đã nên",
+            "V3/ed": "Quá khứ phân từ"
+        },
+        "usage": [
+            "Thể hiện sự nuối tiếc hoặc trách móc về một việc lẽ ra NÊN làm trong quá khứ nhưng lại không làm."
+        ],
+        "signs": [
+            "Ngữ cảnh hối tiếc (regret) hoặc trách móc (blame)"
+        ],
+        "example_en": "You should have told me the truth earlier.",
+        "example_vi": "Lẽ ra bạn nên nói cho tôi sự thật sớm hơn."
+    },
+    {
+        "id": 156,
+        "title": "Modals in the past: Could have",
+        "level": "INTERMEDIATE",
+        "structure": "S + could + have + V3/ed",
+        "breakdown": {
+            "could have": "Lẽ ra đã có thể",
+            "V3/ed": "Quá khứ phân từ"
+        },
+        "usage": [
+            "Diễn tả một khả năng CÓ THỂ xảy ra trong quá khứ nhưng thực tế đã KHÔNG xảy ra.",
+            "Thường dùng để nói về cơ hội bị bỏ lỡ."
+        ],
+        "signs": [
+            "Ngữ cảnh nói về khả năng trong quá khứ không thành hiện thực"
+        ],
+        "example_en": "She could have passed the exam if she had studied harder.",
+        "example_vi": "Cô ấy lẽ ra đã có thể đỗ kỳ thi nếu cô ấy học chăm hơn."
+    },
+    {
+        "id": 157,
+        "title": "Modals in the past: Might/May have",
+        "level": "INTERMEDIATE",
+        "structure": "S + might/may + have + V3/ed",
+        "breakdown": {
+            "might/may have": "Có lẽ đã",
+            "V3/ed": "Quá khứ phân từ"
+        },
+        "usage": [
+            "Diễn tả một dự đoán hoặc một khả năng KHÔNG CHẮC CHẮN về một sự việc trong quá khứ (khả năng 50%)."
+        ],
+        "signs": [
+            "perhaps, maybe, not sure"
+        ],
+        "example_en": "I can't find my keys, I might have left them at the office.",
+        "example_vi": "Tôi không tìm thấy chìa khóa, có lẽ tôi đã để quên chúng ở văn phòng."
+    },
+    {
+        "id": 158,
+        "title": "Modals in the past: Needn't have",
+        "level": "INTERMEDIATE",
+        "structure": "S + needn't + have + V3/ed",
+        "breakdown": {
+            "needn't have": "Lẽ ra đã không cần",
+            "V3/ed": "Quá khứ phân từ"
+        },
+        "usage": [
+            "Chỉ một việc ĐÃ LÀM trong quá khứ nhưng thực chất là KHÔNG CẦN THIẾT phải làm.",
+            "Gây ra sự lãng phí công sức hoặc thời gian."
+        ],
+        "signs": [
+            "Ngữ cảnh hành động thừa thãi trong quá khứ"
+        ],
+        "example_en": "You needn't have bought so much food for just two people.",
+        "example_vi": "Lẽ ra bạn không cần mua nhiều thức ăn đến thế chỉ cho hai người."
+    },
+    {
+        "id": 159,
+        "title": "Passive Voice: Present Continuous",
+        "level": "INTERMEDIATE",
+        "structure": "S(mới) + am/is/are + being + V3/ed + (by O)",
+        "breakdown": {
+            "am/is/are being": "Động từ 'to be' chia theo thì hiện tại tiếp diễn",
+            "V3/ed": "Động từ chính dạng quá khứ phân từ"
+        },
+        "usage": [
+            "Chuyển câu hiện tại tiếp diễn sang bị động.",
+            "Nhấn mạnh hành động ĐANG BỊ/ĐƯỢC tác động ở ngay thời điểm hiện tại."
+        ],
+        "signs": [
+            "now, at the moment, currently"
+        ],
+        "example_en": "A new hospital is being built in the city center right now.",
+        "example_vi": "Một bệnh viện mới đang được xây dựng ở trung tâm thành phố ngay lúc này."
+    },
+    {
+        "id": 160,
+        "title": "Passive Voice: Past Continuous",
+        "level": "INTERMEDIATE",
+        "structure": "S(mới) + was/were + being + V3/ed + (by O)",
+        "breakdown": {
+            "was/were being": "Động từ 'to be' chia theo quá khứ tiếp diễn",
+            "V3/ed": "Động từ chính"
+        },
+        "usage": [
+            "Thể hiện một hành động đang bị/được thực hiện tại một thời điểm CỤ THỂ trong quá khứ."
+        ],
+        "signs": [
+            "at that time, at 8 PM yesterday"
+        ],
+        "example_en": "My car was being repaired when I arrived at the garage.",
+        "example_vi": "Xe của tôi đang được sửa chữa khi tôi đến gara."
+    },
+    {
+        "id": 161,
+        "title": "Passive Voice: Present Perfect",
+        "level": "INTERMEDIATE",
+        "structure": "S(mới) + have/has + been + V3/ed + (by O)",
+        "breakdown": {
+            "have/has been": "Động từ 'to be' chia theo hiện tại hoàn thành",
+            "V3/ed": "Động từ chính"
+        },
+        "usage": [
+            "Nhấn mạnh kết quả của một hành động ĐÃ ĐƯỢC hoàn thành tính tới thời điểm hiện tại.",
+            "Không quan trọng ai là người thực hiện."
+        ],
+        "signs": [
+            "already, just, recently, so far"
+        ],
+        "example_en": "All the reports have been finished by the marketing team.",
+        "example_vi": "Tất cả các báo cáo đã được đội ngũ marketing hoàn thành."
+    },
+    {
+        "id": 162,
+        "title": "Passive Voice: Past Perfect",
+        "level": "INTERMEDIATE",
+        "structure": "S(mới) + had + been + V3/ed + (by O)",
+        "breakdown": {
+            "had been": "Động từ 'to be' chia theo quá khứ hoàn thành",
+            "V3/ed": "Động từ chính"
+        },
+        "usage": [
+            "Diễn tả một hành động đã bị/được thực hiện XONG trước một thời điểm hoặc sự việc khác trong quá khứ."
+        ],
+        "signs": [
+            "before, by the time, prior to"
+        ],
+        "example_en": "The letters had been delivered before the office opened.",
+        "example_vi": "Những lá thư đã được gửi đi trước khi văn phòng mở cửa."
+    },
+    {
+        "id": 163,
+        "title": "Passive Voice: Future Simple",
+        "level": "INTERMEDIATE",
+        "structure": "S(mới) + will + be + V3/ed + (by O)",
+        "breakdown": {
+            "will be": "Động từ 'to be' chia ở tương lai đơn",
+            "V3/ed": "Động từ chính"
+        },
+        "usage": [
+            "Chỉ một hành động sẽ bị/được tác động, thực hiện trong tương lai."
+        ],
+        "signs": [
+            "tomorrow, next week, in the future"
+        ],
+        "example_en": "The final decision will be made by the manager tomorrow.",
+        "example_vi": "Quyết định cuối cùng sẽ được đưa ra bởi người quản lý vào ngày mai."
+    },
+    {
+        "id": 164,
+        "title": "Passive Voice: Modal Verbs",
+        "level": "INTERMEDIATE",
+        "structure": "S(mới) + modal verb + be + V3/ed + (by O)",
+        "breakdown": {
+            "modal verb": "can, could, must, should, may, might...",
+            "be": "Luôn giữ nguyên thể sau động từ khuyết thiếu",
+            "V3/ed": "Động từ chính"
+        },
+        "usage": [
+            "Dùng để diễn tả sự bắt buộc, khả năng, hoặc lời khuyên dưới hình thức bị động."
+        ],
+        "signs": [
+            "can, must, should, may"
+        ],
+        "example_en": "This secret must be kept between you and me.",
+        "example_vi": "Bí mật này phải được giữ kín giữa bạn và tôi."
+    },
+    {
+        "id": 165,
+        "title": "Impersonal Passive (Chủ ngữ giả It)",
+        "level": "INTERMEDIATE",
+        "structure": "It + is/was + V3/ed(say/think/believe) + that + S2 + V2",
+        "breakdown": {
+            "It": "Chủ ngữ giả",
+            "V3/ed": "Động từ chỉ quan điểm (said, thought, believed)",
+            "S2 + V2": "Mệnh đề chính giữ nguyên"
+        },
+        "usage": [
+            "Bị động khách quan, dùng để tường thuật lại quan điểm, tin đồn, ý kiến chung của nhiều người.",
+            "Mang tính trang trọng, thường dùng trong bản tin."
+        ],
+        "signs": [
+            "People say that"
+        ],
+        "example_en": "It is believed that eating vegetables is good for your health.",
+        "example_vi": "Người ta tin rằng ăn rau xanh rất tốt cho sức khỏe của bạn."
+    },
+    {
+        "id": 166,
+        "title": "Impersonal Passive (Chủ ngữ thật S2)",
+        "level": "INTERMEDIATE",
+        "structure": "S2 + be + V3/ed(say/think) + to V-inf / to have V3/ed",
+        "breakdown": {
+            "S2": "Chủ ngữ của mệnh đề sau được đưa lên đầu",
+            "to V-inf": "Dùng khi hành động xảy ra cùng hoặc sau thì của động từ tường thuật",
+            "to have V3/ed": "Dùng khi hành động xảy ra trước thì của động từ tường thuật"
+        },
+        "usage": [
+            "Tường thuật quan điểm, tập trung trực tiếp vào ĐỐI TƯỢNG được nhắc đến thay vì dùng 'It'."
+        ],
+        "signs": [
+            "People think he is...",
+            "They say she has..."
+        ],
+        "example_en": "The thief is reported to have left the country.",
+        "example_vi": "Tên trộm được báo cáo là đã rời khỏi đất nước."
+    },
+    {
+        "id": 167,
+        "title": "Causative Form: Have something done",
+        "level": "INTERMEDIATE",
+        "structure": "S + have/has/had + Object(vật) + V3/ed + (by O)",
+        "breakdown": {
+            "have/has/had": "Chia theo thì của câu",
+            "Object(vật)": "Sự vật tiếp nhận hành động",
+            "V3/ed": "Động từ dạng bị động"
+        },
+        "usage": [
+            "Diễn tả việc nhờ vả, thuê mướn người khác làm một việc gì đó cho mình.",
+            "Chủ ngữ không tự tay làm việc đó."
+        ],
+        "signs": [
+            "Cấu trúc bị động truyền khiến"
+        ],
+        "example_en": "I had my hair cut at the new salon yesterday.",
+        "example_vi": "Tôi đã nhờ người cắt tóc tại tiệm mới vào ngày hôm qua."
+    },
+    {
+        "id": 168,
+        "title": "Causative Form: Get something done",
+        "level": "INTERMEDIATE",
+        "structure": "S + get/gets/got + Object(vật) + V3/ed + (by O)",
+        "breakdown": {
+            "get": "Chia theo thì",
+            "V3/ed": "Hành động được thực hiện (bị động)"
+        },
+        "usage": [
+            "Ý nghĩa tương đương 'have sth done'.",
+            "Thường dùng trong văn nói thân mật hơn, đôi khi mang ý nghĩa phải nỗ lực mới hoàn thành được."
+        ],
+        "signs": [
+            "Tương tự have sth done"
+        ],
+        "example_en": "She needs to get her laptop fixed before the presentation.",
+        "example_vi": "Cô ấy cần mang máy tính xách tay đi sửa trước buổi thuyết trình."
+    },
+    {
+        "id": 169,
+        "title": "Causative Form: Have somebody do something",
+        "level": "INTERMEDIATE",
+        "structure": "S + have/has/had + Object(người) + V-inf + Object(vật)",
+        "breakdown": {
+            "Object(người)": "Người thực hiện hành động",
+            "V-inf": "Động từ nguyên thể không to"
+        },
+        "usage": [
+            "Cấu trúc chủ động. Nhờ vả, giao việc cho một người cụ thể làm gì.",
+            "Nhấn mạnh trách nhiệm của người được giao việc."
+        ],
+        "signs": [
+            "Có tên người hoặc tân ngữ chỉ người sau 'have'"
+        ],
+        "example_en": "The boss had his assistant print the documents.",
+        "example_vi": "Ông chủ đã giao cho trợ lý của mình in các tài liệu."
+    },
+    {
+        "id": 170,
+        "title": "Causative Form: Get somebody to do something",
+        "level": "INTERMEDIATE",
+        "structure": "S + get/gets/got + Object(người) + to V-inf + Object(vật)",
+        "breakdown": {
+            "Object(người)": "Người thực hiện",
+            "to V-inf": "Bắt buộc có 'to' sau tân ngữ chỉ người"
+        },
+        "usage": [
+            "Thuyết phục, xúi giục ai đó làm việc gì cho mình.",
+            "Khác với 'have sb do', 'get' mang sắc thái phải thuyết phục mới làm."
+        ],
+        "signs": [
+            "Có tân ngữ chỉ người sau 'get', động từ có 'to'"
+        ],
+        "example_en": "I finally got my brother to clean his messy bedroom.",
+        "example_vi": "Cuối cùng tôi cũng thuyết phục được em trai dọn dẹp phòng ngủ bừa bộn của nó."
+    },
+    {
+        "id": 171,
+        "title": "Conditional Sentence Type 3 (Câu điều kiện loại 3)",
+        "level": "INTERMEDIATE",
+        "structure": "If + S + had + V3/ed, S + would/could + have + V3/ed",
+        "breakdown": {
+            "Mệnh đề If": "Dùng thì Quá khứ hoàn thành (had V3/ed)",
+            "Mệnh đề chính": "Dùng would/could have + V3/ed"
+        },
+        "usage": [
+            "Giả định một sự việc trái ngược hoàn toàn với thực tế ĐÃ XẢY RA trong quá khứ.",
+            "Thường mang ý nghĩa tiếc nuối hoặc trách móc."
+        ],
+        "signs": [
+            "Ngữ cảnh sự việc đã kết thúc trong quá khứ"
+        ],
+        "example_en": "If I had known you were in the hospital, I would have visited you.",
+        "example_vi": "Nếu tôi biết bạn ở bệnh viện, tôi đã đến thăm bạn rồi."
+    },
+    {
+        "id": 172,
+        "title": "Mixed Conditional (Câu điều kiện hỗn hợp 3-2)",
+        "level": "INTERMEDIATE",
+        "structure": "If + S + had + V3/ed, S + would/could + V-inf",
+        "breakdown": {
+            "Mệnh đề If (Loại 3)": "Quá khứ hoàn thành (Nguyên nhân giả định ở quá khứ)",
+            "Mệnh đề chính (Loại 2)": "would/could + V-inf (Kết quả giả định ở hiện tại)"
+        },
+        "usage": [
+            "Giả định một sự việc trái ngược trong quá khứ dẫn đến KẾT QUẢ bị thay đổi ở HIỆN TẠI."
+        ],
+        "signs": [
+            "Mệnh đề chính thường có 'now, today, at present'"
+        ],
+        "example_en": "If she had gone to sleep earlier last night, she would not be tired now.",
+        "example_vi": "Nếu tối qua cô ấy đi ngủ sớm hơn thì bây giờ cô ấy đã không mệt."
+    },
+    {
+        "id": 173,
+        "title": "Mixed Conditional (Câu điều kiện hỗn hợp 2-3)",
+        "level": "INTERMEDIATE",
+        "structure": "If + S + V-ed/were, S + would/could + have + V3/ed",
+        "breakdown": {
+            "Mệnh đề If (Loại 2)": "Quá khứ đơn (were cho mọi ngôi) - Sự thật không đổi",
+            "Mệnh đề chính (Loại 3)": "would have V3/ed - Kết quả trong quá khứ"
+        },
+        "usage": [
+            "Giả định một bản chất, sự thật ở hiện tại trái ngược, dẫn đến một kết quả đã thay đổi trong quá khứ."
+        ],
+        "signs": [
+            "Mệnh đề If chỉ bản chất không đổi, vế sau là quá khứ"
+        ],
+        "example_en": "If I were a good cook, I would have prepared the dinner yesterday.",
+        "example_vi": "Nếu tôi là một người nấu ăn giỏi, tôi đã chuẩn bị bữa tối ngày hôm qua rồi."
+    },
+    {
+        "id": 174,
+        "title": "Inversion in Conditional Type 1 (Đảo ngữ loại 1)",
+        "level": "INTERMEDIATE",
+        "structure": "Should + S + V-inf, S + will/can + V-inf",
+        "breakdown": {
+            "Should": "Thay thế cho 'If', đảo lên đầu",
+            "V-inf": "Động từ chính bắt buộc ở dạng nguyên thể không to"
+        },
+        "usage": [
+            "Dùng để tăng tính trang trọng hoặc lịch sự của câu giả định có thể xảy ra ở hiện tại/tương lai.",
+            "Thường dùng trong văn bản thương mại, email."
+        ],
+        "signs": [
+            "Should đứng đầu câu, vế sau có will/can"
+        ],
+        "example_en": "Should you need any further information, please contact us.",
+        "example_vi": "Nếu bạn cần thêm bất kỳ thông tin nào, vui lòng liên hệ với chúng tôi."
+    },
+    {
+        "id": 175,
+        "title": "Inversion in Conditional Type 2 (Đảo ngữ loại 2)",
+        "level": "INTERMEDIATE",
+        "structure": "Were + S + (to V-inf / N / Adj), S + would/could + V-inf",
+        "breakdown": {
+            "Were": "Thay thế cho 'If'",
+            "to V-inf": "Nếu động từ chính là động từ thường, phải thêm 'to'"
+        },
+        "usage": [
+            "Tăng tính trang trọng cho giả định không có thật ở hiện tại."
+        ],
+        "signs": [
+            "Were đứng đầu câu, vế sau có would/could"
+        ],
+        "example_en": "Were I the manager, I would change the working policies.",
+        "example_vi": "Nếu tôi là người quản lý, tôi sẽ thay đổi các chính sách làm việc."
+    },
+    {
+        "id": 176,
+        "title": "Inversion in Conditional Type 3 (Đảo ngữ loại 3)",
+        "level": "INTERMEDIATE",
+        "structure": "Had + S + V3/ed, S + would/could + have + V3/ed",
+        "breakdown": {
+            "Had": "Đảo lên trước chủ ngữ, thay cho If",
+            "V3/ed": "Giữ nguyên dạng phân từ hai"
+        },
+        "usage": [
+            "Tăng tính trang trọng và học thuật cho câu giả định trái ngược với quá khứ."
+        ],
+        "signs": [
+            "Had đứng đầu câu, không có động từ chính khác ngoài V3/ed"
+        ],
+        "example_en": "Had we known about the storm, we would have stayed at home.",
+        "example_vi": "Giá như chúng tôi biết về cơn bão, chúng tôi đã ở nhà."
+    },
+    {
+        "id": 177,
+        "title": "Wish + Past Perfect (Điều ước trong quá khứ)",
+        "level": "INTERMEDIATE",
+        "structure": "S1 + wish(es) + S2 + had + V3/ed",
+        "breakdown": {
+            "wish": "Động từ ước, chia theo S1",
+            "had + V3/ed": "Thì quá khứ hoàn thành dùng cho mệnh đề sau wish"
+        },
+        "usage": [
+            "Thể hiện sự nuối tiếc về một điều gì đó đã xảy ra hoặc không xảy ra trong quá khứ.",
+            "Mang nghĩa trái ngược với sự thật trong quá khứ."
+        ],
+        "signs": [
+            "yesterday, last time, in the past"
+        ],
+        "example_en": "She wishes she had accepted that job offer last year.",
+        "example_vi": "Cô ấy ước rằng mình đã chấp nhận lời đề nghị công việc đó vào năm ngoái."
+    },
+    {
+        "id": 178,
+        "title": "If only + Past Perfect",
+        "level": "INTERMEDIATE",
+        "structure": "If only + S + had + V3/ed",
+        "breakdown": {
+            "If only": "Giá như, thay thế cho 'I wish'",
+            "had + V3/ed": "Quá khứ hoàn thành"
+        },
+        "usage": [
+            "Tương tự Wish ở quá khứ nhưng mang sắc thái cảm xúc, sự tiếc nuối mạnh mẽ hơn."
+        ],
+        "signs": [
+            "If only đứng đầu câu"
+        ],
+        "example_en": "If only I had studied harder for the final exams.",
+        "example_vi": "Giá như tôi đã học hành chăm chỉ hơn cho kỳ thi cuối kỳ."
+    },
+    {
+        "id": 179,
+        "title": "Would rather + Past Perfect",
+        "level": "INTERMEDIATE",
+        "structure": "S1 + would rather + S2 + had + V3/ed",
+        "breakdown": {
+            "would rather": "Thà rằng",
+            "S2": "Chủ ngữ thứ hai (khác S1)",
+            "had + V3/ed": "Lùi thì về quá khứ hoàn thành"
+        },
+        "usage": [
+            "Mong muốn, phàn nàn việc ai đó lẽ ra đã làm hoặc không làm gì trong quá khứ.",
+            "Sự việc đã lỡ xảy ra rồi."
+        ],
+        "signs": [
+            "S1 would rather S2, đi kèm ngữ cảnh quá khứ"
+        ],
+        "example_en": "I would rather you had told me the truth yesterday.",
+        "example_vi": "Tôi thà rằng bạn đã nói sự thật cho tôi vào ngày hôm qua."
+    },
+    {
+        "id": 180,
+        "title": "Reported Speech: Yes/No Questions",
+        "level": "INTERMEDIATE",
+        "structure": "S + asked/wanted to know + (O) + if/whether + S2 + V(lùi thì)",
+        "breakdown": {
+            "if/whether": "Liệu rằng (dùng để nối)",
+            "S2 + V(lùi thì)": "Đổi trật tự từ thành câu khẳng định và lùi thì động từ"
+        },
+        "usage": [
+            "Tường thuật lại một câu hỏi dạng Có/Không (Yes/No Questions).",
+            "Không dùng trợ động từ do/does/did trong mệnh đề tường thuật."
+        ],
+        "signs": [
+            "asked if, wondered whether"
+        ],
+        "example_en": "She asked me if I liked playing football in my free time.",
+        "example_vi": "Cô ấy hỏi tôi liệu tôi có thích chơi bóng đá vào thời gian rảnh không."
+    },
+    {
+        "id": 181,
+        "title": "Reported Speech: Wh- Questions",
+        "level": "INTERMEDIATE",
+        "structure": "S + asked/wondered + (O) + Wh-word + S2 + V(lùi thì)",
+        "breakdown": {
+            "Wh-word": "Từ để hỏi (What, Where, How...)",
+            "S2 + V(lùi thì)": "Trật tự câu khẳng định, phải lùi thì"
+        },
+        "usage": [
+            "Tường thuật lại một câu hỏi có từ để hỏi (Wh- Questions)."
+        ],
+        "signs": [
+            "asked where, wondered how"
+        ],
+        "example_en": "The teacher asked the student where he had been the day before.",
+        "example_vi": "Giáo viên hỏi học sinh rằng cậu ấy đã ở đâu vào ngày hôm trước."
+    },
+    {
+        "id": 182,
+        "title": "Reported Speech: Orders and Commands",
+        "level": "INTERMEDIATE",
+        "structure": "S + told/ordered/asked + O + (not) + to V-inf",
+        "breakdown": {
+            "told/ordered": "Bảo / Ra lệnh",
+            "not to V-inf": "Đừng làm gì (Nếu là câu phủ định)"
+        },
+        "usage": [
+            "Tường thuật lại một yêu cầu, mệnh lệnh hoặc chỉ thị.",
+            "Không lùi thì mà sử dụng cấu trúc động từ nguyên thể có 'to'."
+        ],
+        "signs": [
+            "told me to, asked her not to"
+        ],
+        "example_en": "The police officer ordered the driver to get out of the car.",
+        "example_vi": "Viên cảnh sát ra lệnh cho người lái xe bước ra khỏi xe."
+    },
+    {
+        "id": 183,
+        "title": "Reported Speech: Advice",
+        "level": "INTERMEDIATE",
+        "structure": "S + advised + O + (not) + to V-inf",
+        "breakdown": {
+            "advised": "Khuyên bảo",
+            "to V-inf": "Hành động được khuyên"
+        },
+        "usage": [
+            "Tường thuật lại một lời khuyên (VD: You should..., If I were you...).",
+            "Biến đổi trực tiếp ý nghĩa của câu thay vì bê nguyên cấu trúc."
+        ],
+        "signs": [
+            "advised sb to do sth"
+        ],
+        "example_en": "The doctor advised him to stop smoking immediately.",
+        "example_vi": "Bác sĩ khuyên anh ấy nên bỏ hút thuốc ngay lập tức."
+    },
+    {
+        "id": 184,
+        "title": "Relative Clause: Defining with Who/That",
+        "level": "INTERMEDIATE",
+        "structure": "N(người) + who/that + V + O | N(người) + who/that + S + V",
+        "breakdown": {
+            "N(người)": "Danh từ chỉ người chưa xác định",
+            "who/that": "Đại từ quan hệ đóng vai trò chủ ngữ hoặc tân ngữ"
+        },
+        "usage": [
+            "Mệnh đề quan hệ xác định cung cấp thông tin thiết yếu để nhận diện danh từ đứng trước nó.",
+            "Không có mệnh đề này thì câu không rõ nghĩa."
+        ],
+        "signs": [
+            "Không có dấu phẩy ngăn cách, danh từ chung chung"
+        ],
+        "example_en": "The man who is wearing a black suit is my uncle.",
+        "example_vi": "Người đàn ông đang mặc bộ vest đen là chú của tôi."
+    },
+    {
+        "id": 185,
+        "title": "Relative Clause: Non-defining",
+        "level": "INTERMEDIATE",
+        "structure": "N(xác định) + , + who/whom/which + V/S+V + ,",
+        "breakdown": {
+            "N(xác định)": "Tên riêng, có tính từ sở hữu, this/that",
+            "who/whom/which": "Tuyệt đối không dùng 'that'"
+        },
+        "usage": [
+            "Mệnh đề quan hệ không xác định, chỉ bổ sung thêm thông tin phụ.",
+            "Lược bỏ đi câu vẫn có ý nghĩa đầy đủ."
+        ],
+        "signs": [
+            "Có dấu phẩy (,)"
+        ],
+        "example_en": "My father, who is sixty years old, still plays tennis every weekend.",
+        "example_vi": "Bố tôi, người đã sáu mươi tuổi, vẫn chơi quần vợt vào mỗi cuối tuần."
+    },
+    {
+        "id": 186,
+        "title": "Relative Clause: Whose (Sở hữu)",
+        "level": "INTERMEDIATE",
+        "structure": "N1 + whose + N2 + V / S + V",
+        "breakdown": {
+            "whose": "Thay thế cho tính từ sở hữu (his, her, their, its)",
+            "N2": "Danh từ thuộc sở hữu của N1, không có mạo từ a/the"
+        },
+        "usage": [
+            "Dùng để chỉ sự sở hữu của người hoặc vật trong mệnh đề quan hệ."
+        ],
+        "signs": [
+            "whose luôn đứng giữa hai danh từ"
+        ],
+        "example_en": "I met a girl whose brother is a famous singer.",
+        "example_vi": "Tôi đã gặp một cô gái mà anh trai của cô ấy là một ca sĩ nổi tiếng."
+    },
+    {
+        "id": 187,
+        "title": "Relative Clause: Where / When / Why",
+        "level": "INTERMEDIATE",
+        "structure": "N(nơi chốn/thời gian/lý do) + where/when/why + S + V",
+        "breakdown": {
+            "where": "Thay thế cho giới từ + which (in/on/at which)",
+            "S + V": "Theo sau các trạng từ quan hệ này bắt buộc là một mệnh đề hoàn chỉnh"
+        },
+        "usage": [
+            "Đại từ quan hệ thay thế cho trạng từ chỉ nơi chốn, thời gian hoặc lý do."
+        ],
+        "signs": [
+            "the place where, the day when, the reason why"
+        ],
+        "example_en": "This is the house where I spent my childhood.",
+        "example_vi": "Đây là ngôi nhà nơi tôi đã trải qua tuổi thơ của mình."
+    },
+    {
+        "id": 188,
+        "title": "Relative Clause: Preposition + Whom/Which",
+        "level": "INTERMEDIATE",
+        "structure": "N + giới từ (in/on/about/with) + whom/which + S + V",
+        "breakdown": {
+            "Giới từ": "Được đảo lên trước đại từ quan hệ",
+            "whom/which": "Chỉ dùng whom (người), which (vật). Không dùng who, that."
+        },
+        "usage": [
+            "Dùng trong văn phong trang trọng khi động từ trong mệnh đề quan hệ đi kèm với một giới từ cố định."
+        ],
+        "signs": [
+            "to whom, about which, in which"
+        ],
+        "example_en": "The project about which we were talking has been cancelled.",
+        "example_vi": "Dự án mà chúng ta đang nói đến đã bị hủy bỏ."
+    },
+    {
+        "id": 189,
+        "title": "Reduced Relative Clause: Present Participle (V-ing)",
+        "level": "INTERMEDIATE",
+        "structure": "N + V-ing + O / Cụm từ",
+        "breakdown": {
+            "V-ing": "Lược bỏ đại từ quan hệ, đưa động từ về dạng V-ing"
+        },
+        "usage": [
+            "Rút gọn mệnh đề quan hệ khi mệnh đề đóng vai trò mang ý nghĩa CHỦ ĐỘNG.",
+            "Dùng được cho cả các thì đơn và tiếp diễn."
+        ],
+        "signs": [
+            "Đứng ngay sau danh từ là V-ing"
+        ],
+        "example_en": "The boy playing the guitar in the corner is my little brother.",
+        "example_vi": "Cậu bé đang chơi guitar ở góc phòng là em trai tôi."
+    },
+    {
+        "id": 190,
+        "title": "Reduced Relative Clause: Past Participle (V3/ed)",
+        "level": "INTERMEDIATE",
+        "structure": "N + V3/ed + (by O)",
+        "breakdown": {
+            "V3/ed": "Lược bỏ đại từ quan hệ và to be, giữ lại phân từ hai"
+        },
+        "usage": [
+            "Rút gọn mệnh đề quan hệ khi mệnh đề mang ý nghĩa BỊ ĐỘNG."
+        ],
+        "signs": [
+            "Đứng ngay sau danh từ là V3/ed, thường có 'by' phía sau"
+        ],
+        "example_en": "The book written by that famous author became a bestseller.",
+        "example_vi": "Cuốn sách được viết bởi tác giả nổi tiếng đó đã trở thành sách bán chạy nhất."
+    },
+    {
+        "id": 191,
+        "title": "Reduced Relative Clause: To-infinitive",
+        "level": "INTERMEDIATE",
+        "structure": "N + to V-inf / to be V3/ed",
+        "breakdown": {
+            "to V-inf": "Dùng nếu mang ý nghĩa chủ động",
+            "to be V3/ed": "Dùng nếu mang ý nghĩa bị động"
+        },
+        "usage": [
+            "Rút gọn khi danh từ đứng trước được bổ nghĩa bởi số thứ tự, the last, the only, hoặc so sánh nhất."
+        ],
+        "signs": [
+            "the first, the second, the only, the best + N"
+        ],
+        "example_en": "Neil Armstrong was the first man to walk on the moon.",
+        "example_vi": "Neil Armstrong là người đầu tiên bước đi trên mặt trăng."
+    },
+    {
+        "id": 192,
+        "title": "Inversion: Never / Rarely / Seldom",
+        "level": "INTERMEDIATE",
+        "structure": "Never / Rarely / Seldom + Trợ động từ + S + V",
+        "breakdown": {
+            "Từ phủ định": "Đứng đầu câu",
+            "Trợ động từ + S + V": "Cấu trúc giống như một câu hỏi"
+        },
+        "usage": [
+            "Nhấn mạnh sự hiếm hoi, ít khi xảy ra hoặc không bao giờ xảy ra của hành động.",
+            "Mang sắc thái cảm xúc ngạc nhiên hoặc nhấn mạnh mạnh mẽ."
+        ],
+        "signs": [
+            "Never, Rarely, Seldom, Little đứng đầu câu"
+        ],
+        "example_en": "Seldom have I seen such a beautiful performance in my life.",
+        "example_vi": "Hiếm khi nào trong đời tôi được xem một màn trình diễn đẹp đến vậy."
+    },
+    {
+        "id": 193,
+        "title": "Inversion: No sooner ... than",
+        "level": "INTERMEDIATE",
+        "structure": "No sooner + had + S1 + V3/ed + than + S2 + V-ed",
+        "breakdown": {
+            "had S1 V3/ed": "Đảo ngữ ở vế quá khứ hoàn thành",
+            "than": "Đi kèm bắt buộc với No sooner"
+        },
+        "usage": [
+            "Diễn tả một hành động VỪA MỚI xảy ra thì ngay lập tức một hành động khác xảy ra (Vừa mới... thì...)."
+        ],
+        "signs": [
+            "No sooner đứng đầu, giữa hai mệnh đề có than"
+        ],
+        "example_en": "No sooner had we arrived at the station than the train left.",
+        "example_vi": "Chúng tôi vừa mới đến nhà ga thì tàu rời đi."
+    },
+    {
+        "id": 194,
+        "title": "Inversion: Hardly / Scarcely ... when",
+        "level": "INTERMEDIATE",
+        "structure": "Hardly / Scarcely + had + S1 + V3/ed + when + S2 + V-ed",
+        "breakdown": {
+            "Hardly/Scarcely": "Mang nghĩa Vừa mới",
+            "when": "Từ nối mệnh đề thứ hai, thay thế cho 'than'"
+        },
+        "usage": [
+            "Ý nghĩa giống hoàn toàn No sooner. Dùng để nhấn mạnh chuỗi hành động xảy ra sát nhau."
+        ],
+        "signs": [
+            "Hardly, Scarcely đứng đầu, đi với when"
+        ],
+        "example_en": "Hardly had she finished her speech when the audience started cheering.",
+        "example_vi": "Cô ấy vừa mới kết thúc bài phát biểu thì khán giả bắt đầu cổ vũ."
+    },
+    {
+        "id": 195,
+        "title": "Inversion: Not only ... but also",
+        "level": "INTERMEDIATE",
+        "structure": "Not only + Trợ động từ + S + V, but S + also + V",
+        "breakdown": {
+            "Not only": "Đứng đầu câu kéo theo đảo trợ động từ",
+            "but S also V": "Vế sau giữ nguyên trật tự chủ ngữ - vị ngữ"
+        },
+        "usage": [
+            "Nhấn mạnh hai đặc điểm, hành động song song (Không những... mà còn...)."
+        ],
+        "signs": [
+            "Not only đứng đầu câu"
+        ],
+        "example_en": "Not only did he win the championship, but he also broke the world record.",
+        "example_vi": "Anh ấy không những giành chức vô địch mà còn phá vỡ kỷ lục thế giới."
+    },
+    {
+        "id": 196,
+        "title": "Cleft Sentence: Subject Focus",
+        "level": "INTERMEDIATE",
+        "structure": "It is/was + Chủ ngữ + who/that + V + O",
+        "breakdown": {
+            "It is/was": "Kẹp chủ ngữ cần nhấn mạnh",
+            "who/that": "Nếu chủ ngữ là người dùng who/that, vật dùng that"
+        },
+        "usage": [
+            "Câu chẻ dùng để nhấn mạnh chính xác AI hoặc CÁI GÌ là chủ thể thực hiện hành động."
+        ],
+        "signs": [
+            "It is/was đứng đầu, theo sau là danh từ làm chủ ngữ"
+        ],
+        "example_en": "It was my mother who bought me this expensive watch.",
+        "example_vi": "Chính mẹ tôi là người đã mua cho tôi chiếc đồng hồ đắt tiền này."
+    },
+    {
+        "id": 197,
+        "title": "Cleft Sentence: Object Focus",
+        "level": "INTERMEDIATE",
+        "structure": "It is/was + Tân ngữ + that/whom/which + S + V",
+        "breakdown": {
+            "Tân ngữ": "Đối tượng bị tác động được đưa lên sau It is/was",
+            "that/whom/which": "Nối mệnh đề sau"
+        },
+        "usage": [
+            "Câu chẻ nhấn mạnh đối tượng BỊ tác động trong câu."
+        ],
+        "signs": [
+            "It is/was + Object + that"
+        ],
+        "example_en": "It is the blue shirt that I want to buy, not the red one.",
+        "example_vi": "Chính chiếc áo màu xanh là cái tôi muốn mua, không phải cái màu đỏ."
+    },
+    {
+        "id": 198,
+        "title": "Cleft Sentence: Adverbial Focus",
+        "level": "INTERMEDIATE",
+        "structure": "It is/was + Cụm trạng ngữ + that + S + V + O",
+        "breakdown": {
+            "Cụm trạng ngữ": "Thời gian hoặc nơi chốn",
+            "that": "BẮT BUỘC dùng 'that', KHÔNG dùng when/where"
+        },
+        "usage": [
+            "Nhấn mạnh chính xác thời gian hoặc địa điểm mà sự việc xảy ra."
+        ],
+        "signs": [
+            "It is/was + in/on/at + that"
+        ],
+        "example_en": "It was in Paris that they first met each other.",
+        "example_vi": "Chính tại Paris, họ đã lần đầu tiên gặp nhau."
+    },
+    {
+        "id": 199,
+        "title": "Participle Clause: Perfect Participle",
+        "level": "INTERMEDIATE",
+        "structure": "Having + V3/ed, S + V-ed",
+        "breakdown": {
+            "Having + V3/ed": "Hành động xảy ra trước",
+            "S + V-ed": "Hai vế phải chung một chủ ngữ"
+        },
+        "usage": [
+            "Rút gọn mệnh đề trạng ngữ chỉ thời gian khi một hành động đã hoàn tất trọn vẹn trước khi hành động thứ hai bắt đầu."
+        ],
+        "signs": [
+            "Having + V3/ed đứng đầu câu"
+        ],
+        "example_en": "Having finished his homework, he went out to play basketball.",
+        "example_vi": "Sau khi đã làm xong bài tập về nhà, cậu ấy ra ngoài chơi bóng rổ."
+    },
+    {
+        "id": 200,
+        "title": "Participle Clause: Passive Perfect Participle",
+        "level": "INTERMEDIATE",
+        "structure": "Having + been + V3/ed, S + V",
+        "breakdown": {
+            "Having been + V3/ed": "Dạng bị động của Perfect Participle"
+        },
+        "usage": [
+            "Nhấn mạnh một hành động mang tính BỊ ĐỘNG đã hoàn tất trước một hành động khác."
+        ],
+        "signs": [
+            "Having been V3/ed đứng đầu"
+        ],
+        "example_en": "Having been repaired, the machine worked perfectly again.",
+        "example_vi": "Sau khi đã được sửa chữa, chiếc máy lại hoạt động một cách hoàn hảo."
+    }
+]

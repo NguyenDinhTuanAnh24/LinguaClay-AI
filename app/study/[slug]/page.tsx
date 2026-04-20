@@ -1,0 +1,66 @@
+import { createClient } from '@/utils/supabase/server'
+import { prisma } from '@/lib/prisma'
+import { notFound, redirect } from 'next/navigation'
+import FlashcardStudy from '@/components/study/FlashcardStudy'
+
+export default async function StudyPage({ 
+  params, 
+}: { 
+  params: { slug: string }
+}) {
+  const { slug } = await params
+  
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+
+  if (!user) {
+    redirect('/login')
+  }
+
+  // Đảm bảo User tồn tại trong DB của Prisma
+  await prisma.user.upsert({
+    where: { id: user.id },
+    update: { email: user.email! },
+    create: {
+      id: user.id,
+      email: user.email!,
+      targetLanguage: 'EN',
+      proficiencyLevel: 'Beginner'
+    }
+  })
+
+  // Tìm Topic theo slug thay vì id
+  const topic = await prisma.topic.findUnique({
+    where: { slug },
+    include: {
+      words: {
+        include: {
+          userProgress: {
+            where: { userId: user.id }
+          }
+        }
+      }
+    }
+  })
+
+  if (!topic) {
+    notFound()
+  }
+
+  const learningData = {
+    id: topic.id,
+    title: topic.name,
+    words: topic.isAIGenerated 
+      ? topic.words 
+      : [...topic.words].sort(() => Math.random() - 0.5)
+  }
+
+  return (
+    <div className="min-h-screen bg-clay-cream overflow-hidden">
+      <FlashcardStudy 
+        vocabSet={learningData} 
+        userId={user.id} 
+      />
+    </div>
+  )
+}

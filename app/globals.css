@@ -1,26 +1,146 @@
 @import "tailwindcss";
 
+/* Force light mode - prevent dark override */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light only;
+}
+
+:root {
+  --background: #FFF8E7;
+  --foreground: #8B7355;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-lexend: 'Lexend', sans-serif;
+  --font-heading: var(--font-lexend);
+  --font-body: var(--font-lexend);
+
+
+  /* Clay color tokens */
+  --color-cream: #FFF8E7;
+  --color-warm-white: #FFFEF7;
+  --color-soft-gray: #E8E4DE;
+  --color-clay-shadow: #D4C5B9;
+  --color-clay-cream: #FFF8E7;
+  --color-clay-blue: #7BA3D0;
+  --color-clay-blue-dark: #5A86B8;
+  --color-clay-orange: #F4A460;
+  --color-clay-pink: #E8B4B8;
+  --color-clay-green: #A8D5BA;
+  --color-clay-gold: #E5B77E;
+  --color-clay-deep: #8B7355;
+  --color-clay-brown: #6B4226;
+  --color-clay-brown-dark: #4A2C17;
+
+  /* Shadow tokens - Refined for better visibility */
+  --shadow-clay-card: 12px 12px 24px rgba(139, 115, 85, 0.2), -12px -12px 24px rgba(255, 255, 255, 0.9), inset 4px 4px 8px rgba(255, 255, 255, 0.3), inset -4px -4px 8px rgba(139, 115, 85, 0.05);
+  --shadow-clay-button: 6px 6px 12px rgba(139, 115, 85, 0.15), -6px -6px 12px rgba(255, 255, 255, 1), inset 2px 2px 4px rgba(255, 255, 255, 0.5), inset -2px -2px 4px rgba(139, 115, 85, 0.05);
+  --shadow-clay-button-hover: 10px 10px 20px rgba(139, 115, 85, 0.2), -10px -10px 20px rgba(255, 255, 255, 1);
+  --shadow-clay-float: 0 20px 40px rgba(139, 115, 85, 0.15), 0 10px 20px rgba(139, 115, 85, 0.1);
+  --shadow-clay-inset: inset 4px 4px 8px rgba(139, 115, 85, 0.15), inset -4px -4px 8px rgba(255, 255, 255, 0.8);
+  --shadow-clay-pressed: inset 5px 5px 10px rgba(139, 115, 85, 0.15), inset -5px -5px 10px rgba(255, 255, 255, 0.9);
+
+  /* Animation tokens */
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-breathe: breathe 3s ease-in-out infinite;
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+  @keyframes count-up {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(-8px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slideInRight {
+    0%   { opacity: 0; transform: translateX(110%) scale(0.92); }
+    100% { opacity: 1; transform: translateX(0)   scale(1); }
+  }
+  @keyframes shimmer {
+    100% { transform: translateX(100%); }
+  }
+  --animate-shimmer: shimmer 2s infinite;
+  --animate-fadeIn: fadeIn 0.3s ease-out both;
+  --animate-slideInRight: slideInRight 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Text Gradients */
+.clay-text-gradient {
+  background: linear-gradient(135deg, #8B7355 0%, #6B4226 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  filter: drop-shadow(2px 2px 4px rgba(212,197,185,0.3));
 }
+
+
 
 body {
-  background: var(--background);
+  background: var(--background) !important;
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
 }
+
+/* Step connector arrows between steps */
+.step-connector {
+  position: relative;
+}
+.step-connector::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -2rem;
+  width: 3rem;
+  height: 2px;
+  background: linear-gradient(to right, #7BA3D0, #A8D5BA);
+  transform: translateY(-50%);
+}
+.step-connector::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -2.25rem;
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 8px solid #A8D5BA;
+  transform: translateY(-50%);
+}
+
+/* Feature card illustration animation */
+@keyframes feature-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.feature-illustration {
+  animation: feature-bounce 3s ease-in-out infinite;
+}
+
+/* Stat number count-up animation */
+.stat-number {
+  animation: count-up 0.6s ease-out both;
+}
+
+/* 3D Card Flip managed via tailwind.config.ts plugin */
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+

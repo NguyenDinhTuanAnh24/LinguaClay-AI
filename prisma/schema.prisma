@@ -1,0 +1,153 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id               String         @id @default(cuid())
+  email            String         @unique
+  name             String?
+  image            String?
+  targetLanguage   String         @default("EN")
+  proficiencyLevel String         @default("Beginner")
+  
+  // Subscription Fields
+  isPro           Boolean        @default(false)
+  proType         String?        // "3_MONTHS", "6_MONTHS", "1_YEAR"
+  proStartDate    DateTime?
+  proEndDate      DateTime?
+
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  progress         UserProgress[]
+  exercises        Exercise[]
+  writingSessions  WritingSession[]
+  orders           Order[]
+}
+
+model Topic {
+  id            String   @id @default(cuid())
+  name          String
+  slug          String   @unique
+  description   String?
+  image         String?
+  level         String
+  language      String   @default("EN")
+  isAIGenerated Boolean  @default(false)
+
+  words           Word[]
+  writingSessions WritingSession[]
+  grammarPoints   GrammarPoint[]
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Word {
+  id                 String         @id @default(cuid())
+  original           String
+  pronunciation      String?
+  translation        String
+  partOfSpeech       String?
+  example            String?
+  exampleTranslation String?
+  audioUrl           String?
+  difficulty         Int            @default(1)
+
+  topicId            String?
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @default(now()) @updatedAt
+
+  topic         Topic?         @relation(fields: [topicId], references: [id], onDelete: Cascade)
+  userProgress  UserProgress[]
+  exercises     Exercise[]
+}
+
+model UserProgress {
+  id           String    @id @default(cuid())
+  userId       String
+  wordId       String
+  masteryLevel Int       @default(0)
+  lastReviewed DateTime?
+  nextReview   DateTime?
+  isDifficult  Boolean   @default(false)
+  personalNote String?
+
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @default(now()) @updatedAt
+
+  user         User      @relation(fields: [userId], references: [id])
+  word         Word      @relation(fields: [wordId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, wordId])
+}
+
+model Exercise {
+  id             String   @id @default(cuid())
+  type           String
+  question       String
+  options        String[] @default([])
+  correctAnswer  String
+  explanation    String?
+  difficulty     Int
+  language       String
+  isAIGenerated  Boolean  @default(false)
+  content        Json?
+  wordId         String?
+  grammarPointId String?
+  userId         String?
+  sessionId      String?
+  createdAt      DateTime @default(now())
+
+  word          Word?         @relation(fields: [wordId], references: [id], onDelete: Cascade)
+  grammarPoint  GrammarPoint? @relation(fields: [grammarPointId], references: [id])
+  user          User?         @relation(fields: [userId], references: [id])
+}
+
+model WritingSession {
+  id          String   @id @default(cuid())
+  userId      String
+  topicId     String
+  userContent String   @db.Text
+  aiFeedback  Json?
+  score       Int?
+  createdAt   DateTime @default(now())
+  user        User     @relation(fields: [userId], references: [id])
+  topic       Topic    @relation(fields: [topicId], references: [id])
+}
+
+model GrammarPoint {
+  id              String   @id @default(cuid())
+  slug            String   @unique
+  title           String
+  explanation     String   @db.Text
+  example         String
+  exampleSentence String?
+  structure       String?
+  exerciseData    Json?
+  content         Json?
+  level           String
+  topicId         String?
+  topic           Topic?   @relation(fields: [topicId], references: [id])
+  exercises       Exercise[]
+}
+
+model Order {
+  id              String   @id @default(cuid())
+  orderCode       Int      @unique
+  userId          String
+  planId          String
+  amount          Int
+  status          String   @default("PENDING") // PENDING, SUCCESS, CANCELLED
+  refundStatus       String?  @default("NONE")    // NONE, PENDING, APPROVED, REJECTED
+  refundReason       String?
+  refundBankName     String?
+  refundAccountNumber String?
+  refundAccountName  String?
+  createdAt          DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user            User     @relation(fields: [userId], references: [id])
+}

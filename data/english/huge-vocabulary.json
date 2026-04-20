@@ -1,0 +1,3071 @@
+[
+  {
+    "term": "Algorithms",
+    "pronunciation": "/ˈælɡərɪðmz/",
+    "definition": "Hệ thống quy tắc logic để giải quyết vấn đề.",
+    "example": "Sử dụng algoritma để sắp xếp dữ liệu.",
+    "exampleTranslation": "Use algorithms to sort data.",
+    "topicName": "Information Technology",
+    "topicSlug": "information-technology"
+  },
+  {
+    "term": "Big Data",
+    "pronunciation": "/ˈbaɪdˈdeɪtə/",
+    "definition": "Đa số lớn dữ liệu được thu thập từ nhiều nguồn khác nhau.",
+    "example": "Thị trường sử dụng big data để đánh giá nhu cầu của khách hàng.",
+    "exampleTranslation": "The market uses big data to assess customer demand.",
+    "topicName": "Information Technology",
+    "topicSlug": "information-technology"
+  },
+  {
+    "term": "Blockchain",
+    "pronunciation": "/ˈblɒktʃeɪn/",
+    "definition": "Một mạng lưới phân tán, được sử dụng để theo dõi và xác minh giao dịch.",
+    "example": "Blockchain được sử dụng để giao dịch tiền điện tử.",
+    "exampleTranslation": "Blockchain is used to trade cryptocurrencies.",
+    "topicName": "Information Technology",
+    "topicSlug": "information-technology"
+  },
+  {
+    "term": "Cloud Computing",
+    "pronunciation": "/ˈklaʊd kəmˈpyʊ(tɪŋ)/",
+    "definition": "Hỗ trợ xử lý và lưu trữ dữ liệu theo hình thức mạng lưới máy tính",
+    "example": "Nhân viên có thể truy cập tài nguyên cloud computing từ bất kỳ đâu.",
+    "exampleTranslation": "Employees can access cloud computing resources from anywhere.",
+    "topicName": "Information Technology",
+    "topicSlug": "information-technology"
+  },
+  {
+    "term": "Cybersecurity",
+    "pronunciation": "/ˈsaɪbərˌsɪkʊˈrɪti/",
+    "definition": "Bảo vệ mạng và dữ liệu khỏi các cuộc tấn công mạng.",
+    "example": "Sử dụng phần mềm bảo mật để ngăn chặn virus và malware.",
+    "exampleTranslation": "Using security software to prevent viruses and malware.",
+    "topicName": "Information Technology",
+    "topicSlug": "information-technology"
+  },
+  {
+    "term": "Data Analytics",
+    "pronunciation": "/ˈdeɪtə ənˈælɪtɪks/",
+    "definition": "Quá trình phân tích và xử lý dữ liệu để đưa ra quyết định chiến lược.",
+    "example": "Sử dụng data analytics để phân tích thành quả của chiến dịch tiếp thị.",
+    "exampleTranslation": "Using data analytics to analyze the results of a marketing campaign.",
+    "topicName": "Information Technology",
+    "topicSlug": "information-technology"
+  },
+  {
+    "term": "Database",
+    "pronunciation": "/ˈdeɪtəzˌbaːb/",
+    "definition": "Hệ thống lưu trữ dữ liệu được tổ chức theo một cấu trúc nhất định.",
+    "example": "Cài đặt hệ thống database để lưu trữ thông tin khách hàng.",
+    "exampleTranslation": "Installing a system database to store customer information.",
+    "topicName": "Information Technology",
+    "topicSlug": "information-technology"
+  },
+  {
+    "term": "DevOps",
+    "pronunciation": "/ˈdɛvoʊpəz/",
+    "definition": "Sự tích hợp giữa phát triển phần mềm và vận hành để tăng hiệu suất của nhóm",
+    "example": "Sự kết hợp giữa các thành viên công ty phát triển phần mềm và vận hành đã tạo nên thành công công ty.",
+    "exampleTranslation": "Combination between software developers and IT operations team has led to company's success.",
+    "topicName": "Information Technology",
+    "topicSlug": "information-technology"
+  },
+  {
+    "term": "Digital Marketing",
+    "pronunciation": "/ˌdɪdʒɪˈtæl mrˈækɪtɪŋ/",
+    "definition": "Quá trình sử dụng các công cụ kỹ thuật số để quảng bá thương hiệu và sản phẩm.",
+    "example": "Sử dụng digital marketing để quảng bá sản phẩm mới của mình.",
+    "exampleTranslation": "Using digital marketing to promote new product.",
+    "topicName": "Information Technology",
+    "topicSlug": "information-technology"
+  },
+  {
+    "term": "E-commerce",
+    "pronunciation": "/ɪˈkɒmɜːs/",
+    "definition": "Quá trình bán hàng qua mạng internet.",
+    "example": "Sử dụng e-commerce để bán sản phẩm trực tuyến.",
+    "exampleTranslation": "Using e-commerce to sell products online.",
+    "topicName": "Information Technology",
+    "topicSlug": "information-technology"
+  },
+  {
+    "term": "Encryption",
+    "pronunciation": "/ˌɛnkrɪpʃən/",
+    "definition": "Quá trình mã hóa dữ liệu để bảo vệ khỏi bị truy cập trái phép.",
+    "example": "Sử dụng phần mềm encryption để bảo vệ dữ liệu của mình.",
+    "exampleTranslation": "Using encryption software to protect your data.",
+    "topicName": "Information Technology",
+    "topicSlug": "information-technology"
+  },
+  {
+    "term": "Artificial Intelligence",
+    "pronunciation": "/ˌɑrtɪfɪˈʃiəl ˌɪntɪˈlɪdʒəns/",
+    "definition": "Hành vi của các phần mềm tự động như một con người",
+    "example": "Sử dụng AI để phân tích hình ảnh và hình ảnh.",
+    "exampleTranslation": "Using AI to analyze images and images.",
+    "topicName": "Information Technology",
+    "topicSlug": "information-technology"
+  },
+  {
+    "term": "Internet Of Things",
+    "pronunciation": "/ˌɪntərˌnɛt əv θiŋz/",
+    "definition": "Mạng lưới các thiết bị điện tử có khả năng kết nối và truyền thông với nhau.",
+    "example": "Sử dụng IoT để kiểm soát nhiệt độ trong ngôi nhà của mình.",
+    "exampleTranslation": "Using IoT to control the temperature in your home.",
+    "topicName": "Information Technology",
+    "topicSlug": "information-technology"
+  },
+  {
+    "term": "Machine Learning",
+    "pronunciation": "/ˌməʃiːn lɜːrˈnɪŋ/",
+    "definition": "Sự học hỏi của các phần mềm tự động",
+    "example": "Sử dụng ML để phân tích dữ liệu và đưa ra quyết định.",
+    "exampleTranslation": "Using ML to analyze data and make decisions.",
+    "topicName": "Information Technology",
+    "topicSlug": "information-technology"
+  },
+  {
+    "term": "Network Security",
+    "pronunciation": "/ˈnɛtwərksɪˌkʌrɪti/",
+    "definition": "Quá trình bảo vệ mạng và thiết bị khỏi các cuộc tấn công mạng.",
+    "example": "Sử dụng phần mềm bảo mật để ngăn chặn virus và malware.",
+    "exampleTranslation": "Using security software to prevent viruses and malware.",
+    "topicName": "Information Technology",
+    "topicSlug": "information-technology"
+  },
+  {
+    "term": "Operating System",
+    "pronunciation": "/ˌɔːpəˈreɪtɪŋ sɪˈsɪtəm/",
+    "definition": "Hệ điều hành quản lý các tác vụ trên một máy tính.",
+    "example": "Hệ điều hành Windows được sử dụng trên hầu hết các máy tính.",
+    "exampleTranslation": "The Windows operating system is used on most computers.",
+    "topicName": "Information Technology",
+    "topicSlug": "information-technology"
+  },
+  {
+    "term": "Software",
+    "pronunciation": "/ˈsɒftˌweə/",
+    "definition": "Các chương trình phần mềm được mã hóa để thực hiện các nhiệm vụ.",
+    "example": "Sử dụng phần mềm để phân tích hình ảnh và hình ảnh.",
+    "exampleTranslation": "Using software to analyze images and images.",
+    "topicName": "Information Technology",
+    "topicSlug": "information-technology"
+  },
+  {
+    "term": "Database Management",
+    "pronunciation": "/ˌdeɪtəzˌbænmənˈdʒmənt/",
+    "definition": "Quá trình quản lý hệ thống dữ liệu.",
+    "example": "Sử dụng phần mềm quản lý database để lưu trữ và phân tích dữ liệu.",
+    "exampleTranslation": "Using database management software to store and analyze data.",
+    "topicName": "Information Technology",
+    "topicSlug": "information-technology"
+  },
+  {
+    "term": "Database Design",
+    "pronunciation": "/ˌdeɪtəzˌdɪzʌɪn/",
+    "definition": "Quá trình thiết kế hệ thống database.",
+    "example": "Sử dụng phần mềm design database để tạo ra hệ thống database mới.",
+    "exampleTranslation": "Using database design software to create a new database system.",
+    "topicName": "Information Technology",
+    "topicSlug": "information-technology"
+  },
+  {
+    "term": "Data Mining",
+    "pronunciation": "/ˌdeɪtə ˈmaɪnɪŋ/",
+    "definition": "Quá trình phân tích và phát hiện dữ liệu có giá trị.",
+    "example": "Sử dụng data mining để phân tích dữ liệu và đưa ra quyết định.",
+    "exampleTranslation": "Using data mining to analyze data and make decisions.",
+    "topicName": "Information Technology",
+    "topicSlug": "information-technology"
+  },
+  {
+    "term": "Database Administration",
+    "pronunciation": "/ˌdeɪtəzˌædmɪnɪˈstreɪʃən/",
+    "definition": "Quá trình quản lý hệ thống database.",
+    "example": "Sử dụng phần mềm quản lý database để lưu trữ và phân tích dữ liệu.",
+    "exampleTranslation": "Using database administration software to store and analyze data.",
+    "topicName": "Information Technology",
+    "topicSlug": "information-technology"
+  },
+  {
+    "term": "Diversification",
+    "pronunciation": "/dɪvəˈɾɪzɪfɪˈkeɪʃən/",
+    "definition": "Quy trình phân loại rủi ro và quản lý tài sản đa dạng hóa để giảm thiểu rủi ro tài chính",
+    "example": "Nhà đầu tư đã thực hiện một chiến lược phân cấp rủi ro để giảm thiểu thua lỗ",
+    "exampleTranslation": "The investor had implemented a risk diversification strategy to minimize the loss",
+    "topicName": "Business & Finance",
+    "topicSlug": "business-finance"
+  },
+  {
+    "term": "Merger",
+    "pronunciation": "/ˈmɝːdʒər/",
+    "definition": "Sự kết hợp của hai hay nhiều công ty thành một công ty mới",
+    "example": "Các công ty A và B đã thực hiện sáp nhập để tạo ra công ty mới",
+    "exampleTranslation": "Companies A and B had merged to form a new company",
+    "topicName": "Business & Finance",
+    "topicSlug": "business-finance"
+  },
+  {
+    "term": "Synergy",
+    "pronunciation": "/ˈsɪnəɡri/",
+    "definition": "Tác động của một công ty hoặc tổ chức với một công ty hoặc tổ chức khác",
+    "example": "Công ty ABC đã đạt được sự hợp tác giữa các bộ phận và giảm chi phí",
+    "exampleTranslation": "Company ABC had achieved departmental cooperation and reduced costs",
+    "topicName": "Business & Finance",
+    "topicSlug": "business-finance"
+  },
+  {
+    "term": "Inflation",
+    "pronunciation": "/ɪnˈfleɪʃən/",
+    "definition": "Tăng tỷ lệ lạm phát hàng năm",
+    "example": "Chúng ta đang gặp phải một cơn lạm phát nghiêm trọng do các yếu tố kinh tế",
+    "exampleTranslation": "We are experiencing serious inflation due to economic factors",
+    "topicName": "Business & Finance",
+    "topicSlug": "business-finance"
+  },
+  {
+    "term": "Risk Management",
+    "pronunciation": "/rɪsk ˌmænɪdʒmənt/",
+    "definition": "Quản lý và đánh giá rủi ro để giảm thiểu tác động tài chính",
+    "example": "Công ty đã phát triển một chiến lược quản lý rủi ro để bảo vệ cổ đông",
+    "exampleTranslation": "The company had developed a risk management strategy to protect shareholders",
+    "topicName": "Business & Finance",
+    "topicSlug": "business-finance"
+  },
+  {
+    "term": "Market Analysis",
+    "pronunciation": "/mɑːrkɪt ˌænəlɪsɪs/",
+    "definition": "Quá trình phân tích dữ liệu để dự đoán thị trường",
+    "example": "Nhà phân tích đã thực hiện phân tích thị trường để dự đoán sự thăng trầm của cổ phiếu",
+    "exampleTranslation": "The analyst had performed market analysis to forecast stock prices",
+    "topicName": "Business & Finance",
+    "topicSlug": "business-finance"
+  },
+  {
+    "term": "Investment Strategy",
+    "pronunciation": "/ɪnˈvɛs.t.mənt ˌstrætədʒi/",
+    "definition": "Quy trình phân tích và lựa chọn đầu tư để tối đa hóa lợi nhuận",
+    "example": "Công ty đã phát triển một chiến lược đầu tư để đạt được lợi nhuận cao nhất",
+    "exampleTranslation": "The company had developed an investment strategy to maximize profits",
+    "topicName": "Business & Finance",
+    "topicSlug": "business-finance"
+  },
+  {
+    "term": "Economic Growth",
+    "pronunciation": "/əˌkɒn.əmɪk.ˈɡroʊθ/",
+    "definition": "Lý do tăng trưởng kinh tế, bao gồm cả tăng trưởng GDP",
+    "example": "Nước ta đang gặp phải thách thức về tăng trưởng kinh tế",
+    "exampleTranslation": "We are facing challenges in terms of economic growth",
+    "topicName": "Business & Finance",
+    "topicSlug": "business-finance"
+  },
+  {
+    "term": "Cash Flow",
+    "pronunciation": "/kæʃ fləʊ/",
+    "definition": "Sự ra vào tiền tệ của một công ty hoặc tổ chức",
+    "example": "Công ty đã phát triển một chiến lược tăng cường dòng tiền để duy trì hoạt động",
+    "exampleTranslation": "The company had developed a strategy to boost cash flow in order to maintain operations",
+    "topicName": "Business & Finance",
+    "topicSlug": "business-finance"
+  },
+  {
+    "term": "Taxation",
+    "pronunciation": "/tækˈseɪʃən/",
+    "definition": "Quy trình thu thuế và quy định thuế",
+    "example": "Chúng ta đang gặp phải vấn đề với hệ thống thuế của nước này",
+    "exampleTranslation": "We are facing issues with the taxation system of our country",
+    "topicName": "Business & Finance",
+    "topicSlug": "business-finance"
+  },
+  {
+    "term": "Dividend",
+    "pronunciation": "/dɪˈvɪdənd/",
+    "definition": "Lợi nhuận được trả cho cổ đông",
+    "example": "Cổ đông đã nhận được cổ tức cao từ công ty",
+    "exampleTranslation": "The shareholder had received high dividends from the company",
+    "topicName": "Business & Finance",
+    "topicSlug": "business-finance"
+  },
+  {
+    "term": "Mortgage",
+    "pronunciation": "/ˈmɔːr.tɪdʒ/",
+    "definition": "Hợp đồng thế chấp tài sản để vay vốn",
+    "example": "Chúng ta đã ký kết hợp đồng thế chấp nhà để vay vốn",
+    "exampleTranslation": "We had signed a mortgage agreement for the house to borrow money",
+    "topicName": "Business & Finance",
+    "topicSlug": "business-finance"
+  },
+  {
+    "term": "Financial Planning",
+    "pronunciation": "/ˌfɪn.ənʃ.əl plæn.ɪŋ/",
+    "definition": "Quy trình lập kế hoạch tài chính cho cá nhân hoặc tổ chức",
+    "example": "Chúng ta đã phát triển một kế hoạch tài chính để tối đa hóa lợi nhuận",
+    "exampleTranslation": "We had developed a financial plan to maximize profits",
+    "topicName": "Business & Finance",
+    "topicSlug": "business-finance"
+  },
+  {
+    "term": "Budget",
+    "pronunciation": "/ˈbʌd.get/",
+    "definition": "Quyết định mức chi phí và nguồn lực của một công ty hoặc tổ chức",
+    "example": "Công ty đã phát triển một kế hoạch ngân sách để đáp ứng nhu cầu của mình",
+    "exampleTranslation": "The company had developed a budget plan to meet its needs",
+    "topicName": "Business & Finance",
+    "topicSlug": "business-finance"
+  },
+  {
+    "term": "Risk Premium",
+    "pronunciation": "/rɪsk ˈpɹɪmɪəm/",
+    "definition": "Sự khác biệt về giá cả giữa một công cụ tài chính và một công cụ tài chính khác có cùng đặc điểm",
+    "example": "Nhà đầu tư đã nhận được một khoản tiền thưởng vì đã chấp nhận rủi ro tài chính",
+    "exampleTranslation": "The investor had received a reward for accepting the financial risk",
+    "topicName": "Business & Finance",
+    "topicSlug": "business-finance"
+  },
+  {
+    "term": "Capital Gain",
+    "pronunciation": "/ˈkæp.ɪ.təl geɪn/",
+    "definition": "Lợi nhuận thu được từ việc bán một tài sản tại giá trị cao hơn mua vào",
+    "example": "Chúng ta đã bán tài sản tại mức giá cao hơn mua vào",
+    "exampleTranslation": "We sold the asset at a price higher than the purchase price",
+    "topicName": "Business & Finance",
+    "topicSlug": "business-finance"
+  },
+  {
+    "term": "Financial Statement",
+    "pronunciation": "/ˌfɪn.ənʃ.əl ˈsteɪt.mənt/",
+    "definition": "Báo cáo tài chính được sử dụng để thể hiện tình hình tài chính của một công ty hoặc tổ chức",
+    "example": "Chúng ta đã phát hành báo cáo tài chính hàng quý để đáp ứng nhu cầu của cổ đông",
+    "exampleTranslation": "We had published quarterly financial reports to meet the needs of shareholders",
+    "topicName": "Business & Finance",
+    "topicSlug": "business-finance"
+  },
+  {
+    "term": "Asset Management",
+    "pronunciation": "/əˈset mænɪdʒmənt/",
+    "definition": "Quy trình quản lý và bảo trì tài sản của một công ty hoặc tổ chức",
+    "example": "Công ty đã phát triển một kế hoạch quản lý tài sản để tối đa hóa lợi nhuận",
+    "exampleTranslation": "The company had developed an asset management plan to maximize profits",
+    "topicName": "Business & Finance",
+    "topicSlug": "business-finance"
+  },
+  {
+    "term": "Liquidity",
+    "pronunciation": "/ˈlɪkwɪdɪti/",
+    "definition": "Khả năng chuyển đổi tài sản thành tiền mặt trong thời gian ngắn",
+    "example": "Chúng ta đang gặp phải vấn đề về thanh khoản do việc bán tài sản mất quá nhiều thời gian",
+    "exampleTranslation": "We are facing issues with liquidity due to the long time it takes to sell assets",
+    "topicName": "Business & Finance",
+    "topicSlug": "business-finance"
+  },
+  {
+    "term": "Market Volatility",
+    "pronunciation": "/mɑːrkɪt ˌvɒləti.ˈlɪti/",
+    "definition": "Tinh biến của thị trường, được đo bằng sự biến động của tỷ giá và lãi suất",
+    "example": "Chúng ta đang gặp phải tình biến của thị trường do các yếu tố kinh tế",
+    "exampleTranslation": "We are facing market volatility due to economic factors",
+    "topicName": "Business & Finance",
+    "topicSlug": "business-finance"
+  },
+  {
+    "term": "Cardiology",
+    "pronunciation": "/kɑːrdiˈɒlədʒi/",
+    "definition": "chuyên khoa về tim mạch",
+    "example": "Cardiologist chuyên giúp khám và điều trị các bệnh về tim",
+    "exampleTranslation": "",
+    "topicName": "Healthcare & Medicine",
+    "topicSlug": "healthcare-medicine"
+  },
+  {
+    "term": "Gastroenterology",
+    "pronunciation": "/ɡæstrəʊˈɛntɪərələdʒi/",
+    "definition": "chuyên khoa về tiêu hóa và đường ruột",
+    "example": "Gastroenterologist khám và điều trị các bệnh về đường tiêu hóa",
+    "exampleTranslation": "",
+    "topicName": "Healthcare & Medicine",
+    "topicSlug": "healthcare-medicine"
+  },
+  {
+    "term": "Hematology",
+    "pronunciation": "/hɛməˈtɒlədʒi/",
+    "definition": "chuyên khoa về máu và bạch cầu",
+    "example": "Hematologist điều trị các bệnh về máu và bạch cầu",
+    "exampleTranslation": "",
+    "topicName": "Healthcare & Medicine",
+    "topicSlug": "healthcare-medicine"
+  },
+  {
+    "term": "Immunology",
+    "pronunciation": "/aɪmjuːˈnɒlədʒi/",
+    "definition": "chuyên khoa về hệ miễn dịch",
+    "example": "Immunologist nghiên cứu về hệ miễn dịch và cách phòng ngừa bệnh",
+    "exampleTranslation": "",
+    "topicName": "Healthcare & Medicine",
+    "topicSlug": "healthcare-medicine"
+  },
+  {
+    "term": "Microbiology",
+    "pronunciation": "/maɪkrəʊˈbaɪɒlədʒi/",
+    "definition": "chuyên khoa về vi khuẩn và vi rút",
+    "example": "Microbiologist nghiên cứu và phát hiện bệnh do vi khuẩn vi rút gây ra",
+    "exampleTranslation": "",
+    "topicName": "Healthcare & Medicine",
+    "topicSlug": "healthcare-medicine"
+  },
+  {
+    "term": "Neurology",
+    "pronunciation": "/ˈnjuːrəlɒdʒi/",
+    "definition": "chuyên khoa về hệ thần kinh",
+    "example": "Neurologist điều trị các bệnh về não và hệ thần kinh",
+    "exampleTranslation": "",
+    "topicName": "Healthcare & Medicine",
+    "topicSlug": "healthcare-medicine"
+  },
+  {
+    "term": "Nephrology",
+    "pronunciation": "/nɛfˈrɒlədʒi/",
+    "definition": "chuyên khoa về thận",
+    "example": "Nephrologist điều trị các bệnh về thận",
+    "exampleTranslation": "",
+    "topicName": "Healthcare & Medicine",
+    "topicSlug": "healthcare-medicine"
+  },
+  {
+    "term": "Endocrinology",
+    "pronunciation": "/ɛndəˈkrɪnələdʒi/",
+    "definition": "chuyên khoa về nội tiết tố",
+    "example": "Endocrinologist điều trị các bệnh về nội tiết tố",
+    "exampleTranslation": "",
+    "topicName": "Healthcare & Medicine",
+    "topicSlug": "healthcare-medicine"
+  },
+  {
+    "term": "Orthopedics",
+    "pronunciation": "/ˈɔːrθəʊˌpɛdɪks/",
+    "definition": "chuyên khoa về xương và cột sống",
+    "example": "Orthopedist điều trị các bệnh về xương và cột sống",
+    "exampleTranslation": "",
+    "topicName": "Healthcare & Medicine",
+    "topicSlug": "healthcare-medicine"
+  },
+  {
+    "term": "Oncology",
+    "pronunciation": "/ɒŋˈkɒlədʒi/",
+    "definition": "chuyên khoa về ung thư",
+    "example": "Oncologist điều trị các bệnh về ung thư",
+    "exampleTranslation": "",
+    "topicName": "Healthcare & Medicine",
+    "topicSlug": "healthcare-medicine"
+  },
+  {
+    "term": "Ophthalmology",
+    "pronunciation": "/ɒfˈθæləmələdʒi/",
+    "definition": "chuyên khoa về mắt",
+    "example": "Ophthalmologist khám và điều trị các bệnh về mắt",
+    "exampleTranslation": "",
+    "topicName": "Healthcare & Medicine",
+    "topicSlug": "healthcare-medicine"
+  },
+  {
+    "term": "Otolaryngology",
+    "pronunciation": "/ɒtəʊˌlærəˈŋɡɒlədʒi/",
+    "definition": "chuyên khoa về tai, mũi và họng",
+    "example": "Otolaryngologist khám và điều trị các bệnh về tai, mũi và họng",
+    "exampleTranslation": "",
+    "topicName": "Healthcare & Medicine",
+    "topicSlug": "healthcare-medicine"
+  },
+  {
+    "term": "Palliative Care",
+    "pronunciation": "/pəˈlɪætɪv kɛər/",
+    "definition": "điều trị hỗ trợ cuối đời",
+    "example": "Palliative Care giúp bệnh nhân và gia đình có hỗ trợ cuối đời",
+    "exampleTranslation": "",
+    "topicName": "Healthcare & Medicine",
+    "topicSlug": "healthcare-medicine"
+  },
+  {
+    "term": "Plastic Surgery",
+    "pronunciation": "/ˈplæstɪk ˈsʌrˌdʒi/",
+    "definition": "chỉnh hình phẫu thuật",
+    "example": "Plastic Surgeon thực hiện các phẫu thuật chỉnh hình",
+    "exampleTranslation": "",
+    "topicName": "Healthcare & Medicine",
+    "topicSlug": "healthcare-medicine"
+  },
+  {
+    "term": "Psychiatry",
+    "pronunciation": "/ˈsaɪkətri/",
+    "definition": "chuyên khoa về tâm thần",
+    "example": "Psychiatrist điều trị các bệnh về tâm thần",
+    "exampleTranslation": "",
+    "topicName": "Healthcare & Medicine",
+    "topicSlug": "healthcare-medicine"
+  },
+  {
+    "term": "Rheumatology",
+    "pronunciation": "/raɪˈmætələdʒi/",
+    "definition": "chuyên khoa về xương và bệnh tự miễn",
+    "example": "Rheumatologist điều trị các bệnh về xương và bệnh tự miễn",
+    "exampleTranslation": "",
+    "topicName": "Healthcare & Medicine",
+    "topicSlug": "healthcare-medicine"
+  },
+  {
+    "term": "Urology",
+    "pronunciation": "/juːˈrɒlədʒi/",
+    "definition": "chuyên khoa về hệ tiết niệu",
+    "example": "Urologist điều trị các bệnh về hệ tiết niệu",
+    "exampleTranslation": "",
+    "topicName": "Healthcare & Medicine",
+    "topicSlug": "healthcare-medicine"
+  },
+  {
+    "term": "Vascular Surgery",
+    "pronunciation": "/ˌvæskulər ˈsʌrˌdʒi/",
+    "definition": "phẫu thuật mạch máu",
+    "example": "Vascular Surgeon thực hiện các phẫu thuật mạch máu",
+    "exampleTranslation": "",
+    "topicName": "Healthcare & Medicine",
+    "topicSlug": "healthcare-medicine"
+  },
+  {
+    "term": "Radiology",
+    "pronunciation": "/ræˈdaɪələdʒi/",
+    "definition": "chuyên khoa về hình ảnh y khoa",
+    "example": "Radiologist sử dụng hình ảnh X-quang để chẩn đoán bệnh",
+    "exampleTranslation": "",
+    "topicName": "Healthcare & Medicine",
+    "topicSlug": "healthcare-medicine"
+  },
+  {
+    "term": "Pathology",
+    "pronunciation": "/pəˈθɒlɒdʒi/",
+    "definition": "chuyên khoa về bệnh học",
+    "example": "Pathologist nghiên cứu và xác định nguyên nhân bệnh",
+    "exampleTranslation": "",
+    "topicName": "Healthcare & Medicine",
+    "topicSlug": "healthcare-medicine"
+  },
+  {
+    "term": "Toxicology",
+    "pronunciation": "/tɒksɪˈkɒlədʒi/",
+    "definition": "chuyên khoa về độc học",
+    "example": "Toxicologist nghiên cứu về độc chất và cách phòng ngừa",
+    "exampleTranslation": "",
+    "topicName": "Healthcare & Medicine",
+    "topicSlug": "healthcare-medicine"
+  },
+  {
+    "term": "Epidemiology",
+    "pronunciation": "/ɪpɪˌdɛmiˈɒlədʒi/",
+    "definition": "chuyên khoa về bệnh học cộng đồng",
+    "example": "Epidemiologist nghiên cứu về bệnh học cộng đồng và cách phòng ngừa",
+    "exampleTranslation": "",
+    "topicName": "Healthcare & Medicine",
+    "topicSlug": "healthcare-medicine"
+  },
+  {
+    "term": "Pharmacology",
+    "pronunciation": "/fɑːrməˈkɒlədʒi/",
+    "definition": "chuyên khoa về dược lý",
+    "example": "Pharmacologist nghiên cứu về dược lý và tác dụng của thuốc",
+    "exampleTranslation": "",
+    "topicName": "Healthcare & Medicine",
+    "topicSlug": "healthcare-medicine"
+  },
+  {
+    "term": "Anatomy",
+    "pronunciation": "/əˈnætəmi/",
+    "definition": "chuyên khoa về giải phẫu",
+    "example": "Anatomist nghiên cứu về giải phẫu cơ thể",
+    "exampleTranslation": "",
+    "topicName": "Healthcare & Medicine",
+    "topicSlug": "healthcare-medicine"
+  },
+  {
+    "term": "Biomechanics",
+    "pronunciation": "/ˌbaɪəʊˈmɛkənɪks/",
+    "definition": "chuyên khoa về cơ học sinh học",
+    "example": "Biomechanic nghiên cứu về cơ học sinh học và ứng dụng",
+    "exampleTranslation": "",
+    "topicName": "Healthcare & Medicine",
+    "topicSlug": "healthcare-medicine"
+  },
+  {
+    "term": "Cytology",
+    "pronunciation": "/sɪˈtɒlədʒi/",
+    "definition": "chuyên khoa về sinh học tế bào",
+    "example": "Cytologist nghiên cứu về sinh học tế bào và ung thư",
+    "exampleTranslation": "",
+    "topicName": "Healthcare & Medicine",
+    "topicSlug": "healthcare-medicine"
+  },
+  {
+    "term": "Histology",
+    "pronunciation": "/hɪsˈtɒlədʒi/",
+    "definition": "chuyên khoa về sinh học mô",
+    "example": "Histologist nghiên cứu về sinh học mô và ung thư",
+    "exampleTranslation": "",
+    "topicName": "Healthcare & Medicine",
+    "topicSlug": "healthcare-medicine"
+  },
+  {
+    "term": "Pedagogy",
+    "pronunciation": "/ˈpiːdəɡəʊɡi/",
+    "definition": "Nghề nghiệp hoặc môn học nghiên cứu phương pháp giảng dạy và học hỏi.",
+    "example": "Bác sĩ đã theo đuổi chuyên ngành giáo dục và nghiên cứu về phương pháp giảng dạy hiệu quả.",
+    "exampleTranslation": "Thầy đã theo đuổi chuyên ngành giáo dục và nghiên cứu về phương pháp giảng dạy hiệu quả.",
+    "topicName": "Education & Learning",
+    "topicSlug": "education-learning"
+  },
+  {
+    "term": "Cognitive Load",
+    "pronunciation": "/ˈkɒɡnɪtɪv ˈloʊd/",
+    "definition": "Tính chất gây ức chế nhận thức và suy nghĩ, liên quan đến quá trình học tập.",
+    "example": "Giáo viên cần xem xét tải nhận thức của học sinh để tránh gây quá tải và giảm hiệu suất học tập.",
+    "exampleTranslation": "Giáo viên cần xem xét tải nhận thức của học sinh để tránh gây quá tải và giảm hiệu suất học tập.",
+    "topicName": "Education & Learning",
+    "topicSlug": "education-learning"
+  },
+  {
+    "term": "Self-Directed Learning",
+    "pronunciation": "/ˌsɛlf daɪˈrɛktɪd ˈlɜrnɪŋ/",
+    "definition": "Học tập tự chủ và quản lý thời gian nghiên cứu và học hỏi.",
+    "example": "Trong quá trình học tập từ xa, học sinh được khuyến khích lập kế hoạch học tập và tự quản lý thời gian.",
+    "exampleTranslation": "Trong quá trình học tập từ xa, học sinh được khuyến khích lập kế hoạch học tập và tự quản lý thời gian.",
+    "topicName": "Education & Learning",
+    "topicSlug": "education-learning"
+  },
+  {
+    "term": "Flipped Classroom",
+    "pronunciation": "/ˈflɪpt ˈklɑːs.rəm/",
+    "definition": "Những học sinh học kiến thức cơ bản tại nhà và sau đó tiếp thu thêm thông tin trong lớp học.",
+    "example": "Giáo viên đã tổ chức chương trình học \"lật ngược\" bằng cách yêu cầu học sinh học kiến thức cơ bản trước và tiếp thu thêm thông tin trong lớp học.",
+    "exampleTranslation": "Giáo viên đã tổ chức chương trình học 'lật ngược' bằng cách yêu cầu học sinh học kiến thức cơ bản trước và tiếp thu thêm thông tin trong lớp học.",
+    "topicName": "Education & Learning",
+    "topicSlug": "education-learning"
+  },
+  {
+    "term": "Gamification",
+    "pronunciation": "/ɡˌæmɪfɪˈkeɪʃən/",
+    "definition": "Kế hoạch và phương pháp học tập bằng cách sử dụng các yếu tố từ trò chơi để kích thích và khuyến khích.",
+    "example": "Giáo viên đã tạo ra một trò chơi điện tử để khuyến khích học sinh học tập và tham gia vào các hoạt động của lớp học.",
+    "exampleTranslation": "Giáo viên đã tạo ra một trò chơi điện tử để khuyến khích học sinh học tập và tham gia vào các hoạt động của lớp học.",
+    "topicName": "Education & Learning",
+    "topicSlug": "education-learning"
+  },
+  {
+    "term": "Assessment for Learning",
+    "pronunciation": "/əˈsɛsmənt fɔr ˈlɜrnɪŋ/",
+    "definition": "Phương pháp và kỹ thuật đánh giá và giám sát quá trình học tập để cải thiện kết quả và hiệu suất.",
+    "example": "Giáo viên cần thường xuyên chấm bài và đánh giá học sinh để nhận biết điểm cần cải thiện.",
+    "exampleTranslation": "Giáo viên cần thường xuyên chấm bài và đánh giá học sinh để nhận biết điểm cần cải thiện.",
+    "topicName": "Education & Learning",
+    "topicSlug": "education-learning"
+  },
+  {
+    "term": "Collaborative Learning",
+    "pronunciation": "/kəlˌæbəˈreɪtɪv ˈlɜrnɪŋ/",
+    "definition": "Học tập nhóm mà các thành viên sẽ hợp tác và chia sẻ thông tin với nhau.",
+    "example": "Học sinh cần tham gia vào các hoạt động ngoại khóa và thảo luận nhóm để cải thiện kỹ năng học tập nhóm và giao tiếp.",
+    "exampleTranslation": "Học sinh cần tham gia vào các hoạt động ngoại khóa và thảo luận nhóm để cải thiện kỹ năng học tập nhóm và giao tiếp.",
+    "topicName": "Education & Learning",
+    "topicSlug": "education-learning"
+  },
+  {
+    "term": "Differentiated Instruction",
+    "pronunciation": "/ˌdaɪˌfɜːrɪnʃɪˈeteɪd ˈɪnˌstrʌkʃən/",
+    "definition": "Phương pháp dạy học được cá nhân hóa để đáp ứng với các yêu cầu và kỹ năng khác nhau của học sinh.",
+    "example": "Giáo viên cần tạo ra các kế hoạch học tập đa dạng để đáp ứng với các kỹ năng và mức độ học tập của học sinh.",
+    "exampleTranslation": "Giáo viên cần tạo ra các kế hoạch học tập đa dạng để đáp ứng với các kỹ năng và mức độ học tập của học sinh.",
+    "topicName": "Education & Learning",
+    "topicSlug": "education-learning"
+  },
+  {
+    "term": "Competency-Based Education",
+    "pronunciation": "/kəmˌpɛtənsi ˈbeɪzbɪd ˈɛdʒʊˌkeɪʃən/",
+    "definition": "Hệ thống giảng dạy và học tập theo cơ sở trên các kỹ năng và khả năng cụ thể.",
+    "example": "Giáo viên cần xác định các kỹ năng và khả năng cần thiết và lập trình để đánh giá khả năng của học sinh.",
+    "exampleTranslation": "Giáo viên cần xác định các kỹ năng và khả năng cần thiết và lập trình để đánh giá khả năng của học sinh.",
+    "topicName": "Education & Learning",
+    "topicSlug": "education-learning"
+  },
+  {
+    "term": "Microlearning",
+    "pronunciation": "/ˌmaɪkrəʊˈlɜrnɪŋ/",
+    "definition": "Các học tập ngắn và chuyên sâu, có thể được thực hiện trong thời gian ngắn.",
+    "example": "Học sinh cần tham gia các khóa học ngắn và chuyên sâu để cải thiện kỹ năng và kiến thức.",
+    "exampleTranslation": "Học sinh cần tham gia các khóa học ngắn và chuyên sâu để cải thiện kỹ năng và kiến thức.",
+    "topicName": "Education & Learning",
+    "topicSlug": "education-learning"
+  },
+  {
+    "term": "Formative Assessment",
+    "pronunciation": "/ˌfɔːrˈmeɪtɪv əˈsɛsmənt/",
+    "definition": "Các đánh giá được tiến hành trong quá trình học tập để cải thiện và phát triển.",
+    "example": "Giáo viên cần thường xuyên chấm bài và đánh giá học sinh để nhận biết điểm cần cải thiện.",
+    "exampleTranslation": "Giáo viên cần thường xuyên chấm bài và đánh giá học sinh để nhận biết điểm cần cải thiện.",
+    "topicName": "Education & Learning",
+    "topicSlug": "education-learning"
+  },
+  {
+    "term": "Andragogy",
+    "pronunciation": "/ændrəˈɡɒdʒi/",
+    "definition": "Nghề nghiệp hoặc môn học nghiên cứu phương pháp giảng dạy và học hỏi đối với người lớn.",
+    "example": "Bác sĩ đã theo đuổi chuyên ngành giáo dục và nghiên cứu về phương pháp giảng dạy hiệu quả đối với người lớn.",
+    "exampleTranslation": "Thầy đã theo đuổi chuyên ngành giáo dục và nghiên cứu về phương pháp giảng dạy hiệu quả đối với người lớn.",
+    "topicName": "Education & Learning",
+    "topicSlug": "education-learning"
+  },
+  {
+    "term": "Self-Assessment",
+    "pronunciation": "/ˌsɛlf æsˈsɛsmənt/",
+    "definition": "Các đánh giá được thực hiện bởi chính mình để nhận biết và cải thiện.",
+    "example": "Học sinh cần tự chấm bài và đánh giá khả năng của mình để xác định điểm cần cải thiện.",
+    "exampleTranslation": "Học sinh cần tự chấm bài và đánh giá khả năng của mình để xác định điểm cần cải thiện.",
+    "topicName": "Education & Learning",
+    "topicSlug": "education-learning"
+  },
+  {
+    "term": "Social Learning",
+    "pronunciation": "/ˌsoʊʃəl ˈlɜrnɪŋ/",
+    "definition": "Phương pháp học tập dựa vào các yếu tố từ xã hội, bao gồm quan hệ và tác động đến từ người khác.",
+    "example": "Học sinh cần tham gia vào các hoạt động ngoại khóa và thảo luận nhóm để cải thiện kỹ năng học tập nhóm và giao tiếp.",
+    "exampleTranslation": "Học sinh cần tham gia vào các hoạt động ngoại khóa và thảo luận nhóm để cải thiện kỹ năng học tập nhóm và giao tiếp.",
+    "topicName": "Education & Learning",
+    "topicSlug": "education-learning"
+  },
+  {
+    "term": "Inquiry-Based Learning",
+    "pronunciation": "/ɪnˈkwɪəri baɪd ˈlɜrnɪŋ/",
+    "definition": "Học tập dựa vào phương pháp hỏi và khám phá.",
+    "example": "Giáo viên yêu cầu học sinh tự hỏi và khám phá thông tin để tìm ra đáp án chính xác.",
+    "exampleTranslation": "Giáo viên yêu cầu học sinh tự hỏi và khám phá thông tin để tìm ra đáp án chính xác.",
+    "topicName": "Education & Learning",
+    "topicSlug": "education-learning"
+  },
+  {
+    "term": "Climatologist",
+    "pronunciation": "/klɪˈmætəlɒdʒɪst/",
+    "definition": "chuyên gia nghiên cứu khí hậu",
+    "example": "nhà climatologist dự đoán những thay đổi của khí hậu trong tương lai",
+    "exampleTranslation": "Một nhà climatologist dự đoán những thay đổi của khí hậu trong tương lai",
+    "topicName": "Environment & Sustainability",
+    "topicSlug": "environment-sustainability"
+  },
+  {
+    "term": "Ecologist",
+    "pronunciation": "/iːkɒlˈɒdʒɪst/",
+    "definition": "chuyên gia nghiên cứu hệ sinh thái",
+    "example": "nhà ecologist nghiên cứu về sự đa dạng của hệ sinh thái",
+    "exampleTranslation": "Một nhà ecologist nghiên cứu về sự đa dạng của hệ sinh thái",
+    "topicName": "Environment & Sustainability",
+    "topicSlug": "environment-sustainability"
+  },
+  {
+    "term": "Renewable",
+    "pronunciation": "/riːˈnuː.ə.bəl/",
+    "definition": "năng lượng tái tạo",
+    "example": "Năng lượng mặt trời và gió là các nguồn năng lượng tái tạo",
+    "exampleTranslation": "Năng lượng mặt trời và gió là các nguồn năng lượng tái tạo",
+    "topicName": "Environment & Sustainability",
+    "topicSlug": "environment-sustainability"
+  },
+  {
+    "term": "Sustainable",
+    "pronunciation": "/sʌsˈteɪ.nə.bəl/",
+    "definition": "thiết lập được duy trì trong dài hạn",
+    "example": "năng lượng tái tạo và sử dụng năng lượng tiết kiệm là các chiến lược thiết lập được bền vững",
+    "exampleTranslation": "năng lượng tái tạo và sử dụng năng lượng tiết kiệm là các chiến lược thiết lập được bền vững",
+    "topicName": "Environment & Sustainability",
+    "topicSlug": "environment-sustainability"
+  },
+  {
+    "term": "Conservation",
+    "pronunciation": "/kən.sə.rˈveɪ.ʃən/",
+    "definition": "bảo tồn",
+    "example": "Bảo tồn rừng nguyên sinh và các hệ sinh thái bảo tồn",
+    "exampleTranslation": "Bảo tồn rừng nguyên sinh và các hệ sinh thái bảo tồn",
+    "topicName": "Environment & Sustainability",
+    "topicSlug": "environment-sustainability"
+  },
+  {
+    "term": "Climate Change",
+    "pronunciation": "/ˈklajmt ˈtʃeɪn.dʒ/",
+    "definition": "thay đổi khí hậu",
+    "example": "Thay đổi khí hậu đã gây ra những tác động tiêu cực đến đại dương",
+    "exampleTranslation": "Thay đổi khí hậu đã gây ra những tác động tiêu cực đến đại dương",
+    "topicName": "Environment & Sustainability",
+    "topicSlug": "environment-sustainability"
+  },
+  {
+    "term": "Environmental Impact",
+    "pronunciation": "/ɛn.vaɪˈrə.nənt.ɪl ˈɪmpzækt/",
+    "definition": "tác động môi trường",
+    "example": "Sản phẩm công nghiệp có tác động môi trường tiêu cực",
+    "exampleTranslation": "Sản phẩm công nghiệp có tác động môi trường tiêu cực",
+    "topicName": "Environment & Sustainability",
+    "topicSlug": "environment-sustainability"
+  },
+  {
+    "term": "Biodiversity",
+    "pronunciation": "/baɪ.əʊˈdaɪə.rə.ti/",
+    "definition": "sự đa dạng sinh học",
+    "example": "Sự đa dạng sinh học của rừng nhiệt đới là rất cao",
+    "exampleTranslation": "Sự đa dạng sinh học của rừng nhiệt đới là rất cao",
+    "topicName": "Environment & Sustainability",
+    "topicSlug": "environment-sustainability"
+  },
+  {
+    "term": "Carbon Footprint",
+    "pronunciation": "/kɑr.bən ˈfʊt.ˌpraɪnt/",
+    "definition": "thanh kế carbon",
+    "example": "Thay đổi lối sống sẽ giảm thanh kế carbon",
+    "exampleTranslation": "Thay đổi lối sống sẽ giảm thanh kế carbon",
+    "topicName": "Environment & Sustainability",
+    "topicSlug": "environment-sustainability"
+  },
+  {
+    "term": "Sustainable Development",
+    "pronunciation": "/sʌsˈteɪ.nə.bəl ˌdɛvəlˈp.mənt/",
+    "definition": "phát triển bền vững",
+    "example": "Phát triển bền vững là mục tiêu của các chính sách môi trường",
+    "exampleTranslation": "Phát triển bền vững là mục tiêu của các chính sách môi trường",
+    "topicName": "Environment & Sustainability",
+    "topicSlug": "environment-sustainability"
+  },
+  {
+    "term": "Environmental Ethics",
+    "pronunciation": "/ɛn.vaɪˈrə.nənt ˈɛθɪks/",
+    "definition": "luật môi trường",
+    "example": "Luật môi trường là sự thể hiện của đạo đức",
+    "exampleTranslation": "Luật môi trường là sự thể hiện của đạo đức",
+    "topicName": "Environment & Sustainability",
+    "topicSlug": "environment-sustainability"
+  },
+  {
+    "term": "Renewable Energy",
+    "pronunciation": "/riːˈnuː.ə.bəl ˈen.ri/",
+    "definition": "năng lượng tái tạo",
+    "example": "Năng lượng mặt trời và gió là các nguồn năng lượng tái tạo",
+    "exampleTranslation": "Năng lượng mặt trời và gió là các nguồn năng lượng tái tạo",
+    "topicName": "Environment & Sustainability",
+    "topicSlug": "environment-sustainability"
+  },
+  {
+    "term": "Climate Action",
+    "pronunciation": "/ˈklajmt əkʃən/",
+    "definition": "công việc giải quyết thay đổi khí hậu",
+    "example": "Công việc giải quyết thay đổi khí hậu đã được bắt đầu ",
+    "exampleTranslation": "Công việc giải quyết thay đổi khí hậu đã được bắt đầu",
+    "topicName": "Environment & Sustainability",
+    "topicSlug": "environment-sustainability"
+  },
+  {
+    "term": "Waste Management",
+    "pronunciation": "/weɪst ˌmæn.ɪˈdʒmənt/",
+    "definition": "quản lý rác thải",
+    "example": "Quản lý rác thải là một phần quan trọng trong bảo vệ môi trường",
+    "exampleTranslation": "Quản lý rác thải là một phần quan trọng trong bảo vệ môi trường",
+    "topicName": "Environment & Sustainability",
+    "topicSlug": "environment-sustainability"
+  },
+  {
+    "term": "Ecosystem",
+    "pronunciation": "/iːˈkɒsɪs.təm/",
+    "definition": "hệ sinh thái",
+    "example": "Hệ sinh thái là hệ thống các sinh vật và môi trường sống",
+    "exampleTranslation": "Hệ sinh thái là hệ thống các sinh vật và môi trường sống",
+    "topicName": "Environment & Sustainability",
+    "topicSlug": "environment-sustainability"
+  },
+  {
+    "term": "Species",
+    "pronunciation": "/ˈspɪ.ʃiːz/",
+    "definition": "loại sinh vật",
+    "example": "Loại sinh vật đang bị đe dọa tuyệt chủng",
+    "exampleTranslation": "Loại sinh vật đang bị đe dọa tuyệt chủng",
+    "topicName": "Environment & Sustainability",
+    "topicSlug": "environment-sustainability"
+  },
+  {
+    "term": "Pollution",
+    "pronunciation": "/pəˈluː.ʃən/",
+    "definition": " ô nhiễm",
+    "example": "Ô nhiễm không khí và nước đang gây hại đến môi trường",
+    "exampleTranslation": "Ô nhiễm không khí và nước đang gây hại đến môi trường",
+    "topicName": "Environment & Sustainability",
+    "topicSlug": "environment-sustainability"
+  },
+  {
+    "term": "Greenhouse Effect",
+    "pronunciation": "/ˈɡriːnhaʊs efˈekt/",
+    "definition": "hiệu ứng nhà kính",
+    "example": "Hiệu ứng nhà kính đang gây nên hiệu ứng nóng lên toàn cầu",
+    "exampleTranslation": "Hiệu ứng nhà kính đang gây nên hiệu ứng nóng lên toàn cầu",
+    "topicName": "Environment & Sustainability",
+    "topicSlug": "environment-sustainability"
+  },
+  {
+    "term": "Recycling",
+    "pronunciation": "/riːsɪˈkʌ.lɪŋ/",
+    "definition": "lựa thải lại",
+    "example": "Lựa thải lại giấy và plastic để bảo vệ môi trường",
+    "exampleTranslation": "Lựa thải lại giấy và plastic để bảo vệ môi trường",
+    "topicName": "Environment & Sustainability",
+    "topicSlug": "environment-sustainability"
+  },
+  {
+    "term": "Energy Efficiency",
+    "pronunciation": "/en.ərʒi əˈfɪʃ.(ə)ns/",
+    "definition": "hiệu suất năng lượng",
+    "example": "Hiệu suất năng lượng của thiết bị điện đang được cải thiện",
+    "exampleTranslation": "Hiệu suất năng lượng của thiết bị điện đang được cải thiện",
+    "topicName": "Environment & Sustainability",
+    "topicSlug": "environment-sustainability"
+  },
+  {
+    "term": "Sustainable Agriculture",
+    "pronunciation": "/sʌsˈteɪ.nə.bəl ˌæɡ.rɪˈkʌ.ltʃər/",
+    "definition": "lương nông nghiệp bền vững",
+    "example": "Lương nông nghiệp bền vững là một phần quan trọng trong bảo vệ môi trường",
+    "exampleTranslation": "Lương nông nghiệp bền vững là một phần quan trọng trong bảo vệ môi trường",
+    "topicName": "Environment & Sustainability",
+    "topicSlug": "environment-sustainability"
+  },
+  {
+    "term": "Climate Resilience",
+    "pronunciation": "/ˈklajmt rɪˈzɪl.ɪəns/",
+    "definition": "khả năng thích nghi với biến đổi khí hậu",
+    "example": "Khả năng thích nghi với biến đổi khí hậu sẽ giúp giảm tác động của biến đổi khí hậu lên môi trường",
+    "exampleTranslation": "Khả năng thích nghi với biến đổi khí hậu sẽ giúp giảm tác động của biến đổi khí hậu lên môi trường",
+    "topicName": "Environment & Sustainability",
+    "topicSlug": "environment-sustainability"
+  },
+  {
+    "term": "Indemnity",
+    "pronunciation": "ɪnˈdɛmɪtɪ",
+    "definition": "Một loại bảo hiểm đối với tổn thất hoặc thiệt hại",
+    "example": "The company offered an indeminty to the victim of the accident.",
+    "exampleTranslation": "Công ty đã giới thiệu một bảo hiểm cho nạn nhân của tai nạn.",
+    "topicName": "Law & Justice",
+    "topicSlug": "law-justice"
+  },
+  {
+    "term": "Tort",
+    "pronunciation": "tɔːrt",
+    "definition": "Một hình phạt hoặc hình phạt không phải là một tội phạm",
+    "example": "The plaintiff committed a tort by breaking the defendant's property.",
+    "exampleTranslation": "Bị đơn đã gây ra một tội ác bằng cách phá hỏng tài sản của người bảo vệ.",
+    "topicName": "Law & Justice",
+    "topicSlug": "law-justice"
+  },
+  {
+    "term": "Mandate",
+    "pronunciation": "mænˈdeɪt",
+    "definition": "Một lệnh hoặc nhiệm vụ được giao cho một người hoặc cơ quan",
+    "example": "The president was given a mandate by the parliament to reform the country.",
+    "exampleTranslation": "Tổng thống được Quốc hội phê chuẩn một lệnh để cải cách đất nước.",
+    "topicName": "Law & Justice",
+    "topicSlug": "law-justice"
+  },
+  {
+    "term": "Remedies",
+    "pronunciation": "rɪˈmɛdɪz",
+    "definition": "Các biện pháp hoặc phương pháp để sửa chữa hoặc ngăn chặn một vấn đề",
+    "example": "The court ordered a remedy to compensate the plaintiff for his loss.",
+    "exampleTranslation": "Tòa án đã ra lệnh một giải pháp để bồi thường cho bị đơn vì mất mát của anh ấy.",
+    "topicName": "Law & Justice",
+    "topicSlug": "law-justice"
+  },
+  {
+    "term": "Jurisdiction",
+    "pronunciation": "ˌdʒʊərɪdɪkˈʃən",
+    "definition": "Quyền lực để xử lý các vụ án hoặc vấn đề pháp lý",
+    "example": "The court has jurisdiction over civil cases in the state.",
+    "exampleTranslation": "Tòa án có thẩm quyền đối với các vụ án dân sự ở bang đó.",
+    "topicName": "Law & Justice",
+    "topicSlug": "law-justice"
+  },
+  {
+    "term": "Enforcement",
+    "pronunciation": "ɛnˈfɔːrsmənt",
+    "definition": "Quy trình thực hiện hoặc áp dụng các quy định hoặc quy định",
+    "example": "The police carried out an enforcement to stop the robbery.",
+    "exampleTranslation": "Cảnh sát đã thực hiện một quy trình để ngăn chặn hành hình giết người.",
+    "topicName": "Law & Justice",
+    "topicSlug": "law-justice"
+  },
+  {
+    "term": "Penalty",
+    "pronunciation": "pɛˈnæltɪ",
+    "definition": "Hình phạt hoặc hình phạt đối với một hành vi vi phạm",
+    "example": "The convict was given a penalty to pay a fine.",
+    "exampleTranslation": "Nguyên đơn đã bị tuyên phạt phải nộp phạt.",
+    "topicName": "Law & Justice",
+    "topicSlug": "law-justice"
+  },
+  {
+    "term": "Appeal",
+    "pronunciation": "əˈpiːl",
+    "definition": "Một kiến nghị hoặc đề nghị nhằm đưa một quyết định hoặc án phạt lên tòa án cấp trên",
+    "example": "The defendant filed an appeal to the appeals court.",
+    "exampleTranslation": "Bị đơn đã nộp đơn lên tòa án phúc thẩm.",
+    "topicName": "Law & Justice",
+    "topicSlug": "law-justice"
+  },
+  {
+    "term": "Evidence",
+    "pronunciation": "ɪˈvɪdəns",
+    "definition": "Một dạng tài liệu hoặc chứng cứ để hỗ trợ một lập luận hoặc chứng minh một câu hỏi",
+    "example": "The prosecution presented evidence to prove the defendant's guilt.",
+    "exampleTranslation": "Cơ quan truy tố đã trình bày các bằng chứng để chứng minh tội lỗi của bị đơn.",
+    "topicName": "Law & Justice",
+    "topicSlug": "law-justice"
+  },
+  {
+    "term": "Impeachment",
+    "pronunciation": "ɪmˈpiːtʃmənt",
+    "definition": "Quá trình tố tụng liên quan đến việc kiểm tra hành vi hoặc tình trạng của một người",
+    "example": "The judge was under impeachment proceedings for his misconduct.",
+    "exampleTranslation": "Hủy tòa án đang phải đối mặt với các trình tường trình liên quan đến sai lầm hành chính của mình.",
+    "topicName": "Law & Justice",
+    "topicSlug": "law-justice"
+  },
+  {
+    "term": "Habeas Corpus",
+    "pronunciation": "habɪəs ˈkɔːrpəs",
+    "definition": "Một đơn yêu cầu để giải phóng một người khỏi sự giam giữ hoặc cầm tù",
+    "example": "The court granted a writ of habeas corpus to release the prisoner.",
+    "exampleTranslation": "Tòa án đã cấp một lá thư yêu cầu để phóng thích tù nhân.",
+    "topicName": "Law & Justice",
+    "topicSlug": "law-justice"
+  },
+  {
+    "term": "Precedent",
+    "pronunciation": "prɪˈsɛdnt",
+    "definition": "Một trường hợp hoặc quyết định đã xét xử trước đó có thể được sử dụng như một hướng dẫn cho các vụ án tương tự sau này",
+    "example": "The court cited numerous precedents to support its decision.",
+    "exampleTranslation": "Tòa án đã trích dẫn nhiều tiền lệ để hỗ trợ quyết định của mình.",
+    "topicName": "Law & Justice",
+    "topicSlug": "law-justice"
+  },
+  {
+    "term": "Prosecutor",
+    "pronunciation": "proˈsɛkjʊtə",
+    "definition": "Một người hoặc cơ quan có trách nhiệm truy tố và chứng minh tội phạm",
+    "example": "The prosecutor presented a strong case to the jury.",
+    "exampleTranslation": "Người bào chữa đã đưa ra một vụ án mạnh mẽ cho bồi thẩm đoàn.",
+    "topicName": "Law & Justice",
+    "topicSlug": "law-justice"
+  },
+  {
+    "term": "Defense",
+    "pronunciation": "dɪˈfens",
+    "definition": "Một bên có trách nhiệm bảo vệ và chứng minh vô tội",
+    "example": "The defendant presented a robust defense to the charges.",
+    "exampleTranslation": "Bị đơn đã trình bày một vụ án mạnh mẽ để chống lại các cáo buộc.",
+    "topicName": "Law & Justice",
+    "topicSlug": "law-justice"
+  },
+  {
+    "term": "Witness",
+    "pronunciation": "ˈwɪtnəs",
+    "definition": "Một người hoặc cá nhân có thông tin hoặc kiến thức liên quan đến một vụ án hoặc vấn đề pháp lý",
+    "example": "The witness testified that they saw the defendant commit the crime.",
+    "exampleTranslation": "Bằng chứng đã khai rằng họ đã thấy bị đơn thực hiện hành vi phạm tội.",
+    "topicName": "Law & Justice",
+    "topicSlug": "law-justice"
+  },
+  {
+    "term": "Expert Witness",
+    "pronunciation": "ˌɛkspər tˈwɪtnəs",
+    "definition": "Một người hoặc cá nhân có chuyên môn và kiến thức liên quan đến một lĩnh vực cụ thể liên quan đến một vụ án hoặc vấn đề pháp lý",
+    "example": "The expert witness testified that the defendant's actions were not reckless.",
+    "exampleTranslation": "Bằng chứng chuyên gia đã khai rằng hành động của bị đơn không phải là thiếu trách nhiệm.",
+    "topicName": "Law & Justice",
+    "topicSlug": "law-justice"
+  },
+  {
+    "term": "Civil Law",
+    "pronunciation": "ˈsɪvɪl leɪ",
+    "definition": "Pháp luật liên quan đến các quan hệ giữa các cá nhân hoặc tổ chức",
+    "example": "The plaintiff filed a civil lawsuit against the defendant.",
+    "exampleTranslation": "Bị đơn đã nộp đơn kiện dân sự chống lại bị đơn.",
+    "topicName": "Law & Justice",
+    "topicSlug": "law-justice"
+  },
+  {
+    "term": "Criminal Law",
+    "pronunciation": "/ˈkrɪmɪnjəl",
+    "definition": "Pháp luật liên quan đến các hành vi phạm tội và quy trình tố tụng",
+    "example": "The defendant was charged with a crime under criminal law.",
+    "exampleTranslation": "Bị đơn đã bị buộc tội một tội ác dưới luật hình sự.",
+    "topicName": "Law & Justice",
+    "topicSlug": "law-justice"
+  },
+  {
+    "term": "Due Process",
+    "pronunciation": "ˌduː ˈprosɛs",
+    "definition": "Quy trình tố tụng và thủ tục pháp lý được thiết lập để đảm bảo rằng mọi người đều được đối xử công bằng và chính trực",
+    "example": "The court ruled that the defendant's due process rights were violated.",
+    "exampleTranslation": "Tòa án đã quyết định rằng quyền được đối xử công bằng và chính trực của bị đơn bị vi phạm.",
+    "topicName": "Law & Justice",
+    "topicSlug": "law-justice"
+  },
+  {
+    "term": "Double Jeopardy",
+    "pronunciation": "/ˈdʌbəl dʒɪˈpɛrdi",
+    "definition": "Quy định pháp lý ngăn chặn việc bắt giữ hoặc xét xử một người hai lần cho cùng một hành vi phạm tội",
+    "example": "The defendant was protected from double jeopardy.",
+    "exampleTranslation": "Bị đơn đã được bảo vệ khỏi việc bị kết án hai lần.",
+    "topicName": "Law & Justice",
+    "topicSlug": "law-justice"
+  },
+  {
+    "term": "Probation",
+    "pronunciation": "prəˈbæʃən",
+    "definition": "Một hình thức án phạt thay thế, liên quan đến việc giám sát và kiểm soát",
+    "example": "The defendant was sentenced to probation.",
+    "exampleTranslation": "Bị đơn đã bị kết án được phóng thích cho phép.",
+    "topicName": "Law & Justice",
+    "topicSlug": "law-justice"
+  },
+  {
+    "term": "Anthology",
+    "pronunciation": "/ˈænθəˌloʊdɪ/",
+    "definition": "Một tập hợp các tác phẩm nghệ thuật, văn học, hoặc âm nhạc",
+    "example": "Một cuốn sách được xuất bản để lưu trữ các câu chuyện ngắn của tác giả",
+    "exampleTranslation": "A book published to collect and preserve short stories",
+    "topicName": "Arts & Literature",
+    "topicSlug": "arts-literature"
+  },
+  {
+    "term": "Filmmaker",
+    "pronunciation": "/oʊˈtɜːr/",
+    "definition": "Tác giả của một tác phẩm nghệ thuật hoặc văn học",
+    "example": "Một nhà văn được công nhận là tác giả của một chuỗi truyện cổ tích",
+    "exampleTranslation": "An author recognized as the creator of a series of fairy tales",
+    "topicName": "Arts & Literature",
+    "topicSlug": "arts-literature"
+  },
+  {
+    "term": "Calligram",
+    "pronunciation": "/kæˈlɪɡræm/",
+    "definition": "Một dạng chữ viết nghệ thuật, kết hợp hình và chữ",
+    "example": "Một tác phẩm được tạo ra bằng cách sử dụng chữ viết như một phần của hình dạng",
+    "exampleTranslation": "A work created by using written text as a part of the shape",
+    "topicName": "Arts & Literature",
+    "topicSlug": "arts-literature"
+  },
+  {
+    "term": "Light-Shadow Contrast",
+    "pronunciation": "/kiˌɑrɑsˈkjuːroʊ/",
+    "definition": "Một kỹ thuật nghệ thuật sử dụng ánh sáng và bóng",
+    "example": "Một bức tranh được tạo ra bằng cách sử dụng kỹ thuật chiếu sáng và bóng",
+    "exampleTranslation": "A painting created by using chiaroscuro technique",
+    "topicName": "Arts & Literature",
+    "topicSlug": "arts-literature"
+  },
+  {
+    "term": "Critique",
+    "pronunciation": "/krɪˈtiːk/",
+    "definition": "Một đánh giá hoặc phân tích về một tác phẩm nghệ thuật",
+    "example": "Một bài đánh giá về một triển lãm nghệ thuật",
+    "exampleTranslation": "A review of an art exhibition",
+    "topicName": "Arts & Literature",
+    "topicSlug": "arts-literature"
+  },
+  {
+    "term": "Diction",
+    "pronunciation": "/dɪkˈtʃən/",
+    "definition": "Cách sử dụng ngôn ngữ trong một tác phẩm nghệ thuật",
+    "example": "Một tác phẩm được viết bằng một phong cách ngôn ngữ đặc biệt",
+    "exampleTranslation": "A work written in a particular style of language",
+    "topicName": "Arts & Literature",
+    "topicSlug": "arts-literature"
+  },
+  {
+    "term": "Emblem",
+    "pronunciation": "/ˈɛmbləm/",
+    "definition": "Một biểu tượng hoặc hình ảnh đại diện",
+    "example": "Một logo được sử dụng để đại diện cho một công ty",
+    "exampleTranslation": "A logo used to represent a company",
+    "topicName": "Arts & Literature",
+    "topicSlug": "arts-literature"
+  },
+  {
+    "term": "Boredom",
+    "pronunciation": "/ɑ̃ˈnɥi/",
+    "definition": "Một cảm giác buồn ngủ hoặc uể oải",
+    "example": "Một tác phẩm nghệ thuật thể hiện cảm giác ennui",
+    "exampleTranslation": "A work of art that depicts ennui",
+    "topicName": "Arts & Literature",
+    "topicSlug": "arts-literature"
+  },
+  {
+    "term": "Ephemera",
+    "pronunciation": "/ɪˈfɛmɪrə/",
+    "definition": "Một vật thể hoặc tác phẩm nghệ thuật vô thường",
+    "example": "Một tác phẩm nghệ thuật được tạo ra từ các vật liệu vô thường và có thể bị mất đi",
+    "exampleTranslation": "A work of art created from ephemeral materials and can be lost",
+    "topicName": "Arts & Literature",
+    "topicSlug": "arts-literature"
+  },
+  {
+    "term": "Essentialism",
+    "pronunciation": "/ɛsɛnˈʃəlɪzəm/",
+    "definition": "Một lý thuyết về bản chất tự nhiên của một vật thể",
+    "example": "Một tác phẩm nghệ thuật thể hiện sự quan tâm đến bản chất tự nhiên",
+    "exampleTranslation": "A work of art that depicts interest in the nature",
+    "topicName": "Arts & Literature",
+    "topicSlug": "arts-literature"
+  },
+  {
+    "term": "Euphemism",
+    "pronunciation": "/juːˈfɛmɪzəm/",
+    "definition": "Một từ ngữ được sử dụng để tránh gây khó chịu",
+    "example": "Một từ ngữ được sử dụng để tránh gây khó chịu trong một bài viết",
+    "exampleTranslation": "A word used to avoid discomfort in a writing",
+    "topicName": "Arts & Literature",
+    "topicSlug": "arts-literature"
+  },
+  {
+    "term": "Bookplate",
+    "pronunciation": "/ɛks ˈlɪbraɪz/",
+    "definition": "Một thẻ hoặc dấu hiệu thể hiện sở hữu của một cuốn sách",
+    "example": "Một thẻ Ex Libris được gắn vào trang đầu tiên của một cuốn sách",
+    "exampleTranslation": "A bookplate with a Ex Libris sign attached to the first page of a book",
+    "topicName": "Arts & Literature",
+    "topicSlug": "arts-literature"
+  },
+  {
+    "term": "Finesse",
+    "pronunciation": "/fɪˈnɛs/",
+    "definition": "Sự tinh tế và sự chính xác trong một tác phẩm nghệ thuật",
+    "example": "Một tác phẩm được tạo ra bằng sự tinh tế và chính xác cao",
+    "exampleTranslation": "A work created with high-level precision and sophistication",
+    "topicName": "Arts & Literature",
+    "topicSlug": "arts-literature"
+  },
+  {
+    "term": "Garrulous",
+    "pronunciation": "/ˈgærʊləs/",
+    "definition": "Một người nói nhiều và dài",
+    "example": "Một người nói nhiều và dài trong một cuộc trò chuyện",
+    "exampleTranslation": "Someone who talks a lot and talks at length in a conversation",
+    "topicName": "Arts & Literature",
+    "topicSlug": "arts-literature"
+  },
+  {
+    "term": "Unified Whole",
+    "pronunciation": "/ɡəˈstɑːlt/",
+    "definition": "Một khái niệm về việc nhìn thấy một hình ảnh toàn bộ",
+    "example": "Một tác phẩm được tạo ra bằng sự sử dụng khái niệm Gestalt",
+    "exampleTranslation": "A work created using Gestalt concept",
+    "topicName": "Arts & Literature",
+    "topicSlug": "arts-literature"
+  },
+  {
+    "term": "Heterogeneous",
+    "pronunciation": "/hɛtərədʒɪˈnɪiəs/",
+    "definition": "Các phần khác nhau hoặc đa dạng",
+    "example": "Một tác phẩm được tạo ra từ các phần khác nhau",
+    "exampleTranslation": "A work created from different parts",
+    "topicName": "Arts & Literature",
+    "topicSlug": "arts-literature"
+  },
+  {
+    "term": "Humor",
+    "pronunciation": "/ˈhjuːmər/",
+    "definition": "Một loại hài hước hoặc hài",
+    "example": "Một tác phẩm được tạo ra để thể hiện sự hài hước",
+    "exampleTranslation": "A work created to display humor",
+    "topicName": "Arts & Literature",
+    "topicSlug": "arts-literature"
+  },
+  {
+    "term": "Idiomatic",
+    "pronunciation": "/aɪˈdaʊmætɪk/",
+    "definition": "Một thuật ngữ hoặc cụm từ có ý nghĩa đặc biệt",
+    "example": "Một cụm từ được sử dụng để thể hiện ý tưởng một cách đặc biệt",
+    "exampleTranslation": "An idiomatic expression used to convey idea in a special way",
+    "topicName": "Arts & Literature",
+    "topicSlug": "arts-literature"
+  },
+  {
+    "term": "Imagery",
+    "pronunciation": "/ɪˈmædʒəri/",
+    "definition": "Các hình ảnh hoặc miêu tả trong một tác phẩm nghệ thuật",
+    "example": "Một hình ảnh trong một tác phẩm nghệ thuật thể hiện sự phong phú về màu sắc",
+    "exampleTranslation": "A picture in a work of art depicts the richness of colors",
+    "topicName": "Arts & Literature",
+    "topicSlug": "arts-literature"
+  },
+  {
+    "term": "Inscrutable",
+    "pronunciation": "/ɪnskrɪˈtuːtəbəl/",
+    "definition": "Một khái niệm mà người khác không thể hiểu hoặc giải thích",
+    "example": "Một khái niệm không thể hiểu được hoặc giải thích được",
+    "exampleTranslation": "A concept that's hard to understand or interpret",
+    "topicName": "Arts & Literature",
+    "topicSlug": "arts-literature"
+  },
+  {
+    "term": "Interstice",
+    "pronunciation": "/ɪntərˈstaɪs/",
+    "definition": "Một khoảng trống hoặc điểm nối giữa các thứ",
+    "example": "Một khoảng trống giữa các ô của một tấm bảng",
+    "exampleTranslation": "A space between sections of a board",
+    "topicName": "Arts & Literature",
+    "topicSlug": "arts-literature"
+  },
+  {
+    "term": "Jargon",
+    "pronunciation": "/ˈdʒɑːrɡən/",
+    "definition": "Một ngôn ngữ hoặc từ ngữ đặc biệt",
+    "example": "Một ngôn ngữ hoặc từ ngữ được sử dụng bởi một nhóm người",
+    "exampleTranslation": "A language or vocabulary used by a group",
+    "topicName": "Arts & Literature",
+    "topicSlug": "arts-literature"
+  },
+  {
+    "term": "Kinescope",
+    "pronunciation": "/kaɪˈnɛskɒp/",
+    "definition": "Một bản thu của một chương trình truyền hình",
+    "example": "Một bản thu của một chương trình truyền hình",
+    "exampleTranslation": "A recording of a TV program",
+    "topicName": "Arts & Literature",
+    "topicSlug": "arts-literature"
+  },
+  {
+    "term": "Anthropogenic",
+    "pronunciation": "/ˈænθrəpodʒɛnɪk/",
+    "definition": "Tác động của hoạt động của con người",
+    "example": "Khí hậu nóng lên do tác động anthropogenic",
+    "exampleTranslation": "",
+    "topicName": "Science & Research",
+    "topicSlug": "science-research"
+  },
+  {
+    "term": "Biomechanics",
+    "pronunciation": "/baɪəməˈkænɪks/",
+    "definition": "Nghiên cứu về cách cơ thể sinh vật hoạt động",
+    "example": "Nghiên cứu về cơ chế chuyển động của động vật",
+    "exampleTranslation": "",
+    "topicName": "Science & Research",
+    "topicSlug": "science-research"
+  },
+  {
+    "term": "Catalysis",
+    "pronunciation": "/ˌkætəˈlaɪsɪs/",
+    "definition": "Quá trình tăng tốc hóa học",
+    "example": "Catalysis trong quy trình sản xuất nhiên liệu",
+    "exampleTranslation": "",
+    "topicName": "Science & Research",
+    "topicSlug": "science-research"
+  },
+  {
+    "term": "Climate Model",
+    "pronunciation": "/ˈklaɪmət maʊˈdɛl/",
+    "definition": "Mô hình dự báo khí hậu",
+    "example": "Mô hình dự báo khí hậu để kiểm soát biến đổi khí hậu",
+    "exampleTranslation": "",
+    "topicName": "Science & Research",
+    "topicSlug": "science-research"
+  },
+  {
+    "term": "Data Mining",
+    "pronunciation": "/ˈdeɪtɑː maɪnɪŋ/",
+    "definition": "Kiểm tra và phân tích dữ liệu",
+    "example": "Dữ liệu về khách hàng trong ngành thương mại điện tử",
+    "exampleTranslation": "",
+    "topicName": "Science & Research",
+    "topicSlug": "science-research"
+  },
+  {
+    "term": "Epidemiology",
+    "pronunciation": "/ˌɛpɪdɪˈmɪələdʒɪ/",
+    "definition": "Nghiên cứu về dịch tễ học",
+    "example": "Nghiên cứu về lây lan và điều trị căn bệnh",
+    "exampleTranslation": "",
+    "topicName": "Science & Research",
+    "topicSlug": "science-research"
+  },
+  {
+    "term": "Fermentation",
+    "pronunciation": "/ˌfɜːrmənˈteɪʃən/",
+    "definition": "Quá trình phân hủy sinh học",
+    "example": "Fermentation trong quy trình sản xuất đồ uống",
+    "exampleTranslation": "",
+    "topicName": "Science & Research",
+    "topicSlug": "science-research"
+  },
+  {
+    "term": "Geophysics",
+    "pronunciation": "/ˌdʒiːəʊˈfɪzɪks/",
+    "definition": "Nghiên cứu về sự tương tác của Trái đất với trường hấp dẫn",
+    "example": "Nghiên cứu về hiện tượng địa chấn",
+    "exampleTranslation": "",
+    "topicName": "Science & Research",
+    "topicSlug": "science-research"
+  },
+  {
+    "term": "Hyperspace",
+    "pronunciation": "/ˌhɪərpəˈspeɪ/",
+    "definition": "Đa không gian",
+    "example": "Concept của Hyperspace trong các bộ phim khoa học viễn tưởng",
+    "exampleTranslation": "",
+    "topicName": "Science & Research",
+    "topicSlug": "science-research"
+  },
+  {
+    "term": "In Vitro",
+    "pronunciation": "/ɪn ˈvɪtrəʊ/",
+    "definition": "Nghiên cứu trong môi trường phòng thí nghiệm",
+    "example": "Phép thử thuốc bằng phương pháp in vitro",
+    "exampleTranslation": "",
+    "topicName": "Science & Research",
+    "topicSlug": "science-research"
+  },
+  {
+    "term": "Lithosphere",
+    "pronunciation": "/ˌlɪθəˈsfɪər/",
+    "definition": "Hỗn hợp lớp phủ mặt đất và lớp thủy nhiệt",
+    "example": "Lithosphere của Trái đất",
+    "exampleTranslation": "",
+    "topicName": "Science & Research",
+    "topicSlug": "science-research"
+  },
+  {
+    "term": "Mechanics",
+    "pronunciation": "/mɪˈkænɪks/",
+    "definition": "Lực và chuyển động của vật thể",
+    "example": "Principles của chuyển động của vật rơi tự do",
+    "exampleTranslation": "",
+    "topicName": "Science & Research",
+    "topicSlug": "science-research"
+  },
+  {
+    "term": "Microscope",
+    "pronunciation": "/ˈmaɪkroskɒp/",
+    "definition": "Thiết bị dùng để quan sát mẫu vật nhỏ",
+    "example": "Quan sát tế bào của động vật",
+    "exampleTranslation": "",
+    "topicName": "Science & Research",
+    "topicSlug": "science-research"
+  },
+  {
+    "term": "Nanotechnology",
+    "pronunciation": "/ˌnæntəˈtɛknəʊlɒdʒi/",
+    "definition": "Kĩ thuật về vật liệu nano",
+    "example": "Sản xuất vật liệu nano với các tính năng đặc biệt",
+    "exampleTranslation": "",
+    "topicName": "Science & Research",
+    "topicSlug": "science-research"
+  },
+  {
+    "term": "Neuroplasticity",
+    "pronunciation": "/nuːroʊplæˈstɪsɪti/",
+    "definition": "Tiềm năng của não bộ để thay đổi",
+    "example": "Nghiên cứu về não bộ và chức năng thay đổi",
+    "exampleTranslation": "",
+    "topicName": "Science & Research",
+    "topicSlug": "science-research"
+  },
+  {
+    "term": "Orbital",
+    "pronunciation": "/ˈɔːrbɪtəl/",
+    "definition": "Hành tinh hoặc vệ tinh bay quanh ngôi sao",
+    "example": "Hành tinh quay quanh ngôi sao",
+    "exampleTranslation": "",
+    "topicName": "Science & Research",
+    "topicSlug": "science-research"
+  },
+  {
+    "term": "Paramagnetism",
+    "pronunciation": "/ˌpærəmæɡˈnɪtɪzm/",
+    "definition": "Tính chất của vật thể nhiễm từ",
+    "example": "Tính chất của một kim loại",
+    "exampleTranslation": "",
+    "topicName": "Science & Research",
+    "topicSlug": "science-research"
+  },
+  {
+    "term": "Photophore",
+    "pronunciation": "/ˈfoʊtəfoʊr/",
+    "definition": "Cấu trúc sinh học trong động vật biển",
+    "example": "Động vật biển và bộ phận photophore",
+    "exampleTranslation": "",
+    "topicName": "Science & Research",
+    "topicSlug": "science-research"
+  },
+  {
+    "term": "Quantum Mechanics",
+    "pronunciation": "/kwæntrəm ˈmɛkənɪks/",
+    "definition": "Phương pháp tính toán các chuyển động cơ bản",
+    "example": "Hành vi của các electron",
+    "exampleTranslation": "",
+    "topicName": "Science & Research",
+    "topicSlug": "science-research"
+  },
+  {
+    "term": "Radiation",
+    "pronunciation": "/ˌreɪdiˈeɪʃən/",
+    "definition": "Tác động của sóng điện từ",
+    "example": "Hậu quả sức khỏe của sóng điện từ",
+    "exampleTranslation": "",
+    "topicName": "Science & Research",
+    "topicSlug": "science-research"
+  },
+  {
+    "term": "Resonance",
+    "pronunciation": "/riːz(ə)nəns/",
+    "definition": "Phản xạ của vật thể",
+    "example": "Phản xạ của vật rơi tự do",
+    "exampleTranslation": "",
+    "topicName": "Science & Research",
+    "topicSlug": "science-research"
+  },
+  {
+    "term": "Spectrometry",
+    "pronunciation": "/spɛktroʊmɪˈtrɪ/",
+    "definition": "Xác định thành phần hóa học của vật liệu",
+    "example": "Spectrometry trong phòng thí nghiệm",
+    "exampleTranslation": "",
+    "topicName": "Science & Research",
+    "topicSlug": "science-research"
+  },
+  {
+    "term": "Spectroscopy",
+    "pronunciation": "/spɛktroˈskɒpi/",
+    "definition": "Kiểm tra thành phần hóa học",
+    "example": "Spectroscopy trong các lĩnh vực khoa học và kỹ thuật",
+    "exampleTranslation": "",
+    "topicName": "Science & Research",
+    "topicSlug": "science-research"
+  },
+  {
+    "term": "Telekinesis",
+    "pronunciation": "/ˌtɛlɪkɛnaɪˈsɪs/",
+    "definition": "Chức năng tự động hóa của não bộ",
+    "example": "Telekinesis và các tác dụng của nó",
+    "exampleTranslation": "",
+    "topicName": "Science & Research",
+    "topicSlug": "science-research"
+  },
+  {
+    "term": "Ultraviolet",
+    "pronunciation": "/ʌltrəˈvaɪəlt/",
+    "definition": "Sóng điện từ dưới tần số nhìn thấy",
+    "example": "Ultraviolet và tác dụng lên da",
+    "exampleTranslation": "",
+    "topicName": "Science & Research",
+    "topicSlug": "science-research"
+  },
+  {
+    "term": "Vaccine",
+    "pronunciation": "/ˈvæksɪn/",
+    "definition": "Máu từ động vật hoặc vi khuẩn",
+    "example": "Tác dụng của vaccine cho sức khỏe con người",
+    "exampleTranslation": "",
+    "topicName": "Science & Research",
+    "topicSlug": "science-research"
+  },
+  {
+    "term": "Weather Station",
+    "pronunciation": "/ˈwiðər streɪʃən/",
+    "definition": "Trạm thời tiết",
+    "example": "Phóng tin thời tiết tại một khu vực",
+    "exampleTranslation": "",
+    "topicName": "Science & Research",
+    "topicSlug": "science-research"
+  },
+  {
+    "term": "Xenon",
+    "pronunciation": "/ˈzɛnɒn/",
+    "definition": "Loại khí hiếm",
+    "example": "Tác dụng của xenon trong đèn LED",
+    "exampleTranslation": "",
+    "topicName": "Science & Research",
+    "topicSlug": "science-research"
+  },
+  {
+    "term": "Aromatize",
+    "pronunciation": "/ˈærəmaɪz/",
+    "definition": "tạo hương thơm cho món ăn bằng cách thêm gia vị",
+    "example": "Aromatize the dish with some herbs and spices",
+    "exampleTranslation": "Thêm gia vị và thảo mộc để tạo hương thơm cho món ăn",
+    "topicName": "Cooking & Culinary Arts",
+    "topicSlug": "cooking-culinary-arts"
+  },
+  {
+    "term": "Baste",
+    "pronunciation": "/beɪst/",
+    "definition": "kếm nước hoặc dầu vào thực phẩm đang nướng để giữ ẩm",
+    "example": "Baste the turkey with melted butter during roasting",
+    "exampleTranslation": "Kếm nước hoặc bơ đã tan vào gà tây khi nướng",
+    "topicName": "Cooking & Culinary Arts",
+    "topicSlug": "cooking-culinary-arts"
+  },
+  {
+    "term": "Bouillon",
+    "pronunciation": "/buˈi.jɔ̃/",
+    "definition": "cháo gà hoặc cháo thịt dùng để nấu ăn",
+    "example": "Use bouillon as a base for a hearty soup",
+    "exampleTranslation": "Sử dụng cháo gà hoặc cháo thịt làm cơ sở cho bữa ăn có nhiều nước",
+    "topicName": "Cooking & Culinary Arts",
+    "topicSlug": "cooking-culinary-arts"
+  },
+  {
+    "term": "Clarify",
+    "pronunciation": "/klær.aɪ/",
+    "definition": "loại bỏ bọt hoặc tạp chất khỏi chất lỏng",
+    "example": "Clarify the broth before serving",
+    "exampleTranslation": "Loại bỏ bọt hoặc tạp chất khỏi nước dùng trước khi phục vụ",
+    "topicName": "Cooking & Culinary Arts",
+    "topicSlug": "cooking-culinary-arts"
+  },
+  {
+    "term": "Emulsify",
+    "pronunciation": "/ˌɛmjʊˈlaɪfɪ/",
+    "definition": "tạo hỗn hợp của chất lỏng không hoà trộn",
+    "example": "Emulsify the oil and water based sauce",
+    "exampleTranslation": "Tạo hỗn hợp của dầu và nước dùng làm sauce",
+    "topicName": "Cooking & Culinary Arts",
+    "topicSlug": "cooking-culinary-arts"
+  },
+  {
+    "term": "Washed-Rind Cheese",
+    "pronunciation": "/ˌɛpoʊˈiːz/",
+    "definition": "loại phomat Pháp có mùi nồng",
+    "example": "Epoisses cheese has a strong smell",
+    "exampleTranslation": "Phomat Pháp có mùi nồng",
+    "topicName": "Cooking & Culinary Arts",
+    "topicSlug": "cooking-culinary-arts"
+  },
+  {
+    "term": "Garnish",
+    "pronunciation": "/ˈɡɑrnɪʃ/",
+    "definition": "thêm nguyên liệu trang trí cho món ăn",
+    "example": "Garnish the salad with some fresh herbs",
+    "exampleTranslation": "Thêm lá rau mới cho món salad",
+    "topicName": "Cooking & Culinary Arts",
+    "topicSlug": "cooking-culinary-arts"
+  },
+  {
+    "term": "Glazed",
+    "pronunciation": "/ɡleɪs/",
+    "definition": "ròn phần trên của thịt để ngăn ẩm",
+    "example": "Glace the meat to prevent it from drying out",
+    "exampleTranslation": "Ròn phần trên của thịt để ngăn giữ ẩm",
+    "topicName": "Cooking & Culinary Arts",
+    "topicSlug": "cooking-culinary-arts"
+  },
+  {
+    "term": "Invert",
+    "pronunciation": "/ɪnˈvɝːrʰt/",
+    "definition": "hơi ngược lại (bánh, bánh muffin)",
+    "example": "Invert the cake and serve on a plate",
+    "exampleTranslation": "Hơi ngược lại (bánh, bánh muffin)",
+    "topicName": "Cooking & Culinary Arts",
+    "topicSlug": "cooking-culinary-arts"
+  },
+  {
+    "term": "Julienne",
+    "pronunciation": "/ˌdʒu.ljɛnˈ/ ",
+    "definition": "cắt mỏng theo đường chéo",
+    "example": "Julienne the carrots and add to the stew",
+    "exampleTranslation": "Cắt mỏng theo đường chéo (ngọn hành)",
+    "topicName": "Cooking & Culinary Arts",
+    "topicSlug": "cooking-culinary-arts"
+  },
+  {
+    "term": "Lacquer",
+    "pronunciation": "/ˈlækər/",
+    "definition": "tạo lớp bóng trên bề mặt",
+    "example": "Lacquer the wood to prevent it from dryness",
+    "exampleTranslation": "Tạo lớp bóng trên bề mặt để ngăn chặn ẩm",
+    "topicName": "Cooking & Culinary Arts",
+    "topicSlug": "cooking-culinary-arts"
+  },
+  {
+    "term": "Prep Work",
+    "pronunciation": "/ˌmiːs ˌen pjɔːz/",
+    "definition": "chuẩn bị nguyên liệu trước khi nấu ăn",
+    "example": "Mise en Place is a crucial part of cooking",
+    "exampleTranslation": "Chuẩn bị nguyên liệu trước khi nấu ăn",
+    "topicName": "Cooking & Culinary Arts",
+    "topicSlug": "cooking-culinary-arts"
+  },
+  {
+    "term": "Coating Consistency",
+    "pronunciation": "/næp/",
+    "definition": "lớp mỏng trên bề mặt",
+    "example": "A nappe of sauce on the meat",
+    "exampleTranslation": "Lớp mỏng trên bề mặt của món ăn",
+    "topicName": "Cooking & Culinary Arts",
+    "topicSlug": "cooking-culinary-arts"
+  },
+  {
+    "term": "Parchment",
+    "pronunciation": "/ˈpɑrtʃmənt/",
+    "definition": "bàn chải bằng giấy bạc để nướng",
+    "example": "Parchment the fish and bake in the oven",
+    "exampleTranslation": "Bàn chải bằng giấy bạc để nướng cá",
+    "topicName": "Cooking & Culinary Arts",
+    "topicSlug": "cooking-culinary-arts"
+  },
+  {
+    "term": "Puree",
+    "pronunciation": "/ˈpur.iː/",
+    "definition": "trộn các nguyên liệu thành hỗn hợp mịn",
+    "example": "Puree the cooked vegetables for a creamy texture",
+    "exampleTranslation": "Trộn các nguyên liệu thành hỗn hợp mịn cho bữa ăn",
+    "topicName": "Cooking & Culinary Arts",
+    "topicSlug": "cooking-culinary-arts"
+  },
+  {
+    "term": "Reduction",
+    "pronunciation": "/ˌrɛd.jʊˈkʃən/",
+    "definition": "loại bỏ phần nhiều nước trong món ăn",
+    "example": "Reduction of the sauce after cooking",
+    "exampleTranslation": "Loại bỏ phần nhiều nước trong món ăn",
+    "topicName": "Cooking & Culinary Arts",
+    "topicSlug": "cooking-culinary-arts"
+  },
+  {
+    "term": "Roux",
+    "pronunciation": "/ruː/",
+    "definition": "loại bột mì và dầu dùng nấu ăn",
+    "example": "Use roux to thicken the soup",
+    "exampleTranslation": "Sử dụng bột mì và dầu để đun nóng",
+    "topicName": "Cooking & Culinary Arts",
+    "topicSlug": "cooking-culinary-arts"
+  },
+  {
+    "term": "Sear",
+    "pronunciation": "/sɪər/",
+    "definition": "hơi thực phẩm trên chảo để tạo lớp cạnh",
+    "example": "Sear the steak to lock in the flavors",
+    "exampleTranslation": "Hơi thực phẩm trên chảo để tạo lớp cạnh cho món ăn",
+    "topicName": "Cooking & Culinary Arts",
+    "topicSlug": "cooking-culinary-arts"
+  },
+  {
+    "term": "Vacuum Cooking",
+    "pronunciation": "/suːˈviːd/",
+    "definition": "nấu ăn bằng cách dùng nước nóng",
+    "example": "Sous Vide the eggs for a perfect texture",
+    "exampleTranslation": "Nấu ăn bằng cách dùng nước nóng để tạo màu sắc",
+    "topicName": "Cooking & Culinary Arts",
+    "topicSlug": "cooking-culinary-arts"
+  },
+  {
+    "term": "Tempura",
+    "pronunciation": "/tɛmpjʊˈrɑː/",
+    "definition": "loại thực phẩm được rán mướt",
+    "example": "Make tempura at home with a deep fryer",
+    "exampleTranslation": "Loại thực phẩm được rán mướt",
+    "topicName": "Cooking & Culinary Arts",
+    "topicSlug": "cooking-culinary-arts"
+  },
+  {
+    "term": "Truss",
+    "pronunciation": "/trʌs/",
+    "definition": "thắt dây buộc thịt và rau củ vào",
+    "example": "Truss the turkey and put it in the oven",
+    "exampleTranslation": "Thắt dây buộc thịt và rau củ vào như một món ăn",
+    "topicName": "Cooking & Culinary Arts",
+    "topicSlug": "cooking-culinary-arts"
+  },
+  {
+    "term": "Smooth Sauce",
+    "pronunciation": "/vəˈluːteɪ/",
+    "definition": "loại nước dùng có bột mì",
+    "example": "Velouté the chicken soup for a rich texture",
+    "exampleTranslation": "Loại nước dùng có bột mì để nấu ăn",
+    "topicName": "Cooking & Culinary Arts",
+    "topicSlug": "cooking-culinary-arts"
+  },
+  {
+    "term": "Whisk",
+    "pronunciation": "/hwɪsk/",
+    "definition": "trộn các nguyên liệu bằng cây trộn",
+    "example": "Whisk the eggs and sugar for a light texture",
+    "exampleTranslation": "Trộn các nguyên liệu bằng cây trộn để tạo màu sắc",
+    "topicName": "Cooking & Culinary Arts",
+    "topicSlug": "cooking-culinary-arts"
+  },
+  {
+    "term": "Zest",
+    "pronunciation": "/zɛst/",
+    "definition": "lớp vỏ của trái cây",
+    "example": "Add zest to the cake for a fresh flavor",
+    "exampleTranslation": "Lớp vỏ của trái cây, thêm vào món tráng miệng",
+    "topicName": "Cooking & Culinary Arts",
+    "topicSlug": "cooking-culinary-arts"
+  },
+  {
+    "term": "Baton Cut",
+    "pronunciation": "/bætɔ̃/",
+    "definition": "loại que dùng để nướng thịt trên lò",
+    "example": "Bâton the beef for a smoky flavor",
+    "exampleTranslation": "Loại que dùng để nướng thịt trên lò để tránh ẩm",
+    "topicName": "Cooking & Culinary Arts",
+    "topicSlug": "cooking-culinary-arts"
+  },
+  {
+    "term": "Chiffonade",
+    "pronunciation": "/ʃifɔ̃ad/",
+    "definition": "cắt lá rau theo chiều dọc",
+    "example": "Chiffonade the basil leaves for a delicious topping",
+    "exampleTranslation": "Cắt lá rau theo chiều dọc, được sử dụng làm topping",
+    "topicName": "Cooking & Culinary Arts",
+    "topicSlug": "cooking-culinary-arts"
+  },
+  {
+    "term": "Sprints",
+    "pronunciation": "/sprɪnts/",
+    "definition": "Các đợt chạy ngắn, thường được thực hiện để tăng cường hiệu suất và tốc độ",
+    "example": "Các vận động viên điền kinh thực hiện các sprint để chuẩn bị cho mùa giải tiếp theo.",
+    "exampleTranslation": "Athlete sprint on the track.",
+    "topicName": "Sports & Fitness",
+    "topicSlug": "sports-fitness"
+  },
+  {
+    "term": "Cardio",
+    "pronunciation": "/kɑrdiɑ/",
+    "definition": "Hoạt động thể thao tập trung vào hệ tim mạch, thường bao gồm jogging, bơi lội, đạp xe",
+    "example": "Cardio giúp cải thiện sức khỏe tim mạch và tăng cường năng lượng.",
+    "exampleTranslation": "Cardio exercises to improve heart health and increase energy.",
+    "topicName": "Sports & Fitness",
+    "topicSlug": "sports-fitness"
+  },
+  {
+    "term": "Deltoid",
+    "pronunciation": "/dɛltɒɪd/",
+    "definition": "Chân tay, cơ ở vai",
+    "example": "Cần phải làm tăng cường cơ deltoid để có một cú đánh mạnh.",
+    "exampleTranslation": "You need to strengthen your deltoid muscles for a powerful punch.",
+    "topicName": "Sports & Fitness",
+    "topicSlug": "sports-fitness"
+  },
+  {
+    "term": "Flexibility",
+    "pronunciation": "/fleksɪbɪlɪti/",
+    "definition": "Tính chất linh hoạt của một cơ thể, giúp di chuyển dễ dàng hơn",
+    "example": "Luyện tập tăng cường độ linh hoạt sẽ giúp bạn chuyển động tự nhiên và thuận tiện.",
+    "exampleTranslation": "Stretching exercises will help you move naturally and easily.",
+    "topicName": "Sports & Fitness",
+    "topicSlug": "sports-fitness"
+  },
+  {
+    "term": "Marathon",
+    "pronunciation": "/mærətʌn/",
+    "definition": "Một cuộc đua dài chạy với khoảng cách 42,195 km",
+    "example": "Một số vận động viên tham gia chạy marathon để thử thách sức khỏe và kỷ luật.",
+    "exampleTranslation": "Some athletes participate in marathons to test their health and discipline.",
+    "topicName": "Sports & Fitness",
+    "topicSlug": "sports-fitness"
+  },
+  {
+    "term": "Overtraining",
+    "pronunciation": "/ɒvəˈtrɛɪnɪŋ/",
+    "definition": "Một tình trạng khi cơ thể bị quá tải do tập luyện quá mức",
+    "example": "Nếu không cân bằng giữa tập luyện và nghỉ ngơi, bạn có thể dễ bị tình trạng quá tải.",
+    "exampleTranslation": "If you don't balance between training and rest, you may overtrain.",
+    "topicName": "Sports & Fitness",
+    "topicSlug": "sports-fitness"
+  },
+  {
+    "term": "Physical therapy",
+    "pronunciation": "/fɪzɪkəl ˈθɛrəpi/",
+    "definition": "Dịch vụ chăm sóc sức khỏe để hỗ trợ phục hồi chức năng và giảm đau",
+    "example": "Một số vận động viên được tham gia chương trình vật lý trị liệu sau khi bị chấn thương.",
+    "exampleTranslation": "Some athletes participate in physical therapy programs after injury.",
+    "topicName": "Sports & Fitness",
+    "topicSlug": "sports-fitness"
+  },
+  {
+    "term": "Plyometrics",
+    "pronunciation": "/plaɪəˈmɛtrɪks/",
+    "definition": "Hình thức tập luyện sử dụng chuyển động nhanh và nhảy",
+    "example": "Một số vận động viên thực hiện các bài tập plyometrics để cải thiện sức mạnh và tốc độ",
+    "exampleTranslation": "Some athletes do plyometric exercises to improve strength and speed.",
+    "topicName": "Sports & Fitness",
+    "topicSlug": "sports-fitness"
+  },
+  {
+    "term": "Sprinting",
+    "pronunciation": "/sprɪntɪŋ/",
+    "definition": "Chạy nhanh như thể đang chạy ngắn",
+    "example": "Các vận động viên điền kinh phải luyện tập sprinting để đạt được khả năng chạy nhanh.",
+    "exampleTranslation": "Track athletes must practice sprinting to improve their speed.",
+    "topicName": "Sports & Fitness",
+    "topicSlug": "sports-fitness"
+  },
+  {
+    "term": "Triathlon",
+    "pronunciation": "/traɪˈæθlɒn/",
+    "definition": "Một sự kiện thể thao bao gồm ba phần: bơi, đạp xe, và chạy",
+    "example": "Một số vận động viên tham gia tham gia triathlon để thử thách sức khỏe và kỹ năng đa năng.",
+    "exampleTranslation": "Some athletes compete in triathlon to test their health and multi-sport skills.",
+    "topicName": "Sports & Fitness",
+    "topicSlug": "sports-fitness"
+  },
+  {
+    "term": "Warmup",
+    "pronunciation": "/wɔməp/",
+    "definition": "Tập thể dục nhẹ nhàng trước khi tham gia một hoạt động thể thao",
+    "example": "Các vận động viên phải thực hiện warm-up trước khi tham gia trận đấu.",
+    "exampleTranslation": "Athletes must do a warm up before a competition.",
+    "topicName": "Sports & Fitness",
+    "topicSlug": "sports-fitness"
+  },
+  {
+    "term": "Weightlifting",
+    "pronunciation": "/weitˈlɪftɪŋ/",
+    "definition": "Hành động nâng vật nặng để tăng sức mạnh cơ bắp",
+    "example": "Các vận động viên bóng rổ phải thực hiện các bài tập nâng vật để tăng cường sức mạnh cơ bắp.",
+    "exampleTranslation": "Basketball players must practice weightlifting to improve their strength.",
+    "topicName": "Sports & Fitness",
+    "topicSlug": "sports-fitness"
+  },
+  {
+    "term": "Yoga",
+    "pronunciation": "/jɑɡə/",
+    "definition": "Một dạng của luyện tập thể dục hoặc thiền tập nhằm tăng cường sự linh hoạt và cân bằng",
+    "example": "Một số người thực hiện yoga để tăng cường sức khỏe và tinh thần.",
+    "exampleTranslation": "Some people practice yoga to improve their health and mood.",
+    "topicName": "Sports & Fitness",
+    "topicSlug": "sports-fitness"
+  },
+  {
+    "term": "Anatomy",
+    "pronunciation": "/ænətəmi/",
+    "definition": "Phân tích và nghiên cứu về cấu tạo và chức năng của cơ thể",
+    "example": "Biomedical engineers có thể sử dụng kiến thức về giải phẫu để phát triển các thiết bị y tế sáng tạo.",
+    "exampleTranslation": "Biomedical engineers can use anatomical knowledge to develop innovative medical devices.",
+    "topicName": "Sports & Fitness",
+    "topicSlug": "sports-fitness"
+  },
+  {
+    "term": "Biomechanics",
+    "pronunciation": "/baɪəmeɪ'knɪks/",
+    "definition": "Nghiên cứu về các yếu tố cơ học liên quan đến hoạt động của cơ thể",
+    "example": "Các nhà khoa học có thể sử dụng các phương pháp biomechanics để cải thiện hiệu suất của vận động viên.",
+    "exampleTranslation": "Scientists use biomechanical methods to improve athlete performance.",
+    "topicName": "Sports & Fitness",
+    "topicSlug": "sports-fitness"
+  },
+  {
+    "term": "Biophysics",
+    "pronunciation": "/baɪə'fɪzɪks/",
+    "definition": "Nghiên cứu sử dụng các nguyên lý vật lý để hiểu và mô tả các quá trình sinh học",
+    "example": "Các nhà nghiên cứu sử dụng phương pháp biophysics để hiểu các quá trình sinh học ở cấp độ phân tử.",
+    "exampleTranslation": "Researchers use biophysics methods to understand biological processes at the molecular level.",
+    "topicName": "Sports & Fitness",
+    "topicSlug": "sports-fitness"
+  },
+  {
+    "term": "Cardiovascular system",
+    "pronunciation": "/kɑrdiə'væskjʊlɑr/",
+    "definition": "Hệ thống cơ quan chịu trách nhiệm mang oxi và chất dinh dưỡng đến các tế bào",
+    "example": "Hệ thống tim mạch là một phần quan trọng của cơ thể con người.",
+    "exampleTranslation": "The cardiovascular system is an essential part of the human body.",
+    "topicName": "Sports & Fitness",
+    "topicSlug": "sports-fitness"
+  },
+  {
+    "term": "Exercise physiology",
+    "pronunciation": "/ɛksɛrsɪz'faɪzɪɔlədʒɪ",
+    "definition": "Nghiên cứu về các quá trình sinh lý liên quan đến hoạt động thể thao",
+    "example": "Các nhà nghiên cứu về sinh lý hoạt động thể thao có thể giúp cải thiện hiệu suất của vận động viên.",
+    "exampleTranslation": "Exercise physiologists can help improve athlete performance.",
+    "topicName": "Sports & Fitness",
+    "topicSlug": "sports-fitness"
+  },
+  {
+    "term": "Kinesiology",
+    "pronunciation": "/kɪnɪsɪ'ɒlədʒɪ/",
+    "definition": "Nghiên cứu về cơ học và động lực học của các chuyển động và hoạt động của cơ thể",
+    "example": "Các nhà nghiên cứu về kinesiology có thể giúp tạo ra các thiết bị hỗ trợ vận động viên.",
+    "exampleTranslation": "Kinesiologists can help develop assistive devices for athletes.",
+    "topicName": "Sports & Fitness",
+    "topicSlug": "sports-fitness"
+  },
+  {
+    "term": "Neuroscience",
+    "pronunciation": "/nɜu'rɒsɪn/",
+    "definition": "Nghiên cứu về các quá trình và cơ chế của não và thần kinh",
+    "example": "Các nhà nghiên cứu về thần kinh học có thể giúp hiểu các quá trình thần kinh phức tạp.",
+    "exampleTranslation": "Neuroscientists can help understand complex neurological processes.",
+    "topicName": "Sports & Fitness",
+    "topicSlug": "sports-fitness"
+  },
+  {
+    "term": "Pharmacology",
+    "pronunciation": "/fɑrməkoˈlɒdʒɪ/",
+    "definition": "Nghiên cứu về các tác dụng và hiệu ứng của các chất hóa học và thuốc ",
+    "example": "Các nhà nghiên cứu về dược học có thể giúp phát triển các loại thuốc mới.",
+    "exampleTranslation": "Pharmacologists can help develop new medications.",
+    "topicName": "Sports & Fitness",
+    "topicSlug": "sports-fitness"
+  },
+  {
+    "term": "Diplomacy",
+    "pronunciation": "/dɪˈplɒməsi/",
+    "definition": "Kỹ thuật giao tiếp và đàm phán giữa các quốc gia hoặc tổ chức",
+    "example": "Quan hệ ngoại giao giữa hai nước đang được cải thiện qua quá trình đối thoại.",
+    "exampleTranslation": "The diplomatic relations between the two countries are improving through dialogue.",
+    "topicName": "Politics & Government",
+    "topicSlug": "politics-government"
+  },
+  {
+    "term": "Economic System",
+    "pronunciation": "/ɪkˈɒnəmɪk sɪs.təm/",
+    "definition": "Hệ thống kinh tế của một quốc gia hoặc khu vực",
+    "example": "Hệ thống kinh tế của nước ta đang dần chuyển sang kinh tế thị trường.",
+    "exampleTranslation": "Our economic system is gradually shifting towards a market economy.",
+    "topicName": "Politics & Government",
+    "topicSlug": "politics-government"
+  },
+  {
+    "term": "Social Contract",
+    "pronunciation": "/səˈsoʊ.əl ˈkɒn.trækt/",
+    "definition": "Hội約 xã hội, bao gồm các thỏa thuận và nguyên tắc thống nhất của một quốc gia hoặc cộng đồng",
+    "example": "Quy định về bảo vệ môi trường là một phần quan trọng của hợp đồng xã hội.",
+    "exampleTranslation": "Environmental protection regulations are an important part of the social contract.",
+    "topicName": "Politics & Government",
+    "topicSlug": "politics-government"
+  },
+  {
+    "term": "Cabinet",
+    "pronunciation": "/ˈkæb.ɪ.nɪt/",
+    "definition": "Bộ trưởng và các cơ quan thuộc chính phủ",
+    "example": "Bộ trưởng Bộ Ngoại giao đang tham gia một cuộc họp cấp cao.",
+    "exampleTranslation": "The Foreign Minister is participating in a high-level meeting.",
+    "topicName": "Politics & Government",
+    "topicSlug": "politics-government"
+  },
+  {
+    "term": "Legislation",
+    "pronunciation": "/lɛg.ɪˈzeɪ.ʃən/",
+    "definition": "Tập các văn bản quy định về luật pháp và chính phủ",
+    "example": "Luật mới về môi trường đã được thông qua sau một năm thảo luận.",
+    "exampleTranslation": "A new environmental law was passed after a year of discussion.",
+    "topicName": "Politics & Government",
+    "topicSlug": "politics-government"
+  },
+  {
+    "term": "Democracy",
+    "pronunciation": "/dɛm.əˈkræsi/",
+    "definition": "Hệ thống trị nước theo sự đồng ý của đa số người dân",
+    "example": "Nước ta đã trở thành một hệ thống dân chủ sau cuộc cải cách năm 1990.",
+    "exampleTranslation": "Our country has become a democracy after the 1990 reforms.",
+    "topicName": "Politics & Government",
+    "topicSlug": "politics-government"
+  },
+  {
+    "term": "Federalism",
+    "pronunciation": "/fɛd.əˈræl.ɪ.zəm/",
+    "definition": "Hệ thống chính phủ liên bang, trong đó quyền lực chia sẻ giữa các cấp chính quyền",
+    "example": "Hệ thống chính quyền liên bang là mô hình được áp dụng ở nhiều quốc gia.",
+    "exampleTranslation": "Federalism is a system of government in which power is divided between levels of government.",
+    "topicName": "Politics & Government",
+    "topicSlug": "politics-government"
+  },
+  {
+    "term": "Governance",
+    "pronunciation": "/gɒv.ərˈnæns/",
+    "definition": "Quyền lực và trách nhiệm của chính phủ và các tổ chức",
+    "example": "Quan hệ giữa chính phủ và doanh nghiệp sẽ được cải thiện qua việc tăng cường hợp tác.",
+    "exampleTranslation": "The relationship between government and business will improve through increased cooperation.",
+    "topicName": "Politics & Government",
+    "topicSlug": "politics-government"
+  },
+  {
+    "term": "International Law",
+    "pronunciation": "/ɪn.tərnˈæʃənəl ˈlɔː/",
+    "definition": "Luật pháp quốc tế, áp dụng cho các quốc gia và tổ chức quốc tế",
+    "example": "Luật quốc tế về bảo vệ môi trường đã được ký kết và thực hiện.",
+    "exampleTranslation": "International law on environmental protection has been signed and implemented.",
+    "topicName": "Politics & Government",
+    "topicSlug": "politics-government"
+  },
+  {
+    "term": "Judicial System",
+    "pronunciation": "/ˈdʒʊd.ɪ.ʃəl ˈsɪs.təm/",
+    "definition": "Hệ thống tòa án và quy trình tố tụng",
+    "example": "Hệ thống tố tụng của chúng ta đang dần chuyển sang hệ thống xét xử công bằng.",
+    "exampleTranslation": "Our legal system is gradually shifting to an impartial judicial system.",
+    "topicName": "Politics & Government",
+    "topicSlug": "politics-government"
+  },
+  {
+    "term": "Legislator",
+    "pronunciation": "/lɛg.ɪˈsɪl.ə.tə/",
+    "definition": "Cá nhân hoặc cơ quan lập pháp thông qua luật pháp",
+    "example": "Họ đã trở thành một luật sư quan trọng trong Quốc hội.",
+    "exampleTranslation": "They have become a key lawyer in the legislature.",
+    "topicName": "Politics & Government",
+    "topicSlug": "politics-government"
+  },
+  {
+    "term": "Parliament",
+    "pronunciation": "/ˈpɑːr.lə.mənt/",
+    "definition": "Đại biểu cơ quan lập pháp của một quốc gia hoặc khu vực",
+    "example": "Chủ tịch Quốc hội đang tham gia một cuộc họp với Bộ trưởng Bộ Ngoại giao.",
+    "exampleTranslation": "The Speaker of the Parliament is participating in a meeting with the Foreign Minister.",
+    "topicName": "Politics & Government",
+    "topicSlug": "politics-government"
+  },
+  {
+    "term": "Public Policy",
+    "pronunciation": "/ˈpʌblɪk ˈpɒl.ɪsi/",
+    "definition": "Chính sách của chính phủ đối với công chúng",
+    "example": "Chính sách mới về giáo dục sẽ được công bố trong tháng tới.",
+    "exampleTranslation": "A new education policy will be announced next month.",
+    "topicName": "Politics & Government",
+    "topicSlug": "politics-government"
+  },
+  {
+    "term": "Social Movement",
+    "pronunciation": "/səˈsoʊ.əl məʊv.ment/",
+    "definition": "Lực lượng xã hội có mục đích cải tổ và ảnh hưởng đến xã hội",
+    "example": "Bên dưới, người biểu tình đang đòi hỏi quyền được công nhận.",
+    "exampleTranslation": "Below, protesters are demanding recognition of their rights.",
+    "topicName": "Politics & Government",
+    "topicSlug": "politics-government"
+  },
+  {
+    "term": "Veto",
+    "pronunciation": "/ˈvɛtoʊ/",
+    "definition": "Lệnh từ chối hoặc ngăn cản hành động của một tổ chức hoặc cá nhân",
+    "example": "Chủ tịch Quốc hội đã sử dụng quyền phản đối nhằm ngăn chặn dự luật này.",
+    "exampleTranslation": "The Speaker of the Parliament has used a veto to block this bill.",
+    "topicName": "Politics & Government",
+    "topicSlug": "politics-government"
+  },
+  {
+    "term": "Bureaucracy",
+    "pronunciation": "/ˌbyʊroʊˈkrɪsi/",
+    "definition": "Hệ thống tổ chức công bằng và sự phân chia nhân viên",
+    "example": "Hệ thống công vụ đang tiến bộ để cải thiện hiệu suất công việc.",
+    "exampleTranslation": "The bureaucracy is improving to enhance work efficiency.",
+    "topicName": "Politics & Government",
+    "topicSlug": "politics-government"
+  },
+  {
+    "term": "Censorship",
+    "pronunciation": "/sɛn.sərˈʃɪp/",
+    "definition": "Tổ chức kiểm duyệt nội dung và thông điệp để kiểm soát hoặc hạn chế",
+    "example": "Nhà báo chỉ được công bố tin tức sau khi được kiểm duyệt.",
+    "exampleTranslation": "Journalists are only allowed to publish news after it has been censored.",
+    "topicName": "Politics & Government",
+    "topicSlug": "politics-government"
+  },
+  {
+    "term": "Federal Reserve",
+    "pronunciation": "/fɛd.ər ˈri.zər.vəd/",
+    "definition": "Cơ quan quản lý công nghiệp và tài chính ở Mỹ",
+    "example": "Hệ thống quản lý của Fed sẽ giúp nền kinh tế duy trì ổn định trong năm nay.",
+    "exampleTranslation": "The Fed's system will help maintain economic stability this year.",
+    "topicName": "Politics & Government",
+    "topicSlug": "politics-government"
+  },
+  {
+    "term": "Human Rights",
+    "pronunciation": "/ˌhjuːmən aɪt.s/",
+    "definition": "Quyền và tự do của con người như quyền sống, tự do ngôn ngữ, và quyền được công nhận.",
+    "example": "Tình trạng nhân quyền đang bị vi phạm ở các nước ở khu vực này.",
+    "exampleTranslation": "Human rights are being violated in this region.",
+    "topicName": "Politics & Government",
+    "topicSlug": "politics-government"
+  },
+  {
+    "term": "Immigration",
+    "pronunciation": "/ɪm.ɪˈɡreɪ.ʃən/",
+    "definition": "Vận chuyển từ một quốc gia sang các quốc gia khác.",
+    "example": "Quan hệ nhập cư với nước ngoài đang được cải thiện trong những năm gần đây.",
+    "exampleTranslation": "The immigration relationship with other countries has improved in recent years.",
+    "topicName": "Politics & Government",
+    "topicSlug": "politics-government"
+  },
+  {
+    "term": "Legislative Process",
+    "pronunciation": "/lɛdʒ.ɪ.zɪ.tiv prɪ.ˈses/",
+    "definition": "Quy trình lập pháp bao gồm những bước để thông qua và ra đời các luật.",
+    "example": "Quy trình lập pháp ở quốc gia này rất phức tạp.",
+    "exampleTranslation": "The legislative process in this country is very complex.",
+    "topicName": "Politics & Government",
+    "topicSlug": "politics-government"
+  },
+  {
+    "term": "Propaganda",
+    "pronunciation": "prä'gənä'də",
+    "definition": "Tác phẩm truyền thông được tạo ra để quảng bá một quan điểm hoặc ý kiến cụ thể",
+    "example": "Những hình ảnh trong chiến dịch quảng cáo này được tạo để lan truyền thông điệp về sản phẩm mới",
+    "exampleTranslation": "These images in the ad campaign are created to spread the message about the new product",
+    "topicName": "Media & Journalism",
+    "topicSlug": "media-journalism"
+  },
+  {
+    "term": "Sensationalism",
+    "pronunciation": "sen'se-shə'nɪzəm",
+    "definition": "Thể loại báo chí tập trung vào việc tạo ra sự bất ngờ hoặc gây sốc cho người đọc",
+    "example": "Bài báo trên mạng xã hội cho thấy một sự kiện tàn ác nhưng thực tế thì không phải như vậy",
+    "exampleTranslation": "The online news article shows a tragic event, but in reality, it's not that serious",
+    "topicName": "Media & Journalism",
+    "topicSlug": "media-journalism"
+  },
+  {
+    "term": "Censorship",
+    "pronunciation": "sen'sərʃnip",
+    "definition": "Quy chế kiểm duyệt hoặc chèn ép ý kiến của người khác",
+    "example": "Tổ chức chính phủ không cho phép tờ báo xuất bản thông tin về sự kiện chính trị nội bộ",
+    "exampleTranslation": "The government organization doesn't allow the newspaper to publish information about the internal political event",
+    "topicName": "Media & Journalism",
+    "topicSlug": "media-journalism"
+  },
+  {
+    "term": "Objectivity",
+    "pronunciation": "əb'jɛktɪvɪti",
+    "definition": "Kỹ năng và khả năng báo chí độc lập và khách quan",
+    "example": "Các nhà báo được huấn luyện để báo chí một cách khách quan và không thiên vị",
+    "exampleTranslation": "The journalists are trained to report objectively and impartially",
+    "topicName": "Media & Journalism",
+    "topicSlug": "media-journalism"
+  },
+  {
+    "term": "Journalistic integrity",
+    "pronunciation": "dʒɜrnɑlɪstɪk ɪntɪgrɪti",
+    "definition": "Khả năng và kỹ năng giữ vững nguyên tắc và giá trị của nghề báo chí",
+    "example": "Cơ quan báo chí nổi tiếng vì tính minh bạch và trung thực",
+    "exampleTranslation": "The journalism agency is known for its transparency and honesty",
+    "topicName": "Media & Journalism",
+    "topicSlug": "media-journalism"
+  },
+  {
+    "term": "Media literacy",
+    "pronunciation": "mi'dia lɪ'tərəsi",
+    "definition": "Khả năng và kỹ năng nhận diện, đánh giá và sử dụng thông tin từ các kênh truyền thông",
+    "example": "Người trẻ học cách phân biệt giữa thông tin chính xác và thông tin sai lệch",
+    "exampleTranslation": "Young people learn how to distinguish between accurate and inaccurate information",
+    "topicName": "Media & Journalism",
+    "topicSlug": "media-journalism"
+  },
+  {
+    "term": "Tabloid journalism",
+    "pronunciation": "tæbloid dʒurnə'lɪzəm",
+    "definition": "Nghiệp vụ báo chí tập trung vào các tin tức và hình ảnh nổi bật nhưng thiếu khách quan",
+    "example": "Tờ báo màu sắc tập trung vào các tin tức nổi bật về các ngôi sao điện ảnh",
+    "exampleTranslation": "The tabloid newspaper focuses on sensational news about movie stars",
+    "topicName": "Media & Journalism",
+    "topicSlug": "media-journalism"
+  },
+  {
+    "term": "Infotainment",
+    "pronunciation": "ɪn'fəʊtɪn'ment",
+    "definition": "Loại hình truyền thông kết hợp giữa thông tin và giải trí",
+    "example": "Trang tin tức trên mạng xã hội được thiết kế để lan truyền thông điệp và thu hút người đọc bằng nội dung hấp dẫn",
+    "exampleTranslation": "The online news article is designed to spread the message and attract readers with engaging content",
+    "topicName": "Media & Journalism",
+    "topicSlug": "media-journalism"
+  },
+  {
+    "term": "Propaganda model",
+    "pronunciation": "prä'gənä'də mɒdəl",
+    "definition": "Khái niệm lý thuyết mô tả cách hệ thống truyền thông bị chi phối bởi các nhóm quyền lực xã hội",
+    "example": "Thuyết pháp quyền lực của Noam Chomsky cho rằng hệ thống truyền thông bị kiểm soát bởi các ngành công nghiệp và giới chính trị",
+    "exampleTranslation": "Noam Chomsky's propaganda model suggests that the media system is controlled by industries and politics",
+    "topicName": "Media & Journalism",
+    "topicSlug": "media-journalism"
+  },
+  {
+    "term": "Gatekeeping",
+    "pronunciation": "gɪtˈkiːpɪŋ",
+    "definition": "Quy trình kiểm duyệt thông tin để phân loại ra những gì phù hợp để công bố",
+    "example": "Tổ chức tạp chí phải kiểm duyệt bài viết của các nhà báo trước khi xuất bản",
+    "exampleTranslation": "The magazine organization must review articles from journalists before publishing",
+    "topicName": "Media & Journalism",
+    "topicSlug": "media-journalism"
+  },
+  {
+    "term": "Spin doctor",
+    "pronunciation": "spɪn 'dɒktə",
+    "definition": "người có nhiệm vụ thay đổi câu chuyện về một sự kiện để thay đổi cách mà công chúng nhìn nhận về nó",
+    "example": "Cơ quan truyền thông được thuê để thay đổi cách người dân nghĩ về một dự án cơ sở hạ tầng",
+    "exampleTranslation": "The media agency is hired to change the way people think about a infrastructure project",
+    "topicName": "Media & Journalism",
+    "topicSlug": "media-journalism"
+  },
+  {
+    "term": "Heterogeneous media",
+    "pronunciation": "haːtərəˈdʒɪnəʊʃu sɪm'dia",
+    "definition": "Một bộ sưu tập các nền tảng và kênh truyền thông đa dạng và đa dạng",
+    "example": "Một công ty truyền thông có nhiều nền tảng truyền thông xã hội khác nhau như Instagram, Facebook và Twitter",
+    "exampleTranslation": "A media company has multiple social media platforms such as Instagram, Facebook and Twitter",
+    "topicName": "Media & Journalism",
+    "topicSlug": "media-journalism"
+  },
+  {
+    "term": "Social media echo chamber",
+    "pronunciation": "sɪkl mɪdɪə 'ekəʊ tʃæmʌ",
+    "definition": "Kênh truyền thông xã hội bị ảnh hưởng bởi sự đồng thuận về ý kiến và quan điểm",
+    "example": "Lịch sử trên Twitter chỉ cho thấy các bài đăng có ý kiến giống nhau",
+    "exampleTranslation": "The Twitter history only shows posts with the same opinion",
+    "topicName": "Media & Journalism",
+    "topicSlug": "media-journalism"
+  },
+  {
+    "term": "Media echo chamber",
+    "pronunciation": "mɪdɪə 'ekəʊ tʃæmʌ",
+    "definition": "Kênh truyền thông mà trong đó thông tin hoặc quan điểm được lặp lại và được ủng hộ",
+    "example": "Trang web của tổ chức được mô tả như là một hệ thống truyền thông bị chi phối bởi thông tin đồng thuận",
+    "exampleTranslation": "The web site of the organization is described as a media system dominated by consensual information",
+    "topicName": "Media & Journalism",
+    "topicSlug": "media-journalism"
+  },
+  {
+    "term": "Media ecology",
+    "pronunciation": "mɪdɪə ɪ'kɒlədʒi",
+    "definition": "Phân tích môi trường trong đó hệ thống truyền thông phát triển và hoạt động",
+    "example": "Nhà nghiên cứu phân tích các yếu tố xã hội và kinh tế ảnh hưởng đến hệ thống truyền thông",
+    "exampleTranslation": "The researcher analyzes the social and economic factors affecting the media system",
+    "topicName": "Media & Journalism",
+    "topicSlug": "media-journalism"
+  },
+  {
+    "term": "Media event",
+    "pronunciation": "mɪdɪə 'iːvnt",
+    "definition": "Sự kiện đặc biệt được diễn ra qua các kênh truyền thông để được lan truyền",
+    "example": "Ceremony trao giải thưởng phim được tổ chức để thu hút người xem và lan truyền thông điệp trên các nền tảng truyền thông xã hội",
+    "exampleTranslation": "The film award ceremony is organized to attract viewers and spread the message across social media platforms",
+    "topicName": "Media & Journalism",
+    "topicSlug": "media-journalism"
+  },
+  {
+    "term": "Media landscape",
+    "pronunciation": "mɪdɪə 'lændskeɪp",
+    "definition": "Bối cảnh toàn cảnh về hệ thống truyền thông trong một thời gian nhất định",
+    "example": "Bối cảnh truyền thông toàn cầu hiện đại được đặc trưng bởi sự đa dạng và phân mảnh",
+    "exampleTranslation": "Modern global media landscape is characterized by diversity and fragmentation",
+    "topicName": "Media & Journalism",
+    "topicSlug": "media-journalism"
+  },
+  {
+    "term": "Media literacy education",
+    "pronunciation": "mɪdɪə lɪ'tərəsi ɪdʒək'eɪʃən",
+    "definition": "Khóa học nhằm đào tạo và nâng cao khả năng phân biệt và đánh giá thông tin qua các kênh truyền thông",
+    "example": "Một tổ chức phi lợi nhuận cung cấp khóa học nhằm giáo dục người đọc về media literacy",
+    "exampleTranslation": "A non-profit organization provides a course to educate readers about media literacy",
+    "topicName": "Media & Journalism",
+    "topicSlug": "media-journalism"
+  },
+  {
+    "term": "Affect",
+    "pronunciation": "/əˈfɛkt/",
+    "definition": "Một trạng thái cảm xúc hoặc tâm trạng cụ thể, có thể là tích cực hoặc tiêu cực.",
+    "example": "The affect of the news on the public was devastating.",
+    "exampleTranslation": "Áp lực của tin tức đối với công chúng là khủng khiếp.",
+    "topicName": "Psychology & Mental Health",
+    "topicSlug": "psychology-mental-health"
+  },
+  {
+    "term": "Cognitive",
+    "pronunciation": "/kɒɡˈnɪtɪv/",
+    "definition": "Liên quan đến quá trình tư duy, nhận thức và giải quyết vấn đề.",
+    "example": "Cognitive therapy là một phương pháp điều trị tâm lý giúp người bệnh nhận thức về thói quen suy nghĩ tiêu cực của mình.",
+    "exampleTranslation": "Chuyên gia trị liệu tâm lý sẽ giúp người bệnh nhận thức về thói quen suy nghĩ tiêu cực của mình.",
+    "topicName": "Psychology & Mental Health",
+    "topicSlug": "psychology-mental-health"
+  },
+  {
+    "term": "Depressant",
+    "pronunciation": "/dɪˈprɛsənt/",
+    "definition": "Một chất hoặc một hành vi có khả năng ức chế hoặc giảm nhẹ cảm xúc tiêu cực.",
+    "example": "Sử dụng chất depressant có thể giúp người bệnh giảm stress và lo lắng.",
+    "exampleTranslation": "Sử dụng chất ức chế có thể giúp người bệnh giảm stress và lo lắng.",
+    "topicName": "Psychology & Mental Health",
+    "topicSlug": "psychology-mental-health"
+  },
+  {
+    "term": "Hypnosis",
+    "pronunciation": "/hɪpˈnoʊsɪs/",
+    "definition": "Trạng thái tâm trí trong đó một người được thôi miên để thực hiện các hành động mà không nhớ.",
+    "example": "Chuyên gia trị liệu đã sử dụng hypnosis để giúp người bệnh vượt qua chứng lo lắng.",
+    "exampleTranslation": "Chuyên gia trị liệu đã sử dụng thôi miên để giúp người bệnh vượt qua chứng lo lắng.",
+    "topicName": "Psychology & Mental Health",
+    "topicSlug": "psychology-mental-health"
+  },
+  {
+    "term": "Narcissism",
+    "pronunciation": "/nɑːrˈsɪsɪzəm/",
+    "definition": "Đơn độc tâm lý khi một người quá tự phụ đến độ mất quan hệ với người khác.",
+    "example": "Một số người nghiện ma túy có thể bị chứng narcissism.",
+    "exampleTranslation": "Một số người nghiện ma túy có thể bị bệnh đơn độc tâm lý.",
+    "topicName": "Psychology & Mental Health",
+    "topicSlug": "psychology-mental-health"
+  },
+  {
+    "term": "Phobia",
+    "pronunciation": "/ˈfoʊbiə/",
+    "definition": "Một cảm giác sợ hãi hoặc bàng hoàng đối với một tình huống, vật thể hoặc hành động cụ thể.",
+    "example": "Người bệnh có phobia của rắn nên không thể đi du lịch nơi có rắn hoang dã.",
+    "exampleTranslation": "Người bệnh sợ rắn nên không thể đi du lịch nơi có rắn hoang dã.",
+    "topicName": "Psychology & Mental Health",
+    "topicSlug": "psychology-mental-health"
+  },
+  {
+    "term": "Psychosis",
+    "pronunciation": "/ˈsaɪkoʊsɪs/",
+    "definition": "Trạng thái tinh thần trong đó một người mất liên lạc với hiện thực và có thể bị ảnh hưởng nghiêm trọng đến khả năng suy nghĩ và hành động.",
+    "example": "Người bệnh có chứng tâm thần nghiêm trọng nên được đưa đến bệnh viện kiểm tra và điều trị.",
+    "exampleTranslation": "Người bệnh có chứng tâm thần nghiêm trọng nên được đưa đến bệnh viện kiểm tra và điều trị.",
+    "topicName": "Psychology & Mental Health",
+    "topicSlug": "psychology-mental-health"
+  },
+  {
+    "term": "Self-Esteem",
+    "pronunciation": "/sɛlfˈɛstɪm/",
+    "definition": "Tự tin về bản thân hay cảm nhận về giá trị của mình.",
+    "example": "Người bệnh cần được giúp đỡ để tăng cường self-esteem sau khi bị ốm.",
+    "exampleTranslation": "Người bệnh cần được giúp đỡ để tăng cường tự tin về bản thân sau khi bị ốm.",
+    "topicName": "Psychology & Mental Health",
+    "topicSlug": "psychology-mental-health"
+  },
+  {
+    "term": "Therapy",
+    "pronunciation": "/ˈθɛrəpi/",
+    "definition": "Một phương pháp điều trị tâm lý giúp người bệnh giải quyết các vấn đề về tâm lý hoặc hành vi.",
+    "example": "Chuyên gia trị liệu đã giúp người bệnh giải quyết vấn đề lo lắng và trầm cảm.",
+    "exampleTranslation": "Chuyên gia trị liệu đã giúp người bệnh giải quyết vấn đề lo lắng và trầm cảm.",
+    "topicName": "Psychology & Mental Health",
+    "topicSlug": "psychology-mental-health"
+  },
+  {
+    "term": "Trauma",
+    "pronunciation": "/ˈtrɔːmə/",
+    "definition": "Một trải nghiệm hoặc sự kiện gây ra tổn thương tâm lý nghiêm trọng và lâu dài.",
+    "example": "Người bệnh có thể bị tổn thương tâm lý sau khi trải qua một tai nạn nghiêm trọng.",
+    "exampleTranslation": "Người bệnh có thể bị tổn thương tâm lý sau khi trải qua một tai nạn nghiêm trọng.",
+    "topicName": "Psychology & Mental Health",
+    "topicSlug": "psychology-mental-health"
+  },
+  {
+    "term": "Dysthymia",
+    "pronunciation": "/dɪsˈθɪmiə/",
+    "definition": "Bất thường tâm trạng liên tục kéo dài trong thời gian dài.",
+    "example": "Bệnh nhân có dấu hiệu bất thường tâm trạng kéo dài nên được đánh giá.",
+    "exampleTranslation": "Bệnh nhân có dấu hiệu bất thường tâm trạng kéo dài nên được đánh giá.",
+    "topicName": "Psychology & Mental Health",
+    "topicSlug": "psychology-mental-health"
+  },
+  {
+    "term": "Emotional",
+    "pronunciation": "/ɪˈmoʊʃənəl/",
+    "definition": "Vận động hoặc liên quan đến cảm xúc.",
+    "example": "Bệnh nhân có trạng thái tâm trạng bất ổn nên cần được hỗ trợ.",
+    "exampleTranslation": "Bệnh nhân có trạng thái tâm trạng bất ổn nên cần được hỗ trợ.",
+    "topicName": "Psychology & Mental Health",
+    "topicSlug": "psychology-mental-health"
+  },
+  {
+    "term": "Intellectual",
+    "pronunciation": "/ˌɪntɪˈlɛktʃʊəl/",
+    "definition": "Liên quan đến trí thông minh hoặc tư duy.",
+    "example": "Thầy giáo dạy bài học về trí tuệ sáng tạo.",
+    "exampleTranslation": "Thầy giáo dạy bài học trí tuệ sáng tạo.",
+    "topicName": "Psychology & Mental Health",
+    "topicSlug": "psychology-mental-health"
+  },
+  {
+    "term": "Motivation",
+    "pronunciation": "/ˌmɒtivˈeɪʃən/",
+    "definition": "Cảm hứng hoặc động lực để thực hiện một hành động hoặc mục tiêu.",
+    "example": "Bác sĩ khuyến khích bệnh nhân vận động thể chất để tăng cường sức khỏe.",
+    "exampleTranslation": "Bác sĩ khuyến khích bệnh nhân vận động thể chất để tăng cường sức khỏe.",
+    "topicName": "Psychology & Mental Health",
+    "topicSlug": "psychology-mental-health"
+  },
+  {
+    "term": "Foundation",
+    "pronunciation": "/ˈfɔndəˌʃʌn/",
+    "definition": "Mặt bằng chính của một công trình kiến trúc.",
+    "example": "The foundation of the building was designed to withstand earthquakes.",
+    "exampleTranslation": "Cấu trúc nền của tòa nhà được thiết kế để chịu đựng động đất.",
+    "topicName": "Engineering & Construction",
+    "topicSlug": "engineering-construction"
+  },
+  {
+    "term": "Structural Integrity",
+    "pronunciation": "/ˈstrʌktrʊəriˈnɪtɪ/",
+    "definition": "Sự toàn vẹn về cấu trúc của một công trình kiến trúc.",
+    "example": "The team assessed the structural integrity of the bridge before its opening.",
+    "exampleTranslation": "Đội ngũ làm việc đánh giá sự toàn vẹn về cấu trúc của cầu trước khi khai thác.",
+    "topicName": "Engineering & Construction",
+    "topicSlug": "engineering-construction"
+  },
+  {
+    "term": "Mechanical Engineering",
+    "pronunciation": "/ˌmɛkəˈnɪkəl ˈɛŋdʒɪnɪəriŋ/",
+    "definition": "Nghiên cứu khoa học về thiết kế và xây dựng các thiết bị cơ khí.",
+    "example": "The mechanical engineering team designed a new system for water purification.",
+    "exampleTranslation": "Đội ngũ kỹ sư cơ khí thiết kế hệ thống mới cho tinh chế nước.",
+    "topicName": "Engineering & Construction",
+    "topicSlug": "engineering-construction"
+  },
+  {
+    "term": "Materials Science",
+    "pronunciation": "/ˌmeɪtərɪəlz ˈsaɪənts/",
+    "definition": "Học về tính chất vật liệu và ứng dụng của chúng.",
+    "example": "The materials scientist studied the properties of a new metal alloy.",
+    "exampleTranslation": "Kỹ sư vật liệu nghiên cứu đặc tính của hợp kim kim loại mới.",
+    "topicName": "Engineering & Construction",
+    "topicSlug": "engineering-construction"
+  },
+  {
+    "term": "Geotechnical Engineering",
+    "pronunciation": "/ˌdʒiːoʊtekˈnɪkəl ˈɛŋdʒɪnɪəriŋ/",
+    "definition": "Nghiên cứu khoa học về vật lý đất và ứng dụng của chúng.",
+    "example": "The geotechnical engineering team designed a new method for soil stabilization.",
+    "exampleTranslation": "Đội ngũ kỹ sư địa kỹ thuật thiết kế phương pháp mới cho ổn định đất.",
+    "topicName": "Engineering & Construction",
+    "topicSlug": "engineering-construction"
+  },
+  {
+    "term": "Quality Control",
+    "pronunciation": "/ˈkwɔlɪti ˈkɒntroʊl/",
+    "definition": "Sự kiểm tra và đảm bảo chất lượng sản phẩm hoặc dịch vụ.",
+    "example": "The quality control team inspected the products before shipment.",
+    "exampleTranslation": "Đội ngũ kiểm soát chất lượng kiểm tra sản phẩm trước khi giao.",
+    "topicName": "Engineering & Construction",
+    "topicSlug": "engineering-construction"
+  },
+  {
+    "term": "Casting",
+    "pronunciation": "/ˈkæsɪŋ/",
+    "definition": "Sự tạo hình hoặc đúc vật thể bằng cách đổ khuôn.",
+    "example": "The casting process was used to create a new sculpture.",
+    "exampleTranslation": "Quy trình đúc được sử dụng để tạo ra bức tượng mới.",
+    "topicName": "Engineering & Construction",
+    "topicSlug": "engineering-construction"
+  },
+  {
+    "term": "Scaffolding",
+    "pronunciation": "/ˈskæfdɪŋ/",
+    "definition": "Cấu trúc hoặc thiết bị giúp đảm bảo an toàn cho công nhân khi họ làm việc ở độ cao.",
+    "example": "The scaffolding was erected to protect the workers from falling.",
+    "exampleTranslation": "Mái che được dựng lên để bảo vệ công nhân khỏi rơi.",
+    "topicName": "Engineering & Construction",
+    "topicSlug": "engineering-construction"
+  },
+  {
+    "term": "Site Management",
+    "pronunciation": "/ˈsaɪt mænɪdʒmənt/",
+    "definition": "Sự quản lý và giám sát hoạt động trên địa điểm xây dựng.",
+    "example": "The site manager ensured that the project was completed on time.",
+    "exampleTranslation": "Quản đốc địa điểm đảm bảo dự án được hoàn thành đúng hạn.",
+    "topicName": "Engineering & Construction",
+    "topicSlug": "engineering-construction"
+  },
+  {
+    "term": "Building Information Modeling",
+    "pronunciation": "/ˌbɪldɪŋ ɪnfɒr'meˌʃən ˈmɒdəlɪŋ/",
+    "definition": "Chương trình phần mềm giúp xây dựng mô hình thông tin cho các công trình kiến trúc.",
+    "example": "The construction team used BIM to visualize the building design.",
+    "exampleTranslation": "Đội ngũ xây dựng sử dụng BIM để hình dung thiết kế công trình.",
+    "topicName": "Engineering & Construction",
+    "topicSlug": "engineering-construction"
+  },
+  {
+    "term": "Construction Manager",
+    "pronunciation": "/kənˈstrʌkʃən mænɪdʒər/",
+    "definition": "Người quản lý và giám sát dự án xây dựng.",
+    "example": "The construction manager ensured that the project was completed on time.",
+    "exampleTranslation": "Quản đốc xây dựng đảm bảo dự án được hoàn thành đúng hạn.",
+    "topicName": "Engineering & Construction",
+    "topicSlug": "engineering-construction"
+  },
+  {
+    "term": "Civil Engineering",
+    "pronunciation": "/ˌsɪvɪl ˈɛŋdʒɪnɪəriŋ/",
+    "definition": "Nghiên cứu khoa học về xây dựng và vận hành các công trình công cộng.",
+    "example": "The civil engineering team designed a new water treatment plant.",
+    "exampleTranslation": "Đội ngũ kỹ sư công chúng thiết kế nhà máy nước thải mới.",
+    "topicName": "Engineering & Construction",
+    "topicSlug": "engineering-construction"
+  },
+  {
+    "term": "Project Management",
+    "pronunciation": "/ˈprɒjɛkt mænɪdʒmənt/",
+    "definition": "Sự quản lý và giám sát dự án từ khâu lên kế hoạch đến hoàn thành.",
+    "example": "The project manager ensured that the project was completed on time.",
+    "exampleTranslation": "Quản đốc dự án đảm bảo dự án được hoàn thành đúng hạn.",
+    "topicName": "Engineering & Construction",
+    "topicSlug": "engineering-construction"
+  },
+  {
+    "term": "Environmental Engineering",
+    "pronunciation": "/ˌɛnʋaɪˈrɒnməntəl ˈɛŋdʒɪnɪəriŋ/",
+    "definition": "Nghiên cứu khoa học về xây dựng và vận hành các công trình bảo vệ môi trường.",
+    "example": "The environmental engineering team designed a new system for air pollution reduction.",
+    "exampleTranslation": "Đội ngũ kỹ sư môi trường thiết kế hệ thống mới giảm thiểu ô nhiễm không khí.",
+    "topicName": "Engineering & Construction",
+    "topicSlug": "engineering-construction"
+  },
+  {
+    "term": "Surveying",
+    "pronunciation": "/ˈsɜrvɪi/",
+    "definition": "Sự đo đạc và xác định vị trí của các điểm hoặc khu vực trên bề mặt Trái đất.",
+    "example": "The surveying team measured the land before construction.",
+    "exampleTranslation": "Đội ngũ đo đạc đo đất trước khi xây dựng.",
+    "topicName": "Engineering & Construction",
+    "topicSlug": "engineering-construction"
+  },
+  {
+    "term": "Structural Analysis",
+    "pronunciation": "/ˌstrʌktʃərəl ˈænəˌliːsɪs/",
+    "definition": "Sự phân tích và đánh giá về khả năng chịu tải của các cấu trúc.",
+    "example": "The structural analysis team calculated the loads on the building.",
+    "exampleTranslation": "Đội ngũ phân tích cấu trúc tính toán tải trọng lên công trình.",
+    "topicName": "Engineering & Construction",
+    "topicSlug": "engineering-construction"
+  },
+  {
+    "term": "Mechanics",
+    "pronunciation": "/mɪˈkænɪks/",
+    "definition": "Phân tích về các quy tắc và nguyên tắc cơ bản điều khiển các chuyển động của cơ thể và các đối tượng.",
+    "example": "The class studied mechanics and its applications in real life.",
+    "exampleTranslation": "Lớp học nghiên cứu về cơ học và ứng dụng của nó trong cuộc sống thực.",
+    "topicName": "Engineering & Construction",
+    "topicSlug": "engineering-construction"
+  },
+  {
+    "term": "Materials Engineering",
+    "pronunciation": "/ˌmeɪtərɪəlz ˈɛŋdʒɪnɪəriŋ/",
+    "definition": "Nghiên cứu khoa học về ứng dụng của vật liệu trong các công trình xây dựng.",
+    "example": "The materials engineering team designed a new material for construction.",
+    "exampleTranslation": "Đội ngũ kỹ sư vật liệu thiết kế vật liệu mới cho xây dựng.",
+    "topicName": "Engineering & Construction",
+    "topicSlug": "engineering-construction"
+  },
+  {
+    "term": "Geology",
+    "pronunciation": "/dʒiˈɒlədʒi/",
+    "definition": "Học về đặc điểm và lịch sử của vỏ Trái đất.",
+    "example": "The geologist studied the geological features of the area.",
+    "exampleTranslation": "Kỹ sư địa chất nghiên cứu đặc điểm địa chất khu vực.",
+    "topicName": "Engineering & Construction",
+    "topicSlug": "engineering-construction"
+  },
+  {
+    "term": "Segmentation",
+    "pronunciation": "/sɛɡˈmɛntəʃən/",
+    "definition": "quy trình chia nhỏ thị trường mục tiêu thành các nhóm nhỏ",
+    "example": "Công ty thực hiện phân đoạn thị trường để cung cấp sản phẩm phù hợp",
+    "exampleTranslation": "The company segments the market to provide appropriate products",
+    "topicName": "Marketing & Advertising",
+    "topicSlug": "marketing-advertising"
+  },
+  {
+    "term": "Target Market",
+    "pronunciation": "/ˈtɑːrdʒɪt ˈmɑːrkt/",
+    "definition": "thị trường có nhu cầu cụ thể để đạt được mục tiêu kinh doanh",
+    "example": "Công ty tìm kiếm thị trường mục tiêu là thanh thiếu niên",
+    "exampleTranslation": "The company finds the target market as teenagers",
+    "topicName": "Marketing & Advertising",
+    "topicSlug": "marketing-advertising"
+  },
+  {
+    "term": "Brand Awareness",
+    "pronunciation": "/brænd əˈwɛr.nəs/",
+    "definition": "tỷ lệ người biết đến nhãn hiệu của công ty",
+    "example": "Công ty tăng cường nhận thức về nhãn hiệu bằng chiến dịch quảng cáo",
+    "exampleTranslation": "The company increases brand awareness through the advertising campaign",
+    "topicName": "Marketing & Advertising",
+    "topicSlug": "marketing-advertising"
+  },
+  {
+    "term": "Customer Engagement",
+    "pronunciation": "/kʌs.tɒmər ɛn.ˈdʒeɪdʒ.mənt/",
+    "definition": "tỷ lệ người tham gia và tương tác với thương hiệu",
+    "example": "Công ty sử dụng chiến dịch xã hội để tăng cường tương tác với khách hàng",
+    "exampleTranslation": "The company uses a social campaign to increase customer engagement",
+    "topicName": "Marketing & Advertising",
+    "topicSlug": "marketing-advertising"
+  },
+  {
+    "term": " ROI (Return on Investment)",
+    "pronunciation": "/roʊ.ˈaɪ/",
+    "definition": "số lợi nhuận được tạo ra từ một khoản đầu tư",
+    "example": "Công ty đánh giá ROI của chiến dịch quảng cáo",
+    "exampleTranslation": "The company evaluates the ROI of the advertising campaign",
+    "topicName": "Marketing & Advertising",
+    "topicSlug": "marketing-advertising"
+  },
+  {
+    "term": "CPC (Cost per Click)",
+    "pronunciation": "/sɛp.si/",
+    "definition": "chi phí quảng cáo mỗi lần nhấp chuột",
+    "example": "Công ty sử dụng CPC để quảng cáo trên các trang web",
+    "exampleTranslation": "The company uses CPC to advertise on websites",
+    "topicName": "Marketing & Advertising",
+    "topicSlug": "marketing-advertising"
+  },
+  {
+    "term": "CPM (Cost per Mille)",
+    "pronunciation": "/sɪpm/",
+    "definition": "chi phí quảng cáo mỗi nghìn lần nhấp chuột",
+    "example": "Công ty sử dụng CPM để quảng cáo trên các trang web",
+    "exampleTranslation": "The company uses CPM to advertise on websites",
+    "topicName": "Marketing & Advertising",
+    "topicSlug": "marketing-advertising"
+  },
+  {
+    "term": "SEO (Search Engine Optimization)",
+    "pronunciation": "/siːoʊ/",
+    "definition": "kỹ thuật tối ưu hóa trang web để cải thiện hạng mục tìm kiếm",
+    "example": "Công ty sử dụng SEO để tăng cường thứ hạng trang web",
+    "exampleTranslation": "The company uses SEO to increase website ranking",
+    "topicName": "Marketing & Advertising",
+    "topicSlug": "marketing-advertising"
+  },
+  {
+    "term": "Google Analytics",
+    "pronunciation": "/ˌɡʊɡəl æn.ˈælɪtɪks/",
+    "definition": "phương tiện đo lường và phân tích lưu lượng truy cập trang web",
+    "example": "Công ty sử dụng Google Analytics để theo dõi lưu lượng truy cập",
+    "exampleTranslation": "The company uses Google Analytics to track website traffic",
+    "topicName": "Marketing & Advertising",
+    "topicSlug": "marketing-advertising"
+  },
+  {
+    "term": "Social Media Marketing",
+    "pronunciation": "/soʊ.ʃəl miːdiːə mɑɚktɪŋ/",
+    "definition": "marketing trên các nền tảng mạng xã hội",
+    "example": "Công ty sử dụng Facebook để tiếp cận khách hàng",
+    "exampleTranslation": "The company uses Facebook to reach customers",
+    "topicName": "Marketing & Advertising",
+    "topicSlug": "marketing-advertising"
+  },
+  {
+    "term": "Influencer Marketing",
+    "pronunciation": "/ɪnˌflu.ɛnsər mɑɚktɪŋ/",
+    "definition": "marketing thông qua người có ảnh hưởng",
+    "example": "Công ty hợp tác với Influencer để quảng cáo sản phẩm",
+    "exampleTranslation": "The company collaborates with Influencer to advertise products",
+    "topicName": "Marketing & Advertising",
+    "topicSlug": "marketing-advertising"
+  },
+  {
+    "term": "Content Marketing",
+    "pronunciation": "/kɑnt.ɛnt mɑɚktɪŋ/",
+    "definition": "marketing thông qua nội dung",
+    "example": "Công ty tạo ra nội dung để tăng cường nhận thức về sản phẩm",
+    "exampleTranslation": "The company creates content to increase brand awareness",
+    "topicName": "Marketing & Advertising",
+    "topicSlug": "marketing-advertising"
+  },
+  {
+    "term": "Account Based Marketing",
+    "pronunciation": "/əˌkaʊnt.bɑsd ˈmɑɚktɪŋ/",
+    "definition": "marketing tập trung vào các tài khoản mục tiêu",
+    "example": "Công ty sử dụng Account Based Marketing để tập trung vào các khách hàng quan trọng",
+    "exampleTranslation": "The company uses Account Based Marketing to focus on key customers",
+    "topicName": "Marketing & Advertising",
+    "topicSlug": "marketing-advertising"
+  },
+  {
+    "term": "Email Marketing",
+    "pronunciation": "/ɑɪmˌeɪl mɑɚktɪŋ/",
+    "definition": "marketing qua email",
+    "example": "Công ty sử dụng email marketing để tiếp cận khách hàng",
+    "exampleTranslation": "The company uses email marketing to reach customers",
+    "topicName": "Marketing & Advertising",
+    "topicSlug": "marketing-advertising"
+  },
+  {
+    "term": "Lead Generation",
+    "pronunciation": "/lɛd dʒɛn.əˈreɪʃən/",
+    "definition": "tạo ra lead cho các hoạt động kinh doanh tiếp theo",
+    "example": "Công ty sử dụng Lead Generation để tạo ra các cơ hội kinh doanh",
+    "exampleTranslation": "The company uses Lead Generation to create business opportunities",
+    "topicName": "Marketing & Advertising",
+    "topicSlug": "marketing-advertising"
+  },
+  {
+    "term": "Customer Journey Mapping",
+    "pronunciation": "/kʌs.tɒmər dʒɜn.ɪ mæpɪŋ/",
+    "definition": "viết tắt các bước trong quá trình khách hàng mua hàng",
+    "example": "Công ty sử dụng Customer Journey Mapping để hiểu rõ hành trình khách hàng",
+    "exampleTranslation": "The company uses Customer Journey Mapping to understand customer journey",
+    "topicName": "Marketing & Advertising",
+    "topicSlug": "marketing-advertising"
+  },
+  {
+    "term": "Data-Driven Marketing",
+    "pronunciation": "/deɪtədɜːn mart",
+    "definition": "marketing dựa trên dữ liệu",
+    "example": "Công ty sử dụng Data-Driven Marketing để đưa ra các quyết định kinh doanh",
+    "exampleTranslation": "The company uses Data-Driven Marketing to make business decisions",
+    "topicName": "Marketing & Advertising",
+    "topicSlug": "marketing-advertising"
+  },
+  {
+    "term": "Personalization",
+    "pronunciation": "/psə.rɡnəlaɪzɛʃən/",
+    "definition": "cách thức cá nhân hóa sản phẩm và dịch vụ",
+    "example": "Công ty sử dụng Personalization để cá nhân hóa các sản phẩm và dịch vụ",
+    "exampleTranslation": "The company uses Personalization to personalize products and services",
+    "topicName": "Marketing & Advertising",
+    "topicSlug": "marketing-advertising"
+  },
+  {
+    "term": "Marketing Automation",
+    "pronunciation": "/mɑɚtkɪt ɪˌnʌʊ.təˈmeɪʃən/",
+    "definition": "quy trình tự động hóa các hoạt động marketing",
+    "example": "Công ty sử dụng Marketing Automation để tự động hóa các hoạt động kinh doanh",
+    "exampleTranslation": "The company uses Marketing Automation to automate business operations",
+    "topicName": "Marketing & Advertising",
+    "topicSlug": "marketing-advertising"
+  },
+  {
+    "term": "Adwords",
+    "pronunciation": "/æd.wɜːrds/",
+    "definition": "hệ thống quảng cáo kỹ thuật số của Google",
+    "example": "Công ty quảng cáo trên Google Adwords",
+    "exampleTranslation": "The company advertises on Google Adwords",
+    "topicName": "Marketing & Advertising",
+    "topicSlug": "marketing-advertising"
+  },
+  {
+    "term": "Facebook Ads",
+    "pronunciation": "/fejsbuk ædz/",
+    "definition": "hệ thống quảng cáo trên Facebook",
+    "example": "Công ty quảng cáo trên Facebook Ads",
+    "exampleTranslation": "The company advertises on Facebook Ads",
+    "topicName": "Marketing & Advertising",
+    "topicSlug": "marketing-advertising"
+  },
+  {
+    "term": "Inbound Marketing",
+    "pronunciation": "/ɪn.baʊnd mɑɚktɪŋ/",
+    "definition": "marketing hướng vào khách hàng",
+    "example": "Công ty sử dụng Inbound Marketing để tiếp cận khách hàng",
+    "exampleTranslation": "The company uses Inbound Marketing to reach customers",
+    "topicName": "Marketing & Advertising",
+    "topicSlug": "marketing-advertising"
+  },
+  {
+    "term": "Content Strategy",
+    "pronunciation": "/kɑnt.ɛnt striːdɪjɪ/",
+    "definition": "strategi nội dung marketing",
+    "example": "Công ty tạo ra nội dung để đạt được mục tiêu kinh doanh",
+    "exampleTranslation": "The company creates content to achieve business goals",
+    "topicName": "Marketing & Advertising",
+    "topicSlug": "marketing-advertising"
+  },
+  {
+    "term": "A cappella",
+    "pronunciation": "/əˈkæpələ/",
+    "definition": "Phong cách âm nhạc không sử dụng nhạc cụ, tập trung vào giọng hát",
+    "example": "Họ biểu diễn bài hát a cappella tại buổi hòa nhạc",
+    "exampleTranslation": "Họ biểu diễn bài hát không nhạc cụ tại buổi hòa nhạc",
+    "topicName": "Music & Entertainment",
+    "topicSlug": "music-entertainment"
+  },
+  {
+    "term": "Audiophile",
+    "pronunciation": "/ˌɔdiəʊˈfaɪl/",
+    "definition": "Người đam mê âm thanh chất lượng cao, có sự quan tâm đặc biệt đến âm thanh và thiết bị nghe nhạc",
+    "example": "Audiophile yêu cầu sự cải thiện chất lượng chất âm từ những chiếc tai nghe mới",
+    "exampleTranslation": "Người yêu âm thanh yêu cầu cải thiện chất lượng âm thanh từ những chiếc tai nghe mới",
+    "topicName": "Music & Entertainment",
+    "topicSlug": "music-entertainment"
+  },
+  {
+    "term": "Bandwidth",
+    "pronunciation": "/ˈbændhwɪdθ/",
+    "definition": "Mật độ tần số âm thanh của một tín hiệu âm thanh, thường được đo bằng megahertz",
+    "example": "Tỷ số công suất của thiết bị có thể vượt quá phạm vi băng thông của âm thanh",
+    "exampleTranslation": "Tỷ số công suất của thiết bị có thể vượt quá phạm vi băng thông của âm thanh",
+    "topicName": "Music & Entertainment",
+    "topicSlug": "music-entertainment"
+  },
+  {
+    "term": "Crescendo",
+    "pronunciation": "/krɛsˈsɛndoʊ/",
+    "definition": "Phần âm nhạc hoặc giọng nói tăng dần từ âm nhỏ đến lớn",
+    "example": "Phần kết thúc của bài hát có một crescendo lớn",
+    "exampleTranslation": "Phần kết thúc của bài hát có một âm thanh lớn tăng dần",
+    "topicName": "Music & Entertainment",
+    "topicSlug": "music-entertainment"
+  },
+  {
+    "term": "Decibel",
+    "pronunciation": "/dɪˈsɪbəl/",
+    "definition": "Đơn vị đo lường âm lượng âm thanh",
+    "example": "Thiết bị nghe nhạc này có âm lượng là 80 decibel",
+    "exampleTranslation": "Thiết bị nghe nhạc này có âm lượng là 80 âm lượng",
+    "topicName": "Music & Entertainment",
+    "topicSlug": "music-entertainment"
+  },
+  {
+    "term": "Discography",
+    "pronunciation": "/dɪsˈkrɒfɪ/",
+    "definition": "Danh sách các đĩa hát của một nghệ sĩ âm nhạc",
+    "example": "Nghệ sĩ nổi tiếng có một discography lớn với rất nhiều đĩa hát",
+    "exampleTranslation": "Nghệ sĩ nổi tiếng có một danh sách đĩa hát lớn với rất nhiều đĩa hát",
+    "topicName": "Music & Entertainment",
+    "topicSlug": "music-entertainment"
+  },
+  {
+    "term": "Electronic dance music",
+    "pronunciation": "/ˈɛlɛktrɒnɪk dæns...",
+    "definition": "Loại âm nhạc điện tử được tạo nên bằng cách sử dụng máy tính và software",
+    "example": "Họ yêu thích nghe electronic dance music tại buổi hòa nhạc",
+    "exampleTranslation": "Họ yêu thích nghe âm nhạc điện tử tại buổi hòa nhạc",
+    "topicName": "Music & Entertainment",
+    "topicSlug": "music-entertainment"
+  },
+  {
+    "term": "Fidelity",
+    "pronunciation": "/ˈfaɪdɪlɪti/",
+    "definition": "Khả năng tái tạo chính xác của âm thanh, đặc biệt là ở giai đoạn cao của băng thông",
+    "example": "Thiết bị có độ trễ âm thanh thấp, do đó khả năng tái tạo âm thanh rất tốt",
+    "exampleTranslation": "Thiết bị có độ trễ âm thanh thấp, do đó khả năng tái tạo âm thanh rất tốt",
+    "topicName": "Music & Entertainment",
+    "topicSlug": "music-entertainment"
+  },
+  {
+    "term": "Genre",
+    "pronunciation": "/ˈʒɑːnrə/",
+    "definition": "Thể loại âm nhạc, thường được xác định bởi tính chất đặc trưng của nó",
+    "example": "Nghệ sĩ này thuộc thể loại nhạc hip hop",
+    "exampleTranslation": "Nghệ sĩ này thuộc thể loại nhạc hip hop",
+    "topicName": "Music & Entertainment",
+    "topicSlug": "music-entertainment"
+  },
+  {
+    "term": "Hi-fi",
+    "pronunciation": "/haɪˈfaɪ/",
+    "definition": "Thể loại âm thanh chất lượng cao, thường được sử dụng để mô tả âm thanh có chất lượng cao hơn so với chất lượng bình thường",
+    "example": "Hệ thống âm thanh hi-fi này có âm thanh rất chi tiết",
+    "exampleTranslation": "Hệ thống âm thanh hi-fi này có âm thanh rất chi tiết",
+    "topicName": "Music & Entertainment",
+    "topicSlug": "music-entertainment"
+  },
+  {
+    "term": "Mixtape",
+    "pronunciation": "/mɪkˈteɪp/",
+    "definition": "Lục hợp các bài hát, thường được sử dụng để quảng bá cho nghệ sĩ mới",
+    "example": "Nghệ sĩ này đã ra mắt mixtape mới",
+    "exampleTranslation": "Nghệ sĩ này đã ra mắt đĩa hợp hợp mới",
+    "topicName": "Music & Entertainment",
+    "topicSlug": "music-entertainment"
+  },
+  {
+    "term": "Noise floor",
+    "pronunciation": "/noɪz flɔr/",
+    "definition": "Sự nền gầm rú của các âm thanh bên ngoài hoặc nội tại bên trong một hệ thống âm thanh",
+    "example": "Hệ thống thu thanh này có độ ồn nền cao",
+    "exampleTranslation": "Hệ thống thu thanh này có độ ồn nền cao",
+    "topicName": "Music & Entertainment",
+    "topicSlug": "music-entertainment"
+  },
+  {
+    "term": "Phenomenon",
+    "pronunciation": "/fɪnəmɪˈnɒn/",
+    "definition": "Tổn tại xảy ra xung quanh những yếu tố âm nhạc",
+    "example": "Phenomenon âm thanh này đã thu hút sự chú ý của nhiều người",
+    "exampleTranslation": "Phenomenon âm thanh này đã thu hút sự chú ý của nhiều người",
+    "topicName": "Music & Entertainment",
+    "topicSlug": "music-entertainment"
+  },
+  {
+    "term": "Pitch",
+    "pronunciation": "/pɪtʃ/",
+    "definition": "Sự khác biệt giữa âm thanh thấp và cao",
+    "example": "Giọng hát của anh ta có pitch rất cao",
+    "exampleTranslation": "Giọng hát của anh ta có pitch rất cao",
+    "topicName": "Music & Entertainment",
+    "topicSlug": "music-entertainment"
+  },
+  {
+    "term": "Psychedelic rock",
+    "pronunciation": "/ˌsaɪkədɪlɪk ˈrɒk/",
+    "definition": "Thể loại âm nhạc psychedelic và âm thanh đặc trưng của nó",
+    "example": "Họ yêu thích nghe psychedelic rock",
+    "exampleTranslation": "Họ yêu thích nghe psychedelic rock",
+    "topicName": "Music & Entertainment",
+    "topicSlug": "music-entertainment"
+  },
+  {
+    "term": "Radio broadcasting",
+    "pronunciation": "/reɪdʒiˌbroʊd.../",
+    "definition": "Quảng cáo và thông tin âm thanh trên sóng radio",
+    "example": "Họ quảng cáo sản phẩm qua nền tảng điện tử",
+    "exampleTranslation": "Họ quảng cáo sản phẩm qua nền tảng điện tử",
+    "topicName": "Music & Entertainment",
+    "topicSlug": "music-entertainment"
+  },
+  {
+    "term": "Rhapsody",
+    "pronunciation": "/ˈræpsudɪ/",
+    "definition": "Phần âm nhạc được viết theo phong cách rập điệu đặc trưng của mình",
+    "example": "Bài hát này có một phần rhapsody rất mạnh mẽ",
+    "exampleTranslation": "Bài hát này có một phần rhapsody rất mạnh mẽ",
+    "topicName": "Music & Entertainment",
+    "topicSlug": "music-entertainment"
+  },
+  {
+    "term": "Rhythm",
+    "pronunciation": "/ˈrɪðəm/",
+    "definition": "Mặt rối của âm nhạc, tạo nên sự cân đối và ổn định",
+    "example": "Rhythm bài hát này rất phức tạp",
+    "exampleTranslation": "Rhythm bài hát này rất phức tạp",
+    "topicName": "Music & Entertainment",
+    "topicSlug": "music-entertainment"
+  },
+  {
+    "term": "Songwriting",
+    "pronunciation": "/ˈsɒŋraɪtɪŋ/",
+    "definition": "Quá trình viết bài hát",
+    "example": "Nói về quá trình viết bài hát",
+    "exampleTranslation": "Nói về quá trình viết bài hát",
+    "topicName": "Music & Entertainment",
+    "topicSlug": "music-entertainment"
+  },
+  {
+    "term": "Subgenre",
+    "pronunciation": "/ˈsʌbʤɛnər/",
+    "definition": "Một loại thể loại âm nhạc mà thuộc về một thể loại âm nhạc lớn hơn",
+    "example": "Subgenre nhạc cổ điển của thể loại nhạc dân tộc",
+    "exampleTranslation": "Subgenre nhạc cổ điển của thể loại nhạc dân tộc",
+    "topicName": "Music & Entertainment",
+    "topicSlug": "music-entertainment"
+  },
+  {
+    "term": "Syllabic",
+    "pronunciation": "/ˈsɪlæbɪk/",
+    "definition": "Một loại thể loại âm nhạc dựa vào sự lặp lại của các âm thanh",
+    "example": "Syllabic nhạc có âm thanh lặp lại đặc trưng",
+    "exampleTranslation": "Syllabic nhạc có âm thanh lặp lại đặc trưng",
+    "topicName": "Music & Entertainment",
+    "topicSlug": "music-entertainment"
+  },
+  {
+    "term": "Tempering",
+    "pronunciation": "/ˈtɛmpərɪŋ/",
+    "definition": "Quá trình sửa đổi và điều chỉnh âm thanh để phù hợp với nhu cầu",
+    "example": "Tempering âm thanh để nó phù hợp với nhu cầu của người nghe",
+    "exampleTranslation": "Tempering âm thanh để nó phù hợp với nhu cầu của người nghe",
+    "topicName": "Music & Entertainment",
+    "topicSlug": "music-entertainment"
+  }
+]
