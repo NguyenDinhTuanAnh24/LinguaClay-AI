@@ -13,10 +13,10 @@ export async function createClient() {
           return cookieStore.get(name)?.value
         },
         set(name: string, value: string, options: { path?: string; maxAge?: number }) {
-          cookieStore.set({ name, value, options })
+          cookieStore.set({ name, value, path: options.path ?? '/' })
         },
-        remove(name: string, options: { path?: string }) {
-          cookieStore.delete({ name, options })
+        remove(name: string, options?: { path?: string }) {
+          cookieStore.delete(name)
         },
       },
     }

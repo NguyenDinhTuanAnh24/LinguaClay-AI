@@ -4,39 +4,49 @@ import React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
+import { 
+  LayoutDashboard, 
+  Library, 
+  Zap, 
+  BarChart3,
+  MessageSquare
+} from 'lucide-react'
+
 export default function MobileNav() {
   const pathname = usePathname()
 
   return (
-    <nav className="md:hidden fixed bottom-6 left-4 right-4 z-40">
-      <div className="bg-warm-white/90 backdrop-blur-md rounded-[30px] shadow-clay-card border-2 border-white flex justify-around p-3">
-        <MobileNavItem icon="🏠" href="/dashboard" active={pathname === '/dashboard'} />
-        <MobileNavItem icon="📚" href="/dashboard/learn" active={pathname === '/dashboard/learn'} />
-        <MobileNavItem icon="🏺" href="/dashboard/grammar" active={pathname === '/dashboard/grammar'} />
-        <MobileNavItem icon="🃏" href="/dashboard/flashcards" active={pathname === '/dashboard/flashcards'} />
-        <MobileNavItem icon="📊" href="/dashboard/progress" active={pathname === '/dashboard/progress'} />
+    <nav className="lg:hidden fixed bottom-6 left-6 right-6 z-40">
+      <div className="bg-white border-[3px] border-newsprint-black shadow-brutalist-card flex justify-around p-2">
+        <MobileNavItem Icon={LayoutDashboard} href="/dashboard" active={pathname === '/dashboard'} />
+        <MobileNavItem Icon={Library} href="/dashboard/grammar" active={pathname === '/dashboard/grammar'} />
+        <MobileNavItem Icon={Zap} href="/dashboard/flashcards" active={pathname === '/dashboard/flashcards'} />
+        <MobileNavItem Icon={MessageSquare} href="/dashboard/ai-chat" active={pathname === '/dashboard/ai-chat'} />
+        <MobileNavItem Icon={BarChart3} href="/dashboard/progress" active={pathname === '/dashboard/progress'} />
       </div>
     </nav>
   )
 }
 
 function MobileNavItem({ 
-  icon, 
+  Icon, 
   href, 
   active = false 
 }: { 
-  icon: string; 
+  Icon: any; 
   href: string; 
   active?: boolean 
 }) {
   return (
     <Link 
       href={href}
-      className={`w-12 h-12 rounded-[18px] flex items-center justify-center transition-all ${
-        active ? 'bg-clay-blue text-white shadow-clay-pressed' : 'text-clay-muted'
+      className={`w-12 h-12 flex items-center justify-center transition-all border-[2px] ${
+        active 
+          ? 'bg-newsprint-black text-white border-newsprint-black shadow-none translate-y-0.5' 
+          : 'text-newsprint-black border-transparent hover:bg-newsprint-paper'
       }`}
     >
-      <span className="text-xl">{icon}</span>
+      <Icon size={20} strokeWidth={3} />
     </Link>
   )
 }

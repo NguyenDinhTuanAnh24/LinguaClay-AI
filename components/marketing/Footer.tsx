@@ -54,7 +54,7 @@ export default function Footer() {
             <h4 className="font-heading font-bold text-clay-deep text-lg">Công ty</h4>
             <ul className="space-y-2 text-sm text-clay-muted font-body">
               <li><Link href="/company/about" className="hover:text-clay-blue transition-colors">Về chúng tôi</Link></li>
-              <li><Link href="/company/blog" className="hover:text-clay-blue transition-colors">Blog</Link></li>
+              <li><Link href="/blog" className="hover:text-clay-blue transition-colors">Blog</Link></li>
               <li><Link href="/company/contact" className="hover:text-clay-blue transition-colors">Liên hệ</Link></li>
             </ul>
           </div>

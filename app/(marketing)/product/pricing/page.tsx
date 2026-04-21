@@ -1,181 +1,128 @@
+'use client'
+
 import React from 'react'
 import Link from 'next/link'
+import { Check } from 'lucide-react'
+import { normalizeVietnamese } from '@/app/lib/utils/normalize'
 
-const PLANS = [
-  {
-    id: 'free',
-    name: 'Bản Miễn Phí',
-    icon: '🌾',
-    duration: 'MÃI MÃI',
-    price: '0đ',
-    originalPrice: '',
-    save: 'Cơ bản',
-    features: [
-      '20 từ vựng mới mỗi ngày',
-      'Học 5 chủ điểm ngữ pháp',
-      '10 phút AI Chat mỗi ngày',
-      'Flashcard SRS cơ bản',
-      'Theo dõi tiến độ học tập'
-    ],
-    isPopular: false,
-    color: 'clay-muted'
-  },
-  {
-    id: 'trial',
-    name: 'Gói Trải Nghiệm',
-    icon: '🌱',
-    duration: '3 THÁNG',
-    price: '299.000đ',
-    originalPrice: '599.000đ',
-    save: 'Tiết kiệm 50%',
-    features: [
-      'Gia sư AI Grammar & Writing',
-      'Học không giới hạn 200+ chủ điểm',
-      'AI Chat hội thoại 24/7',
-      'Flashcard SRS nâng cao',
-      'Phân tích tiến độ học thuật'
-    ],
-    isPopular: false,
-    color: 'clay-blue'
-  },
-  {
-    id: 'standard',
-    name: 'Gói Tiêu Chuẩn',
-    icon: '📗',
-    duration: '6 THÁNG',
-    price: '399.000đ',
-    originalPrice: '799.000đ',
-    save: 'Tiết kiệm 50%',
-    features: [
-      'Gia sư AI Grammar & Writing',
-      'Học không giới hạn 200+ chủ điểm',
-      'AI Chat hội thoại 24/7',
-      'Flashcard SRS hệ nâng cao',
-      'Tải tài liệu học thuật PDF'
-    ],
-    isPopular: false,
-    color: 'clay-green'
-  },
-  {
-    id: 'premium',
-    name: 'Gói Premium (1 Năm)',
-    icon: '👑',
-    duration: '12 THÁNG',
-    price: '499.000đ',
-    originalPrice: '1.299.000đ',
-    save: 'Tiết kiệm 60%',
-    features: [
-      'TOÀN BỘ QUYỀN LỢI GÓI 6 THÁNG',
-      'Mở khóa 200+ cấp độ nâng cao',
-      'Hỗ trợ khách hàng PRO ưu tiên',
-      'Tùy chỉnh lộ trình cá nhân hóa',
-      'Chứng nhận hoàn thành LinguaClay'
-    ],
-    isPopular: true,
-    color: 'clay-brown'
-  }
-]
+import { useAuth } from '@/providers/AuthProvider'
 
 export default function PricingPage() {
+  const { openAuth } = useAuth()
+  const vn = normalizeVietnamese
+
+  const landingPlans = [
+    {
+      id: 'trial',
+      name: 'GÓI TRẢI NGHIỆM',
+      price: '299k',
+      period: '/3 Tháng',
+      features: ['Flashcards không giới hạn', 'AI Tutor Pro cơ bản', '100 Chủ điểm ngữ pháp Pro', 'Dễ dàng nâng cấp sau này'],
+      highlight: false,
+      ctaText: 'CHỌN GÓI TRẢI NGHIỆM'
+    },
+    {
+      id: 'flexible',
+      name: 'GÓI LINH HOẠT',
+      price: '399k',
+      period: '/6 Tháng',
+      features: ['Flashcards không giới hạn', 'AI Tutor Pro (Phản hồi giọng nói)', '200+ Chủ điểm ngữ pháp Pro', 'Hệ thuật SRS cá nhân hóa', 'Hỗ trợ qua Email'],
+      highlight: false,
+      ctaText: 'CHỌN GÓI LINH HOẠT'
+    },
+    {
+      id: 'permanent',
+      name: 'GÓI VĨNH VIỄN',
+      price: '499k',
+      period: '/1 Năm',
+      features: ['Toàn bộ tính năng gói 6 tháng', 'Ưu tiên cập nhật tính năng mới sớm nhất', 'Tải file PDF bài học độc quyền', 'Không giới hạn AI Chatbot nâng cao', 'Hỗ trợ VIP 1:1 qua Zalo/Telegram'],
+      highlight: true,
+      badgeText: 'HỜI NHẤT',
+      isBestValue: true,
+      ctaText: 'CHỌN GÓI VĨNH VIỄN'
+    }
+  ]
+
   return (
-    <div className="py-20 px-4 md:px-8 bg-clay-cream/30">
-      <div className="max-w-[1440px] mx-auto space-y-16">
-        {/* Header */}
-        <div className="text-center space-y-6">
-          <div className="inline-block px-4 py-1.5 bg-clay-orange/10 text-clay-orange text-[10px] font-black uppercase rounded-full border border-clay-orange/20 tracking-widest">
-            Khám phá sức mạnh AI ngôn ngữ
-          </div>
-          <h1 className="text-4xl md:text-6xl font-heading font-black text-clay-deep tracking-tight">
-             Gói Cước <span className="text-transparent bg-clip-text bg-gradient-to-r from-clay-orange to-clay-pink">Linh Hoạt</span>
+    <div className="w-full bg-transparent overflow-x-hidden">
+      {/* Intro Pricing Header */}
+      <section className="w-full border-b-[3px] border-newsprint-black py-8 sm:py-10 bg-transparent flex flex-col items-center">
+        <div className="max-w-[1200px] mx-auto px-6 text-center flex flex-col items-center">
+          <span className="inline-block px-4 py-1 mb-8 border-[3px] border-newsprint-black bg-newsprint-white text-newsprint-black text-xs font-bold uppercase tracking-widest shadow-[4px_4px_0px_0px_rgba(20,20,20,1)]">
+            GÓI HỌC
+          </span>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[56px] font-serif font-black text-newsprint-black mb-6 uppercase leading-tight tracking-tighter vietnamese-text">
+            NÓI ĐƯỢC NGÔN NGỮ MỚI<br />NHANH HƠN BẠN NGHĨ
           </h1>
-          <p className="text-lg text-clay-muted max-w-3xl mx-auto font-medium leading-relaxed">
-             Cho dù bạn chỉ mới bắt đầu hay muốn trở thành bậc thầy ngôn ngữ, chúng tôi đều có lộ trình phù hợp cho bạn.
+          <p className="text-base md:text-lg font-sans text-newsprint-gray-dark max-w-2xl mx-auto vietnamese-text mb-8">
+            Dù bạn mới bắt đầu hay muốn nói lưu loát — chọn gói phù hợp và để AI lo phần còn lại.
           </p>
+
+          <div className="flex items-center justify-center gap-2 mb-4 text-[10px] md:text-xs font-bold uppercase tracking-widest text-newsprint-black vietnamese-text">
+            <span className="text-red-600 text-xs md:text-sm">★ ★ ★ ★ ★</span>
+            <span className="hidden sm:inline">Hơn 2.000 học viên đang học mỗi ngày • Đánh giá 4.8/5</span>
+            <span className="sm:hidden">2.000+ Học viên • 4.8/5 Sao</span>
+          </div>
+
+          <Link href="#pricing-table" className="text-[10px] sm:text-xs font-bold tracking-widest text-newsprint-gray-dark hover:text-newsprint-black transition-colors pb-1 flex items-center gap-2 vietnamese-text">
+            ↓ Xem các gói học
+          </Link>
         </div>
+      </section>
 
-        {/* Pricing Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
-          {PLANS.map((plan) => (
-            <div 
-              key={plan.id}
-              className={`relative flex flex-col p-8 rounded-[40px] shadow-clay-card border-4 transition-all duration-500 hover:-translate-y-2 group
-                ${plan.isPopular 
-                  ? 'bg-gradient-to-br from-clay-brown to-clay-brown-dark border-white/20 text-white z-10 scale-[1.03] shadow-clay-float' 
-                  : 'bg-white/80 border-white text-clay-deep backdrop-blur-sm'}`}
-            >
-              {plan.isPopular && (
-                <div className="absolute top-6 right-6 bg-clay-orange text-[9px] font-black px-3 py-1 rounded-full uppercase shadow-lg border border-white/20 animate-pulse">
-                  HOT DEAL
-                </div>
-              )}
+      {/* Pricing Section Copied from Landing Page */}
+      <section id="pricing-table" className="w-full bg-transparent py-16 sm:py-24">
+        <div className="max-w-[1200px] mx-auto w-full px-6">
+          <div className="w-full mb-16 text-center">
+            <h2 className="text-4xl lg:text-5xl font-serif font-bold text-newsprint-black vietnamese-text">
+              {vn('Bảng giá minh bạch, đơn giản')}
+            </h2>
+            <p className="font-sans text-sm text-newsprint-gray-dark mt-4 vietnamese-text uppercase tracking-widest">
+              {vn('Chọn gói học phù hợp với nhóm của bạn')}
+            </p>
+          </div>
 
-              <div className="space-y-4 mb-6">
-                <div className={`w-14 h-14 rounded-[22px] flex items-center justify-center text-2xl shadow-clay-inset border-2 border-white/50 ${plan.isPopular ? 'bg-white/20' : 'bg-clay-cream/50'}`}>
-                  {plan.icon}
-                </div>
-                <div>
-                  <h2 className="text-xl font-heading font-black tracking-tight leading-tight">{plan.name}</h2>
-                  <p className={`${plan.isPopular ? 'text-white/50' : 'text-clay-muted'} text-[9px] font-black uppercase tracking-widest mt-1`}>{plan.duration}</p>
-                </div>
-              </div>
-
-              <div className="mb-8 min-h-[90px]">
-                {plan.originalPrice && (
-                  <div className={`${plan.isPopular ? 'text-white/30' : 'text-clay-muted/60'} text-xs font-bold line-through ml-1 mb-1 italic`}>
-                    {plan.originalPrice}
+          <div className="w-full font-sans">
+            <div className="grid grid-cols-1 lg:grid-cols-3 border-[3px] border-newsprint-black bg-transparent shadow-[8px_8px_0px_0px_rgba(20,20,20,1)]">
+              {landingPlans.map((plan, index) => (
+                <div key={index} className={`p-8 lg:p-10 flex flex-col relative group hover:bg-newsprint-white transition-colors duration-300 ${index < landingPlans.length - 1 ? 'border-b-[3px] md:border-b-0 md:border-r-[3px] border-newsprint-black' : ''} ${plan.highlight ? 'bg-newsprint-white' : ''}`}>
+                  <div className="flex-1">
+                    <div className="flex justify-between items-start mb-4">
+                      <h3 className="text-sm font-bold uppercase tracking-widest text-newsprint-black vietnamese-text">
+                        {plan.name}
+                      </h3>
+                      {plan.badgeText && (
+                        <div className={`text-white text-[10px] font-bold px-3 py-1 uppercase tracking-widest absolute top-0 right-0 border-b-[3px] border-l-[3px] border-newsprint-black ${plan.isBestValue ? 'bg-[#e63946]' : 'bg-red-600'}`}>
+                          {vn(plan.badgeText)}
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex items-baseline gap-1 mb-2 font-sans border-newsprint-black/30">
+                      <span className="text-5xl font-black text-newsprint-black">{plan.price}</span>
+                      <span className="text-sm font-sans font-normal text-newsprint-gray-dark">{plan.period}</span>
+                    </div>
+                    <hr className="border-t-[2px] border-dotted border-newsprint-gray-medium my-6" />
+                    <ul className="space-y-4 mb-10">
+                      {plan.features.map((feature, i) => (
+                        <li key={i} className="flex items-start gap-3 text-sm font-sans text-newsprint-gray-dark vietnamese-text">
+                          <Check className="w-5 h-5 shrink-0 text-newsprint-black mt-0.5" />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                )}
-                <div className={`text-4xl font-heading font-black tracking-tighter ${plan.isPopular ? 'text-white' : 'text-clay-deep'}`}>
-                  {plan.price}
+                  <button
+                    onClick={() => openAuth('signin')}
+                    className={`w-full text-center py-4 border-[3px] border-newsprint-black font-bold uppercase text-sm tracking-widest transition-colors vietnamese-text mt-auto ${plan.highlight ? 'bg-newsprint-black text-newsprint-white hover:bg-transparent hover:text-newsprint-black' : 'bg-transparent text-newsprint-black hover:bg-newsprint-black hover:text-newsprint-white'}`}
+                  >
+                    {vn(plan.ctaText as string)}
+                  </button>
                 </div>
-                <div className={`${plan.isPopular ? 'bg-white/10 border-white/10 text-white/80' : 'bg-clay-green/10 border-clay-green/20 text-clay-green'} inline-block px-3 py-1 rounded-full border text-[9px] font-black uppercase mt-2`}>
-                   {plan.save}
-                </div>
-              </div>
-
-              <ul className="flex-1 space-y-4 mb-8">
-                {plan.features.map((feature, i) => (
-                  <li key={i} className="flex items-start gap-3 text-[12px] font-bold leading-snug">
-                    <div className={`mt-0.5 w-4 h-4 rounded-full flex items-center justify-center text-[8px] shrink-0 border border-white/10 ${plan.isPopular ? 'bg-white/20' : 'bg-clay-green/20 text-clay-green'}`}>✓</div>
-                    <span className={plan.isPopular ? 'text-white/80' : 'text-clay-deep/70'}>{feature}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <Link 
-                href={plan.id === 'free' ? '/login' : '/dashboard/plans'} 
-                className={`w-full py-4 font-heading font-black text-[12px] rounded-[22px] text-center transition-all duration-300 shadow-clay-button active:scale-95
-                  ${plan.isPopular 
-                    ? 'bg-white text-clay-deep hover:bg-clay-orange hover:text-white relative overflow-hidden group/btn' 
-                    : plan.id === 'free'
-                    ? 'bg-white text-clay-muted border-2 border-clay-cream hover:bg-clay-cream hover:text-clay-deep'
-                    : 'bg-clay-cream text-clay-deep hover:bg-clay-blue hover:text-white border-2 border-clay-cream/50'}`}
-              >
-                {plan.isPopular && (
-                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/btn:animate-[shimmer_2s_infinite] pointer-events-none" />
-                )}
-                <span className="relative">Bắt Đầu {plan.id === 'free' ? 'Miễn Phí' : 'Ngay'} 🚀</span>
-              </Link>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
-        
-        {/* Money back guarantee */}
-        <div className="bg-white/50 backdrop-blur-md rounded-[45px] p-8 md:p-10 border-4 border-white shadow-clay-card max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-8">
-           <div className="w-20 h-20 bg-clay-blue/10 rounded-[30px] flex items-center justify-center text-4xl shadow-clay-inset">🛡️</div>
-           <div className="flex-1 space-y-3 text-center md:text-left">
-              <h3 className="text-xl font-heading font-black text-clay-deep">Cam Kết Hoàn Tiền 100%</h3>
-              <p className="text-xs text-clay-muted font-medium leading-relaxed">
-                Chúng tôi cam kết hoàn lại 100% số tiền nếu bạn không hài lòng về chất lượng dịch vụ trong 7 ngày đầu tiên kể từ lúc nâng cấp. Thủ tục nhanh gọn, thực hiện ngay trong trang quản lý cá nhân.
-              </p>
-           </div>
-           <div className="shrink-0">
-              <div className="px-6 py-3 bg-clay-orange text-white rounded-full text-[10px] font-black uppercase tracking-widest shadow-clay-button animate-breathe">
-                An tâm tuyệt đối
-              </div>
-           </div>
-        </div>
-      </div>
+      </section>
     </div>
   )
 }

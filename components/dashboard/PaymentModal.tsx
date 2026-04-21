@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Copy, Check, X, ShieldCheck, QrCode } from 'lucide-react'
 
 interface PaymentModalProps {
   isOpen: boolean
@@ -32,78 +33,82 @@ export default function PaymentModal({ isOpen, onClose, plan, userId }: PaymentM
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-clay-deep/60 backdrop-blur-md z-[100]"
+            className="fixed inset-0 bg-newsprint-black/70 backdrop-blur-sm z-[100]"
           />
 
           {/* Modal Container */}
           <div className="fixed inset-0 flex items-center justify-center pointer-events-none z-[101] p-4">
             <motion.div
-              initial={{ scale: 0.9, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.9, opacity: 0, y: 20 }}
-              className="pointer-events-auto w-full max-w-md bg-clay-cream rounded-[50px] shadow-2xl border-4 border-white overflow-hidden relative"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="pointer-events-auto w-full max-w-md bg-white border-[4px] border-newsprint-black shadow-brutalist-heavy overflow-hidden relative"
             >
-              <div className="bg-gradient-to-br from-clay-blue to-clay-green p-8 text-white text-center space-y-2">
-                <div className="text-4xl mb-2">💎</div>
-                <h2 className="text-2xl font-heading font-black">Xác nhận nâng cấp</h2>
-                <p className="text-xs font-bold text-white/80 uppercase tracking-widest">{plan.name} • {plan.duration}</p>
+              <div className="bg-red-600 border-b-[4px] border-newsprint-black p-8 text-white text-center space-y-4">
+                <div className="w-16 h-16 bg-newsprint-black border-[3px] border-white mx-auto flex items-center justify-center shadow-brutalist-soft -rotate-3 transition-transform">
+                  <ShieldCheck size={32} strokeWidth={3} />
+                </div>
+                <div className="space-y-1">
+                  <h2 className="text-3xl font-serif font-black uppercase tracking-tighter">Xác nhận nâng cấp</h2>
+                  <p className="text-[10px] font-sans font-black text-white/80 uppercase tracking-[0.2em]">{plan.name} • {plan.duration}</p>
+                </div>
               </div>
 
-              <div className="p-8 space-y-8">
+              <div className="p-8 space-y-8 bg-newsprint-paper">
                 {/* QR Code Section */}
-                <div className="bg-white rounded-[40px] p-6 shadow-clay-card flex flex-col items-center space-y-4">
-                   <div className="w-full aspect-square bg-clay-cream rounded-[30px] flex items-center justify-center overflow-hidden border-2 border-clay-shadow/10 p-4">
+                <div className="bg-white border-[3px] border-newsprint-black p-6 shadow-brutalist-card flex flex-col items-center space-y-6 relative overflow-hidden group">
+                   <div className="absolute top-2 right-2 text-newsprint-black/5 rotate-12"><QrCode size={100} /></div>
+                   <div className="w-full aspect-square bg-newsprint-paper border-[2px] border-newsprint-black/10 p-2 relative z-10">
                       <img 
                         src={qrUrl} 
                         alt="VietQR Payment" 
-                        className="w-full h-full object-contain"
+                        className="w-full h-full object-contain mix-blend-multiply"
                       />
                    </div>
-                   <div className="text-center">
-                      <p className="text-[10px] font-black text-clay-muted uppercase tracking-widest mb-1">Số tiền thanh toán</p>
-                      <h3 className="text-2xl font-heading font-black text-clay-deep">{plan.price.toLocaleString()}đ</h3>
+                   <div className="text-center relative z-10 w-full border-t-[2px] border-newsprint-black pt-4">
+                      <p className="text-[10px] font-sans font-black text-newsprint-gray-dark uppercase tracking-widest mb-1">TỔNG THANH TOÁN</p>
+                      <h3 className="text-4xl font-serif font-black text-newsprint-black">{plan.price.toLocaleString()}đ</h3>
                    </div>
                 </div>
 
                 {/* Instructions */}
-                <div className="space-y-4">
-                   <div className="bg-clay-blue/5 border-2 border-clay-blue/20 rounded-[25px] p-5 space-y-3">
-                      <div className="flex justify-between items-center text-xs">
-                         <span className="font-black text-clay-muted uppercase tracking-tighter">Nội dung chuyển khoản:</span>
+                <div className="space-y-6">
+                   <div className="bg-white border-[3px] border-newsprint-black p-5 space-y-4 shadow-brutalist-soft">
+                      <div className="flex justify-between items-center">
+                         <span className="text-[10px] font-sans font-black text-newsprint-gray-dark uppercase tracking-tighter">NỘI DUNG CHUYỂN KHOẢN:</span>
                          <button 
                            onClick={() => {
                              navigator.clipboard.writeText(paymentNote)
-                             alert('Đã copy nội dung!')
                            }}
-                           className="bg-clay-blue text-white p-1.5 rounded-lg shadow-clay-button text-[10px] font-bold"
+                           className="bg-newsprint-black text-white px-3 py-1.5 border-[2px] border-newsprint-black text-[9px] font-sans font-black uppercase hover:bg-white hover:text-newsprint-black transition-all flex items-center gap-2"
                          >
-                           COPY 📋
+                           COPY <Copy size={12} strokeWidth={3} />
                          </button>
                       </div>
-                      <div className="bg-white px-4 py-3 rounded-xl border-2 border-clay-blue/10 font-mono font-black text-clay-blue text-center overflow-hidden whitespace-nowrap overflow-ellipsis">
+                      <div className="bg-newsprint-paper px-4 py-4 border-[2px] border-newsprint-black font-sans font-black text-newsprint-black text-center text-sm tracking-widest break-all">
                          {paymentNote}
                       </div>
                    </div>
 
-                   <p className="text-[10px] text-clay-muted font-bold text-center leading-relaxed">
-                      💡 Mẹo: Dùng ứng dụng Ngân hàng quét QR để nội dung và số tiền được điền tự động.
+                   <p className="text-[10px] text-newsprint-gray-dark font-sans font-bold text-center leading-relaxed uppercase tracking-tight">
+                      QUÉT MÃ QR ĐỂ TỰ ĐỘNG ĐIỀN THÔNG TIN THANH TOÁN.
                    </p>
                 </div>
 
                 {/* Close Button */}
                 <button
                   onClick={onClose}
-                  className="w-full py-4 bg-clay-deep text-white font-heading font-black text-sm rounded-[22px] shadow-clay-button active:scale-95 transition-all"
+                  className="w-full py-5 bg-newsprint-black text-white font-sans font-black text-xs uppercase tracking-[0.2em] border-[3px] border-newsprint-black shadow-brutalist-soft hover:bg-red-600 active:translate-y-1 transition-all flex items-center justify-center gap-3"
                 >
-                  Xong, Đã chuyển khoản ✅
+                  XONG, ĐÃ CHUYỂN KHOẢN <Check size={18} strokeWidth={3} />
                 </button>
               </div>
               
               <button 
                 onClick={onClose}
-                className="absolute top-6 right-6 w-10 h-10 bg-white/20 hover:bg-white/40 rounded-full flex items-center justify-center text-white transition-colors"
+                className="absolute top-6 right-6 w-10 h-10 border-[2px] border-white/20 hover:bg-white/20 flex items-center justify-center text-white transition-all group"
               >
-                ✕
+                <X size={20} strokeWidth={3} className="group-hover:rotate-90 transition-transform" />
               </button>
             </motion.div>
           </div>

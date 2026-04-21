@@ -25,27 +25,27 @@ export default async function DashboardLayout({
   })
 
   return (
-    <div className="min-h-screen bg-clay-cream flex flex-col md:flex-row p-0 md:p-4 gap-0 md:gap-6">
-      {/* Sidebar - Desktop (Floating Effect) */}
-      <aside className="hidden md:block w-64 flex-shrink-0 sticky top-4 h-[calc(100vh-2rem)]">
+    <div className="min-h-screen bg-[#F5F0E8] flex p-4 lg:p-6 gap-6">
+      {/* Sidebar - Desktop */}
+      <aside className="hidden lg:block w-64 flex-shrink-0 sticky top-6 h-[calc(100vh-3rem)] z-40">
         <Sidebar user={user} dbUser={dbUser} />
       </aside>
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-w-0 bg-white/40 md:rounded-[40px] shadow-clay-inset border-2 border-white/50 overflow-hidden relative">
-        <header className="sticky top-0 z-30 px-4 md:px-8 pt-4 md:pt-6">
+      <div className="flex-1 flex flex-col min-w-0 bg-white/40 backdrop-blur-3xl rounded-[40px] shadow-clay-inset relative z-10 overflow-hidden border-2 border-white/60">
+        <header className="sticky top-0 z-30 px-6 py-4 bg-white/20 backdrop-blur-md border-b-2 border-white/50">
           <Header user={user} dbUser={dbUser} />
         </header>
 
-        <main className="flex-1 px-4 md:px-8 py-6 md:py-8 pb-24 md:pb-8 overflow-y-auto overflow-x-hidden scrollbar-hide">
+        <main className="flex-1 p-6 pb-32 lg:pb-8 overflow-y-auto scrollbar-hide">
           {children}
         </main>
 
-        <MobileNav />
+        <div className="lg:hidden">
+          <MobileNav />
+        </div>
       </div>
     </div>
   )
 }
-
-
 

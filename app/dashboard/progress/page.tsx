@@ -2,19 +2,30 @@ import { createClient } from '@/utils/supabase/server'
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 import MasteryDetails from '@/components/dashboard/MasteryDetails'
+import { 
+  BookOpen, 
+  Gem, 
+  Flame, 
+  Clock, 
+  ArrowLeft,
+  Activity,
+  History,
+  TrendingUp,
+  Brain
+} from 'lucide-react'
 
 // ---- Helpers ----
 const toVNDate = (d: Date) =>
   new Date(d.getTime() + 7 * 3600_000).toISOString().split('T')[0]
 
-// SVG Donut Chart — thuần SVG
+// SVG Donut Chart — Brutalist Version
 function DonutChart({
   segments,
 }: {
   segments: { label: string; value: number; color: string }[]
 }) {
   const total = segments.reduce((s, seg) => s + seg.value, 0)
-  const r = 58
+  const r = 52
   const cx = 70
   const cy = 70
   const circumference = 2 * Math.PI * r
@@ -30,35 +41,35 @@ function DonutChart({
 
   return (
     <svg viewBox="0 0 140 140" className="w-full max-w-[200px] mx-auto scale-110">
-      <circle cx={cx} cy={cy} r={r} fill="none" stroke="#f0ebe4" strokeWidth={18} />
+      <circle cx={cx} cy={cy} r={r + 6} fill="white" stroke="#141414" strokeWidth={3} />
+      <circle cx={cx} cy={cy} r={r} fill="none" stroke="#E5E7EB" strokeWidth={14} />
       {arcs.map((arc, i) => (
         <circle
           key={i}
           cx={cx} cy={cy} r={r}
           fill="none"
           stroke={arc.color}
-          strokeWidth={18}
+          strokeWidth={14}
           strokeDasharray={`${arc.dash} ${arc.gap}`}
           strokeDashoffset={-arc.offset + circumference * 0.25}
-          strokeLinecap="round"
           style={{ transition: 'stroke-dasharray 0.8s ease' }}
         />
       ))}
-      <text x={cx} y={cy - 8} textAnchor="middle" className="font-bold" fontSize={22} fontWeight={800} fill="#3D3027">
+      <text x={cx} y={cy - 6} textAnchor="middle" className="font-serif font-black" fontSize={24} fill="#141414">
         {total}
       </text>
-      <text x={cx} y={cy + 10} textAnchor="middle" fontSize={9} fontWeight={700} fill="#9b8ea0" letterSpacing={1}>
+      <text x={cx} y={cy + 10} textAnchor="middle" className="font-sans font-black" fontSize={7} fill="#6B7280" letterSpacing={1.5}>
         TỪ ĐÃ HỌC
       </text>
     </svg>
   )
 }
 
-// SVG Arc Gauge — tối ưu spacing
+// SVG Arc Gauge — Brutalist Version
 function GaugeChart({ pct }: { pct: number }) {
-  const r = 52
+  const r = 50
   const cx = 70
-  const cy = 72
+  const cy = 75
   const startAngle = -Math.PI               
   const endAngle   = 0                      
   const arcLength  = Math.PI * r            
@@ -74,34 +85,35 @@ function GaugeChart({ pct }: { pct: number }) {
   const pctEnd = polarToXY(startAngle + (pct / 100) * Math.PI)
 
   return (
-    <svg viewBox="0 0 140 110" className="w-full max-w-[220px] mx-auto">
+    <svg viewBox="0 0 140 100" className="w-full max-w-[220px] mx-auto">
       <path
         d={`M ${start.x} ${start.y} A ${r} ${r} 0 0 1 ${end.x} ${end.y}`}
-        fill="none" stroke="#f0ebe4" strokeWidth={16} strokeLinecap="round"
+        fill="none" stroke="#E5E7EB" strokeWidth={14}
       />
       <path
         d={`M ${start.x} ${start.y} A ${r} ${r} 0 ${pct > 50 ? 1 : 0} 1 ${pctEnd.x} ${pctEnd.y}`}
         fill="none"
-        stroke={pct >= 85 ? '#A8D5BA' : pct >= 50 ? '#F4A460' : '#f87171'}
-        strokeWidth={16}
-        strokeLinecap="round"
-        className="transition-all duration-1000 shadow-lg"
+        stroke={pct >= 85 ? '#16a34a' : pct >= 50 ? '#dc2626' : '#2563eb'}
+        strokeWidth={14}
+        className="transition-all duration-1000"
       />
-      <text x={cx} y={cy - 4} textAnchor="middle" fontSize={26} fontWeight={900} fill="#3D3027">
+      {/* Outer Border */}
+      <path
+        d={`M ${start.x - 7} ${start.y} A ${r + 7} ${r + 7} 0 0 1 ${end.x + 7} ${end.y}`}
+        fill="none" stroke="#141414" strokeWidth={2}
+      />
+      <text x={cx} y={cy - 4} textAnchor="middle" className="font-serif font-black" fontSize={28} fill="#141414">
         {pct}%
       </text>
-      <text x={cx} y={cy + 12} textAnchor="middle" fontSize={8} fontWeight={700} fill="#9b8ea0" letterSpacing={1}>
+      <text x={cx} y={cy + 10} textAnchor="middle" className="font-sans font-black" fontSize={7} fill="#6B7280" letterSpacing={1.5}>
         RETENTION
       </text>
-      {/* Ticks — moved down and positioned correctly */}
-      <text x={start.x} y={cy + 22} textAnchor="middle" fontSize={9} fill="#c5b8bc" fontWeight={800}>0%</text>
-      <text x={end.x} y={cy + 22} textAnchor="middle" fontSize={9} fill="#c5b8bc" fontWeight={800}>100%</text>
     </svg>
   )
 }
 
 
-// Bar Chart — Split New vs Review
+// Bar Chart — Brutalist Version
 function BarChart({ days }: { days: { date: string; new: number; review: number }[] }) {
   const max = Math.max(...days.map(d => d.new + d.review), 1)
   const dayNames = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7']
@@ -117,24 +129,19 @@ function BarChart({ days }: { days: { date: string; new: number; review: number 
         const d = new Date(day.date + 'T00:00:00')
         const dayLabel = dayNames[d.getDay()]
         return (
-          <div key={i} className="flex-1 flex flex-col items-center gap-2 h-full">
+          <div key={i} className="flex-1 flex flex-col items-center gap-3 h-full">
             <div className="flex-1 w-full flex flex-col justify-end items-center relative group">
-              {total > 0 && (
-                <div className="absolute -top-6 opacity-0 group-hover:opacity-100 transition-opacity bg-clay-deep text-white text-[8px] font-bold px-1.5 py-0.5 rounded shadow-lg z-10 whitespace-nowrap">
-                  N: {day.new} | R: {day.review}
-                </div>
-              )}
               <div 
-                className="w-full rounded-t-[10px] rounded-b-[4px] overflow-hidden flex flex-col shadow-clay-card transition-all duration-700"
-                style={{ height: `${Math.max(heightPct, total > 0 ? 8 : 4)}%` }}
+                className="w-full border-[2px] border-newsprint-black overflow-hidden flex flex-col transition-all duration-700 shadow-brutalist-soft"
+                style={{ height: `${Math.max(heightPct, total > 0 ? 10 : 2)}%` }}
               >
                 {/* Review part (Top) */}
-                <div className="bg-clay-blue/70 w-full" style={{ height: `${revPct}%` }} title="Ôn tập" />
+                <div className="bg-red-600 w-full" style={{ height: `${revPct}%` }} title="Ôn tập" />
                 {/* New part (Bottom) */}
-                <div className="bg-clay-orange w-full flex-1" title="Từ mới" />
+                <div className="bg-newsprint-black w-full flex-1" title="Từ mới" />
               </div>
             </div>
-            <span className="text-[10px] font-black text-clay-muted">{dayLabel}</span>
+            <span className="text-[10px] font-sans font-black text-newsprint-black uppercase tracking-tighter">{dayLabel}</span>
           </div>
         )
       })}
@@ -158,13 +165,12 @@ export default async function ProgressPage() {
     orderBy: { lastReviewed: 'desc' },
   })
 
-  // ---- 2. Retention Rate logic (Nhớ được / Tổng tương tác) ----
+  // ---- 2. Retention Rate logic ----
   const studiedWords = allProgress.length
-  // Nhớ được = từ có mastery > 0. Quên = từ mastery = 0 sau khi học.
   const rememberedWords = allProgress.filter(p => p.masteryLevel > 0).length
   const retentionRate   = studiedWords > 0 ? Math.round((rememberedWords / studiedWords) * 100) : 0
 
-  // ---- 3. Velocity Logic (New vs Review) ----
+  // ---- 3. Velocity Logic ----
   const days7Ago = new Date(now.getTime() - 7 * 86_400_000)
   const recentActivity = allProgress.filter(p => p.lastReviewed && p.lastReviewed >= days7Ago)
 
@@ -173,13 +179,12 @@ export default async function ProgressPage() {
     const key = toVNDate(d)
     const dayActs = recentActivity.filter(p => p.lastReviewed && toVNDate(p.lastReviewed) === key)
     
-    // New if learned today (lastReviewed day == createdAt day)
+    // New if learned today
     const newCount = dayActs.filter(p => toVNDate((p as any).createdAt) === key).length
     const revCount = dayActs.length - newCount
     
     return { date: key, new: newCount, review: revCount }
   })
-  const totalThisWeek = last7Days.reduce((s, d) => s + d.new + d.review, 0)
 
   // ---- 4. Streak ----
   const uniqueDays = [...new Set(allProgress.filter(p => p.lastReviewed).map(p => toVNDate(p.lastReviewed!)))].sort((a,b)=>b.localeCompare(a))
@@ -198,10 +203,9 @@ export default async function ProgressPage() {
   }
 
   // ---- 5. Buckets for MasteryDetails ----
-  const MASTERY_COLORS = ['#e8e0d8', '#fde68a', '#fed7aa', '#fca5a5', '#A8D5BA', '#6EE7B7']
-  const MASTERY_LABELS = ['Chưa thuộc / Cần học lại', 'Mới học', 'Đang học', 'Khá thuộc', 'Gần thuộc', '✨ Thuộc lòng']
-  const INTERVAL_LABELS = ['—', '2 ngày', '4 ngày', '8 ngày', '16 ngày', '32 ngày']
-  const BUCKET_BG = ['bg-soft-gray/30', 'bg-yellow-50', 'bg-orange-50', 'bg-red-50', 'bg-emerald-50', 'bg-green-50']
+  const MASTERY_COLORS = ['#E5E7EB', '#60a5fa', '#3b82f6', '#2563eb', '#16a34a', '#141414']
+  const MASTERY_LABELS = ['CẦN HỌC LẠI', 'MỚI HỌC', 'ĐANG HỌC', 'KHÁ THUỘC', 'GẦN THUỘC', 'THUỘC LÒNG']
+  const INTERVAL_LABELS = ['—', '2 NGÀY', '4 NGÀY', '8 NGÀY', '16 NGÀY', '32 NGÀY']
 
   const buckets = [0, 1, 2, 3, 4, 5].map(level => {
     const levelWords = allProgress.filter(p => p.masteryLevel === level)
@@ -209,7 +213,7 @@ export default async function ProgressPage() {
       level,
       label: MASTERY_LABELS[level],
       interval: INTERVAL_LABELS[level],
-      color: BUCKET_BG[level],
+      color: 'bg-white',
       bar: MASTERY_COLORS[level],
       count: levelWords.length,
       pct: studiedWords > 0 ? Math.round(levelWords.length / studiedWords * 100) : 0,
@@ -232,52 +236,59 @@ export default async function ProgressPage() {
   const masteredCount = allProgress.filter(p => p.masteryLevel >= 4).length
 
   return (
-    <div className="max-w-5xl mx-auto space-y-8 pb-16">
-      <div className="flex items-center justify-between">
-        <div className="space-y-1">
-          <h1 className="text-4xl font-heading font-black text-clay-deep uppercase tracking-tight">Tiến độ SRS</h1>
-          <p className="text-clay-muted text-sm font-medium">Báo cáo học tập dựa trên bộ nhớ dài hạn.</p>
+    <div className="max-w-5xl mx-auto space-y-12 pb-24">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 px-2">
+        <div className="space-y-3">
+          <div className="inline-flex items-center gap-2 border-[2px] border-newsprint-black bg-newsprint-paper px-3 py-1 font-sans font-black text-[9px] uppercase tracking-widest">
+            REPORT • {toVNDate(now).toUpperCase()}
+          </div>
+          <h1 className="text-4xl md:text-5xl font-serif font-black text-newsprint-black uppercase tracking-tighter">Báo cáo <span className="text-red-600 italic">Progress</span></h1>
+          <p className="text-newsprint-gray-dark text-xs font-sans font-bold uppercase tracking-widest opacity-60">Phân tích khả năng ghi nhớ dài hạn (SRS Analytics).</p>
         </div>
-        <Link href="/dashboard" className="px-6 py-2 bg-white rounded-full shadow-clay-button text-clay-muted text-xs font-black hover:shadow-clay-button-hover transition-all border-2 border-white">
-          ← DASHBOARD
+        <Link href="/dashboard" className="px-8 py-4 bg-newsprint-black text-white font-sans font-black text-[10px] border-[3px] border-newsprint-black shadow-brutalist-soft hover:bg-white hover:text-newsprint-black active:translate-y-1 transition-all flex items-center gap-2 uppercase tracking-widest">
+          <ArrowLeft size={16} strokeWidth={3} /> DASHBOARD
         </Link>
       </div>
 
       {/* TOP STATS */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {[
-          { label: 'TỔNG TỪ ĐÃ HỌC', value: studiedWords, unit: 'từ', icon: '📚', color: 'text-clay-blue' },
-          { label: 'ĐÃ THUỘC LÒNG', value: masteredCount, unit: 'từ', icon: '💎', color: 'text-clay-green' },
-          { label: 'CHUỖI HỌC TẬP', value: streak, unit: 'ngày', icon: '🔥', color: 'text-clay-orange' },
-          { label: 'CẦN ÔN TẬP', value: dueNow, unit: 'từ', icon: '⏳', color: 'text-clay-pink' },
+          { label: 'TỔNG TỪ ĐÃ HỌC', value: studiedWords, unit: 'WORDS', Icon: BookOpen, color: 'text-newsprint-black' },
+          { label: 'ĐÃ THUỘC LÒNG', value: masteredCount, unit: 'MASTERED', Icon: Gem, color: 'text-green-600' },
+          { label: 'CHUỖI HỌC TẬP', value: streak, unit: 'STREAK DAYS', Icon: Flame, color: 'text-red-600' },
+          { label: 'CẦN ÔN TẬP', value: dueNow, unit: 'DUE NOW', Icon: Clock, color: 'text-blue-600' },
         ].map(stat => (
-          <div key={stat.label} className="bg-white/70 backdrop-blur rounded-[35px] shadow-clay-card border-4 border-white p-6 flex flex-col gap-1 hover:scale-[1.03] transition-transform">
-            <div className="flex items-center justify-between mb-1">
-              <span className="text-[10px] font-black text-clay-muted tracking-widest">{stat.label}</span>
-              <span className="text-2xl">{stat.icon}</span>
+          <div key={stat.label} className="bg-white border-[3px] border-newsprint-black shadow-brutalist-card p-6 flex flex-col gap-2 hover:-translate-y-1 transition-all group active:shadow-none active:translate-y-1">
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] font-sans font-black text-newsprint-gray-dark tracking-[0.15em] uppercase">{stat.label}</span>
+              <div className="w-10 h-10 bg-newsprint-paper border-[2px] border-newsprint-black flex items-center justify-center shadow-brutalist-soft group-hover:rotate-6 transition-transform">
+                <stat.Icon size={18} strokeWidth={3} className={stat.color} />
+              </div>
             </div>
-            <div className={`text-4xl font-heading font-black ${stat.color}`}>{stat.value}</div>
-            <div className="text-[10px] text-clay-muted font-bold ml-1">{stat.unit}</div>
+            <div className={`text-5xl font-serif font-black ${stat.color}`}>{stat.value}</div>
+            <div className="text-[9px] font-sans font-black text-newsprint-gray uppercase tracking-widest">{stat.unit}</div>
           </div>
         ))}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* MASTERY DONUT */}
-        <div className="bg-white/70 rounded-[40px] shadow-clay-card border-4 border-white p-8 flex flex-col items-center gap-8 h-fit">
-           <div className="text-center">
-             <h2 className="text-lg font-heading font-black text-clay-deep">Phân bổ Mastery</h2>
-             <p className="text-[10px] text-clay-muted font-bold uppercase tracking-widest">Memory Distribution</p>
+        <div className="bg-white border-[3px] border-newsprint-black shadow-brutalist-card p-8 flex flex-col items-center gap-8 h-fit">
+           <div className="text-center border-b-[2px] border-newsprint-black pb-4 w-full">
+             <h2 className="text-xl font-serif font-black text-newsprint-black uppercase">Phân bổ Mastery</h2>
+             <p className="text-[9px] font-sans font-black text-newsprint-gray-dark uppercase tracking-widest mt-1 opacity-60">MEMORY DISTRIBUTION</p>
            </div>
-           <DonutChart segments={donutSegments.length > 0 ? donutSegments : [{ label: 'Empty', value: 1, color: '#f0ebe4' }]} />
-           <div className="w-full space-y-2">
+           
+           <DonutChart segments={donutSegments.length > 0 ? donutSegments : [{ label: 'Empty', value: 1, color: '#E5E7EB' }]} />
+           
+           <div className="w-full space-y-3 pt-4 border-t-[2px] border-newsprint-black/10">
              {buckets.filter(b => b.count > 0).map(b => (
-               <div key={b.level} className="flex items-center justify-between group cursor-help">
-                 <div className="flex items-center gap-2">
-                   <div className="w-2.5 h-2.5 rounded-full shadow-sm" style={{ background: b.bar }} />
-                   <span className="text-[10px] font-black text-clay-muted group-hover:text-clay-deep transition-colors">{b.label}</span>
+               <div key={b.level} className="flex items-center justify-between group">
+                 <div className="flex items-center gap-3">
+                   <div className="w-3 h-3 border-[2px] border-newsprint-black shadow-sm" style={{ background: b.bar }} />
+                   <span className="text-[10px] font-sans font-black text-newsprint-black uppercase tracking-tight group-hover:text-red-600 transition-colors">{b.label}</span>
                  </div>
-                 <span className="text-[11px] font-black">{b.count} ({b.pct}%)</span>
+                 <span className="text-[10px] font-sans font-black bg-newsprint-paper px-2 py-0.5 border-[1.5px] border-newsprint-black">{b.count}</span>
                </div>
              ))}
            </div>
@@ -285,46 +296,59 @@ export default async function ProgressPage() {
 
         {/* RETENTION ARC + VELOCITY BARS */}
         <div className="lg:col-span-2 flex flex-col gap-8">
-          <div className="bg-white/70 rounded-[40px] shadow-clay-card border-4 border-white p-8 flex flex-col md:flex-row items-center gap-8">
+          <div className="bg-white border-[3px] border-newsprint-black shadow-brutalist-card p-8 flex flex-col md:flex-row items-center gap-10">
             <div className="flex-1 text-center md:text-left space-y-6">
-              <div>
-                <h2 className="text-xl font-heading font-black text-clay-deep">Tỷ lệ Retention</h2>
-                <p className="text-xs text-clay-muted font-medium mt-1 italic">Khả năng ghi nhớ dựa trên số lần ôn tập thành công.</p>
+              <div className="space-y-1">
+                <div className="flex items-center gap-3 justify-center md:justify-start">
+                  <Activity size={24} strokeWidth={3} className="text-red-600" />
+                  <h2 className="text-2xl font-serif font-black text-newsprint-black uppercase leading-none">Retention Rate</h2>
+                </div>
+                <p className="text-[11px] font-sans font-bold text-newsprint-gray-dark uppercase tracking-tighter italic pl-9">Khả năng ghi nhớ dựa trên thuật toán SRS.</p>
               </div>
               <GaugeChart pct={retentionRate} />
             </div>
-            <div className="w-full md:w-48 grid grid-cols-1 gap-4">
-              <div className="bg-clay-blue/10 border-2 border-white rounded-[25px] p-5 text-center shadow-clay-button">
-                <div className="text-3xl font-black text-clay-blue">{rememberedWords}</div>
-                <div className="text-[10px] font-black text-clay-muted uppercase tracking-widest leading-none mt-1">ĐÃ GHI NHỚ</div>
+            
+            <div className="w-full md:w-56 flex flex-col gap-5">
+              <div className="bg-newsprint-paper border-[3px] border-newsprint-black p-5 text-center shadow-brutalist-soft group relative overflow-hidden">
+                <div className="absolute top-0 right-0 p-1 opacity-5"><Brain size={40} /></div>
+                <div className="text-4xl font-serif font-black text-newsprint-black relative z-10">{rememberedWords}</div>
+                <div className="text-[9px] font-sans font-black text-newsprint-gray-dark uppercase tracking-widest mt-1 relative z-10">TỪ CÒN NHỚ</div>
               </div>
-              <div className="bg-clay-orange/10 border-2 border-white rounded-[25px] p-5 text-center shadow-clay-button">
-                <div className="text-3xl font-black text-clay-orange">{studiedWords - rememberedWords}</div>
-                <div className="text-[10px] font-black text-clay-muted uppercase tracking-widest leading-none mt-1">BỊ LÃNG QUÊN</div>
+              <div className="bg-newsprint-black border-[3px] border-newsprint-black p-5 text-center shadow-brutalist-soft group">
+                <div className="text-4xl font-serif font-black text-white">{studiedWords - rememberedWords}</div>
+                <div className="text-[9px] font-sans font-black text-white/60 uppercase tracking-widest mt-1">BỊ LÃNG QUÊN</div>
               </div>
             </div>
           </div>
 
-          <div className="bg-white/70 rounded-[40px] shadow-clay-card border-4 border-white p-8 space-y-6">
-             <div className="flex justify-between items-start">
-               <div>
-                 <h2 className="text-xl font-heading font-black text-clay-deep">Tốc độ học (7 ngày)</h2>
-                 <p className="text-xs text-clay-muted font-medium mt-1">Cân bằng giữa học từ mới và ôn lại kiến thức.</p>
+          <div className="bg-white border-[3px] border-newsprint-black shadow-brutalist-card p-8 space-y-8 relative overflow-hidden">
+             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b-[2px] border-newsprint-black pb-6">
+               <div className="space-y-1">
+                 <div className="flex items-center gap-3">
+                   <TrendingUp size={24} strokeWidth={3} className="text-newsprint-black" />
+                   <h2 className="text-2xl font-serif font-black text-newsprint-black uppercase leading-none">Hoạt động tuần</h2>
+                 </div>
+                 <p className="text-[11px] font-sans font-bold text-newsprint-gray-dark uppercase tracking-widest pl-9">NEW VS REVIEW FREQUENCY</p>
                </div>
-               <div className="flex gap-4">
-                 <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 bg-clay-orange rounded-full" /><span className="text-[9px] font-black text-clay-muted uppercase">MỚI</span></div>
-                 <div className="flex items-center gap-1.5"><div className="w-2.5 h-2.5 bg-clay-blue/70 rounded-full" /><span className="text-[9px] font-black text-clay-muted uppercase">ÔN LẠI</span></div>
+               <div className="flex gap-6 pl-9 md:pl-0">
+                 <div className="flex items-center gap-2"><div className="w-3 h-3 bg-newsprint-black border border-white" /><span className="text-[9px] font-sans font-black text-newsprint-black uppercase tracking-widest">MỚI</span></div>
+                 <div className="flex items-center gap-2"><div className="w-3 h-3 bg-red-600 border border-white" /><span className="text-[9px] font-sans font-black text-newsprint-black uppercase tracking-widest">ÔN LẠI</span></div>
                </div>
              </div>
-             <div className="pt-4">
+             
+             <div className="pt-2">
                <BarChart days={last7Days} />
+             </div>
+
+             <div className="absolute bottom-0 right-0 opacity-[0.02] pointer-events-none pr-8 pb-8">
+               <History size={120} strokeWidth={3} />
              </div>
           </div>
         </div>
       </div>
 
 
-      {/* MASTERY DETAILS TABLE (CLIENT COMPONENT) */}
+      {/* MASTERY DETAILS TABLE */}
       <MasteryDetails buckets={buckets} />
     </div>
   )

@@ -27,14 +27,35 @@ const config: Config = {
           deep: '#8B7355',
           brown: '#6B4226',
           'brown-dark': '#4A2C17',
+        },
+        // Brutalist / Newsprint Theme
+        'newsprint-black': '#141414',
+        'newsprint-white': '#FFFFFF',
+        'newsprint-paper': '#F5F0E8',
+        'newsprint-gray': {
+          DEFAULT: '#6B7280',
+          light: '#E5E7EB',
+          dark: '#374151',
         }
       },
       fontFamily: {
+        // Newsprint + Swiss Design fonts
+        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        serif: ['var(--font-playfair)', 'serif'],
+        // Vietnamese optimized font with comprehensive fallbacks
+        vietnamese: ['var(--font-vietnamese)', '"Be Vietnam Pro"', '"Noto Sans Vietnamese"', 'var(--font-inter)', 'system-ui', 'sans-serif'],
+        // Legacy claymorphism fonts (keep for backward compatibility)
         heading: ['Nunito', 'sans-serif'],
         body: ['DM Sans', 'sans-serif'],
       },
       boxShadow: {
-        // Soft neumorphic/clay shadows
+        // Brutalist Hard Shadows
+        'brutalist-soft': '4px 4px 0px 0px rgba(20, 20, 20, 1)',
+        'brutalist-card': '8px 8px 0px 0px rgba(20, 20, 20, 1)',
+        'brutalist-heavy': '12px 12px 0px 0px rgba(20, 20, 20, 1)',
+        'brutalist-button': '2px 2px 0px 0px rgba(20, 20, 20, 1)',
+        
+        // Soft neumorphic/clay shadows (Keeping for transition)
         'clay-card':
           '15px 15px 30px #D4C5B9, ' +
           '-15px -15px 30px #FFFFFF, ' +
@@ -61,6 +82,7 @@ const config: Config = {
         'breathe': 'breathe 3s ease-in-out infinite',
         'blob': 'blob 8s ease-in-out infinite',
         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'marquee': 'marquee 25s linear infinite',
       },
       keyframes: {
         float: {
@@ -76,6 +98,10 @@ const config: Config = {
           '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
           '66%': { transform: 'translate(-20px, 20px) scale(0.95)' },
           '100%': { transform: 'translate(0px, 0px) scale(1)' },
+        },
+        marquee: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-50%)' },
         },
       },
     },

@@ -1,6 +1,8 @@
 import React from 'react'
-import Navbar from '@/components/marketing/Navbar'
-import Footer from '@/components/marketing/Footer'
+import MarketingHeader from '@/components/marketing/MarketingHeader'
+import MarketingFooter from '@/components/marketing/MarketingFooter'
+
+import { AuthProvider } from '@/providers/AuthProvider'
 
 export default function MarketingLayout({
   children,
@@ -8,12 +10,14 @@ export default function MarketingLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="min-h-screen bg-clay-cream selection:bg-clay-blue/30 selection:text-clay-deep">
-      <Navbar />
-      <main className="pt-20">
-        {children}
-      </main>
-      <Footer />
-    </div>
+    <AuthProvider>
+      <div className="min-h-screen flex-1 bg-[#F5F0E8] flex flex-col">
+        <MarketingHeader />
+        <main className="w-full overflow-x-hidden shrink-0">
+          {children}
+        </main>
+        <MarketingFooter />
+      </div>
+    </AuthProvider>
   )
 }

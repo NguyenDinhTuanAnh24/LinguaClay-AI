@@ -1,42 +1,51 @@
 import { createClient } from '@/utils/supabase/server'
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
+import {
+  BookOpen,
+  Flame,
+  Trophy,
+  Clock,
+  Lightbulb,
+  ArrowRight,
+  TrendingUp,
+  BrainCircuit,
+  Plus,
+  Play
+} from 'lucide-react'
 
 export default async function DashboardPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
-  
-  // Fetch user data từ Prisma
+
   const userData = await prisma.user.findUnique({
     where: { id: user?.id || "" },
     include: {
-      progress: true,   // chỉ lấy số lượng, không cần join word/topic
+      progress: true,
       exercises: true
     }
   })
 
   // Mastery scale: 0–5 (SRS)
   const totalMastered = userData?.progress.filter((p: any) => p.masteryLevel >= 4).length || 0
-  const totalToReview  = userData?.progress.filter((p: any) => p.masteryLevel < 4).length  || 0
+  const totalToReview = userData?.progress.filter((p: any) => p.masteryLevel < 4).length || 0
 
-  // ---- Streak thực tế: đếm ngày liên tiếp có hoạt động (GMT+7) ----
   const allReviewed = await prisma.userProgress.findMany({
     where: { userId: user?.id || "", lastReviewed: { not: null } },
     select: { lastReviewed: true },
     orderBy: { lastReviewed: 'desc' },
   })
-  // Chuyển sang các ngày duy nhất (YYYY-MM-DD) theo GMT+7
+
   const toVNDate = (d: Date) =>
     new Date(d.getTime() + 7 * 3600_000).toISOString().split('T')[0]
-  const uniqueDays = [...new Set(allReviewed.map((p: any) => toVNDate(p.lastReviewed!)))]
-  // Đếm streak liên tiếp từ hôm nay/hôm qua lùi về
+  const uniqueDays = [...new Set(allReviewed.map((p: any) => toVNDate(p.lastReviewed!)))] as string[]
+
   let streak = 0
   if (uniqueDays.length > 0) {
-    const todayVN  = toVNDate(new Date())
+    const todayVN = toVNDate(new Date())
     const msPerDay = 86_400_000
-    // Streak chỉ bắt đầu nếu ngày gần nhất là hôm nay hoặc hôm qua
     const newestMs = new Date(uniqueDays[0]).getTime()
-    const todayMs  = new Date(todayVN).getTime()
+    const todayMs = new Date(todayVN).getTime()
     if (todayMs - newestMs <= msPerDay) {
       streak = 1
       for (let i = 1; i < uniqueDays.length; i++) {
@@ -50,25 +59,23 @@ export default async function DashboardPage() {
     }
   }
 
-  // ---- Số từ đến hạn ôn theo từng topic (nextReview <= now) ----
   const now = new Date()
   const dueProgress = await prisma.userProgress.findMany({
     where: {
       userId: user?.id || "",
       nextReview: { lte: now },
-      masteryLevel: { lt: 5 },          // Đã thuộc lòng (5) không cần ôn
+      masteryLevel: { lt: 5 },
       word: { topicId: { not: null } },
     },
     select: { word: { select: { topicId: true } } }
   })
-  // Map: topicId → số từ cần ôn
+
   const dueByTopic: Record<string, number> = {}
   dueProgress.forEach((p: any) => {
     const tid = p.word?.topicId
     if (tid) dueByTopic[tid] = (dueByTopic[tid] || 0) + 1
   })
 
-  // Query chính xác: lấy UserProgress có lastReviewed gần nhất, join Word → Topic
   const lastProgress = await prisma.userProgress.findFirst({
     where: {
       userId: user?.id || "",
@@ -84,13 +91,11 @@ export default async function DashboardPage() {
   })
   const recentTopic = lastProgress?.word?.topic || null
 
-  // Tên hiển thị ưu tiên: name từ Prisma → full_name meta → email prefix
   const displayName = userData?.name
     || user?.user_metadata?.full_name
     || user?.email?.split('@')[0]
-    || 'bạn'
+    || 'Học viên'
 
-  // ---- Số từ đ đạt mastery >= 1 theo từng topic (cho progress bar) ----
   const recentTopics = await prisma.topic.findMany({
     take: 6,
     orderBy: { createdAt: 'desc' },
@@ -115,183 +120,158 @@ export default async function DashboardPage() {
 
       {/* ========== BANNER: HỌC TIẾP ========== */}
       {recentTopic ? (
-        /* Có dữ liệu: hiển banner "Tiếp tục" */
-        <div className="relative overflow-hidden rounded-[40px] border-4 border-white shadow-clay-card bg-gradient-to-r from-[#b8f0d8] via-[#c9f5e1] to-[#d4f7e0] p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="absolute -top-8 -right-8 w-48 h-48 bg-white/30 rounded-full blur-2xl pointer-events-none" />
-          <div className="absolute bottom-0 left-32 w-32 h-32 bg-[#a0e8c0]/40 rounded-full blur-xl pointer-events-none" />
-
-          <div className="flex items-center gap-5 relative z-10">
-            <div className="w-16 h-16 bg-white/70 rounded-[22px] shadow-clay-button flex items-center justify-center text-3xl flex-shrink-0 border-2 border-white">
-              📖
+        <div className="relative overflow-hidden border-[3px] border-newsprint-black bg-[#F5F0E8] p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-brutalist-card">
+          <div className="flex items-center gap-6 relative z-10">
+            <div className="w-16 h-16 bg-white border-[3px] border-newsprint-black flex items-center justify-center text-newsprint-black flex-shrink-0 shadow-brutalist-soft">
+              <BookOpen size={32} strokeWidth={3} />
             </div>
             <div>
-              <p className="text-[11px] font-black uppercase tracking-[0.2em] text-emerald-600 mb-1">Tiếp tục bài học</p>
-              <h3 className="text-xl md:text-2xl font-heading font-black text-clay-deep leading-tight">
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-red-600 mb-1">TIẾP TỤC HÀNH TRÌNH</p>
+              <h3 className="text-xl md:text-2xl font-serif font-black text-newsprint-black leading-tight uppercase">
                 Bạn đang học dở chủ đề{' '}
-                <span className="text-emerald-700">"{recentTopic.name}"</span>
+                <span className="bg-red-600 text-white px-2 italic">"{recentTopic.name}"</span>
               </h3>
-              <p className="text-sm text-emerald-700/70 mt-1 font-medium">Tiếp tục chứ? Bạn đang làm rất tốt! 💪</p>
+              <p className="text-[11px] font-sans font-bold text-newsprint-gray-dark mt-1 uppercase tracking-widest">Tiếp tục chứ? Bạn đang làm rất tốt!</p>
             </div>
           </div>
 
           <Link
             href={`/study/${recentTopic.slug}`}
-            className="relative z-10 flex-shrink-0 px-8 py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-heading font-black text-base rounded-full shadow-[0_8px_20px_rgba(52,211,153,0.5)] hover:shadow-[0_12px_28px_rgba(52,211,153,0.65)] hover:-translate-y-0.5 active:scale-95 transition-all duration-200 flex items-center gap-2 whitespace-nowrap"
+            className="group relative z-10 flex-shrink-0 px-8 py-4 bg-newsprint-black text-white font-sans font-black uppercase tracking-widest text-xs border-[3px] border-newsprint-black hover:bg-white hover:text-newsprint-black transition-all shadow-brutalist-soft active:translate-y-1 active:shadow-none flex items-center gap-3"
           >
-            <span>▶</span> Học tiếp
+            HỌC TIẾP <Play size={16} fill="currentColor" />
           </Link>
         </div>
       ) : (
-        /* Chưa học gì: hiển banner khởi động */
-        <div className="relative overflow-hidden rounded-[40px] border-4 border-white shadow-clay-card bg-gradient-to-r from-[#fde8d0] via-[#fdf0e0] to-[#fef6ec] p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="absolute -top-8 -right-8 w-48 h-48 bg-white/40 rounded-full blur-2xl pointer-events-none" />
-          <div className="absolute bottom-0 left-32 w-32 h-32 bg-clay-orange/10 rounded-full blur-xl pointer-events-none" />
-
-          <div className="flex items-center gap-5 relative z-10">
-            <div className="w-16 h-16 bg-white/80 rounded-[22px] shadow-clay-button flex items-center justify-center text-3xl flex-shrink-0 border-2 border-white">
-              🌟
+        <div className="relative overflow-hidden border-[3px] border-newsprint-black bg-[#F5F0E8] p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-brutalist-card">
+          <div className="flex items-center gap-6 relative z-10">
+            <div className="w-16 h-16 bg-white border-[3px] border-newsprint-black flex items-center justify-center text-newsprint-black flex-shrink-0 shadow-brutalist-soft">
+              <TrendingUp size={32} strokeWidth={3} />
             </div>
             <div>
-              <p className="text-[11px] font-black uppercase tracking-[0.2em] text-clay-orange mb-1">Hành trình bắt đầu</p>
-              <h3 className="text-xl md:text-2xl font-heading font-black text-clay-deep leading-tight">
-                Bắt đầu chuyến hành trình ngôn ngữ{' '}
-                <span className="text-clay-orange">ngay hôm nay!</span>
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-red-600 mb-1">DÀNH CHO BẠN</p>
+              <h3 className="text-xl md:text-2xl font-serif font-black text-newsprint-black leading-tight uppercase">
+                Khởi đầu ngày mới với {' '}
+                <span className="italic underline decoration-[4px] decoration-red-600 underline-offset-4">mục tiêu 10 từ</span>
               </h3>
-              <p className="text-sm text-clay-muted mt-1 font-medium">Chọn một chủ đề dưới đây để bắt đầu bài học đầu tiên của bạn! 🚀</p>
+              <p className="text-[11px] font-sans font-bold text-newsprint-gray-dark mt-1 uppercase tracking-widest">Khám phá thư viện ngay bây giờ!</p>
             </div>
           </div>
 
           <Link
             href="/dashboard/flashcards"
-            className="relative z-10 flex-shrink-0 px-8 py-4 bg-clay-orange hover:bg-clay-orange/90 text-white font-heading font-black text-base rounded-full shadow-[0_8px_20px_rgba(244,164,96,0.5)] hover:shadow-[0_12px_28px_rgba(244,164,96,0.65)] hover:-translate-y-0.5 active:scale-95 transition-all duration-200 flex items-center gap-2 whitespace-nowrap"
+            className="relative z-10 flex-shrink-0 px-8 py-4 bg-red-600 text-white font-sans font-black uppercase tracking-widest text-xs border-[3px] border-newsprint-black hover:bg-white hover:text-red-600 transition-all shadow-brutalist-soft active:translate-y-1 active:shadow-none flex items-center gap-3"
           >
-            <span>✨</span> Khám phá ngay
+            BẮT ĐẦU NGAY <ArrowRight size={16} strokeWidth={3} />
           </Link>
         </div>
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* LEFT COLUMN - Main Activity */}
-        <div className="lg:col-span-2 space-y-8">
-          
-          {/* CURRENT LESSON CARD */}
-          <div className="bg-gradient-to-br from-warm-white to-white rounded-[45px] shadow-clay-card p-8 md:p-10 border-4 border-white relative overflow-hidden group">
-            <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
-              <span className="text-9xl">📚</span>
-            </div>
+        <div className="lg:col-span-2 space-y-6">
+
+          {/* WELCOME / MAIN CARD */}
+          <div className="bg-white/40 backdrop-blur-3xl rounded-[40px] shadow-clay-card p-8 md:p-10 relative overflow-hidden border-2 border-white/60">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-clay-orange/20 rounded-full blur-3xl -z-10 pointer-events-none translate-x-1/2 -translate-y-1/2" />
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-clay-blue/20 rounded-full blur-3xl -z-10 pointer-events-none -translate-x-1/2 translate-y-1/2" />
+
             <div className="relative z-10 space-y-6">
-              <div className="inline-flex items-center gap-2 bg-clay-blue/20 text-clay-blue px-4 py-1.5 rounded-full text-xs font-bold">
-                <span>Học tập</span> • <span>English Vocabulary</span>
+              <div className="inline-flex items-center gap-2 bg-white/50 px-4 py-2 rounded-full font-heading font-black text-xs text-clay-blue shadow-clay-inset">
+                <span className="w-2 h-2 rounded-full bg-clay-blue animate-pulse"></span>
+                Sẵn sàng học mới
               </div>
-              <h2 className="text-3xl md:text-4xl font-heading font-black text-clay-deep leading-tight">
-                Chào {displayName}, <br/> 
-                <span className="text-clay-orange">hôm nay chinh phục thêm vài từ mới nhé! 🚀</span>
+
+              <h2 className="text-3xl md:text-5xl font-heading font-black text-clay-deep leading-tight">
+                Chào {displayName}, <br />
+                <span className="text-clay-orange">chinh phục</span> từ mới ngay! <span className="inline-block animate-bounce">🚀</span>
               </h2>
+
               <div className="space-y-3 max-w-sm">
-                <div className="flex justify-between text-xs font-bold text-clay-muted">
-                  <span>Tiến độ chương trình</span>
+                <div className="flex justify-between font-bold text-xs uppercase text-clay-muted">
+                  <span>Tiến độ tổng</span>
                   <span>{userData?.progress.length ? Math.round((totalMastered / userData.progress.length) * 100) : 0}%</span>
                 </div>
-                <div className="h-4 bg-soft-gray/30 rounded-full shadow-clay-inset p-1">
-                  <div 
-                    className="h-full bg-gradient-to-r from-clay-orange to-clay-gold rounded-full transition-all duration-1000" 
-                    style={{ width: `${userData?.progress.length ? Math.round((totalMastered / userData.progress.length) * 100) : 0}%` }} 
+                <div className="h-4 bg-clay-cream/50 rounded-full shadow-clay-inset p-1">
+                  <div
+                    className="h-full bg-gradient-to-r from-clay-orange to-clay-yellow rounded-full transition-all duration-1000"
+                    style={{ width: `${userData?.progress.length ? Math.round((totalMastered / userData.progress.length) * 100) : 0}%` }}
                   />
                 </div>
               </div>
               <div className="flex flex-wrap gap-4 pt-4">
-                <Link href="/dashboard/flashcards" className="px-8 py-4 bg-clay-orange text-white font-heading font-black rounded-full shadow-clay-button hover:shadow-clay-button-hover active:scale-95 transition-all text-sm md:text-base">
-                  Khám phá Thư viện
+                <Link href="/dashboard/flashcards" className="px-8 py-4 bg-clay-blue text-white rounded-2xl font-heading font-black shadow-clay-button hover:shadow-clay-button-hover active:scale-95 transition-all">
+                  Vào thư viện ✨
                 </Link>
-                <Link href="/dashboard/flashcards" className="px-6 py-4 bg-warm-white text-clay-muted font-heading font-bold rounded-full shadow-clay-button flex items-center gap-2 hover:shadow-clay-button-hover active:scale-95 transition-all text-sm">
-                  <span>🃏</span> Xem Flashcard
+                <Link href="/dashboard/flashcards" className="px-6 py-4 bg-white text-clay-blue rounded-2xl font-heading font-black shadow-clay-button hover:shadow-clay-button-hover active:scale-95 transition-all flex items-center gap-2">
+                  <Plus size={18} strokeWidth={3} /> Tạo thẻ mới
                 </Link>
               </div>
             </div>
           </div>
 
           {/* STATS GRID */}
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-white/60 rounded-[40px] shadow-clay-card p-8 border-2 border-white flex justify-between items-center group hover:bg-white/80 transition-all">
-              <div className="space-y-2">
-                <span className="text-sm font-heading font-bold text-clay-muted uppercase tracking-wider">Đã thuộc</span>
-                <div className="text-4xl font-heading font-black text-clay-green">{totalMastered}</div>
-                <p className="text-[10px] text-clay-muted">Từ vựng đã ghi nhớ</p>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-white/40 backdrop-blur-3xl rounded-[30px] shadow-clay-card p-6 flex justify-between items-center border-2 border-white/60 group hover:-translate-y-1 transition-all">
+              <div className="space-y-1">
+                <span className="text-xs font-bold text-clay-muted uppercase tracking-wider">Đã thuộc</span>
+                <div className="text-4xl font-heading font-black text-clay-deep">{totalMastered}</div>
               </div>
-              <div className="w-20 h-20 bg-clay-green/10 rounded-full flex items-center justify-center border-2 border-clay-green/20 group-hover:scale-110 transition-transform">
-                 <span className="text-3xl">✅</span>
+              <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center text-clay-orange shadow-clay-button group-hover:rotate-12 transition-transform">
+                🏆
               </div>
             </div>
 
-            <div className="bg-white/60 rounded-[40px] shadow-clay-card p-8 border-2 border-white flex justify-between items-center group hover:bg-white/80 transition-all">
-              <div className="space-y-2">
-                <span className="text-sm font-heading font-bold text-clay-muted uppercase tracking-wider">Cần ôn tập</span>
+            <div className="bg-white/40 backdrop-blur-3xl rounded-[30px] shadow-clay-card p-6 flex justify-between items-center border-2 border-white/60 group hover:-translate-y-1 transition-all">
+              <div className="space-y-1">
+                <span className="text-xs font-bold text-clay-muted uppercase tracking-wider">Cần ôn tập</span>
                 <div className="text-4xl font-heading font-black text-clay-pink">{totalToReview}</div>
-                <p className="text-[10px] text-clay-muted">Hãy ôn lại hôm nay!</p>
               </div>
-              <div className="w-20 h-20 bg-clay-pink/10 rounded-full flex items-center justify-center border-2 border-clay-pink/20 group-hover:scale-110 transition-transform">
-                 <span className="text-3xl">⏳</span>
+              <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center text-clay-pink shadow-clay-button group-hover:-rotate-12 transition-transform">
+                ⏱️
               </div>
             </div>
           </div>
         </div>
 
         {/* RIGHT COLUMN */}
-        <div className="space-y-8">
+        <div className="space-y-6">
           {/* STREAK CARD */}
-          <div className="bg-gradient-to-br from-clay-deep to-clay-brown-dark rounded-[40px] shadow-clay-card p-8 text-center border-4 border-white/10 relative overflow-hidden group">
-            <div className="absolute top-0 left-0 w-full h-full opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-clay-orange to-transparent blur-2xl" />
+          <div className="bg-gradient-to-br from-clay-orange to-clay-yellow rounded-[40px] shadow-[0_20px_40px_rgba(244,164,96,0.3)] p-8 text-center relative overflow-hidden group border-4 border-white/20">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 rounded-full blur-2xl -z-10 translate-x-1/2 -translate-y-1/2" />
             <div className="relative z-10 space-y-4">
-               <div className="w-20 h-20 bg-clay-orange/20 rounded-full flex items-center justify-center mx-auto mb-2 animate-breathe shadow-clay-button border-2 border-clay-orange/30">
-                 <span className="text-4xl">🔥</span>
-               </div>
-               <div>
-                 <div className="text-5xl font-heading font-black text-white mb-1 tracking-tight">{streak} ngày</div>
-                 <p className="text-xs text-clay-orange font-bold uppercase tracking-[0.2em]">Chuỗi liên tiếp</p>
-               </div>
-               <p className="text-white/60 text-[10px] px-4">Bạn đang nằm trong top 5% học viên chăm chỉ nhất!</p>
-            </div>
-          </div>
-
-          {/* AI PARTNER CARD */}
-          <div className="bg-white/80 rounded-[40px] shadow-clay-card p-8 border-4 border-white relative overflow-hidden group cursor-pointer hover:shadow-clay-button-hover transition-all">
-            <div className="flex flex-col items-center text-center space-y-4">
-              <div className="relative">
-                <div className="w-24 h-24 bg-gradient-to-br from-clay-blue to-clay-green rounded-full blur-xl absolute opacity-30 animate-pulse-slow" />
-                <div className="w-24 h-24 bg-gradient-to-br from-clay-blue to-clay-green rounded-full flex items-center justify-center relative shadow-clay-button border-4 border-white">
-                  <span className="text-5xl">🤖</span>
-                </div>
+              <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto shadow-clay-inset backdrop-blur-sm group-hover:scale-110 transition-transform">
+                <span className="text-3xl text-white">🔥</span>
               </div>
               <div>
-                <h3 className="text-xl font-heading font-black text-clay-deep">AI Language Partner</h3>
-                <p className="text-xs text-clay-muted mt-1 px-4">Luyện nói với AI ngay bây giờ để nhận +20 điểm kinh nghiệm.</p>
+                <div className="text-4xl font-heading font-black text-white mb-1 drop-shadow-md">{streak} ngày</div>
+                <p className="text-xs text-white/80 font-bold uppercase tracking-wider">Chuỗi liên tiếp</p>
               </div>
-              <Link href="/dashboard/ai-chat" className="w-full py-3 bg-clay-blue/10 text-clay-blue font-heading font-black text-sm rounded-full shadow-clay-pressed hover:bg-clay-blue/20 transition-all">
-                Bắt đầu trò chuyện
-              </Link>
+              <div className="h-1 bg-white/20 w-1/2 mx-auto rounded-full" />
+              <p className="text-white/90 font-bold text-[10px] uppercase tracking-widest bg-white/20 inline-block px-3 py-1 rounded-full">Top 5% chăm chỉ</p>
             </div>
           </div>
 
-          {/* QUICK TIP */}
-          <div className="bg-clay-cream/50 rounded-[35px] shadow-clay-inset p-6 border border-soft-gray/30">
-            <div className="flex items-start gap-4">
-              <span className="text-2xl">💡</span>
-              <div className="space-y-1">
-                <h4 className="text-xs font-bold text-clay-deep uppercase tracking-widest leading-none">Mẹo nhỏ</h4>
-                <p className="text-[11px] text-clay-muted leading-relaxed italic">
-                  "Học từ vựng vào sáng sớm sẽ giúp não bộ ghi nhớ lâu hơn 30% so với tối muộn."
-                </p>
-              </div>
+          <div className="bg-white/40 backdrop-blur-3xl rounded-[40px] shadow-clay-card p-8 text-center border-2 border-white/60 group">
+            <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-clay-button group-hover:-translate-y-2 transition-transform">
+              <span className="text-3xl">🤖</span>
             </div>
+            <h3 className="text-lg font-heading font-black text-clay-deep mb-2">AI Partner</h3>
+            <p className="text-xs font-bold text-clay-muted mb-6">Luyện nói tiếng Anh/Trung mỗi ngày để tự tin giao tiếp.</p>
+            <Link href="/dashboard/ai-chat" className="block w-full py-3 bg-white text-clay-blue rounded-xl font-heading font-black shadow-clay-button hover:shadow-clay-button-hover active:scale-95 transition-all">
+              Bắt đầu Chat ✨
+            </Link>
           </div>
         </div>
       </div>
 
       {/* EXPLORE TOPICS SECTION */}
-      <div className="space-y-6">
-        <div className="flex items-center justify-between px-2">
-          <h2 className="text-2xl font-heading font-black text-clay-deep">Chủ đề nổi bật</h2>
-          <Link href="/dashboard/flashcards" className="text-sm font-bold text-clay-blue hover:underline">Xem tất cả →</Link>
+      <div className="space-y-6 pt-6">
+        <div className="flex items-end justify-between px-2">
+          <h2 className="text-2xl md:text-3xl font-heading font-black text-clay-deep tracking-tight">Chủ đề nổi bật</h2>
+          <Link href="/dashboard/flashcards" className="text-sm font-bold text-clay-blue hover:text-clay-orange transition-colors flex items-center gap-1 group">
+            Xem tất cả <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+          </Link>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -299,28 +279,27 @@ export default async function DashboardPage() {
             recentTopics.map((topic: any) => {
               const dueCount = dueByTopic[topic.id] || 0
               return (
-                <div key={topic.id} className="relative bg-white/70 rounded-[35px] shadow-clay-card p-6 border-2 border-white transition-all group flex flex-col gap-5">
+                <div key={topic.id} className="relative bg-white/60 backdrop-blur-md border-2 border-white/70 rounded-[30px] p-6 shadow-clay-card hover:shadow-clay-button-hover transition-all group flex flex-col gap-5 hover:-translate-y-2">
                   {/* Badge ôn tập */}
                   {dueCount > 0 && (
-                    <div className="absolute -top-2 -right-2 z-10 min-w-[28px] h-7 bg-clay-orange text-white text-[11px] font-black rounded-full flex items-center justify-center px-2 shadow-[0_4px_12px_rgba(244,164,96,0.5)] border-2 border-white">
+                    <div className="absolute -top-3 -right-3 z-10 h-8 w-8 bg-clay-pink text-white text-xs font-black rounded-full flex items-center justify-center shadow-clay-float animate-pulse">
                       {dueCount > 99 ? '99+' : dueCount}
                     </div>
                   )}
 
                   <div className="flex items-start gap-4">
-                    <div className="w-14 h-14 bg-clay-cream rounded-[20px] shadow-clay-button flex items-center justify-center text-2xl flex-shrink-0 group-hover:scale-105 transition-transform">
+                    <div className="w-14 h-14 bg-white rounded-2xl shadow-clay-button flex items-center justify-center text-3xl flex-shrink-0 group-hover:rotate-12 transition-transform">
                       {topic.language === 'CN' ? '🏮' : '🇬🇧'}
                     </div>
                     <div className="flex-1 space-y-1 min-w-0">
                       <div className="flex items-center justify-between">
-                        <span className="text-[10px] font-black text-clay-blue uppercase tracking-widest">{topic.level}</span>
-                        <div className="flex items-center gap-1">
-                          {topic.isAIGenerated && <span className="text-[10px] bg-clay-green/20 text-clay-green px-2 py-0.5 rounded-full font-bold">AI</span>}
-                          {dueCount > 0 && <span className="text-[10px] bg-clay-orange/15 text-clay-orange px-2 py-0.5 rounded-full font-bold">⏰ Ôn tập</span>}
-                        </div>
+                        <span className="text-[10px] font-bold text-clay-orange uppercase tracking-wider">{topic.level}</span>
+                        {topic.isAIGenerated && (
+                          <span className="text-[10px] bg-clay-blue/10 text-clay-blue px-2 py-0.5 rounded-md font-black">AI</span>
+                        )}
                       </div>
-                      <h3 className="font-heading font-black text-clay-deep leading-none">{topic.name}</h3>
-                      <p className="text-[11px] text-clay-muted line-clamp-1">{topic.description || 'Bắt đầu học ngay bộ từ vựng này.'}</p>
+                      <h3 className="text-lg font-heading font-black text-clay-deep leading-tight group-hover:text-clay-blue transition-colors line-clamp-1">{topic.name}</h3>
+                      <p className="text-xs font-bold text-clay-muted line-clamp-1">{topic.description || 'Bắt đầu học ngay.'}</p>
                     </div>
                   </div>
 
@@ -330,16 +309,14 @@ export default async function DashboardPage() {
                     const mastered = masteredByTopic[topic.id] || 0
                     const pct      = total > 0 ? Math.round((mastered / total) * 100) : 0
                     return (
-                      <div className="space-y-1">
-                        <div className="flex justify-between text-[9px] font-bold text-clay-muted uppercase tracking-tighter">
+                      <div className="space-y-2">
+                        <div className="flex justify-between font-bold text-[10px] text-clay-muted">
                           <span>Tiến độ: {mastered}/{total} từ</span>
-                          <span className={pct >= 80 ? 'text-clay-green' : 'text-clay-orange'}>{pct}%</span>
+                          <span>{pct}%</span>
                         </div>
-                        <div className="h-1.5 bg-soft-gray/30 rounded-full shadow-clay-inset overflow-hidden border border-white/50">
+                        <div className="h-3 bg-clay-cream/50 rounded-full shadow-clay-inset p-0.5">
                           <div
-                            className={`h-full rounded-full transition-all duration-700 ${
-                              pct >= 80 ? 'bg-clay-green shadow-[0_0_8px_#A8D5BA]' : 'bg-clay-orange shadow-[0_0_8px_#F4A460]'
-                            }`}
+                            className="h-full bg-clay-blue rounded-full transition-all duration-700"
                             style={{ width: `${pct}%` }}
                           />
                         </div>
@@ -348,18 +325,18 @@ export default async function DashboardPage() {
                   })()}
 
                   {/* Mode Selection Buttons */}
-                  <div className="grid grid-cols-2 gap-3 pt-1">
+                  <div className="grid grid-cols-2 gap-3 mt-auto">
                     <Link 
                       href={`/study/${topic.slug}`}
-                      className="py-2.5 bg-white rounded-full text-center text-xs font-black text-clay-deep shadow-clay-button border border-soft-gray/20 hover:scale-[1.03] active:scale-95 transition-all flex items-center justify-center gap-1.5"
+                      className="py-2.5 bg-white text-clay-blue text-[11px] font-heading font-black uppercase rounded-xl hover:bg-clay-blue hover:text-white transition-colors text-center shadow-clay-button"
                     >
-                      <span>🃏</span> Flashcard
+                      Flashcard 🎴
                     </Link>
                     <Link 
                       href={`/study/${topic.slug}/write`}
-                      className="py-2.5 bg-clay-blue text-white rounded-full text-center text-xs font-black shadow-clay-button hover:scale-[1.03] active:scale-95 transition-all flex items-center justify-center gap-1.5"
+                      className="py-2.5 bg-clay-cream text-clay-deep text-[11px] font-heading font-black uppercase rounded-xl hover:bg-clay-orange hover:text-white transition-colors text-center shadow-clay-button"
                     >
-                      <span>✍️</span> Luyện viết
+                      Luyện viết ✍️
                     </Link>
                   </div>
                 </div>
@@ -367,10 +344,8 @@ export default async function DashboardPage() {
             })
           ) : (
             [1, 2, 3].map((i) => (
-              <div key={i} className="bg-white/40 rounded-[35px] shadow-clay-card p-6 border-2 border-white/50 border-dashed animate-pulse">
-                <div className="h-24 flex items-center justify-center text-clay-muted font-heading font-black">
-                  Chưa có dữ liệu
-                </div>
+              <div key={i} className="bg-white/30 border-2 border-white/50 border-dashed rounded-[30px] h-64 flex items-center justify-center text-clay-muted font-heading font-black tracking-widest animate-pulse shadow-clay-inset">
+                CHƯA CÓ DỮ LIỆU
               </div>
             ))
           )}
@@ -378,4 +353,18 @@ export default async function DashboardPage() {
       </div>
     </div>
   )
+}
+
+function formatDashboardNumbers(text: string) {
+  const parts = text.split(/(\d+)/)
+  return parts.map((part, i) => {
+    if (/\d+/.test(part)) {
+      return (
+        <span key={i} className="font-heading font-black text-clay-blue">
+          {part}
+        </span>
+      )
+    }
+    return <span key={i} className="font-bold">{part}</span>
+  })
 }

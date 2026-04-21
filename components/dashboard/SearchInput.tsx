@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { useTransition } from 'react'
+import { Search, Loader2 } from 'lucide-react'
 
 export default function SearchInput({ defaultValue }: { defaultValue?: string }) {
   const router = useRouter()
@@ -28,16 +29,16 @@ export default function SearchInput({ defaultValue }: { defaultValue?: string })
         type="text" 
         defaultValue={defaultValue}
         onChange={(e) => handleSearch(e.target.value)}
-        placeholder="Tìm chủ đề học tập..."
-        className={`w-full h-14 pl-14 pr-6 bg-white/80 rounded-[25px] shadow-clay-button border-4 border-transparent outline-none font-heading font-black text-clay-deep placeholder:text-clay-muted/50 transition-all ${
-          isPending ? 'opacity-70 grayscale-[0.5]' : 'focus:border-clay-blue/30'
+        placeholder="TÌM CHỦ ĐỀ HỌC TẬP..."
+        className={`w-full h-14 pl-14 pr-6 bg-white border-[3px] border-newsprint-black shadow-brutalist-soft outline-none font-sans font-black text-xs uppercase tracking-widest placeholder:text-newsprint-gray transition-all ${
+          isPending ? 'opacity-70 grayscale-[0.5]' : 'focus:bg-newsprint-paper'
         }`}
       />
-      <div className="absolute left-5 top-1/2 -translate-y-1/2 text-2xl group-focus-within:scale-110 transition-transform">
+      <div className="absolute left-5 top-1/2 -translate-y-1/2 group-focus-within:rotate-3 transition-transform">
         {isPending ? (
-          <div className="animate-spin rounded-full h-5 w-5 border-2 border-clay-blue border-t-transparent" />
+          <Loader2 className="animate-spin text-newsprint-black" size={20} />
         ) : (
-          '🔍'
+          <Search className="text-newsprint-black" size={20} strokeWidth={3} />
         )}
       </div>
     </div>

@@ -2,31 +2,43 @@
 
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { signOut } from '@/app/actions/auth'
 import ConfirmDialog from '@/components/ui/ConfirmDialog'
 import { motion, AnimatePresence } from 'framer-motion'
+import { 
+  LayoutDashboard, 
+  BookOpen, 
+  Library, 
+  MessageSquare, 
+  BarChart3, 
+  Settings, 
+  LogOut, 
+  Zap, 
+  ChevronRight,
+  User
+} from 'lucide-react'
 
 const menuItems = [
-  { name: 'Tổng quan', icon: '🏠', path: '/dashboard' },
+  { name: 'Tổng quan', icon: LayoutDashboard, path: '/dashboard' },
   { 
     name: 'Học tập', 
-    icon: '📚', 
+    icon: BookOpen, 
     children: [
-      { name: 'Ngữ pháp', icon: '🏺', path: '/dashboard/grammar' },
-      { name: 'Flashcard', icon: '🃏', path: '/dashboard/flashcards' },
-      { name: 'Đối thoại AI', icon: '💬', path: '/dashboard/ai-chat' },
+      { name: 'Ngữ pháp', icon: Library, path: '/dashboard/grammar' },
+      { name: 'Flashcard', icon: Zap, path: '/dashboard/flashcards' },
+      { name: 'Đối thoại AI', icon: MessageSquare, path: '/dashboard/ai-chat' },
     ]
   },
-  { name: 'Tiến độ', icon: '📊', path: '/dashboard/progress' },
-  { name: 'Cài đặt', icon: '⚙️', path: '/dashboard/settings' },
+  { name: 'Tiến độ', icon: BarChart3, path: '/dashboard/progress' },
+  { name: 'Cài đặt', icon: Settings, path: '/dashboard/settings' },
 ]
 
 export default function Sidebar({ user, dbUser }: { user: any, dbUser: any }) {
   const pathname = usePathname()
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false)
   
-  // Tự động mở menu "Học tập" nếu đang ở trang con
   const isLearnChild = pathname.includes('/dashboard/grammar') || 
                       pathname.includes('/dashboard/flashcards') || 
                       pathname.includes('/dashboard/ai-chat')
@@ -39,48 +51,52 @@ export default function Sidebar({ user, dbUser }: { user: any, dbUser: any }) {
 
   const isPro = dbUser?.isPro || false
 
-  const handleLogout = async () => {
+  const handleLogout = () => {
     setShowLogoutConfirm(true)
   }
 
   return (
-    <div className="h-full bg-white/80 backdrop-blur-md rounded-[32px] shadow-clay-card border-4 border-white flex flex-col p-6 overflow-hidden">
+    <div className="h-full bg-white/40 backdrop-blur-3xl rounded-[40px] shadow-clay-card flex flex-col p-6 overflow-hidden border-2 border-white/60">
+      {/* Decorative Blob */}
+      <div className="absolute top-0 right-0 w-32 h-32 bg-clay-blue/10 rounded-full blur-3xl -z-10 pointer-events-none" />
+
       {/* Logo */}
-      <div className="flex items-center gap-3 mb-10 px-2 lg:px-4">
-        <div className="w-11 h-11 bg-gradient-to-br from-clay-orange to-clay-orange/80 rounded-[14px] shadow-clay-button flex items-center justify-center animate-breathe">
-          <span className="text-xl">🏺</span>
+      <div className="flex items-center gap-3 mb-10 px-2 relative z-10">
+        <div className="w-12 h-12 bg-white rounded-2xl shadow-clay-button flex items-center justify-center border-2 border-clay-cream/50 relative overflow-hidden">
+          <Image src="/logo.png" alt="Logo" fill sizes="100px" className="object-cover" />
         </div>
-        <span className="text-lg font-heading font-black text-clay-deep tracking-tight">LinguaClay</span>
+        <div className="flex flex-col">
+          <span className="text-xl font-heading font-black text-clay-deep tracking-tight">LinguaClay</span>
+          <span className="text-[10px] font-bold text-clay-blue uppercase tracking-widest">Học hiệu quả</span>
+        </div>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 space-y-2 overflow-y-auto pr-2 scrollbar-hide">
+      <nav className="flex-1 space-y-3 overflow-y-auto pr-2 scrollbar-hide relative z-10">
         {menuItems.map((item) => {
           if (item.children) {
+            const Icon = item.icon
             return (
               <div key={item.name} className="space-y-1">
                 {/* Parent Item */}
                 <button
                   onClick={() => setLearnOpen(!learnOpen)}
-                  className={`w-full flex items-center justify-between p-3.5 rounded-[20px] transition-all duration-200 group ${
-                    isLearnChild ? 'text-clay-blue bg-clay-cream/20' : 'text-clay-muted hover:bg-clay-cream/50'
+                  className={`w-full flex items-center justify-between p-4 rounded-3xl transition-all duration-300 group ${
+                    isLearnChild ? 'bg-white shadow-clay-button border-2 border-white text-clay-blue' : 'hover:bg-white/50 text-clay-muted border-2 border-transparent'
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <div className={`w-9 h-9 rounded-[14px] flex items-center justify-center transition-all ${
-                      isLearnChild ? 'bg-clay-blue text-white shadow-clay-button' : 'bg-white shadow-clay-button'
-                    }`}>
-                      <span className="text-lg">{item.icon}</span>
+                    <div className={`p-1.5 rounded-xl transition-all ${isLearnChild ? 'bg-clay-blue/10' : 'bg-transparent group-hover:bg-white'}`}>
+                      <Icon size={18} strokeWidth={2.5} />
                     </div>
                     <span className="font-heading font-black text-[13px]">{item.name}</span>
                   </div>
-                  <motion.span 
+                  <motion.div
                     animate={{ rotate: learnOpen ? 90 : 0 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    className="text-[10px] opacity-40 font-bold"
                   >
-                    ▶
-                  </motion.span>
+                    <ChevronRight size={14} className="opacity-50" strokeWidth={3} />
+                  </motion.div>
                 </button>
 
                 {/* Children Items */}
@@ -91,28 +107,33 @@ export default function Sidebar({ user, dbUser }: { user: any, dbUser: any }) {
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.3, ease: "easeInOut" }}
-                      className="overflow-hidden space-y-1 pl-4"
+                      className="overflow-hidden space-y-1 relative"
                     >
+                      <div className="absolute left-7 top-2 bottom-2 w-0.5 bg-white rounded-full bg-opacity-50" />
+                      
                       {item.children.map((child) => {
                         const isChildActive = pathname === child.path
+                        const ChildIcon = child.icon
                         return (
                           <Link
                             key={child.path}
                             href={child.path}
-                            className={`flex items-center gap-3 p-3 rounded-[16px] transition-all duration-200 group ${
+                            className={`flex items-center gap-3 p-3 ml-5 pl-6 rounded-2xl transition-all duration-300 ${
                               isChildActive
-                                ? 'text-clay-blue bg-white shadow-clay-pressed border border-clay-blue/10'
-                                : 'text-clay-muted/70 hover:text-clay-deep hover:bg-white/50'
+                                ? 'bg-white shadow-clay-button border-2 border-white text-clay-blue translate-x-1'
+                                : 'text-clay-muted hover:bg-white/50 hover:translate-x-1 border-2 border-transparent'
                             }`}
                           >
-                            <div className={`w-7 h-7 rounded-[10px] flex items-center justify-center transition-all ${
-                              isChildActive ? 'bg-clay-blue text-white shadow-clay-button' : 'bg-white shadow-clay-button'
-                            }`}>
-                              <span className="text-xs">{child.icon}</span>
-                            </div>
-                            <span className={`font-heading font-black text-[12px]`}>
+                            <ChildIcon size={14} strokeWidth={2.5} />
+                            <span className="font-heading font-black text-xs">
                               {child.name}
                             </span>
+                            {isChildActive && (
+                              <motion.div 
+                                layoutId="activeDot"
+                                className="w-1.5 h-1.5 rounded-full bg-clay-orange ml-auto" 
+                              />
+                            )}
                           </Link>
                         )
                       })}
@@ -124,22 +145,21 @@ export default function Sidebar({ user, dbUser }: { user: any, dbUser: any }) {
           }
 
           const isActive = pathname === item.path
+          const Icon = item.icon
           return (
             <Link 
               key={item.path} 
               href={item.path!}
-              className={`flex items-center gap-3 p-3.5 rounded-[20px] transition-all duration-200 group ${
+              className={`flex items-center gap-3 p-4 rounded-3xl transition-all duration-300 group border-2 ${
                 isActive 
-                ? 'bg-clay-cream/30 text-clay-blue shadow-clay-pressed border border-white/50' 
-                : 'text-clay-muted hover:bg-clay-cream/50'
+                ? 'bg-white shadow-clay-button text-clay-blue border-white' 
+                : 'hover:bg-white/50 text-clay-muted border-transparent hover:border-white/50'
               }`}
             >
-              <div className={`w-9 h-9 rounded-[14px] flex items-center justify-center transition-all ${
-                isActive ? 'bg-clay-blue text-white shadow-clay-button border-2 border-white/40' : 'bg-white shadow-clay-button group-hover:shadow-clay-button-hover'
-              }`}>
-                <span className="text-lg">{item.icon}</span>
+              <div className={`p-1.5 rounded-xl transition-all ${isActive ? 'bg-clay-blue/10' : 'bg-transparent group-hover:bg-white'}`}>
+                <Icon size={18} strokeWidth={2.5} />
               </div>
-              <span className={`font-heading font-black text-[13px] ${isActive ? 'text-clay-blue' : 'text-clay-muted'}`}>
+              <span className="font-heading font-black text-[13px]">
                 {item.name}
               </span>
             </Link>
@@ -147,40 +167,33 @@ export default function Sidebar({ user, dbUser }: { user: any, dbUser: any }) {
         })}
       </nav>
 
-      {/* Grouped Bottom Info */}
-      <div className="mt-6 pt-6 border-t-2 border-dashed border-clay-cream space-y-4">
-        {isPro ? (
-          <Link href="/dashboard/plans" className="block transform transition-all hover:scale-[1.02] active:scale-95 group">
-            <div className="bg-gradient-to-br from-clay-deep to-clay-brown-dark rounded-[25px] p-4 text-center border-2 border-white/20 shadow-clay-card relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-12 h-12 bg-white/10 rounded-full -mr-6 -mt-6 blur-xl" />
-              <div className="text-[10px] font-heading font-black text-clay-orange mb-0.5 uppercase tracking-widest animate-pulse">
-                Active Member
+      {/* Bottom Info */}
+      <div className="mt-6 pt-6 border-t-2 border-white/40 space-y-4 relative z-10">
+        <Link href="/dashboard/plans" className="block group">
+          <div className={`p-4 rounded-3xl transition-all ${
+            isPro ? 'bg-gradient-to-br from-[#1E293B] to-[#0F172A] shadow-[0_10px_20px_rgba(15,23,42,0.3)]' : 'bg-white shadow-clay-button border-2 border-white group-hover:shadow-clay-button-hover group-active:scale-95'
+          }`}>
+            <div className="flex items-center gap-3">
+              <div className={`w-10 h-10 rounded-2xl flex items-center justify-center ${
+                isPro ? 'bg-white/10 shadow-[inset_0_2px_10px_rgba(255,255,255,0.1)]' : 'bg-clay-blue/10'
+              }`}>
+                <Zap size={18} className={isPro ? 'text-yellow-400 drop-shadow-[0_0_8px_rgba(250,204,21,0.5)]' : 'text-clay-blue'} strokeWidth={isPro ? 2 : 2.5} />
               </div>
-              <div className="flex items-center justify-center gap-2 py-1">
-                <span className="text-lg">💎</span>
-                <span className="font-heading font-black text-[12px] text-white group-hover:text-clay-orange transition-colors">PRO Status</span>
-              </div>
-            </div>
-          </Link>
-        ) : (
-          <Link href="/dashboard/plans" className="block transform transition-all hover:scale-[1.02] active:scale-95">
-            <div className="bg-gradient-to-br from-clay-cream to-warm-white rounded-[25px] p-4 text-center border-2 border-clay-orange/10 shadow-clay-inset group">
-              <div className="text-[10px] font-heading font-black text-clay-muted mb-0.5 uppercase tracking-tighter">Gói hiện tại</div>
-              <div className="flex items-center justify-center gap-2 py-1">
-                <span className="text-lg group-hover:animate-breathe">🌱</span>
-                <span className="font-heading font-black text-[12px] text-clay-deep group-hover:text-clay-orange transition-colors">Thành viên FREE</span>
+              <div className="flex flex-col">
+                <span className={`text-[10px] font-bold ${isPro ? 'text-slate-400' : 'text-clay-muted'} uppercase tracking-wider`}>Hội viên</span>
+                <span className={`text-xs font-heading font-black ${isPro ? 'text-white' : 'text-clay-deep'}`}>
+                  {isPro ? 'PRO Plan ✨' : 'Free Plan'}
+                </span>
               </div>
             </div>
-          </Link>
-        )}
+          </div>
+        </Link>
 
         <button 
           onClick={handleLogout}
-          className="w-full flex items-center gap-3 p-3.5 rounded-[20px] text-clay-muted hover:bg-red-50 hover:text-red-500 transition-all font-heading font-black text-[13px]"
+          className="w-full flex items-center justify-center gap-2 p-4 text-clay-muted hover:text-clay-pink hover:bg-white/50 rounded-3xl transition-all font-heading font-black text-xs group"
         >
-          <div className="w-9 h-9 rounded-[14px] bg-white shadow-clay-button flex items-center justify-center">
-            🚪
-          </div>
+          <LogOut size={16} strokeWidth={2.5} className="group-hover:-translate-x-1 transition-transform" />
           Đăng xuất
         </button>
       </div>
@@ -200,3 +213,4 @@ export default function Sidebar({ user, dbUser }: { user: any, dbUser: any }) {
     </div>
   )
 }
+

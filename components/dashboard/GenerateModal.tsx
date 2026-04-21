@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { X, Sparkles, Loader2 } from 'lucide-react'
 
 export default function GenerateModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const [topic, setTopic] = useState('')
@@ -36,25 +37,22 @@ export default function GenerateModal({ isOpen, onClose }: { isOpen: boolean; on
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-clay-brown/20 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-warm-white w-full max-w-md rounded-[40px] shadow-clay-card border-4 border-white p-8 space-y-6">
-        <div className="flex justify-between items-center">
-          <h2 className="text-2xl font-heading font-black text-clay-deep">Tạo từ với AI 🤖</h2>
-          <button onClick={onClose} className="text-clay-muted hover:text-clay-orange transition-colors">
-             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-             </svg>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-newsprint-black/70 backdrop-blur-sm animate-in fade-in duration-200">
+      <div className="bg-white w-full max-w-md border-[3px] border-newsprint-black shadow-brutalist-heavy p-8 space-y-8 relative overflow-hidden text-left">
+        <div className="flex justify-between items-center relative z-10">
+          <h2 className="text-3xl font-serif font-black text-newsprint-black uppercase tracking-tighter">Tạo với AI</h2>
+          <button onClick={onClose} className="text-newsprint-black hover:text-red-600 transition-colors">
+             <X size={28} strokeWidth={4} />
           </button>
         </div>
 
-        <div className="space-y-4">
-          <div className="space-y-2">
-            <label className="text-sm font-bold text-clay-muted ml-2">Bạn muốn học chủ đề gì?</label>
+        <div className="space-y-6 relative z-10">
+          <div className="space-y-3">
+            <label className="text-[10px] font-sans font-black text-newsprint-gray-dark uppercase tracking-widest pl-1">Bạn muốn học chủ đề gì?</label>
             <input 
               type="text"
-              placeholder="Ví dụ: Giao tiếp tại khách sạn, HSK 3..."
-              className="w-full px-6 py-4 bg-soft-gray/30 rounded-[25px] shadow-clay-inset border-2 border-transparent focus:border-clay-blue/30 focus:outline-none font-body text-clay-deep"
+              placeholder="VÍ DỤ: GIAO TIẾP TẠI KHÁCH SẠN, HSK 3..."
+              className="w-full px-6 py-4 bg-newsprint-paper border-[3px] border-newsprint-black shadow-brutalist-soft focus:outline-none font-sans font-black uppercase text-xs tracking-widest placeholder:text-newsprint-gray"
               value={topic}
               onChange={(e) => setTopic(e.target.value)}
               disabled={isLoading}
@@ -64,25 +62,25 @@ export default function GenerateModal({ isOpen, onClose }: { isOpen: boolean; on
           <div className="grid grid-cols-2 gap-4">
             <button 
               onClick={() => setLanguage('Tiếng Anh')}
-              className={`py-3 rounded-[20px] font-heading font-bold transition-all ${
+              className={`py-4 border-[3px] font-sans font-black uppercase text-[10px] tracking-widest transition-all ${
                 language === 'Tiếng Anh' 
-                ? 'bg-clay-blue text-white shadow-clay-pressed scale-95' 
-                : 'bg-white text-clay-muted shadow-clay-button'
+                ? 'bg-newsprint-black text-white border-newsprint-black shadow-none translate-y-0.5' 
+                : 'bg-white text-newsprint-black border-newsprint-black shadow-brutalist-soft hover:bg-newsprint-paper'
               }`}
               disabled={isLoading}
             >
-              🇬🇧 Tiếng Anh
+              🇬🇧 TIẾNG ANH
             </button>
             <button 
               onClick={() => setLanguage('Tiếng Trung')}
-              className={`py-3 rounded-[20px] font-heading font-bold transition-all ${
+              className={`py-4 border-[3px] font-sans font-black uppercase text-[10px] tracking-widest transition-all ${
                 language === 'Tiếng Trung' 
-                ? 'bg-clay-orange text-white shadow-clay-pressed scale-95' 
-                : 'bg-white text-clay-muted shadow-clay-button'
+                ? 'bg-red-600 text-white border-newsprint-black shadow-none translate-y-0.5' 
+                : 'bg-white text-newsprint-black border-newsprint-black shadow-brutalist-soft hover:bg-newsprint-paper'
               }`}
               disabled={isLoading}
             >
-              🏮 Tiếng Trung
+              🏮 TIẾNG TRUNG
             </button>
           </div>
         </div>
@@ -90,23 +88,23 @@ export default function GenerateModal({ isOpen, onClose }: { isOpen: boolean; on
         <button 
           onClick={handleGenerate}
           disabled={!topic || isLoading}
-          className={`w-full py-5 rounded-[30px] font-heading font-black text-lg shadow-clay-button transition-all flex items-center justify-center gap-3 ${
+          className={`w-full py-5 border-[3px] border-newsprint-black font-sans font-black text-xs uppercase tracking-widest transition-all flex items-center justify-center gap-3 shadow-brutalist-soft ${
             isLoading 
-            ? 'bg-soft-gray text-clay-muted cursor-not-allowed' 
-            : 'bg-gradient-to-r from-clay-orange to-clay-gold text-white hover:shadow-clay-button-hover active:scale-95'
+            ? 'bg-newsprint-gray-light text-newsprint-gray cursor-not-allowed border-newsprint-gray shadow-none' 
+            : 'bg-red-600 text-white hover:bg-newsprint-black'
           }`}
         >
           {isLoading ? (
             <>
-              <div className="w-5 h-5 border-3 border-white/30 border-t-white rounded-full animate-spin" />
-              AI đang tạo từ vựng...
+              <Loader2 className="w-5 h-5 animate-spin" strokeWidth={3} />
+              AI ĐANG TẠO...
             </>
           ) : (
-             'Bắt đầu tạo ngay ✨'
+             <>KHỞI TẠO NGAY <Sparkles size={16} strokeWidth={3} /></>
           )}
         </button>
         
-        <p className="text-[10px] text-center text-clay-muted font-medium px-4">
+        <p className="text-[9px] text-center text-newsprint-gray-dark font-sans font-bold uppercase tracking-widest px-4 leading-relaxed">
           AI sẽ tự động tạo khoảng 10-12 từ vựng cùng phiên âm và ví dụ thực tế dựa trên yêu cầu của bạn.
         </p>
       </div>

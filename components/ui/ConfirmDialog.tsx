@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
+import { AlertTriangle, HelpCircle } from 'lucide-react'
 
 interface ConfirmDialogProps {
   isOpen: boolean
@@ -43,47 +44,50 @@ export default function ConfirmDialog({
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop - Full screen fixed */}
+          {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onCancel}
-            className="fixed inset-0 bg-clay-deep/30 backdrop-blur-[4px] z-[9998]"
+            className="fixed inset-0 bg-newsprint-black/70 backdrop-blur-sm z-[9998]"
           />
           
-          {/* Modal Container - Full screen fixed flex */}
+          {/* Modal Container */}
           <div className="fixed inset-0 flex items-center justify-center p-4 z-[9999] pointer-events-none">
             <motion.div
-              initial={{ scale: 0.9, opacity: 0, y: 30 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.9, opacity: 0, y: 30 }}
-              className="w-full max-w-sm bg-white rounded-[45px] shadow-[0_20px_60px_rgba(0,0,0,0.2)] border-4 border-white p-10 pointer-events-auto"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="w-full max-w-sm bg-white border-[4px] border-newsprint-black shadow-brutalist-heavy p-10 pointer-events-auto relative overflow-hidden"
             >
-              <div className="text-center space-y-5">
-                <div className={`w-20 h-20 mx-auto rounded-full flex items-center justify-center text-4xl shadow-clay-inset ${danger ? 'bg-red-50 text-red-500' : 'bg-clay-blue/10 text-clay-blue'}`}>
-                  {danger ? '⚠️' : '❓'}
+              {/* Corner accent */}
+              <div className="absolute top-0 right-0 w-16 h-16 bg-newsprint-paper border-b-[3px] border-l-[3px] border-newsprint-black -mr-8 -mt-8 rotate-45" />
+
+              <div className="text-center space-y-6 relative z-10">
+                <div className={`w-20 h-20 mx-auto border-[3px] border-newsprint-black flex items-center justify-center shadow-brutalist-soft group transition-transform hover:-rotate-6 ${danger ? 'bg-red-600 text-white' : 'bg-newsprint-black text-white'}`}>
+                  {danger ? <AlertTriangle size={32} strokeWidth={3} /> : <HelpCircle size={32} strokeWidth={3} />}
                 </div>
                 
                 <div className="space-y-2">
-                  <h3 className="text-2xl font-heading font-black text-clay-deep tracking-tight">{title}</h3>
-                  <p className="text-sm text-clay-muted font-medium px-4 leading-relaxed">
+                  <h3 className="text-3xl font-serif font-black text-newsprint-black uppercase tracking-tighter leading-none">{title}</h3>
+                  <p className="text-[11px] text-newsprint-gray-dark font-sans font-bold uppercase tracking-tight leading-relaxed px-4">
                     {message}
                   </p>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-3 pt-4">
-                  <button
-                    onClick={onCancel}
-                    className="flex-1 py-4 bg-white rounded-[22px] shadow-clay-button hover:shadow-clay-button-hover active:scale-95 transition-all text-xs font-heading font-black text-clay-muted border-2 border-clay-cream/50 uppercase tracking-wider"
-                  >
-                    {cancelText}
-                  </button>
+                <div className="flex flex-col gap-3 pt-4">
                   <button
                     onClick={onConfirm}
-                    className={`flex-1 py-4 rounded-[22px] shadow-clay-button hover:scale-[1.02] active:scale-95 transition-all text-xs font-heading font-black text-white uppercase tracking-wider ${danger ? 'bg-gradient-to-r from-red-500 to-red-400 shadow-red-200' : 'bg-gradient-to-r from-clay-blue to-clay-blue-dark'}`}
+                    className={`w-full py-5 border-[3px] border-newsprint-black shadow-brutalist-soft hover:shadow-none hover:translate-y-1 active:translate-y-2 transition-all text-xs font-sans font-black uppercase tracking-widest ${danger ? 'bg-red-600 text-white' : 'bg-newsprint-black text-white'}`}
                   >
                     {confirmText}
+                  </button>
+                  <button
+                    onClick={onCancel}
+                    className="w-full py-4 bg-white border-[3px] border-newsprint-black hover:bg-newsprint-paper transition-all text-[10px] font-sans font-black text-newsprint-gray-dark uppercase tracking-widest"
+                  >
+                    {cancelText}
                   </button>
                 </div>
               </div>
