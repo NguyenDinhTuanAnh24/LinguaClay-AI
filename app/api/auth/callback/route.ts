@@ -21,8 +21,7 @@ export async function GET(request: Request) {
           where: { id: user.id },
           update: {
             email: user.email!,
-            name: user.user_metadata?.full_name || user.user_metadata?.name || null,
-            image: user.user_metadata?.avatar_url || user.user_metadata?.picture || null,
+            // Chỉ cập nhật các thông tin hệ thống, giữ nguyên name/image người dùng đã sửa
           },
           create: {
             id: user.id,

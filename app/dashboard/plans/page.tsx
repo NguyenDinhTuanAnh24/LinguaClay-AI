@@ -1,285 +1,388 @@
 'use client'
 
-import { useState, useEffect, Suspense } from 'react'
-import Link from 'next/link'
-import { useSearchParams, useRouter } from 'next/navigation'
+import { Suspense, useEffect, useMemo, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { Check, Minus } from 'lucide-react'
 import ConfirmDialog from '@/components/ui/ConfirmDialog'
 
-const PLANS = [
-  {
-    id: '6_MONTHS',
-    title: 'Gói Linh Hoạt',
-    price: '399k',
-    originalPrice: '799k',
-    duration: '6 Tháng',
-    level: 2,
-    features: [
-      'Flashcards không giới hạn',
-      'AI Tutor Pro (Phản hồi giọng nói)',
-      '200+ Chủ điểm ngữ pháp Pro',
-      'Hệ thuật SRS cá nhân hóa',
-      'Hỗ trợ qua Email'
-    ],
-    isFeatured: false,
-    color: 'bg-white',
-    textColor: 'text-clay-deep',
-    buttonColor: 'bg-clay-blue text-white',
-    badge: null
-  },
-  {
-    id: '1_YEAR',
-    title: 'Gói Vĩnh Viễn - 1 Năm',
-    price: '499k',
-    originalPrice: '1299k',
-    duration: '1 Năm',
-    level: 3,
-    features: [
-      'Toàn bộ tính năng gói 6 tháng',
-      'Ưu tiên cập nhật tính năng mới sớm nhất',
-      'Tải file PDF bài học độc quyền',
-      'Không giới hạn AI Chatbot nâng cao',
-      'Hỗ trợ VIP 1:1 qua Zalo/Telegram'
-    ],
-    isFeatured: true,
-    color: 'bg-gradient-to-br from-clay-brown to-clay-brown-dark',
-    textColor: 'text-white',
-    buttonColor: 'bg-clay-orange text-white shadow-clay-orange/40 shadow-lg',
-    badge: 'HỜI NHẤT',
-    discount: 'Tiết kiệm 60% - Khuyên dùng'
-  },
+type Plan = {
+  id: '3_MONTHS' | '6_MONTHS' | '1_YEAR'
+  name: string
+  price: string
+  period: string
+  features: string[]
+  highlight?: boolean
+  badgeText?: string
+  level: number
+}
+
+const PLANS: Plan[] = [
   {
     id: '3_MONTHS',
-    title: 'Gói Trải Nghiệm',
+    name: 'BẢN TIÊU CHUẨN',
     price: '299k',
-    originalPrice: '599k',
-    duration: '3 Tháng',
+    period: '/3 Tháng',
     level: 1,
     features: [
       'Flashcards không giới hạn',
       'AI Tutor Pro cơ bản',
       '100 Chủ điểm ngữ pháp Pro',
-      'Dễ dàng nâng cấp sau này'
+      'Dễ dàng nâng cấp sau này',
     ],
-    isFeatured: false,
-    color: 'bg-white',
-    textColor: 'text-clay-deep',
-    buttonColor: 'bg-clay-cream text-clay-muted',
-    badge: null
-  }
+  },
+  {
+    id: '6_MONTHS',
+    name: 'BẢN CHUYÊN SÂU',
+    price: '399k',
+    period: '/6 Tháng',
+    level: 2,
+    features: [
+      'Flashcards không giới hạn',
+      'AI Tutor Pro (phản hồi giọng nói)',
+      '200+ Chủ điểm ngữ pháp Pro',
+      'Hệ thuật SRS cá nhân hóa',
+      'Hỗ trợ qua Email',
+    ],
+  },
+  {
+    id: '1_YEAR',
+    name: 'BẢN TOÀN DIỆN',
+    price: '499k',
+    period: '/1 Năm',
+    level: 3,
+    highlight: true,
+    badgeText: 'HỜI NHẤT',
+    features: [
+      'Toàn bộ tính năng gói 6 tháng',
+      'Ưu tiên cập nhật tính năng mới sớm nhất',
+      'Tải file PDF bài học độc quyền',
+      'Không giới hạn AI Chatbot nâng cao',
+      'Hỗ trợ VIP 1:1 qua Zalo/Telegram',
+    ],
+  },
+]
+
+const FEATURE_MATRIX: Array<{
+  feature: string
+  values: Record<Plan['id'], boolean>
+}> = [
+  {
+    feature: 'Flashcards không giới hạn',
+    values: { '3_MONTHS': true, '6_MONTHS': true, '1_YEAR': true },
+  },
+  {
+    feature: 'AI Tutor Pro (phản hồi giọng nói)',
+    values: { '3_MONTHS': false, '6_MONTHS': true, '1_YEAR': true },
+  },
+  {
+    feature: 'Chủ điểm ngữ pháp Pro nâng cao',
+    values: { '3_MONTHS': false, '6_MONTHS': true, '1_YEAR': true },
+  },
+  {
+    feature: 'Tải PDF bài học độc quyền',
+    values: { '3_MONTHS': false, '6_MONTHS': false, '1_YEAR': true },
+  },
+  {
+    feature: 'Hỗ trợ VIP 1:1 qua Zalo/Telegram',
+    values: { '3_MONTHS': false, '6_MONTHS': false, '1_YEAR': true },
+  },
+]
+
+const FAQS = [
+  {
+    q: 'Tôi có thể hủy bất cứ lúc nào không?',
+    a: 'Có. Bạn có thể dừng sử dụng hoặc đổi gói bất kỳ lúc nào trong phần tài khoản.',
+  },
+  {
+    q: 'Thanh toán qua kênh nào?',
+    a: 'Thanh toán qua PayOS và chuyển khoản Napas/VietQR, hệ thống xác nhận tự động.',
+  },
+  {
+    q: 'Nâng cấp xong có mất dữ liệu cũ không?',
+    a: 'Không. Toàn bộ tiến độ học và lịch sử học tập được giữ nguyên.',
+  },
+  {
+    q: 'Nếu thanh toán lỗi thì sao?',
+    a: 'Đơn hàng sẽ ở trạng thái chờ/hủy. Bạn có thể bấm mua lại ngay.',
+  },
+]
+
+const SOCIAL_PROOF = [
+  {
+    quote: '"Mình tăng streak đều vì AI Tutor phản hồi rất nhanh."',
+    name: 'Ngọc Anh',
+    level: 'Intermediate',
+  },
+  {
+    quote: '"Gói 6 tháng đủ sâu để mình thi IELTS Speaking tự tin hơn."',
+    name: 'Minh Tuấn',
+    level: 'Upper-Intermediate',
+  },
 ]
 
 function PlansContent() {
-  const searchParams = useSearchParams()
   const router = useRouter()
-  const [userId, setUserId] = useState<string>('')
   const [proType, setProType] = useState<string | null>(null)
-  const [isLoading, setIsLoading] = useState<string | null>(null)
-  const [message, setMessage] = useState<{ text: string, type: 'success' | 'error' | 'info' } | null>(null)
-  
-  // Confirmation State
+  const [isLoadingPlan, setIsLoadingPlan] = useState<Plan['id'] | null>(null)
+  const [pendingPlan, setPendingPlan] = useState<Plan | null>(null)
   const [showConfirm, setShowConfirm] = useState(false)
-  const [pendingPlan, setPendingPlan] = useState<any>(null)
+  const [message, setMessage] = useState<{ text: string; type: 'success' | 'error' | 'info' } | null>(null)
 
   useEffect(() => {
     fetch('/api/user/me')
-      .then(res => res.json())
-      .then(data => {
-        if (data.id) setUserId(data.id)
+      .then((res) => res.json())
+      .then((data) => {
         if (data.isPro) setProType(data.proType)
       })
+  }, [])
 
-    // Xử lý status từ PayOS redirect
-    const status = searchParams.get('status')
-    const orderCode = searchParams.get('orderCode')
+  const currentLevel = useMemo(() => {
+    if (!proType) return 0
+    return PLANS.find((plan) => plan.id === proType)?.level ?? 0
+  }, [proType])
 
-    if (status === 'success' || searchParams.get('status') === 'PAID') {
-      setMessage({ text: '⏳ Đang xác thực thanh toán và kích hoạt PRO...', type: 'info' })
-      
-      if (orderCode) {
-        fetch(`/api/payment/verify-session?orderCode=${orderCode}`)
-          .then(res => res.json())
-          .then(data => {
-            if (data.success) {
-              setMessage({ text: '🎉 Chào mừng Bậc thầy ngôn ngữ! Gói PRO của bạn đã được kích hoạt thành công.', type: 'success' })
-              window.location.reload() // Reload to update sidebar and state
-            } else {
-              setMessage({ text: '⚠️ Hệ thống đang xử lý thanh toán, vui lòng chờ trong giây lát hoặc F5 lại trang.', type: 'info' })
-            }
-          })
-          .catch(() => {
-            setMessage({ text: '❌ Lỗi xác thực, vui lòng liên hệ hỗ trợ hoặc thử F5 lại trang.', type: 'error' })
-          })
-      }
-      router.replace('/dashboard/plans')
-    } else if (status === 'cancelled') {
-      setMessage({ text: '⚠️ Thanh toán đã bị hủy. Bạn có thể thử lại bất cứ lúc nào.', type: 'info' })
-      router.replace('/dashboard/plans')
-    }
-  }, [searchParams, router])
+  const currentPlan = useMemo(() => PLANS.find((plan) => plan.id === proType), [proType])
 
-  const initiatePayment = (plan: any) => {
+  const initiatePayment = (plan: Plan) => {
     setPendingPlan(plan)
     setShowConfirm(true)
   }
 
   const handlePayment = async () => {
     if (!pendingPlan) return
-    const plan = pendingPlan
+
     setShowConfirm(false)
-    setIsLoading(plan.id)
-    
+    setIsLoadingPlan(pendingPlan.id)
+    setMessage(null)
+
     try {
-      const res = await fetch('/api/payment/create-link', {
+      const response = await fetch('/api/payment/create-link', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          amount: parseInt(plan.price.replace('k', '000')),
-          description: `LinguaClay ${plan.duration}`,
-          planId: plan.id
-        })
+          amount: parseInt(pendingPlan.price.replace('k', '000'), 10),
+          description: `LinguaClay ${pendingPlan.period}`,
+          planId: pendingPlan.id,
+        }),
       })
 
-      const data = await res.json()
-      if (data.checkoutUrl) {
-        window.location.href = data.checkoutUrl
-      } else {
-        throw new Error(data.error || 'Không thể tạo link thanh toán')
+      const data = await response.json()
+      if (!response.ok || !data.orderCode) {
+        throw new Error(data.error || 'Không thể tạo đơn thanh toán')
       }
-    } catch (error: any) {
-      setMessage({ text: `❌ Lỗi: ${error.message}`, type: 'error' })
-    } finally {
-      setIsLoading(null)
+
+      const params = new URLSearchParams({
+        orderCode: String(data.orderCode),
+      })
+      if (data.checkoutUrl) params.set('checkoutUrl', String(data.checkoutUrl))
+      if (data.qrCode) params.set('qrCode', String(data.qrCode))
+      if (data.description) params.set('description', String(data.description))
+      if (data.payosAmount) params.set('amount', String(data.payosAmount))
+      router.push(`/dashboard/payments/checkout?${params.toString()}`)
+    } catch (error: unknown) {
+      const msg = error instanceof Error ? error.message : 'Không xác định'
+      setMessage({ text: `Lỗi: ${msg}`, type: 'error' })
+      setIsLoadingPlan(null)
     }
   }
 
-  const getPlanLevel = (id: string | null) => {
-     if (!id) return 0
-     const plan = PLANS.find(p => p.id === id)
-     return plan ? plan.level : 0
+  const getCtaByPlan = (plan: Plan) => {
+    if (plan.id === '3_MONTHS') return 'Chọn bản tiêu chuẩn'
+    if (plan.id === '6_MONTHS') return 'Chọn bản chuyên sâu'
+    return 'Chọn bản toàn diện'
   }
 
-  const currentLevel = getPlanLevel(proType)
-
   return (
-    <div className="py-12 px-4 md:px-8">
-      <div className="max-w-7xl mx-auto space-y-16 lg:space-y-24">
-        {/* Alerts */}
+    <div className="py-10 px-4 md:px-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-14">
+          <h1 className="text-4xl md:text-5xl font-sans font-black text-newsprint-black tracking-tight">
+            Bảng giá minh bạch, đơn giản
+          </h1>
+          <p className="font-sans text-sm text-newsprint-gray-dark mt-4 uppercase tracking-wide">
+            Chọn gói học phù hợp với nhu cầu của bạn
+          </p>
+        </div>
+
+        <div className="max-w-6xl mx-auto mb-8 border-[3px] border-newsprint-black bg-white/60 p-4 md:p-5 shadow-[4px_4px_0px_0px_rgba(20,20,20,1)]">
+          <p className="text-sm md:text-base font-semibold text-newsprint-black">
+            {currentPlan
+              ? currentPlan.id === '1_YEAR'
+                ? `Bạn đang sở hữu ${currentPlan.name} - gói học cao cấp nhất.`
+                : `Bạn đang dùng ${currentPlan.name} - nâng cấp để mở thêm quyền lợi cao hơn.`
+              : 'Bạn đang dùng Free Plan - nâng cấp để mở khóa toàn bộ tính năng.'}
+          </p>
+        </div>
+
         {message && (
-          <div className={`p-6 rounded-[30px] border-4 shadow-clay-card animate-float text-center font-bold ${
-            message.type === 'success' ? 'bg-clay-green/10 border-clay-green text-clay-green' : 
-            message.type === 'error' ? 'bg-red-50 border-red-500 text-red-500' : 
-            'bg-clay-blue/10 border-clay-blue text-clay-blue'
-          }`}>
+          <div
+            className={`mb-8 p-4 border-[3px] text-center font-bold uppercase tracking-widest text-[11px] ${
+              message.type === 'success'
+                ? 'bg-[#ECFDF3] border-[#027A48] text-[#027A48]'
+                : message.type === 'error'
+                  ? 'bg-[#FEF3F2] border-[#B42318] text-[#B42318]'
+                  : 'bg-[#EEF4FF] border-[#1849A9] text-[#1849A9]'
+            }`}
+          >
             {message.text}
           </div>
         )}
 
-        {/* Header */}
-        <div className="text-center space-y-4">
-          <h1 className="text-5xl md:text-6xl font-heading font-black text-clay-deep tracking-tight">
-             Nâng Cấp <span className="text-clay-orange">Trải Nghiệm</span> Học Tập
-          </h1>
-          <p className="text-clay-muted font-medium max-w-2xl mx-auto leading-relaxed text-sm md:text-lg">
-            Gia nhập cộng đồng 5,000+ học viên PRO để kiến tạo kỹ năng ngôn ngữ vượt trội cùng AI Tutor.
-          </p>
-        </div>
+        <div className="max-w-6xl mx-auto font-sans">
+          <div className="grid grid-cols-1 md:grid-cols-3 border-[3px] border-newsprint-black bg-transparent shadow-[8px_8px_0px_0px_rgba(20,20,20,1)] overflow-hidden">
+            {PLANS.map((plan, index) => {
+              const isCurrent = proType === plan.id
+              const isLower = plan.level < currentLevel
+              const isLockedByLoading = isLoadingPlan !== null && isLoadingPlan !== plan.id
+              const isDisabled = isCurrent || isLower || isLockedByLoading || isLoadingPlan === plan.id
 
-        {/* Pricing Grid */}
-        <div className="grid md:grid-cols-3 gap-8 items-center lg:items-stretch lg:px-6">
-          {PLANS.map((plan) => {
-            const isCurrent = proType === plan.id
-            const isLower = plan.level < currentLevel
-            const isDisabled = isCurrent || isLower
-
-            return (
-              <div 
-                key={plan.id}
-                className={`
-                  relative p-8 rounded-[50px] transition-all duration-500 flex flex-col border-4 border-white
-                  ${plan.isFeatured 
-                    ? `${plan.color} ${plan.textColor} shadow-clay-card md:scale-110 z-10 py-14 -translate-y-4 md:-translate-y-8` 
-                    : `${plan.color} ${plan.textColor} shadow-clay-card hover:-translate-y-4`
-                  }
-                  ${isLower ? 'opacity-50 grayscale-[0.5]' : ''}
-                `}
-              >
-                {plan.badge && (
-                  <div className="absolute -top-6 left-1/2 -translate-x-1/2 px-8 py-3 bg-clay-orange text-white font-heading font-black text-sm rounded-full shadow-clay-button border-4 border-white animate-float">
-                    {plan.badge}
-                  </div>
-                )}
-
-                <div className="space-y-4 mb-8">
-                  <h3 className="text-lg font-heading font-black uppercase tracking-tight opacity-90">{plan.title}</h3>
-                  <div className="space-y-1">
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-2xl opacity-40 line-through font-bold">{plan.originalPrice}</span>
-                      <span className="text-5xl font-heading font-black tracking-tighter">{plan.price}</span>
-                    </div>
-                    <p className="text-sm font-bold opacity-60">Thanh toán 1 lần cho {plan.duration}</p>
-                  </div>
-                  {plan.discount && (
-                    <p className="text-xs font-black text-clay-green uppercase tracking-wider bg-white/20 inline-block px-3 py-1 rounded-full">{plan.discount}</p>
-                  )}
-                </div>
-
-                <div className="h-0.5 w-full bg-current opacity-10 mb-8" />
-
-                <ul className="space-y-5 mb-10 flex-1 text-left">
-                  {plan.features.map((feature, i) => (
-                    <li key={i} className="flex items-start gap-3 text-sm font-semibold">
-                      <div className={`w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center text-[10px] shadow-clay-inset mt-0.5 ${plan.isFeatured ? 'bg-white/20' : 'bg-clay-green/10 text-clay-green'}`}>
-                        ✓
-                      </div>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-
-                <button 
-                  disabled={isDisabled || isLoading !== null}
-                  onClick={() => initiatePayment(plan)}
-                  className={`
-                    w-full py-5 rounded-[25px] font-heading font-black text-sm uppercase tracking-widest transition-all shadow-clay-button active:scale-95 disabled:scale-100
-                    ${isCurrent ? 'bg-clay-green text-white cursor-default' : plan.buttonColor}
-                    ${isLower ? 'bg-gray-200 text-gray-400 cursor-not-allowed opacity-50' : 'hover:scale-105'}
-                  `}
+              return (
+                <div
+                  key={plan.id}
+                  className={`p-8 lg:p-9 min-h-[600px] flex flex-col relative group transition-all duration-300 ${
+                    index < PLANS.length - 1 ? 'border-b-[3px] md:border-b-0 md:border-r-[3px] border-newsprint-black' : ''
+                  } ${plan.highlight ? 'bg-[#fffdf7]' : 'bg-[#F5F0E8]'} ${!isDisabled ? 'hover:bg-white md:hover:-translate-y-1 md:hover:shadow-[0_8px_0px_0px_rgba(20,20,20,1)]' : ''}`}
                 >
-                  {isLoading === plan.id ? 'Đang khởi tạo...' : 
-                   isCurrent ? 'Đang sử dụng ✅' : 
-                   isLower ? 'Đã có gói cao hơn' : 'Chọn Gói Này 🚀'}
-                </button>
-              </div>
-            )
-          })}
+                  <div className="flex-1">
+                    <div className="flex justify-between items-start mb-4">
+                      <h3 className="text-xl font-black uppercase tracking-wide text-newsprint-black">
+                        {plan.name}
+                      </h3>
+                      {plan.badgeText && (
+                        <div className="text-white text-[10px] font-bold px-3 py-1 uppercase tracking-widest absolute top-0 right-0 border-b-[3px] border-l-[3px] border-newsprint-black bg-[#e63946] transition-transform duration-200 group-hover:scale-105">
+                          {plan.badgeText}
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="flex items-baseline gap-1 mb-3 font-sans border-newsprint-black/30">
+                      <span className="text-5xl font-black text-newsprint-black">{plan.price}</span>
+                      <span className="text-base font-normal text-newsprint-black">{plan.period}</span>
+                    </div>
+
+                    <hr className="border-t-[2px] border-dotted border-newsprint-gray-medium my-6" />
+
+                    <ul className="space-y-3 mb-10 min-h-[172px]">
+                      {plan.features.map((feature) => (
+                        <li key={feature} className="flex items-start gap-3 text-sm font-sans text-newsprint-black">
+                          <Check className="w-5 h-5 shrink-0 text-newsprint-black mt-0.5 transition-transform duration-200 group-hover:translate-x-0.5" />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="border-t border-newsprint-black/20 pt-3 mb-4">
+                    <p className="text-xs italic text-newsprint-black">
+                      {SOCIAL_PROOF[index % SOCIAL_PROOF.length].quote}
+                    </p>
+                    <p className="text-[11px] font-semibold text-newsprint-gray-dark mt-1">
+                      {SOCIAL_PROOF[index % SOCIAL_PROOF.length].name} · {SOCIAL_PROOF[index % SOCIAL_PROOF.length].level}
+                    </p>
+                  </div>
+
+                  <button
+                    disabled={isDisabled}
+                    onClick={() => initiatePayment(plan)}
+                    className={`w-full text-center py-4 border-[3px] border-black font-bold uppercase text-sm tracking-wide transition-all duration-200 mt-auto ${
+                      isCurrent
+                        ? 'bg-[#166534] text-white border-[#166534] cursor-default'
+                        : isLower
+                          ? 'bg-[#E5E7EB] text-[#6B7280] border-[#9CA3AF] cursor-not-allowed'
+                          : 'bg-transparent text-black hover:bg-black hover:text-white hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_0px_rgba(20,20,20,1)] active:translate-y-0 active:shadow-[2px_2px_0px_0px_rgba(20,20,20,1)]'
+                    }`}
+                  >
+                    {isLoadingPlan === plan.id
+                      ? 'Đang khởi tạo...'
+                      : isCurrent
+                        ? 'Đang sử dụng'
+                        : isLower
+                          ? 'Đã có gói cao hơn'
+                          : getCtaByPlan(plan)}
+                  </button>
+                </div>
+              )
+            })}
+          </div>
         </div>
 
-        {/* Social Proof & Trust Section */}
-        <div className="space-y-12">
-           <div className="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-20 bg-white/50 backdrop-blur-md rounded-[50px] p-10 border-4 border-white shadow-clay-card">
-              <div className="flex items-center gap-4 group">
-                 <div className="w-16 h-16 bg-clay-green/10 rounded-[22px] flex items-center justify-center text-4xl shadow-clay-button border-2 border-white group-hover:rotate-12 transition-transform">🛡️</div>
-                 <div>
-                    <h4 className="font-heading font-black text-clay-deep">Hoàn tiền 100%</h4>
-                    <p className="text-xs text-clay-muted font-bold">Cam kết trong 7 ngày nếu không hài lòng</p>
-                 </div>
+        <div className="max-w-6xl mx-auto mt-10">
+          <h2 className="text-2xl md:text-3xl font-serif font-bold text-newsprint-black mb-4">
+            So sánh tính năng chi tiết
+          </h2>
+          <div className="border-[3px] border-newsprint-black bg-[#F5F0E8] overflow-x-auto">
+            <table className="w-full min-w-[720px] border-collapse">
+              <thead>
+                <tr>
+                  <th className="text-left p-4 border-b-[2px] border-newsprint-black text-sm font-black uppercase tracking-wider">
+                    Tính năng
+                  </th>
+                  {PLANS.map((plan) => (
+                    <th
+                      key={`head-${plan.id}`}
+                      className="text-center p-4 border-b-[2px] border-l-[2px] border-newsprint-black text-sm font-black uppercase tracking-wider"
+                    >
+                      {plan.name}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {FEATURE_MATRIX.map((row) => (
+                  <tr key={row.feature}>
+                    <td className="p-4 border-b border-newsprint-black/30 text-sm font-medium text-newsprint-black">
+                      {row.feature}
+                    </td>
+                    {PLANS.map((plan) => (
+                      <td
+                        key={`${row.feature}-${plan.id}`}
+                        className="p-4 border-b border-l-[2px] border-newsprint-black/30 text-center"
+                      >
+                        {row.values[plan.id] ? (
+                          <Check className="w-5 h-5 mx-auto text-[#16A34A]" />
+                        ) : (
+                          <Minus className="w-5 h-5 mx-auto text-[#6B7280]" />
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div className="max-w-6xl mx-auto mt-10">
+          <h2 className="text-2xl md:text-3xl font-serif font-bold text-newsprint-black mb-4">
+            Câu hỏi thường gặp
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 border-[3px] border-newsprint-black">
+            {FAQS.map((item, idx) => (
+              <div
+                key={item.q}
+                className={`p-5 bg-[#F5F0E8] ${
+                  idx % 2 === 0 ? 'md:border-r-[2px] md:border-newsprint-black/30' : ''
+                } ${idx < FAQS.length - 2 ? 'md:border-b-[2px] md:border-newsprint-black/30' : ''} border-b border-newsprint-black/20`}
+              >
+                <p className="text-sm font-black text-newsprint-black mb-2">{item.q}</p>
+                <p className="text-sm text-newsprint-gray-dark">{item.a}</p>
               </div>
-              <div className="flex items-center gap-4 group">
-                 <div className="w-16 h-16 bg-clay-blue/10 rounded-[22px] flex items-center justify-center text-4xl shadow-clay-button border-2 border-white group-hover:-rotate-12 transition-transform">🔒</div>
-                 <div>
-                    <h4 className="font-heading font-black text-clay-deep">Bảo mật tuyệt đối</h4>
-                    <p className="text-xs text-clay-muted font-bold">Thanh toán tự động qua PayOS (VietQR)</p>
-                 </div>
-              </div>
-           </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="max-w-6xl mx-auto mt-8 border-[2px] border-newsprint-black/40 bg-white/60 px-4 py-3 text-center">
+          <p className="text-xs md:text-sm font-semibold uppercase tracking-wider text-newsprint-black">
+            Không tự gia hạn · Hỗ trợ hoàn tiền trong 7 ngày · Hủy bất kỳ lúc nào
+          </p>
         </div>
       </div>
 
       <ConfirmDialog
         isOpen={showConfirm}
         title="Xác nhận thanh toán"
-        message={`Bạn có chắc chắn muốn nâng cấp lên ${pendingPlan?.name}? Hệ thống sẽ chuyển bạn đến trang thanh toán của PayOS.`}
-        confirmText="Tiếp tục mua 🚀"
+        message={`Bạn có chắc chắn muốn nâng cấp lên ${pendingPlan?.name || 'gói này'}? Sau khi xác nhận, bạn sẽ đến trang thanh toán trên giao diện của bạn.`}
+        confirmText="Tiếp tục mua"
         cancelText="Để mình xem lại"
         onConfirm={handlePayment}
         onCancel={() => setShowConfirm(false)}

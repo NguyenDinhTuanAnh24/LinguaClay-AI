@@ -16,19 +16,19 @@ interface GrammarContent {
 }
 
 const PILL_COLORS: Record<string, string> = {
-  S: 'bg-clay-blue/15 text-clay-blue border border-clay-blue/20',
-  V: 'bg-emerald-100 text-emerald-700 border border-emerald-200',
-  O: 'bg-clay-pink/15 text-clay-pink border border-clay-pink/20',
-  Adj: 'bg-clay-orange/15 text-clay-orange border border-clay-orange/20',
-  Adv: 'bg-purple-100 text-purple-600 border border-purple-200',
-  N: 'bg-yellow-100 text-yellow-700 border border-yellow-200',
-  default: 'bg-clay-muted/10 text-clay-muted border border-clay-muted/20',
+  S: 'bg-newsprint-black text-white px-3 py-1',
+  V: 'bg-red-600 text-white px-3 py-1',
+  O: 'bg-white text-newsprint-black border-2 border-newsprint-black px-3 py-1',
+  Adj: 'bg-newsprint-paper text-newsprint-black border-2 border-newsprint-black px-3 py-1',
+  Adv: 'bg-white text-newsprint-black border-2 border-newsprint-black px-3 py-1',
+  N: 'bg-newsprint-black text-white px-3 py-1',
+  default: 'bg-newsprint-paper text-newsprint-black border-2 border-newsprint-black px-3 py-1',
 }
 
 const levelBadge: Record<string, string> = {
-  Beginner: 'bg-clay-blue/10 text-clay-blue',
-  Elementary: 'bg-emerald-100 text-emerald-700',
-  Intermediate: 'bg-clay-pink/10 text-clay-pink',
+  Beginner: 'bg-newsprint-black text-white',
+  Elementary: 'bg-white text-newsprint-black border-2 border-newsprint-black',
+  Intermediate: 'bg-red-600 text-white',
 }
 
 export default async function GrammarDetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -44,54 +44,64 @@ export default async function GrammarDetailPage({ params }: { params: Promise<{ 
   const content = point.content as GrammarContent | null
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8 pb-24">
+    <div className="max-w-4xl mx-auto space-y-12 pb-24 dashboard-theme">
 
       {/* ── Header ── */}
-      <div className="flex items-center gap-4">
+      <div className="flex flex-col md:flex-row items-center md:items-end gap-8 border-b-[4px] border-newsprint-black pb-10">
         <Link
           href="/dashboard/grammar"
-          className="w-12 h-12 rounded-2xl bg-white shadow-clay-button border-2 border-white flex items-center justify-center text-clay-muted hover:scale-105 transition-transform"
-        >←</Link>
-        <div className="space-y-1">
-          <div className="flex items-center gap-2 flex-wrap">
-            <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-tighter ${levelBadge[point.level] || 'bg-clay-muted/10 text-clay-muted'}`}>
+          className="w-14 h-14 bg-white border-[3px] border-newsprint-black shadow-brutalist-soft flex items-center justify-center text-newsprint-black font-black text-xl hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all flex-shrink-0"
+        >
+          ←
+        </Link>
+        <div className="flex-1 space-y-3 text-center md:text-left">
+          <div className="flex items-center justify-center md:justify-start gap-4 flex-wrap">
+            <span className={`px-4 py-1 text-[10px] font-black uppercase tracking-widest ${levelBadge[point.level] || 'bg-newsprint-paper text-newsprint-black border-2 border-newsprint-black'}`}>
               {point.level}
             </span>
-            <span className="text-clay-muted font-bold text-xs uppercase tracking-widest">Ngữ pháp</span>
+            <span className="text-newsprint-black/40 font-black text-[10px] uppercase tracking-[0.3em]">NGỮ PHÁP HỌC THUẬT</span>
           </div>
-          <h1 className="text-3xl md:text-4xl font-heading font-black text-clay-deep tracking-tight leading-tight">
+          <h1 className="text-4xl md:text-6xl font-serif font-black text-newsprint-black uppercase tracking-tighter leading-tight vietnamese-text">
             {point.title}
           </h1>
         </div>
       </div>
 
       {content ? (
-        <>
+        <div className="grid grid-cols-1 gap-12">
           {/* ── Khối 1: Công thức & Thành phần ── */}
-          <div className="bg-white/80 backdrop-blur rounded-[45px] shadow-clay-card border-4 border-white p-8 md:p-10 space-y-8">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-clay-blue/10 flex items-center justify-center text-xl">📐</div>
-              <h2 className="text-lg font-black text-clay-deep uppercase tracking-wider">Công thức cốt lõi</h2>
+          <div className="bg-white border-[4px] border-newsprint-black shadow-brutalist-card p-8 md:p-12 space-y-10 relative overflow-hidden">
+             <div className="absolute top-0 right-0 w-32 h-32 opacity-[0.03] pointer-events-none pr-6 pt-6">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L4.5 20.29L5.21 21L12 18L18.79 21L19.5 20.29L12 2Z" /></svg>
+             </div>
+
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-newsprint-paper border-[2px] border-newsprint-black flex items-center justify-center text-2xl shadow-brutalist-soft rotate-3">📐</div>
+              <div>
+                <h2 className="text-2xl font-serif font-black text-newsprint-black uppercase">CÔNG THỨC CỐT LÕI</h2>
+                <p className="text-[9px] font-black text-newsprint-black/40 uppercase tracking-widest">Main Grammar Structure</p>
+              </div>
             </div>
 
             {/* Formula Box */}
-            <div className="bg-gradient-to-br from-clay-cream to-white rounded-[30px] border-2 border-clay-blue/10 p-6 text-center">
-              <code className="text-2xl md:text-3xl font-black text-clay-blue tracking-wide">
+            <div className="bg-newsprint-paper border-[3px] border-newsprint-black p-8 text-center shadow-inner relative group">
+              <div className="absolute inset-0 bg-red-600 opacity-0 group-hover:opacity-[0.02] transition-opacity" />
+              <code className="text-3xl md:text-5xl font-black text-red-600 tracking-tight leading-normal">
                 {content.structure}
               </code>
             </div>
 
             {/* Component Breakdown */}
             {content.breakdown?.length > 0 && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {content.breakdown.map((item) => (
-                  <div key={item.key} className="flex items-start gap-3 bg-white rounded-[25px] p-4 border-2 border-white shadow-clay-button">
-                    <span className={`px-3 py-1 rounded-xl text-sm font-black flex-shrink-0 ${PILL_COLORS[item.key] || PILL_COLORS.default}`}>
+                  <div key={item.key} className="flex items-start gap-4 bg-white border-[3px] border-newsprint-black p-5 shadow-brutalist-soft hover:translate-x-1 hover:-translate-y-1 transition-all">
+                    <span className={`text-xs font-black uppercase tracking-widest flex-shrink-0 ${PILL_COLORS[item.key] || PILL_COLORS.default}`}>
                       {item.key}
                     </span>
-                    <div>
-                      <p className="text-xs font-black text-clay-deep">{item.label}</p>
-                      <p className="text-xs text-clay-muted font-medium leading-relaxed mt-0.5">{item.desc}</p>
+                    <div className="min-w-0">
+                      <p className="text-[11px] font-black text-newsprint-black uppercase tracking-tight mb-1 underline decoration-newsprint-paper decoration-4 underline-offset-2">{item.label}</p>
+                      <p className="text-xs text-newsprint-black/60 font-bold leading-relaxed vietnamese-text">{item.desc}</p>
                     </div>
                   </div>
                 ))}
@@ -100,75 +110,90 @@ export default async function GrammarDetailPage({ params }: { params: Promise<{ 
           </div>
 
           {/* ── Khối 2: Cách dùng & Nhận biết ── */}
-          <div className="bg-white/80 backdrop-blur rounded-[45px] shadow-clay-card border-4 border-white p-8 md:p-10 space-y-6">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-clay-green/10 flex items-center justify-center text-xl">📖</div>
-              <h2 className="text-lg font-black text-clay-deep uppercase tracking-wider">Hướng dẫn sử dụng</h2>
+          <div className="bg-white border-[4px] border-newsprint-black shadow-brutalist-card p-8 md:p-12 space-y-10 relative overflow-hidden">
+            <div className="absolute bottom-0 right-0 w-48 h-48 opacity-[0.03] pointer-events-none pb-8 pr-8">
+               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 13V11H11V13H13M13 17V15H11V17H13M11 2V4.11C7.06 4.56 4 7.92 4 12C4 16.08 7.06 19.44 11 19.89V22H13V19.89C16.94 19.44 20 16.08 20 12C20 7.92 16.94 4.56 13 4.11V2H11ZM12 6C15.31 6 18 8.69 18 12C18 15.31 15.31 18 12 18C8.69 18 6 15.31 6 12C6 8.69 8.69 6 12 6Z" /></svg>
+            </div>
+
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-newsprint-paper border-[2px] border-newsprint-black flex items-center justify-center text-2xl shadow-brutalist-soft -rotate-3">📖</div>
+              <div>
+                <h2 className="text-2xl font-serif font-black text-newsprint-black uppercase">HƯỚNG DẪN SỬ DỤNG</h2>
+                <p className="text-[9px] font-black text-newsprint-black/40 uppercase tracking-widest">Usage Scenarios & Context</p>
+              </div>
             </div>
 
             {/* Usage list */}
             {content.usage?.length > 0 && (
-              <ul className="space-y-3">
+              <div className="space-y-4">
                 {content.usage.map((u, i) => (
-                  <li key={i} className="flex items-start gap-3 bg-clay-green/5 rounded-[20px] px-5 py-3">
-                    <span className="w-6 h-6 rounded-full bg-clay-green/20 text-clay-green flex items-center justify-center text-xs font-black flex-shrink-0 mt-0.5">
-                      {i + 1}
+                  <div key={i} className="flex items-start gap-5 bg-newsprint-paper/50 border-l-[6px] border-newsprint-black p-6">
+                    <span className="text-xl font-serif font-black text-red-600 flex-shrink-0 mt-0.5">
+                      {i + 1}.
                     </span>
-                    <p className="text-sm text-clay-deep font-medium leading-relaxed">{u}</p>
-                  </li>
+                    <p className="text-sm text-newsprint-black font-bold leading-relaxed uppercase tracking-tight vietnamese-text">{u}</p>
+                  </div>
                 ))}
-              </ul>
+              </div>
             )}
 
-            {/* Signs */}
-            {content.signs?.length > 0 && (
-              <div className="space-y-3">
-                <p className="flex items-center gap-2 text-sm font-black text-clay-muted">
-                  <span>🔍</span> Dấu hiệu nhận biết
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {content.signs.map((s, i) => (
-                    <span key={i} className="px-4 py-2 bg-clay-blue/8 text-clay-blue font-black text-sm rounded-full border border-clay-blue/15">
-                      {s}
-                    </span>
-                  ))}
+            {/* Signs & Notes Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-6 border-t-[3px] border-newsprint-black/10">
+              {/* Signs */}
+              {content.signs?.length > 0 && (
+                <div className="space-y-5">
+                  <p className="text-[11px] font-black text-newsprint-black uppercase tracking-[0.2em] border-b-[2px] border-newsprint-black pb-2 inline-block">
+                    🔍 DẤU HIỆU NHẬN BIẾT
+                  </p>
+                  <div className="flex flex-wrap gap-3">
+                    {content.signs.map((s, i) => (
+                      <span key={i} className="px-4 py-2 bg-newsprint-black text-white font-black text-[10px] uppercase tracking-widest">
+                        {s}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            {/* Notes */}
-            {content.notes && (
-              <div className="flex items-start gap-3 bg-clay-orange/8 rounded-[20px] px-5 py-4 border border-clay-orange/15">
-                <span className="text-xl flex-shrink-0">⚠️</span>
-                <p className="text-sm text-clay-orange font-bold leading-relaxed">{content.notes}</p>
-              </div>
-            )}
+              {/* Notes */}
+              {content.notes && (
+                <div className="space-y-5">
+                  <p className="text-[11px] font-black text-red-600 uppercase tracking-[0.2em] border-b-[2px] border-red-600 pb-2 inline-block">
+                    ⚠️ LƯU Ý QUAN TRỌNG
+                  </p>
+                  <div className="bg-white border-[3px] border-red-600 p-5 shadow-brutalist-soft rotate-1 transition-transform hover:rotate-0">
+                    <p className="text-xs text-red-600 font-black leading-relaxed uppercase tracking-tight vietnamese-text">{content.notes}</p>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
-
-        </>
+        </div>
       ) : (
         /* Fallback khi chưa có content từ AI */
-        <div className="bg-white/80 backdrop-blur rounded-[45px] shadow-clay-card border-4 border-white p-10 space-y-6 text-center">
-          <div className="w-16 h-16 mx-auto bg-clay-muted/10 rounded-full flex items-center justify-center text-3xl animate-pulse">🤖</div>
-          <div>
-            <h3 className="font-heading font-black text-clay-deep text-xl">AI đang chuẩn bị nội dung...</h3>
-            <p className="text-clay-muted font-medium mt-2">Bài học này sẽ sớm được cập nhật chi tiết.</p>
+        <div className="bg-white border-[4px] border-newsprint-black shadow-brutalist-card p-12 space-y-8 text-center relative overflow-hidden">
+          <div className="absolute inset-0 opacity-[0.02] pointer-events-none" style={{ backgroundImage: 'repeating-linear-gradient(45deg, #000, #000 1px, transparent 1px, transparent 10px)' }} />
+          <div className="w-16 h-16 mx-auto bg-newsprint-paper border-[3px] border-newsprint-black flex items-center justify-center text-3xl animate-bounce relative z-10">🤖</div>
+          <div className="space-y-4 relative z-10">
+            <h3 className="text-3xl font-serif font-black text-newsprint-black uppercase italic">Đang phân tích...</h3>
+            <p className="text-[10px] text-newsprint-black/40 font-black uppercase tracking-widest">AI đang tối ưu hóa lộ trình kiến thức cho riêng bạn.</p>
           </div>
           {point.explanation && (
-            <div className="bg-warm-white rounded-[30px] p-6 text-left">
-              <p className="text-clay-deep font-medium">{point.explanation}</p>
-            </div>
-          )}
-          {point.example && (
-            <div className="bg-clay-blue/5 rounded-[25px] p-6">
-              <p className="text-xl font-black text-clay-blue">"{point.example}"</p>
+            <div className="bg-newsprint-paper border-[3px] border-newsprint-black p-8 text-left relative z-10 shadow-inner">
+              <p className="text-sm text-newsprint-black font-bold leading-relaxed uppercase tracking-tight vietnamese-text underline decoration-red-600/10 decoration-8 underline-offset-0">{point.explanation}</p>
             </div>
           )}
         </div>
       )}
 
       {/* ── Practice ── */}
-      <GrammarInteraction point={point} />
+      <div className="space-y-6 pt-10">
+        <div className="text-center">
+            <h2 className="text-3xl font-serif font-black text-newsprint-black uppercase tracking-tighter">BẮT ĐẦU LUYỆN TẬP</h2>
+            <div className="w-20 h-1.5 bg-red-600 mx-auto mt-4" />
+        </div>
+        <GrammarInteraction point={point} />
+      </div>
     </div>
   )
 }

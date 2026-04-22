@@ -3,6 +3,16 @@ import { prisma } from '@/lib/prisma'
 import { notFound, redirect } from 'next/navigation'
 import FlashcardStudy from '@/components/study/FlashcardStudy'
 
+function getStableWeight(value: string, seed: string) {
+  const input = `${value}:${seed}`
+  let hash = 2166136261
+  for (let i = 0; i < input.length; i += 1) {
+    hash ^= input.charCodeAt(i)
+    hash = Math.imul(hash, 16777619)
+  }
+  return Math.abs(hash)
+}
+
 export default async function StudyPage({ 
   params, 
 }: { 
@@ -50,9 +60,12 @@ export default async function StudyPage({
   const learningData = {
     id: topic.id,
     title: topic.name,
+    language: topic.language,
     words: topic.isAIGenerated 
       ? topic.words 
-      : [...topic.words].sort(() => Math.random() - 0.5)
+      : [...topic.words].sort(
+          (a, b) => getStableWeight(a.id, user.id) - getStableWeight(b.id, user.id),
+        )
   }
 
   return (

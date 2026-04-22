@@ -25,9 +25,56 @@ body {
   overflow-x: hidden;
 }
 
+/* Dashboard-specific theme overrides */
+.dashboard-theme {
+  --ds-background: #F5F0E8;
+  --ds-surface: #FFFFFF;
+  --ds-border: #141414;
+  --ds-border-width: 3px;
+  --ds-shadow: 6px 6px 0px 0px rgba(20, 20, 20, 1);
+  --ds-shadow-hover: 10px 10px 0px 0px rgba(20, 20, 20, 1);
+  --ds-radius: 0px;
+}
+
+.brutalist-card {
+  background: var(--ds-surface);
+  border: var(--ds-border-width) solid var(--ds-border);
+  box-shadow: var(--ds-shadow);
+  transition: all 0.2s ease;
+}
+
+.brutalist-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--ds-shadow-hover);
+}
+
+.brutalist-button {
+  background: var(--ds-border);
+  color: var(--ds-surface);
+  border: var(--ds-border-width) solid var(--ds-border);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.75rem 1.5rem;
+  transition: all 0.1s ease;
+  box-shadow: 3px 3px 0px 0px rgba(20, 20, 20, 0.3);
+}
+
+.brutalist-button:active {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
+/* Standard Ampersand Fix for Serif Fonts */
+@font-face {
+  font-family: 'StandardAmpersand';
+  src: local('Inter'), local('Arial'), local('sans-serif');
+  unicode-range: U+0026; /* & ampersand */
+}
+
 /* Ensure headings use Serif by default for that editorial look */
-h1, h2, h3, .font-serif {
-  font-family: var(--font-playfair), serif;
+h1, h2, h3, h4, .font-serif {
+  font-family: 'StandardAmpersand', var(--font-playfair), serif;
 }
 
 /* Step connector arrows between steps */

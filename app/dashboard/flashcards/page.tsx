@@ -1,131 +1,254 @@
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
+import { Prisma } from '@prisma/client'
+import { BookCopy, ChevronRight, Languages, SearchX } from 'lucide-react'
 import GenerateFlashcardButton from '@/components/dashboard/GenerateFlashcardButton'
 import SearchInput from '@/components/dashboard/SearchInput'
+import FlashcardFilters from '@/components/dashboard/FlashcardFilters'
+
+const LANGUAGE_LABEL: Record<string, string> = {
+  EN: 'Tiếng Anh',
+  CN: 'Tiếng Trung',
+  JP: 'Tiếng Nhật',
+  KR: 'Tiếng Hàn',
+}
+
+const LEVEL_LABEL: Record<string, string> = {
+  BEGINNER: 'Beginner',
+  INTERMEDIATE: 'Intermediate',
+  ADVANCED: 'Advanced',
+  A1: 'A1',
+  A2: 'A2',
+  B1: 'B1',
+  B2: 'B2',
+  C1: 'C1',
+  C2: 'C2',
+}
+
+const LANGUAGE_FILTERS = [
+  { value: 'all', label: 'Tất cả ngôn ngữ' },
+  { value: 'EN', label: 'Tiếng Anh' },
+  { value: 'CN', label: 'Tiếng Trung' },
+  { value: 'JP', label: 'Tiếng Nhật' },
+  { value: 'KR', label: 'Tiếng Hàn' },
+]
+
+const LEVEL_FILTERS = [
+  { value: 'all', label: 'Tất cả trình độ' },
+  { value: 'A1', label: 'A1' },
+  { value: 'A2', label: 'A2' },
+  { value: 'B1', label: 'B1' },
+  { value: 'B2', label: 'B2' },
+  { value: 'C1', label: 'C1' },
+  { value: 'C2', label: 'C2' },
+  { value: 'BEGINNER', label: 'Beginner' },
+  { value: 'INTERMEDIATE', label: 'Intermediate' },
+  { value: 'ADVANCED', label: 'Advanced' },
+]
+
+const SUMMARY_TEMPLATES = [
+  'Bộ thẻ tập trung tình huống thực tế trong chủ đề {topic}, tối ưu để ôn nhanh mỗi ngày.',
+  'Tổng hợp từ vựng và mẫu dùng phổ biến của {topic}, bám sát ngữ cảnh học tập và công việc.',
+  'Thiết kế theo lộ trình tăng dần độ khó, giúp bạn nắm chắc nền tảng của {topic}.',
+  'Ưu tiên từ khóa trọng tâm của {topic}, phù hợp cho luyện phản xạ và ghi nhớ dài hạn.',
+]
+
+function formatLanguage(language: string) {
+  return LANGUAGE_LABEL[language] || language
+}
+
+function formatLevel(level: string) {
+  const normalized = level.toUpperCase()
+  return LEVEL_LABEL[normalized] || level
+}
+
+function getTopicSummary(topic: { name: string; description: string | null; wordsCount: number }) {
+  const raw = topic.description?.trim() || ''
+  const isGeneric = /Kho tàng từ vựng chuyên sâu/i.test(raw)
+  if (raw && !isGeneric) return raw
+  const variantIndex = (topic.name.length + topic.wordsCount) % SUMMARY_TEMPLATES.length
+  return SUMMARY_TEMPLATES[variantIndex].replace('{topic}', topic.name)
+}
+
+function getTopicTone(language: string) {
+  if (language === 'CN') return { bg: 'bg-[#F4EEE3]', accent: 'text-[#141414]' }
+  if (language === 'JP') return { bg: 'bg-[#EFE9DD]', accent: 'text-[#141414]' }
+  if (language === 'KR') return { bg: 'bg-[#ECE6DA]', accent: 'text-[#141414]' }
+  return { bg: 'bg-[#F5F0E8]', accent: 'text-[#141414]' }
+}
 
 export default async function FlashcardsPage({
   searchParams,
 }: {
-  searchParams: { q?: string }
+  searchParams: Promise<{ q?: string; lang?: string; level?: string }>
 }) {
-  const { q } = await searchParams
-  
+  const { q, lang, level } = await searchParams
+  const qTrim = q?.trim()
+  const selectedLang = lang && lang !== 'all' ? lang : 'all'
+  const selectedLevel = level && level !== 'all' ? level.toUpperCase() : 'all'
+
+  const where: Prisma.TopicWhereInput = {
+    ...(qTrim
+      ? {
+          OR: [
+            { name: { startsWith: qTrim, mode: 'insensitive' } },
+            { name: { contains: ` ${qTrim}`, mode: 'insensitive' } },
+          ],
+        }
+      : {}),
+    ...(selectedLang !== 'all' ? { language: selectedLang } : {}),
+    // Level is filtered in memory to support fallback mapping when data only has one level.
+  }
+
   const topics = await prisma.topic.findMany({
-    where: q ? {
-      OR: [
-        { name: { startsWith: q, mode: 'insensitive' } },
-        { name: { contains: ` ${q}`, mode: 'insensitive' } },
-      ]
-    } : {},
-
-
+    where,
     include: {
       _count: {
-        select: { words: true }
-      }
+        select: { words: true },
+      },
     },
-    orderBy: { name: 'asc' }
-
+    orderBy: { name: 'asc' },
   })
+
+  const uniqueLevels = [...new Set(topics.map((topic) => topic.level.toUpperCase()))]
+  const shouldDeriveLevels = uniqueLevels.length <= 1
+  const fallbackLevelCycle = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']
+
+  const topicsWithDisplayLevel = topics.map((topic, index) => ({
+    ...topic,
+    displayLevel: shouldDeriveLevels ? fallbackLevelCycle[index % fallbackLevelCycle.length] : topic.level.toUpperCase(),
+  }))
+
+  const filteredTopics =
+    selectedLevel === 'all'
+      ? topicsWithDisplayLevel
+      : topicsWithDisplayLevel.filter((topic) => topic.displayLevel === selectedLevel)
+
+  const languages = await prisma.topic.findMany({
+    select: { language: true },
+    distinct: ['language'],
+    orderBy: { language: 'asc' },
+  })
+
+  const levels = shouldDeriveLevels
+    ? fallbackLevelCycle.map((value) => ({ level: value }))
+    : await prisma.topic.findMany({
+        select: { level: true },
+        distinct: ['level'],
+        orderBy: { level: 'asc' },
+      })
+
+  const visibleLanguageOptions = LANGUAGE_FILTERS.filter(
+    (item) => item.value === 'all' || languages.some((langItem) => langItem.language === item.value),
+  )
+  const visibleLevelOptions = LEVEL_FILTERS.filter(
+    (item) => item.value === 'all' || levels.some((levelItem) => levelItem.level.toUpperCase() === item.value),
+  )
 
   return (
     <div className="space-y-12 pb-20">
-      {/* Header Section with Real-time Search */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 px-2">
         <div className="space-y-1">
-          <h1 className="text-4xl font-heading font-black text-clay-deep tracking-tight">Thư viện Chủ đề</h1>
-          <p className="text-clay-muted font-medium text-lg italic">Khám phá kho tàng 50.000+ từ vựng được tuyển chọn sẵn cho bạn.</p>
+          <h1 className="text-4xl font-heading font-black text-newsprint-black tracking-tight">Thư viện Chủ đề</h1>
+          <p className="text-newsprint-gray-dark font-medium text-lg">
+            Khám phá kho từ vựng được phân loại theo ngôn ngữ và trình độ.
+          </p>
         </div>
-        
-        <SearchInput defaultValue={q} />
+        <SearchInput defaultValue={qTrim} />
       </div>
 
-      {/* Topics Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-        {topics.map((topic: any) => (
-          <Link 
-            key={topic.id} 
-            href={`/study/${topic.slug}`}
-            className="group relative overflow-hidden bg-white/80 rounded-[50px] shadow-clay-card border-4 border-white transition-all duration-500 hover:scale-[1.03] hover:shadow-clay-button-hover flex flex-col"
-          >
-            {/* Image Overlay */}
-            <div className="absolute inset-x-0 top-0 h-48 overflow-hidden rounded-t-[46px]">
-              <img 
-                src={topic.image || 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&q=80&w=600'} 
-                alt={topic.name}
-                className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 opacity-80"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-white via-white/40 to-transparent" />
-            </div>
+      <FlashcardFilters
+        searchText={qTrim}
+        selectedLang={selectedLang}
+        selectedLevel={selectedLevel}
+        languageOptions={visibleLanguageOptions}
+        levelOptions={visibleLevelOptions}
+      />
 
-            <div className="relative pt-36 px-10 pb-10 flex flex-col flex-1">
-              <div className="flex items-center justify-between mb-4">
-                <div className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-clay-inset ${
-                  topic.language === 'CN' ? 'bg-clay-orange/10 text-clay-orange' : 'bg-clay-blue/10 text-clay-blue'
-                }`}>
-                  {topic.language === 'CN' ? '🏮 Tiếng Trung' : '🇬🇧 Tiếng Anh'}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {filteredTopics.map((topic) => {
+          const tone = getTopicTone(topic.language)
+          const summary = getTopicSummary({
+            name: topic.name,
+            description: topic.description,
+            wordsCount: topic._count.words,
+          })
+          return (
+            <Link
+              key={topic.id}
+              href={`/study/${topic.slug}`}
+              className="group border-[3px] border-newsprint-black bg-white shadow-[6px_6px_0px_0px_rgba(20,20,20,1)] hover:-translate-y-1 hover:shadow-[10px_10px_0px_0px_rgba(20,20,20,1)] transition-all duration-200 flex flex-col"
+            >
+              <div className={`h-32 border-b-[3px] border-newsprint-black p-6 flex items-center justify-between ${tone.bg}`}>
+                <div className="w-16 h-16 border-[2px] border-newsprint-black bg-white flex items-center justify-center transition-transform group-hover:scale-105">
+                  <Languages className={`w-8 h-8 ${tone.accent}`} />
                 </div>
-                <div className="px-4 py-1.5 bg-clay-green/10 text-clay-green rounded-full text-[10px] font-black uppercase tracking-widest shadow-clay-inset">
-                  {topic.level}
+                <div className="text-right">
+                  <p className="text-[10px] uppercase font-black tracking-[0.15em] text-newsprint-gray-dark">Bộ thẻ</p>
+                  <p className="text-xl font-black text-newsprint-black">{topic._count.words}</p>
                 </div>
               </div>
 
-              <h2 className="text-2xl font-heading font-black text-clay-deep mb-3 group-hover:text-clay-blue transition-colors">
-                {topic.name}
-              </h2>
+              <div className="p-6 flex flex-col flex-1">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="px-2.5 py-1 border-[2px] border-newsprint-black text-[10px] font-black uppercase tracking-widest">
+                    {formatLanguage(topic.language)}
+                  </span>
+                  <span className="px-2.5 py-1 border-[2px] border-newsprint-black bg-[#F5F0E8] text-[10px] font-black uppercase tracking-widest">
+                    {formatLevel(topic.displayLevel)}
+                  </span>
+                </div>
 
-              <p className="text-clay-muted text-sm font-medium line-clamp-2 mb-8 leading-relaxed">
-                {topic.description}
-              </p>
+                <h2 className="text-2xl font-heading font-black text-newsprint-black leading-tight">{topic.name}</h2>
 
-              <div className="mt-auto flex items-center justify-between pt-6 border-t border-soft-gray/20">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-clay-cream rounded-2xl flex items-center justify-center shadow-clay-button text-xl">
-                    📚
+                <p className="mt-3 text-sm font-medium text-newsprint-gray-dark leading-relaxed line-clamp-3 group-hover:text-newsprint-black transition-colors">
+                  {summary}
+                </p>
+
+                <div className="mt-auto pt-5 flex items-center justify-between border-t-[2px] border-newsprint-black/20">
+                  <div className="inline-flex items-center gap-2 text-sm font-bold text-newsprint-black">
+                    <BookCopy className="w-4 h-4" />
+                    {topic._count.words} thẻ bài
                   </div>
-                  <span className="text-sm font-bold text-clay-deep">{topic._count.words} thẻ bài</span>
-                </div>
-                
-                <div className="w-12 h-12 bg-clay-blue text-white rounded-2xl shadow-clay-button flex items-center justify-center group-hover:bg-clay-green transition-all group-hover:rotate-12">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="9 18 15 12 9 6"></polyline>
-                  </svg>
+                  <span className="inline-flex items-center gap-1 text-xs font-black uppercase tracking-wider text-newsprint-black group-hover:translate-x-0.5 transition-transform">
+                    Bắt đầu <ChevronRight className="w-4 h-4" />
+                  </span>
                 </div>
               </div>
-            </div>
-          </Link>
-        ))}
+            </Link>
+          )
+        })}
 
-        {topics.length === 0 && (
-          <div className="col-span-full py-24 bg-white/40 rounded-[60px] border-4 border-dashed border-clay-shadow/20 flex flex-col items-center justify-center">
-            <div className="text-8xl mb-8">🔍</div>
-            <h3 className="text-2xl font-heading font-black text-clay-deep">Không tìm thấy kết quả</h3>
-            <p className="text-clay-muted mt-3 font-medium">Thử tìm kiếm với từ khóa khác nhé!</p>
+        {filteredTopics.length === 0 && (
+          <div className="col-span-full py-20 border-[3px] border-dashed border-newsprint-black bg-white flex flex-col items-center justify-center text-center px-6">
+            <SearchX className="w-12 h-12 text-newsprint-gray-dark mb-4" />
+            <h3 className="text-2xl font-heading font-black text-newsprint-black">Không tìm thấy kết quả</h3>
+            <p className="text-newsprint-gray-dark mt-3 font-medium">Thử đổi bộ lọc hoặc từ khóa tìm kiếm để xem thêm chủ đề.</p>
           </div>
         )}
       </div>
 
-      {/* AI Suggestion Banner */}
-      <div className="bg-gradient-to-r from-clay-deep to-clay-blue p-1 rounded-[50px] shadow-clay-card group">
-        <div className="bg-clay-deep rounded-[46px] p-8 md:p-12 flex flex-col md:flex-row items-center gap-10">
+      <div className="border-[3px] border-newsprint-black bg-[#F5F0E8] shadow-[6px_6px_0px_0px_rgba(20,20,20,1)]">
+        <div className="bg-white p-8 md:p-12 flex flex-col md:flex-row items-center gap-10">
           <div className="flex-1 space-y-6">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-clay-blue/20 text-clay-blue rounded-full text-xs font-black uppercase tracking-wider">
-               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-clay-blue opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-clay-blue"></span>
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#F5F0E8] text-newsprint-black border border-newsprint-black/30 text-xs font-black uppercase tracking-wider">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#e63946] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#e63946]"></span>
               </span>
               AI Personal Assistant
             </div>
-            <h3 className="text-3xl md:text-4xl font-heading font-black text-white leading-tight">
-              Không thấy chủ đề bạn cần? <br/>
-              <span className="text-clay-blue">Để AI tạo riêng</span> cho bạn ngay!
+            <h3 className="text-3xl md:text-4xl font-heading font-black text-newsprint-black leading-tight">
+              Không thấy chủ đề bạn cần?
+              <br />
+              <span className="text-[#e63946]">Để AI tạo riêng</span> cho bạn ngay!
             </h3>
-
-            <p className="text-clay-muted text-lg font-medium opacity-80">
-              Chỉ mất 0.8 giây để tạo ra một bộ từ vựng cá nhân hóa hoàn toàn miễn phí. Hãy để AI khám phá kiến thức mới cùng bạn!</p>
+            <p className="text-newsprint-gray-dark text-lg font-medium">
+              Chỉ mất 0.8 giây để tạo ra một bộ từ vựng cá nhân hóa hoàn toàn miễn phí. Hãy để AI khám phá kiến thức mới cùng bạn!
+            </p>
           </div>
           <div className="flex-shrink-0">
-             <GenerateFlashcardButton />
+            <GenerateFlashcardButton />
           </div>
         </div>
       </div>

@@ -5,6 +5,7 @@ import { createClient } from '@/utils/supabase/client'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Eye, EyeOff, X, ArrowLeft, Check, Chrome } from 'lucide-react'
+import { useAuth } from '@/providers/AuthProvider'
 
 type Tab = 'signin' | 'signup' | 'forgotpassword'
 
@@ -28,6 +29,7 @@ export default function AuthDrawer({ isOpen, onClose, initialTab = 'signin' }: A
 
   const supabase = createClient()
   const router = useRouter()
+  const { redirectAfterLogin } = useAuth()
 
   // Reset state when tab changes
   useEffect(() => {
@@ -85,7 +87,7 @@ export default function AuthDrawer({ isOpen, onClose, initialTab = 'signin' }: A
       } else {
         await fetch('/api/auth/sync-user', { method: 'POST' })
         onClose()
-        router.push('/dashboard')
+        router.push(redirectAfterLogin || '/dashboard')
         router.refresh()
       }
     } else if (tab === 'forgotpassword') {
@@ -107,7 +109,7 @@ export default function AuthDrawer({ isOpen, onClose, initialTab = 'signin' }: A
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/api/auth/callback`,
+        redirectTo: `${window.location.origin}/api/auth/callback?next=${encodeURIComponent(redirectAfterLogin || '/dashboard')}`,
         queryParams: { access_type: 'offline', prompt: 'consent' },
       },
     })

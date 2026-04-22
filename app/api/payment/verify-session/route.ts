@@ -6,68 +6,123 @@ import { createClient } from '@/utils/supabase/server'
 const payos = new PayOS({
   clientId: process.env.PAYOS_CLIENT_ID!,
   apiKey: process.env.PAYOS_API_KEY!,
-  checksumKey: process.env.PAYOS_CHECKSUM_KEY!
+  checksumKey: process.env.PAYOS_CHECKSUM_KEY!,
 })
+
+function getDurationByPlan(planId: string): number {
+  if (planId === '1_YEAR') return 12
+  if (planId === '6_MONTHS') return 6
+  return 3
+}
 
 export async function GET(req: Request) {
   try {
+    const supabase = await createClient()
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
+
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
     const { searchParams } = new URL(req.url)
-    const orderCode = searchParams.get('orderCode')
+    const orderCode = Number(searchParams.get('orderCode'))
 
-    if (!orderCode) {
-      return NextResponse.json({ error: 'Missing orderCode' }, { status: 400 })
-    }
-
-    // 1. Lấy thông tin thực tế từ PayOS
-    const paymentLinkInfo = await payos.paymentRequests.get(Number(orderCode))
-
-    if (paymentLinkInfo.status === 'PAID') {
-      // 2. Tìm đơn hàng trong DB
-      // @ts-ignore
-      const order = await prisma.order.findUnique({
-        where: { orderCode: Number(orderCode) },
-      })
-
-      if (order && order.status !== 'SUCCESS') {
-        // 3. Kích hoạt PRO ngay lập tức
-        let durationInMonths = 3
-        // @ts-ignore
-        if (order.planId === '1_YEAR') durationInMonths = 12
-        // @ts-ignore
-        else if (order.planId === '6_MONTHS') durationInMonths = 6
-
-        const proEndDate = new Date()
-        proEndDate.setMonth(proEndDate.getMonth() + durationInMonths)
-
-        await prisma.$transaction([
-          // @ts-ignore
-          prisma.order.update({
-            where: { id: order.id },
-            data: { status: 'SUCCESS' }
-          }),
-          prisma.user.update({
-            // @ts-ignore
-            where: { id: order.userId },
-            data: {
-              // @ts-ignore
-              isPro: true,
-              // @ts-ignore
-              proType: order.planId,
-              // @ts-ignore
-              proStartDate: new Date(),
-              // @ts-ignore
-              proEndDate: proEndDate
-            }
-          })
-        ])
-        return NextResponse.json({ success: true, message: 'PRO Activated' })
-      }
-      return NextResponse.json({ success: true, message: 'Already PRO' })
-    }
-
-    return NextResponse.json({ success: false, status: paymentLinkInfo.status })
-  } catch (error: any) {
+    return await verifyOrderForUser(orderCode, user.id)
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Internal Server Error'
     console.error('Verify Order Error:', error)
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    return NextResponse.json({ error: message }, { status: 500 })
   }
+}
+
+export async function POST(req: Request) {
+  try {
+    const supabase = await createClient()
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
+
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    const body = (await req.json()) as { orderCode?: number }
+    const orderCode = Number(body.orderCode)
+
+    return await verifyOrderForUser(orderCode, user.id)
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Internal Server Error'
+    console.error('Verify Order Error:', error)
+    return NextResponse.json({ error: message }, { status: 500 })
+  }
+}
+
+async function verifyOrderForUser(orderCode: number, userId: string) {
+  if (!orderCode || Number.isNaN(orderCode)) {
+    return NextResponse.json({ error: 'Missing or invalid orderCode' }, { status: 400 })
+  }
+
+  const order = await prisma.order.findFirst({
+    where: { orderCode, userId },
+    select: {
+      id: true,
+      userId: true,
+      planId: true,
+      status: true,
+    },
+  })
+
+  if (!order) {
+    return NextResponse.json({ error: 'Order not found' }, { status: 404 })
+  }
+
+  const paymentLinkInfo = (await payos.paymentRequests.get(orderCode)) as { status?: string }
+  const paymentStatus = paymentLinkInfo.status || 'UNKNOWN'
+
+  if (paymentStatus === 'PAID') {
+    if (order.status !== 'SUCCESS') {
+      const durationInMonths = getDurationByPlan(order.planId)
+      const proEndDate = new Date()
+      proEndDate.setMonth(proEndDate.getMonth() + durationInMonths)
+
+      await prisma.$transaction([
+        prisma.order.update({
+          where: { id: order.id },
+          data: { status: 'SUCCESS' },
+        }),
+        prisma.user.update({
+          where: { id: order.userId },
+          data: {
+            isPro: true,
+            proType: order.planId,
+            proStartDate: new Date(),
+            proEndDate,
+          },
+        }),
+      ])
+    }
+
+    return NextResponse.json({
+      success: true,
+      status: paymentStatus,
+      planId: order.planId,
+      checkedAt: new Date().toISOString(),
+    })
+  }
+
+  if ((paymentStatus === 'CANCELLED' || paymentStatus === 'EXPIRED') && order.status === 'PENDING') {
+    await prisma.order.update({
+      where: { id: order.id },
+      data: { status: 'CANCELLED' },
+    })
+  }
+
+  return NextResponse.json({
+    success: false,
+    status: paymentStatus,
+    planId: order.planId,
+    checkedAt: new Date().toISOString(),
+  })
 }

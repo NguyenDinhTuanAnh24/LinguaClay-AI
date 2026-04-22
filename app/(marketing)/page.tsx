@@ -35,32 +35,32 @@ export default function LandingPage() {
   const landingPlans = [
     {
       id: 'trial',
-      name: 'GÓI TRẢI NGHIỆM',
+      name: 'BẢN TIÊU CHUẨN',
       price: '299k',
       period: '/3 Tháng',
       features: ['Flashcards không giới hạn', 'AI Tutor Pro cơ bản', '100 Chủ điểm ngữ pháp Pro', 'Dễ dàng nâng cấp sau này'],
       highlight: false,
-      ctaText: 'CHỌN GÓI TRẢI NGHIỆM'
+      ctaText: 'CHỌN BẢN TIÊU CHUẨN'
     },
     {
       id: 'flexible',
-      name: 'GÓI LINH HOẠT',
+      name: 'BẢN CHUYÊN SÂU',
       price: '399k',
       period: '/6 Tháng',
       features: ['Flashcards không giới hạn', 'AI Tutor Pro (Phản hồi giọng nói)', '200+ Chủ điểm ngữ pháp Pro', 'Hệ thuật SRS cá nhân hóa', 'Hỗ trợ qua Email'],
       highlight: false,
-      ctaText: 'CHỌN GÓI LINH HOẠT'
+      ctaText: 'CHỌN BẢN CHUYÊN SÂU'
     },
     {
       id: 'permanent',
-      name: 'GÓI VĨNH VIỄN',
+      name: 'BẢN TOÀN DIỆN',
       price: '499k',
       period: '/1 Năm',
       features: ['Toàn bộ tính năng gói 6 tháng', 'Ưu tiên cập nhật tính năng mới sớm nhất', 'Tải file PDF bài học độc quyền', 'Không giới hạn AI Chatbot nâng cao', 'Hỗ trợ VIP 1:1 qua Zalo/Telegram'],
       highlight: true,
       badgeText: 'HỜI NHẤT',
       isBestValue: true,
-      ctaText: 'CHỌN GÓI VĨNH VIỄN'
+      ctaText: 'CHỌN BẢN TOÀN DIỆN'
     }
   ]
 
@@ -414,7 +414,7 @@ export default function LandingPage() {
                     </ul>
                   </div>
                   <button
-                    onClick={() => openAuth('signin')}
+                    onClick={() => openAuth('signin', '/dashboard/plans')}
                     className={`w-full text-center py-4 border-[3px] border-black font-bold uppercase text-sm tracking-widest transition-colors vietnamese-text mt-auto ${plan.highlight ? 'bg-black text-white hover:bg-transparent hover:text-black' : 'bg-transparent text-black hover:bg-black hover:text-white'}`}
                   >
                     {vn(plan.ctaText as string)}

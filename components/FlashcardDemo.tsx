@@ -41,7 +41,7 @@ const FlashcardDemo = () => {
           }}
         >
           <div className="absolute top-3 left-3">
-            <span className="text-[9px] font-bold uppercase tracking-widest text-newsprint-gray-dark">
+            <span className="text-[9px] font-bold uppercase tracking-widest text-red-600">
               TỪ VỰNG
             </span>
           </div>
@@ -71,7 +71,7 @@ const FlashcardDemo = () => {
           }}
         >
           <div className="absolute top-3 left-3">
-            <span className="text-[9px] font-bold uppercase tracking-widest text-newsprint-gray-dark">
+            <span className="text-[9px] font-bold uppercase tracking-widest text-red-600">
               TỪ VỰNG
             </span>
           </div>

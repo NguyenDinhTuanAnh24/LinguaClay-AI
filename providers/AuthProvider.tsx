@@ -7,7 +7,8 @@ type AuthTab = 'signin' | 'signup'
 interface AuthContextType {
   isAuthOpen: boolean
   authTab: AuthTab
-  openAuth: (tab?: AuthTab) => void
+  redirectAfterLogin: string
+  openAuth: (tab?: AuthTab, redirectTo?: string) => void
   closeAuth: () => void
 }
 
@@ -16,9 +17,11 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isAuthOpen, setIsAuthOpen] = useState(false)
   const [authTab, setAuthTab] = useState<AuthTab>('signin')
+  const [redirectAfterLogin, setRedirectAfterLogin] = useState('/dashboard')
 
-  const openAuth = (tab: AuthTab = 'signin') => {
+  const openAuth = (tab: AuthTab = 'signin', redirectTo = '/dashboard') => {
     setAuthTab(tab)
+    setRedirectAfterLogin(redirectTo)
     setIsAuthOpen(true)
   }
 
@@ -27,7 +30,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider value={{ isAuthOpen, authTab, openAuth, closeAuth }}>
+    <AuthContext.Provider value={{ isAuthOpen, authTab, redirectAfterLogin, openAuth, closeAuth }}>
       {children}
     </AuthContext.Provider>
   )

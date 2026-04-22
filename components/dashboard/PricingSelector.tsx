@@ -14,9 +14,9 @@ interface Plan {
 }
 
 const PLANS: Plan[] = [
-  { id: '3_MONTHS', name: 'Gói Khởi Động', duration: '3 Tháng', price: 299000, originalPrice: 599000 },
-  { id: '6_MONTHS', name: 'Gói Tiết Kiệm', duration: '6 Tháng', price: 399000, originalPrice: 799000, tag: 'Bán chạy' },
-  { id: '1_YEAR', name: 'Gói Vĩnh Viễn', duration: '1 Năm', price: 499000, originalPrice: 1299000, isPopular: true, tag: 'Hời nhất' }
+  { id: '3_MONTHS', name: 'Bản tiêu chuẩn', duration: '3 Tháng', price: 299000, originalPrice: 599000 },
+  { id: '6_MONTHS', name: 'Bản chuyên sâu', duration: '6 Tháng', price: 399000, originalPrice: 799000, tag: 'Bán chạy' },
+  { id: '1_YEAR', name: 'Bản toàn diện', duration: '1 Năm', price: 499000, originalPrice: 1299000, isPopular: true, tag: 'Hời nhất' }
 ]
 
 export default function PricingSelector({ onUpgrade }: { onUpgrade: (plan: Plan) => void }) {

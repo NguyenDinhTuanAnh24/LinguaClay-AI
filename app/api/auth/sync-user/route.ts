@@ -16,8 +16,7 @@ export async function POST() {
       where: { id: user.id },
       update: {
         email: user.email!,
-        name: user.user_metadata?.full_name || user.user_metadata?.name || null,
-        image: user.user_metadata?.avatar_url || null,
+        // Name and Image are managed by the user in settings, do not overwrite
       },
       create: {
         id: user.id,

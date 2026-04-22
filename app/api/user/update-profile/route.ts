@@ -11,13 +11,15 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const { name, imageUrl, targetLanguage, proficiencyLevel } = await request.json()
+    const { name, imageUrl, targetLanguage, proficiencyLevel, phoneNumber, birthday } = await request.json()
 
     const updateData: any = {}
     if (name !== undefined && name !== null) updateData.name = name
     if (imageUrl !== undefined && imageUrl !== null) updateData.image = imageUrl
     if (targetLanguage) updateData.targetLanguage = targetLanguage
     if (proficiencyLevel) updateData.proficiencyLevel = proficiencyLevel
+    if (phoneNumber !== undefined) updateData.phoneNumber = phoneNumber
+    if (birthday !== undefined) updateData.birthday = birthday ? new Date(birthday) : null
 
     const updatedUser = await prisma.user.update({
       where: { id: user.id },
