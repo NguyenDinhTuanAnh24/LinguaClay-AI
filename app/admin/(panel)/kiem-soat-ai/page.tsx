@@ -28,35 +28,142 @@ function estimateTokens(userContent: string, aiFeedback: unknown): number {
 }
 
 export default async function KiemSoatAIPage() {
-  const sessions = await prisma.writingSession.findMany({
-    orderBy: { createdAt: 'desc' },
-    take: 400,
-    select: {
-      id: true,
-      createdAt: true,
-      userContent: true,
-      aiFeedback: true,
-      user: {
-        select: {
-          name: true,
-          email: true,
-        },
+  const [
+    writingSessions,
+    listening,
+    reading,
+    speaking,
+    editor
+  ] = await Promise.all([
+    prisma.writingSession.findMany({
+      orderBy: { createdAt: 'desc' },
+      take: 200,
+      select: {
+        id: true,
+        createdAt: true,
+        userContent: true,
+        aiFeedback: true,
+        user: { select: { name: true, email: true } },
       },
-    },
-  })
+    }),
+    prisma.tutorListeningSession.findMany({
+      orderBy: { createdAt: 'desc' },
+      take: 100,
+      select: {
+        id: true,
+        createdAt: true,
+        transcriptEn: true,
+        feedbackVi: true,
+        user: { select: { name: true, email: true } },
+      },
+    }),
+    prisma.tutorReadingSession.findMany({
+      orderBy: { createdAt: 'desc' },
+      take: 100,
+      select: {
+        id: true,
+        createdAt: true,
+        passageEn: true,
+        feedbackVi: true,
+        user: { select: { name: true, email: true } },
+      },
+    }),
+    prisma.tutorSpeakingSession.findMany({
+      orderBy: { createdAt: 'desc' },
+      take: 100,
+      select: {
+        id: true,
+        createdAt: true,
+        userAnswers: true,
+        feedbackVi: true,
+        user: { select: { name: true, email: true } },
+      },
+    }),
+    prisma.tutorEditorSession.findMany({
+      orderBy: { createdAt: 'desc' },
+      take: 100,
+      select: {
+        id: true,
+        createdAt: true,
+        inputText: true,
+        shortFeedbackVi: true,
+        user: { select: { name: true, email: true } },
+      },
+    }),
+  ])
 
-  const chatLogs: ChatLogView[] = sessions.map((s) => {
-    const tokens = estimateTokens(s.userContent, s.aiFeedback)
-    return {
-      id: s.id,
-      user: s.user.name || s.user.email,
-      time: formatDateTime(s.createdAt),
-      dayKey: getVNDayKey(s.createdAt),
-      messages: s.aiFeedback ? 2 : 1,
-      tokens,
-      flagged: tokens >= 3500,
-    }
-  })
+  const chatLogs: ChatLogView[] = [
+    ...writingSessions.map((s) => {
+      const tokens = estimateTokens(s.userContent, s.aiFeedback)
+      return {
+        id: s.id,
+        user: s.user.name || s.user.email,
+        time: formatDateTime(s.createdAt),
+        dayKey: getVNDayKey(s.createdAt),
+        messages: s.aiFeedback ? 2 : 1,
+        tokens,
+        flagged: tokens >= 3500,
+        uContent: s.userContent,
+        aiContent: typeof s.aiFeedback === 'string' ? s.aiFeedback : JSON.stringify(s.aiFeedback, null, 2),
+      }
+    }),
+    ...listening.map((s) => {
+      const tokens = estimateTokens(s.transcriptEn, s.feedbackVi)
+      return {
+        id: s.id,
+        user: s.user.name || s.user.email,
+        time: formatDateTime(s.createdAt),
+        dayKey: getVNDayKey(s.createdAt),
+        messages: 2,
+        tokens,
+        flagged: tokens >= 3500,
+        uContent: '(Luyện nghe) Topic: ' + (s as any).topicHint || 'N/A',
+        aiContent: `Transcript:\n${s.transcriptEn}\n\nFeedback:\n${s.feedbackVi}`,
+      }
+    }),
+    ...reading.map((s) => {
+      const tokens = estimateTokens(s.passageEn, s.feedbackVi)
+      return {
+        id: s.id,
+        user: s.user.name || s.user.email,
+        time: formatDateTime(s.createdAt),
+        dayKey: getVNDayKey(s.createdAt),
+        messages: 2,
+        tokens,
+        flagged: tokens >= 3500,
+        uContent: '(Luyện đọc) Topic: ' + (s as any).topicHint || 'N/A',
+        aiContent: `Passage:\n${s.passageEn}\n\nFeedback:\n${s.feedbackVi}`,
+      }
+    }),
+    ...speaking.map((s) => {
+      const tokens = estimateTokens(JSON.stringify(s.userAnswers), s.feedbackVi)
+      return {
+        id: s.id,
+        user: s.user.name || s.user.email,
+        time: formatDateTime(s.createdAt),
+        dayKey: getVNDayKey(s.createdAt),
+        messages: 2,
+        tokens,
+        flagged: tokens >= 3500,
+        uContent: '(Luyện nói) Answers: ' + JSON.stringify(s.userAnswers),
+        aiContent: `Feedback:\n${s.feedbackVi}`,
+      }
+    }),
+    ...editor.map((s) => {
+      const tokens = estimateTokens(s.inputText, s.shortFeedbackVi)
+      return {
+        id: s.id,
+        user: s.user.name || s.user.email,
+        time: formatDateTime(s.createdAt),
+        dayKey: getVNDayKey(s.createdAt),
+        messages: 2,
+        tokens,
+        flagged: tokens >= 3500,
+        uContent: s.inputText,
+        aiContent: s.shortFeedbackVi,
+      }
+    }),
+  ].sort((a, b) => new Date(b.dayKey + 'T' + b.time.slice(0,5)).getTime() - new Date(a.dayKey + 'T' + a.time.slice(0,5)).getTime())
 
   const tokenByDay = new Map<string, number>()
   for (const log of chatLogs) {

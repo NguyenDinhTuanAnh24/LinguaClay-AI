@@ -1,7 +1,8 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import { AdminToastStack, useAdminToast } from '../_components/admin-toast'
+import { Mail, X } from 'lucide-react'
+import { AdminToastStack, useAdminToast, useAdminConfirm, AdminConfirmToast } from '../_components/admin-toast'
 
 type AdminTab = 'support' | 'refund'
 type RefundMode = 'FULL' | 'PARTIAL'
@@ -121,7 +122,7 @@ export function HoTroHoanTienClient({
   const [ticketRows, setTicketRows] = useState<SupportTicketView[]>(supportTickets)
   const [queueRows, setQueueRows] = useState<RefundQueueItemView[]>(refundQueue)
   const [refundHistoryRows, setRefundHistoryRows] = useState<RefundHistoryItemView[]>(refundHistory)
-  const [selectedTicketId, setSelectedTicketId] = useState<string>(supportTickets[0]?.id || '')
+  const [selectedTicketId, setSelectedTicketId] = useState<string | null>(null)
   const [internalNotes, setInternalNotes] = useState<Record<string, string>>(
     Object.fromEntries(supportTickets.map((ticket) => [ticket.id, ticket.internalNote]))
   )
@@ -136,10 +137,18 @@ export function HoTroHoanTienClient({
   )
   const [processingId, setProcessingId] = useState<string | null>(null)
   const [replyingId, setReplyingId] = useState<string | null>(null)
+  const [refundingItem, setRefundingItem] = useState<RefundQueueItemView | null>(null)
+  const [refundEmailNote, setRefundEmailNote] = useState<string>('')
   const { toasts, showToast } = useAdminToast()
+  const { confirm, requestConfirm, confirmYes, confirmNo } = useAdminConfirm()
+
+  const [ticketPage, setTicketPage] = useState(1)
+  const ticketsPerPage = 5
+  const totalTicketPages = Math.ceil(ticketRows.length / ticketsPerPage)
+  const currentTickets = ticketRows.slice((ticketPage - 1) * ticketsPerPage, ticketPage * ticketsPerPage)
 
   const selectedTicket = useMemo(
-    () => ticketRows.find((ticket) => ticket.id === selectedTicketId) || ticketRows[0] || null,
+    () => ticketRows.find((ticket) => ticket.id === selectedTicketId) || null,
     [selectedTicketId, ticketRows]
   )
 
@@ -230,6 +239,7 @@ export function HoTroHoanTienClient({
           refundRequestId: item.id,
           refundType: mode,
           partialAmount: mode === 'PARTIAL' ? partial : undefined,
+          note: refundEmailNote,
         }),
       })
       const data = (await res.json()) as { ok?: boolean; error?: string; refundAmount?: number }
@@ -269,6 +279,7 @@ export function HoTroHoanTienClient({
 
   return (
     <div className="space-y-6">
+      <AdminConfirmToast confirm={confirm} onConfirm={confirmYes} onCancel={confirmNo} />
       <AdminToastStack toasts={toasts} />
 
       <section className="border border-[#141414] bg-[#F5F0E8] p-5 shadow-[6px_6px_0px_0px_rgba(20,20,20,0.9)]">
@@ -309,40 +320,97 @@ export function HoTroHoanTienClient({
       </section>
 
       {activeTab === 'support' ? (
-        <section className="grid gap-4 xl:grid-cols-[1.1fr_1.3fr]">
+        <section className="space-y-6">
           <article className="border border-[#141414] bg-[#F5F0E8] p-4">
             <div className="mb-3 flex items-center justify-between">
               <h2 className="text-sm font-black uppercase tracking-[0.14em]">Ticket tự động phân loại</h2>
               <span className="border border-[#141414] px-2 py-1 text-[10px] font-black uppercase">{ticketRows.length} phiếu</span>
             </div>
-            <div className="space-y-2">
-              {ticketRows.map((ticket) => {
-                const isActive = selectedTicket?.id === ticket.id
-                return (
-                  <button
-                    type="button"
-                    key={ticket.id}
-                    onClick={() => setSelectedTicketId(ticket.id)}
-                    className="w-full border px-3 py-2 text-left transition-all hover:-translate-y-px"
-                    style={{
-                      borderColor: '#141414',
-                      background: isActive ? '#141414' : '#F5F0E8',
-                      color: isActive ? '#F5F0E8' : '#141414',
-                    }}
-                  >
-                    <div className="flex items-start justify-between gap-2">
-                      <p className="text-xs font-black uppercase tracking-[0.1em]">{ticket.userName}</p>
-                      <span className="border px-1.5 py-0.5 text-[9px] font-black uppercase tracking-[0.08em]">{ticket.autoTag}</span>
-                    </div>
-                    {ticket.subject ? <p className="mt-1 line-clamp-1 text-xs font-black uppercase">{ticket.subject}</p> : null}
-                    <p className="mt-1 line-clamp-2 text-xs">{ticket.message}</p>
-                    {ticket.attachmentUrl ? <p className="mt-1 text-[10px] font-bold uppercase opacity-80">Có ảnh đính kèm</p> : null}
-                    <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.08em] opacity-70">{ticket.createdAt}</p>
-                  </button>
-                )
-              })}
-              {!ticketRows.length && <p className="text-sm text-[#4B4B4B]">Chưa có phiếu.</p>}
+            
+            <div className="overflow-x-auto border border-[#141414] bg-white">
+              <table className="w-full text-xs">
+                <thead className="bg-[#EFE8DC]">
+                  <tr className="border-b border-[#141414] text-left font-black uppercase tracking-[0.08em]">
+                    <th className="px-3 py-2">Khách hàng</th>
+                    <th className="px-3 py-2">Chủ đề</th>
+                    <th className="px-3 py-2 w-[40%]">Trích đoạn</th>
+                    <th className="px-3 py-2 text-center">Phân loại</th>
+                    <th className="px-3 py-2 text-right">Hành động</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {currentTickets.map((ticket) => {
+                    const isActive = selectedTicket?.id === ticket.id
+                    return (
+                      <tr 
+                        key={ticket.id} 
+                        className={`border-b border-[#141414] align-top transition-colors hover:bg-[#F5F0E8] ${isActive ? 'bg-[#EFE8DC]' : ''}`}
+                      >
+                        <td className="px-3 py-2">
+                          <p className="font-semibold">{ticket.userName}</p>
+                          <p className="mt-0.5 text-[10px] text-[#4B4B4B]">{ticket.createdAt}</p>
+                        </td>
+                        <td className="px-3 py-2">
+                          <p className="font-semibold line-clamp-2">{ticket.subject || 'Không có'}</p>
+                          {ticket.attachmentUrl ? <p className="mt-0.5 text-[10px] font-bold text-[#B91C1C] uppercase">Có đính kèm</p> : null}
+                        </td>
+                        <td className="px-3 py-2">
+                          <p className="line-clamp-2">{ticket.message}</p>
+                        </td>
+                        <td className="px-3 py-2 text-center">
+                          <span className="border border-[#141414] bg-white px-2 py-0.5 text-[9px] font-black uppercase tracking-[0.08em] shadow-[2px_2px_0px_0px_rgba(20,20,20,1)]">
+                            {ticket.autoTag}
+                          </span>
+                        </td>
+                        <td className="px-3 py-2 text-right">
+                          <button
+                            type="button"
+                            onClick={() => setSelectedTicketId(isActive ? null : ticket.id)}
+                            className="border border-[#141414] px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.08em] transition-all hover:bg-[#141414] hover:text-[#F5F0E8]"
+                            style={{
+                              background: isActive ? '#141414' : 'transparent',
+                              color: isActive ? '#F5F0E8' : '#141414',
+                            }}
+                          >
+                            {isActive ? 'THU GỌN' : 'Phản hồi'}
+                          </button>
+                        </td>
+                      </tr>
+                    )
+                  })}
+                  {!currentTickets.length && (
+                    <tr>
+                      <td colSpan={5} className="px-3 py-6 text-center text-sm text-[#4B4B4B]">
+                        Chưa có phiếu nào.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
             </div>
+
+            {/* Pagination Controls */}
+            {totalTicketPages > 1 && (
+              <div className="mt-4 flex items-center justify-between">
+                <span className="text-xs font-semibold text-[#4B4B4B]">Trang {ticketPage} / {totalTicketPages}</span>
+                <div className="flex gap-2">
+                  <button 
+                    disabled={ticketPage === 1}
+                    onClick={() => setTicketPage(p => p - 1)}
+                    className="border border-[#141414] px-3 py-1.5 text-[10px] font-black uppercase disabled:opacity-50 hover:bg-[#141414] hover:text-white"
+                  >
+                    Trước
+                  </button>
+                  <button 
+                    disabled={ticketPage === totalTicketPages}
+                    onClick={() => setTicketPage(p => p + 1)}
+                    className="border border-[#141414] px-3 py-1.5 text-[10px] font-black uppercase disabled:opacity-50 hover:bg-[#141414] hover:text-white"
+                  >
+                    Tiếp
+                  </button>
+                </div>
+              </div>
+            )}
           </article>
 
           <article className="border border-[#141414] bg-[#F5F0E8] p-4">
@@ -400,7 +468,7 @@ export function HoTroHoanTienClient({
                       <button
                         type="button"
                         key={message}
-                        onClick={() => sendReply(selectedTicket.id, message)}
+                        onClick={() => setReplyDrafts((prev) => ({ ...prev, [selectedTicket.id]: message }))}
                         className="border border-[#141414] px-3 py-2 text-left text-xs hover:bg-[#141414] hover:text-[#F5F0E8]"
                       >
                         {message}
@@ -410,22 +478,39 @@ export function HoTroHoanTienClient({
                 </div>
 
                 <div className="border border-[#141414] bg-white p-3">
-                  <p className="text-xs font-black uppercase tracking-[0.1em]">Phản hồi cho người dùng</p>
-                  <textarea
-                    value={replyDrafts[selectedTicket.id] || ''}
-                    onChange={(event) => setReplyDrafts((prev) => ({ ...prev, [selectedTicket.id]: event.target.value }))}
-                    placeholder="Nhập phản hồi gửi cho người dùng"
-                    rows={3}
-                    className="mt-2 w-full border border-[#141414] bg-[#FDFBF7] px-2 py-2 text-xs outline-none"
-                  />
-                  <div className="mt-2 flex justify-end">
+                  <div className="flex items-center gap-2 border-b border-dashed border-[#141414]/30 pb-2 mb-2">
+                    <Mail size={16} />
+                    <p className="text-xs font-black uppercase tracking-[0.1em]">Gửi Email Phản Hồi</p>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex bg-[#F5F0E8] border border-[#141414]/20 px-2 py-1 text-xs">
+                      <span className="w-16 font-bold text-[#4B4B4B] uppercase text-[10px] mt-0.5">Tới:</span>
+                      <span className="flex-1 font-semibold">{selectedTicket.userEmail}</span>
+                    </div>
+                    <div>
+                      <textarea
+                        value={replyDrafts[selectedTicket.id] || ''}
+                        onChange={(event) => setReplyDrafts((prev) => ({ ...prev, [selectedTicket.id]: event.target.value }))}
+                        placeholder="Soạn nội dung phản hồi. Hệ thống sẽ tự động gửi vào email của người dùng."
+                        rows={4}
+                        className="w-full border border-[#141414] bg-[#FDFBF7] p-2 text-xs outline-none focus:bg-white"
+                      />
+                    </div>
+                  </div>
+                  <div className="mt-3 flex justify-end">
                     <button
                       type="button"
                       disabled={replyingId === selectedTicket.id}
-                      onClick={() => sendReply(selectedTicket.id, replyDrafts[selectedTicket.id] || '')}
-                      className="border border-[#141414] bg-[#141414] px-3 py-1.5 text-[11px] font-black uppercase tracking-[0.1em] text-[#F5F0E8] disabled:opacity-60"
+                      onClick={async () => {
+                        const ok = await requestConfirm(
+                          `Gửi email phản hồi đến "${selectedTicket.userEmail}"?`,
+                          { confirmText: 'Gửi Email', cancelText: 'Huỷ' }
+                        )
+                        if (ok) sendReply(selectedTicket.id, replyDrafts[selectedTicket.id] || '')
+                      }}
+                      className="border border-[#141414] bg-[#141414] px-4 py-2 text-[11px] font-black uppercase tracking-[0.1em] text-[#F5F0E8] disabled:opacity-60 hover:bg-transparent hover:text-[#141414] transition-colors"
                     >
-                      {replyingId === selectedTicket.id ? 'Đang gửi...' : 'Gửi phản hồi'}
+                      {replyingId === selectedTicket.id ? 'Đang gửi...' : 'Gửi Email Thông Báo'}
                     </button>
                   </div>
                 </div>
@@ -442,7 +527,13 @@ export function HoTroHoanTienClient({
                   <div className="mt-2 flex justify-end">
                     <button
                       type="button"
-                      onClick={() => saveInternalNote(selectedTicket.id)}
+                      onClick={async () => {
+                        const ok = await requestConfirm(
+                          'Lưu ghi chú nội bộ? (Chỉ admin nhìn thấy)',
+                          { confirmText: 'Lưu', cancelText: 'Huỷ' }
+                        )
+                        if (ok) saveInternalNote(selectedTicket.id)
+                      }}
                       className="border border-[#141414] bg-[#141414] px-3 py-1.5 text-[11px] font-black uppercase tracking-[0.1em] text-[#F5F0E8]"
                     >
                       Lưu ghi chú
@@ -469,7 +560,9 @@ export function HoTroHoanTienClient({
                 </div>
               </div>
             ) : (
-              <p className="text-sm text-[#4B4B4B]">Chưa có phiếu để hiển thị.</p>
+              <div className="flex items-center justify-center h-48 border-2 border-dashed border-[#141414]/30 bg-white/60">
+                <p className="text-sm font-black uppercase tracking-widest text-[#4B4B4B]">Vui lòng chọn 1 ticket để xem chi tiết.</p>
+              </div>
             )}
           </article>
         </section>
@@ -554,10 +647,16 @@ export function HoTroHoanTienClient({
                         <button
                           type="button"
                           disabled={processingId === item.id}
-                          onClick={() => approveRefund(item)}
-                          className="w-full border border-[#141414] bg-[#141414] px-2 py-1.5 text-[11px] font-black uppercase tracking-[0.08em] text-[#F5F0E8] disabled:cursor-not-allowed disabled:opacity-60"
+                          onClick={() => {
+                            setRefundingItem(item)
+                            const mode = refundMode[item.id] || 'FULL'
+                            const partial = partialAmount[item.id] || item.suggestedPartialAmount
+                            const rfAmount = mode === 'PARTIAL' ? partial : item.amount
+                            setRefundEmailNote(`Admin đã phê duyệt yêu cầu hoàn tiền của bạn.\nSố tiền hoàn lại: ${formatVND(rfAmount)}.\n\nTiền sẽ về tài khoản ngân hàng của bạn trong vài ngày làm việc tới. Gói học của bạn đã được hủy theo chính sách. Cảm ơn bạn.`)
+                          }}
+                          className="w-full border border-[#141414] bg-[#141414] px-2 py-1.5 text-[11px] font-black uppercase tracking-[0.08em] text-[#F5F0E8] disabled:cursor-not-allowed disabled:opacity-60 hover:bg-transparent hover:text-[#141414] transition-colors"
                         >
-                          {processingId === item.id ? 'Đang xử lý...' : 'Duyệt'}
+                          Duyệt
                         </button>
                       </td>
                     </tr>
@@ -662,6 +761,81 @@ export function HoTroHoanTienClient({
             </div>
           </article>
         </section>
+      )}
+
+      {/* REFUND EMAIL CONFIRMATION MODAL */}
+      {refundingItem && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-[#141414]/60 p-4 backdrop-blur-sm">
+          <div className="relative w-full max-w-2xl border-2 border-[#141414] bg-[#F5F0E8] shadow-[12px_12px_0px_0px_rgba(20,20,20,1)]">
+            <div className="flex items-center justify-between border-b-2 border-[#141414] bg-[#ECE6DB] px-5 py-4">
+              <div className="flex items-center gap-3">
+                <Mail size={20} className="text-[#141414]" />
+                <h3 className="text-sm font-black uppercase tracking-widest text-[#141414]">Xác nhận & Gửi Email Hoàn Tiền</h3>
+              </div>
+              <button
+                onClick={() => setRefundingItem(null)}
+                className="w-8 h-8 border border-[#141414] bg-white flex items-center justify-center hover:bg-black hover:text-white transition-all"
+              >
+                <X size={16} />
+              </button>
+            </div>
+            
+            <div className="p-6 space-y-4">
+              <div className="flex border border-[#141414] bg-white px-3 py-2 text-sm">
+                <span className="w-20 font-bold uppercase tracking-widest text-[10px] text-[#4B4B4B] mt-0.5">Người nhận:</span>
+                <span className="font-semibold">{refundingItem.userEmail} ({refundingItem.userName})</span>
+              </div>
+              
+              <div className="flex border border-[#141414] bg-white px-3 py-2 text-sm">
+                <span className="w-20 font-bold uppercase tracking-widest text-[10px] text-[#4B4B4B] mt-0.5">Tiêu đề:</span>
+                <span className="font-semibold">Thông báo phê duyệt hoàn tiền</span>
+              </div>
+
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-[#4B4B4B] mb-2">Nội dung Email đính kèm lý do hoàn tiền (Tùy chỉnh):</p>
+                <textarea
+                  value={refundEmailNote}
+                  onChange={(e) => setRefundEmailNote(e.target.value)}
+                  rows={6}
+                  className="w-full border border-[#141414] bg-white p-3 text-sm outline-none focus:ring-1 focus:ring-[#141414]"
+                />
+              </div>
+
+              <div className="bg-[#EFE8DC] border border-[#141414] p-3 flex justify-between items-center text-xs font-semibold">
+                <span>Số tiền duyệt: <span className="font-black text-red-600">{formatVND(refundMode[refundingItem.id] === 'PARTIAL' ? (partialAmount[refundingItem.id] || refundingItem.suggestedPartialAmount) : refundingItem.amount)}</span></span>
+                <span className="text-[#4B4B4B]">Hành động này sẽ hủy gói Pro của người dùng.</span>
+              </div>
+            </div>
+
+            <div className="border-t-2 border-[#141414] bg-[#ECE6DB] px-6 py-4 flex gap-3 justify-end">
+              <button
+                onClick={() => setRefundingItem(null)}
+                className="border border-[#141414] bg-white px-6 py-2 text-[11px] font-black uppercase tracking-widest hover:bg-[#F5F0E8] transition-all"
+              >
+                Hủy
+              </button>
+              <button
+                disabled={processingId === refundingItem.id}
+                onClick={async () => {
+                  const ok = await requestConfirm(
+                    `Xác nhận phê duyệt hoàn tiền cho "${refundingItem.userName}" và gửi email thông báo?`,
+                    { confirmText: 'Phê duyệt & Gửi', cancelText: 'Huỷ' }
+                  )
+                  if (!ok) return
+                  try {
+                    await approveRefund(refundingItem)
+                    setRefundingItem(null)
+                  } catch (e) {
+                    console.error(e)
+                  }
+                }}
+                className="flex items-center gap-2 border border-[#141414] bg-[#141414] text-white px-6 py-2 text-[11px] font-black uppercase tracking-widest hover:bg-transparent hover:text-[#141414] transition-all disabled:opacity-60"
+              >
+                {processingId === refundingItem.id ? 'Đang gửi...' : 'Phê duyệt & Gửi Email'}
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   )

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { prisma } from '@/lib/prisma'
-import { Activity, TrendingUp, Wallet, Users, BookOpenCheck, GraduationCap } from 'lucide-react'
+import { Activity, TrendingUp, Wallet, Users, BookOpenCheck, GraduationCap, Bot, Mic, Headphones, BookA, PencilLine } from 'lucide-react'
 
 export const dynamic = 'force-dynamic'
 
@@ -158,6 +158,10 @@ export default async function AdminOverviewPage({ searchParams }: { searchParams
     flashcardsReviewedToday,
     totalGrammarPoints,
     completedGrammarRows,
+    tutorListeningTotal,
+    tutorReadingTotal,
+    tutorSpeakingTotal,
+    tutorWritingTotal,
   ] = await Promise.all([
     prisma.user.count({ where: { email: { notIn: ADMIN_EMAILS }, createdAt: { gte: startAt, lte: endAt } } }),
     prisma.order.findMany({
@@ -191,6 +195,10 @@ export default async function AdminOverviewPage({ searchParams }: { searchParams
       distinct: ['grammarPointId'],
       select: { grammarPointId: true },
     }),
+    prisma.tutorListeningSession.count({ where: { user: { email: { notIn: ADMIN_EMAILS } }, createdAt: { gte: startAt, lte: endAt } } }),
+    prisma.tutorReadingSession.count({ where: { user: { email: { notIn: ADMIN_EMAILS } }, createdAt: { gte: startAt, lte: endAt } } }),
+    prisma.tutorSpeakingSession.count({ where: { user: { email: { notIn: ADMIN_EMAILS } }, createdAt: { gte: startAt, lte: endAt } } }),
+    prisma.tutorEditorSession.count({ where: { user: { email: { notIn: ADMIN_EMAILS } }, createdAt: { gte: startAt, lte: endAt } } }),
   ])
 
   const totalRevenue = successfulOrders.reduce((sum: number, row) => sum + row.amount, 0)
@@ -342,6 +350,51 @@ export default async function AdminOverviewPage({ searchParams }: { searchParams
             value: `${grammarCompletionRate}%`,
             note: `${completedGrammarPoints}/${totalGrammarPoints} điểm ngữ pháp đã có hoạt động`,
             icon: GraduationCap,
+          },
+        ].map((card) => {
+          const Icon = card.icon
+          return (
+            <article
+              key={card.title}
+              className="border border-[#141414] bg-[#F5F0E8] p-4 transition-all hover:-translate-y-px hover:shadow-[6px_6px_0px_0px_rgba(20,20,20,0.9)]"
+              style={{ boxShadow: '4px 4px 0 0 rgba(20,20,20,0.85)' }}
+            >
+              <p className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.14em] text-[#4B4B4B]">
+                <Icon size={13} />
+                {card.title}
+              </p>
+              <p className="mt-2 text-2xl font-serif font-black text-[#141414]">{card.value}</p>
+              <p className="mt-1 text-[11px] font-semibold text-[#4B4B4B]">{card.note}</p>
+            </article>
+          )
+        })}
+      </section>
+
+      <section className="grid grid-cols-1 gap-4 md:grid-cols-4">
+        {[
+          {
+            title: 'Lượt luyện Nghe',
+            value: String(tutorListeningTotal),
+            note: 'Tổng số bài giải',
+            icon: Headphones,
+          },
+          {
+            title: 'Lượt luyện Nói',
+            value: String(tutorSpeakingTotal),
+            note: 'Tổng số phiên nói',
+            icon: Mic,
+          },
+          {
+            title: 'Lượt luyện Đọc',
+            value: String(tutorReadingTotal),
+            note: 'Tổng số bài đọc',
+            icon: BookA,
+          },
+          {
+            title: 'Lượt luyện Viết',
+            value: String(tutorWritingTotal),
+            note: 'Tổng số bài viết',
+            icon: PencilLine,
           },
         ].map((card) => {
           const Icon = card.icon

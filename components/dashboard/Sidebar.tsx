@@ -138,7 +138,7 @@ export default function Sidebar({ dbUser, collapsed = false, onToggle }: Sidebar
             }`}
             style={{
               border: '2px solid #141414',
-              background: isPro ? '#FFD700' : 'rgba(255,255,255,0.45)',
+              background: isPro ? '#FFFFFF' : 'rgba(255,255,255,0.45)',
             }}
             title={collapsed ? (isPro ? getPlanLabel(dbUser?.proType ?? null) : 'Hội viên') : undefined}
           >

@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma'
 import { createClient } from '@/utils/supabase/server'
 import { isAdminUser } from '@/lib/admin'
 import { createUserNotification } from '@/lib/user-notifications'
+import { sendSystemEmail } from '@/lib/email'
 
 type RefundType = 'FULL' | 'PARTIAL'
 
@@ -144,6 +145,24 @@ export async function POST(req: Request) {
     }).catch((error) => {
       console.error('Create refund cancellation notification error:', error)
     })
+
+    const userToEmail = await prisma.user.findUnique({
+      where: { id: requestRow.userId },
+      select: { email: true }
+    })
+
+    if (userToEmail?.email) {
+      const subject = `Thông báo từ LinguaClay: Đã phê duyệt yêu cầu hoàn tiền`
+      const htmlBody = `<p style="white-space: pre-wrap;">${note || 'Admin đã phê duyệt yêu cầu hoàn tiền của bạn.'}</p>`
+      const textBody = note || 'Admin đã phê duyệt yêu cầu hoàn tiền của bạn.'
+      
+      const emailRes = await sendSystemEmail(userToEmail.email, subject, htmlBody, textBody)
+      if (!emailRes.sent) {
+        console.error('Refund email failed to send:', emailRes.error)
+      } else {
+        console.log(`[EMAIL DISPATCHED] Refund confirmation to: ${userToEmail.email} via ${emailRes.provider}`)
+      }
+    }
 
     return NextResponse.json({
       ok: true,

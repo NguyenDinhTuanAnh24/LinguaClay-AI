@@ -60,6 +60,37 @@
 - [ ] Payment history: filter đổi điều kiện chỉ loading phần bảng, không trắng toàn màn hình.
 - [ ] Settings: thêm skeleton cho hồ sơ user, khối PRO/refund, và card study-time lúc fetch ban đầu.
 
+### G. AI Tutor - 3 Modes (UX rõ ràng, không gây ngợp)
+- [ ] Tạo mode switch rõ ràng ở đầu trang AI Tutor: `The Editor` / `Roleplay` / `Free Talk & Q&A` (hiển thị active state rõ).
+- [ ] Mặc định mở mode `The Editor` để user mới vào có việc làm ngay, không thấy ô trống vô định.
+- [ ] Thiết kế prompt + response schema riêng cho từng mode, không dùng chung một template.
+
+#### G1. Mode 1 - The Editor (Sửa lỗi)
+- [ ] Input: user dán/gõ đoạn tiếng Anh tự do.
+- [ ] Output: không trả lời nội dung hội thoại; chỉ trả về bản đã sửa theo định dạng:
+  - Sai: gạch ngang (`~~wrong~~`)
+  - Đúng: in đậm (`**correct**`)
+- [ ] Thêm mục `Giải thích nhanh (VI)` 1-3 dòng, tập trung vào lỗi quan trọng nhất.
+- [ ] Chặn phản hồi sáo rỗng; ưu tiên ngắn gọn và có tính hành động.
+
+#### G2. Mode 2 - Roleplay (Nhập vai tình huống)
+- [ ] Hiển thị sẵn 3-4 thẻ tình huống để chọn nhanh (VD: phỏng vấn, trả giá, báo cáo tiến độ, gọi điện xác nhận lịch).
+- [ ] Khi user chọn tình huống, AI tự mở lời trong vai đối phương và giữ đúng ngữ cảnh xuyên suốt.
+- [ ] Mỗi lượt trả lời của AI cần đẩy hội thoại tiến lên (không lặp lại câu hỏi cũ).
+- [ ] Có nút `Đổi tình huống` và `Bắt đầu lại` để reset nhanh.
+
+#### G3. Mode 3 - Free Talk & Q&A (Hỏi đáp tự do)
+- [ ] Cho phép user hỏi kiến thức ngữ pháp/từ vựng/phân biệt cách dùng.
+- [ ] AI phải trả lời theo format: `Kết luận ngắn` -> `Ví dụ` -> `Lưu ý hay nhầm`.
+- [ ] Cấm văn phong sáo rỗng; ưu tiên ngôn ngữ đơn giản, trực diện, dễ nhớ.
+- [ ] Có mục `Câu hỏi gợi ý` để user không bị bí khi bắt đầu.
+
+#### G4. Kỹ thuật & chất lượng
+- [ ] Tách API route theo mode hoặc có bộ điều phối mode rõ ràng ở backend.
+- [ ] Thêm logging theo mode (số lượt dùng, thời lượng, completion rate) để đo mức độ hữu ích.
+- [ ] Viết test cho formatter của `The Editor` (đảm bảo render đúng markdown strikethrough/bold).
+- [ ] Viết E2E happy-path cho 3 mode (chọn mode -> nhập -> nhận phản hồi đúng format).
+
 ---
 
 ## Admin Panel UI Blueprint

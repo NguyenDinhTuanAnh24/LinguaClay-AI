@@ -1,6 +1,7 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useEffect } from 'react'
+import { X, User, Bot, AlertCircle } from 'lucide-react'
 
 type AiTab = 'cost' | 'logs'
 type RangeKey = 'today' | '7d' | '30d'
@@ -20,6 +21,8 @@ export type ChatLogView = {
   messages: number
   tokens: number
   flagged: boolean
+  uContent?: string
+  aiContent?: string
 }
 
 export function KiemSoatAIClient({
@@ -35,6 +38,7 @@ export function KiemSoatAIClient({
   const [flaggedMap, setFlaggedMap] = useState<Record<string, boolean>>(
     Object.fromEntries(chatLogs.map((x) => [x.id, x.flagged]))
   )
+  const [viewingLog, setViewingLog] = useState<ChatLogView | null>(null)
 
   const rangeTokenRows = useMemo(() => {
     if (tokenDaily.length === 0) return []
@@ -115,27 +119,40 @@ export function KiemSoatAIClient({
                 <p className="text-[10px] font-black uppercase tracking-[0.1em] text-[#4B4B4B]">Token theo ngày</p>
                 <p className="text-xs font-bold tabular-nums text-[#B91C1C]">Ngưỡng cảnh báo: {budgetThreshold.toLocaleString('vi-VN')} token</p>
               </div>
-              <div className={`relative grid gap-2 pt-5 ${rangeTokenRows.length > 0 ? '' : 'grid-cols-1'}`} style={{ gridTemplateColumns: `repeat(${Math.max(1, rangeTokenRows.length)}, minmax(0, 1fr))` }}>
-                <div className="absolute left-0 right-0 top-[46px] border-t-2 border-dashed border-[#B91C1C]" />
-                {rangeTokenRows.map((item) => {
-                  const heightPct = Math.round((item.tokens / maxToken) * 100)
-                  const overBudget = item.tokens > budgetThreshold
-                  return (
-                    <div key={item.dayKey} className="flex flex-col items-center">
-                      <div className="mb-2 text-[10px] font-bold tabular-nums text-[#4B4B4B]">${item.usd.toFixed(2)}</div>
-                      <div className="flex h-32 w-full items-end justify-center border border-[#141414] bg-[#F5F0E8]">
-                        <div
-                          className={`w-8 border border-[#141414] ${overBudget ? 'bg-[#B91C1C]' : 'bg-[#141414]'}`}
-                          style={{ height: `${Math.max(6, heightPct)}%` }}
-                        />
-                      </div>
-                      <p className="mt-2 text-[10px] font-bold tracking-[0.06em]">{item.day}</p>
-                      <p className="text-[10px] font-semibold tabular-nums text-[#4B4B4B]">{item.tokens.toLocaleString('vi-VN')}</p>
-                    </div>
-                  )
-                })}
-                {rangeTokenRows.length === 0 ? <p className="text-sm font-semibold text-[#4B4B4B]">Chưa có dữ liệu token trong DB.</p> : null}
-              </div>
+            <div className="overflow-x-auto border border-[#141414]">
+              <table className="w-full border-collapse text-sm">
+                <thead className="bg-[#ECE6DB]">
+                  <tr>
+                    <th className="border border-[#141414] px-4 py-2 text-left text-[10px] font-black uppercase tracking-[0.08em]">Ngày</th>
+                    <th className="border border-[#141414] px-4 py-2 text-right text-[10px] font-black uppercase tracking-[0.08em]">Dung lượng Token</th>
+                    <th className="border border-[#141414] px-4 py-2 text-right text-[10px] font-black uppercase tracking-[0.08em]">Chi phí (tạm tính)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[...rangeTokenRows].reverse().map((item) => {
+                    const overBudget = item.tokens > budgetThreshold
+                    return (
+                      <tr key={item.dayKey} className="odd:bg-[#F5F0E8] even:bg-[#EFEAE0]">
+                        <td className="border border-[#141414] px-4 py-2 font-semibold">{item.dayKey}</td>
+                        <td className={`border border-[#141414] px-4 py-2 text-right font-bold tabular-nums ${overBudget ? 'text-[#B91C1C]' : ''}`}>
+                          {item.tokens.toLocaleString('vi-VN')}
+                        </td>
+                        <td className="border border-[#141414] px-4 py-2 text-right font-bold tabular-nums text-[#166534]">
+                          ${item.usd.toFixed(2)}
+                        </td>
+                      </tr>
+                    )
+                  })}
+                  {rangeTokenRows.length === 0 ? (
+                    <tr>
+                      <td colSpan={3} className="border border-[#141414] px-4 py-6 text-center text-sm font-bold text-[#4B4B4B] uppercase tracking-widest">
+                        Chưa có dữ liệu token trong DB.
+                      </td>
+                    </tr>
+                  ) : null}
+                </tbody>
+              </table>
+            </div>
             </div>
           </div>
         ) : null}
@@ -173,7 +190,11 @@ export function KiemSoatAIClient({
                         <td className="border border-[#141414] px-3 py-2 text-right font-bold tabular-nums">{log.tokens.toLocaleString('vi-VN')}</td>
                         <td className="border border-[#141414] px-3 py-2">
                           <div className="flex justify-end gap-2">
-                            <button type="button" className="border border-[#141414] px-2 py-1 text-[10px] font-bold uppercase">
+                            <button
+                              type="button"
+                              onClick={() => setViewingLog(log)}
+                              className="border border-[#141414] px-2 py-1 text-[10px] font-bold uppercase hover:bg-[#141414] hover:text-[#F5F0E8] transition-colors"
+                            >
                               Xem
                             </button>
                             <button
@@ -202,6 +223,84 @@ export function KiemSoatAIClient({
             </div>
           </div>
         ) : null}
+
+        {/* MODAL XEM CHI TIẾT */}
+        {viewingLog && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center bg-[#141414]/60 p-4 backdrop-blur-sm">
+            <div
+              className="relative w-full max-w-3xl border-2 border-[#141414] bg-[#F5F0E8] shadow-[12px_12px_0px_0px_rgba(20,20,20,1)] flex flex-col max-h-[85vh]"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Header */}
+              <div className="flex items-center justify-between border-b-2 border-[#141414] bg-[#ECE6DB] px-5 py-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 border border-[#141414] bg-white flex items-center justify-center">
+                    <AlertCircle className="text-[#141414]" size={20} />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-black uppercase tracking-widest text-[#141414]">Chi tiết phiên làm việc</h3>
+                    <p className="text-[10px] font-bold text-[#4B4B4B] uppercase tracking-[0.1em]">{viewingLog.user} • {viewingLog.time}</p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setViewingLog(null)}
+                  className="w-10 h-10 border border-[#141414] bg-white flex items-center justify-center hover:bg-black hover:text-white transition-all"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+
+              {/* Content */}
+              <div className="overflow-y-auto p-6 space-y-8 scrollbar-thin scrollbar-thumb-[#141414] scrollbar-track-transparent">
+                {/* User Content */}
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1.5 border border-[#141414] bg-[#141414] px-2 py-1 text-[10px] font-black uppercase text-white tracking-widest">
+                      <User size={12} /> USER INPUT
+                    </div>
+                  </div>
+                  <div className="border border-[#141414] bg-white p-4 text-sm font-medium leading-relaxed shadow-[4px_4px_0px_0px_rgba(20,20,20,0.1)]">
+                    {viewingLog.uContent || <span className="italic text-[#8B857D] uppercase text-[11px] font-bold">Không có nội dung dữ liệu</span>}
+                  </div>
+                </div>
+
+                {/* AI Content */}
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1.5 border border-[#141414] bg-red-600 px-2 py-1 text-[10px] font-black uppercase text-white tracking-widest shadow-[4px_4px_0px_0px_rgba(220,38,38,0.2)]">
+                      <Bot size={12} /> AI FEEDBACK / TRANSCRIPT
+                    </div>
+                  </div>
+                  <div className="border border-[#141414] bg-[#F9F7F2] p-4 text-sm font-medium leading-relaxed whitespace-pre-wrap shadow-[4px_4px_0px_0px_rgba(20,20,20,0.05)]">
+                    {viewingLog.aiContent || <span className="italic text-[#8B857D] uppercase text-[11px] font-bold">AI chưa trả lời hoặc không có dữ liệu</span>}
+                  </div>
+                </div>
+
+                {/* Stats */}
+                <div className="grid grid-cols-2 gap-4 pt-4 border-t border-[#141414]/10">
+                  <div className="bg-[#ECE6DB] border border-[#141414] p-3 text-center">
+                    <p className="text-[9px] font-black uppercase text-[#4B4B4B] mb-1">Dung lượng</p>
+                    <p className="text-xl font-serif font-black">{viewingLog.tokens.toLocaleString('vi-VN')} <span className="text-[10px] uppercase">Tokens</span></p>
+                  </div>
+                  <div className="bg-[#ECE6DB] border border-[#141414] p-3 text-center">
+                    <p className="text-[9px] font-black uppercase text-[#4B4B4B] mb-1">Tin nhắn</p>
+                    <p className="text-xl font-serif font-black">{viewingLog.messages} <span className="text-[10px] uppercase">Lượt</span></p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Footer */}
+              <div className="border-t-2 border-[#141414] bg-[#ECE6DB] px-6 py-4 flex justify-end">
+                <button
+                  onClick={() => setViewingLog(null)}
+                  className="bg-[#141414] text-white px-8 py-2 text-xs font-black uppercase tracking-widest hover:bg-transparent hover:text-[#141414] border border-[#141414] transition-all"
+                >
+                  Đóng cửa sổ
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </section>
     </div>
   )

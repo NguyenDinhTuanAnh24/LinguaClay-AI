@@ -1,13 +1,12 @@
 import { createClient } from '@/utils/supabase/server'
 import { prisma } from '@/lib/prisma'
-import Link from 'next/link'
 import MasteryDetails from '@/components/dashboard/MasteryDetails'
+import ProgressSectionTabs from '@/components/dashboard/ProgressSectionTabs'
 import { 
   BookOpen, 
   Gem, 
   Flame, 
   Clock, 
-  ArrowLeft,
   Activity,
   History,
   TrendingUp,
@@ -30,18 +29,19 @@ function DonutChart({
   const cy = 70
   const circumference = 2 * Math.PI * r
 
-  let offset = 0
-  const arcs = segments.map(seg => {
-    const pct   = total > 0 ? seg.value / total : 0
-    const dash  = pct * circumference
-    const arc   = { ...seg, dash, gap: circumference - dash, offset, pct }
-    offset += dash
-    return arc
-  })
+  const arcs = segments.reduce<
+    { label: string; value: number; color: string; dash: number; gap: number; offset: number; pct: number }[]
+  >((acc, seg) => {
+    const pct = total > 0 ? seg.value / total : 0
+    const dash = pct * circumference
+    const currentOffset = acc.length > 0 ? acc[acc.length - 1].offset + acc[acc.length - 1].dash : 0
+    acc.push({ ...seg, dash, gap: circumference - dash, offset: currentOffset, pct })
+    return acc
+  }, [])
 
   return (
     <svg viewBox="0 0 140 140" className="w-full max-w-[200px] mx-auto scale-110">
-      <circle cx={cx} cy={cy} r={r + 6} fill="white" stroke="#141414" strokeWidth={3} />
+      <circle cx={cx} cy={cy} r={r + 6} fill="#F5F0E8" stroke="#141414" strokeWidth={1.5} />
       <circle cx={cx} cy={cy} r={r} fill="none" stroke="#E5E7EB" strokeWidth={14} />
       {arcs.map((arc, i) => (
         <circle
@@ -58,7 +58,7 @@ function DonutChart({
       <text x={cx} y={cy - 6} textAnchor="middle" className="font-serif font-black" fontSize={24} fill="#141414">
         {total}
       </text>
-      <text x={cx} y={cy + 10} textAnchor="middle" className="font-sans font-black" fontSize={7} fill="#6B7280" letterSpacing={1.5}>
+      <text x={cx} y={cy + 10} textAnchor="middle" className="font-sans font-black" fontSize={7} fill="#4B4B4B" letterSpacing={1.5}>
         TỪ ĐÃ HỌC
       </text>
     </svg>
@@ -72,9 +72,6 @@ function GaugeChart({ pct }: { pct: number }) {
   const cy = 75
   const startAngle = -Math.PI               
   const endAngle   = 0                      
-  const arcLength  = Math.PI * r            
-  const filled     = (pct / 100) * arcLength
-
   const polarToXY = (angle: number) => ({
     x: cx + r * Math.cos(angle),
     y: cy + r * Math.sin(angle),
@@ -100,12 +97,12 @@ function GaugeChart({ pct }: { pct: number }) {
       {/* Outer Border */}
       <path
         d={`M ${start.x - 7} ${start.y} A ${r + 7} ${r + 7} 0 0 1 ${end.x + 7} ${end.y}`}
-        fill="none" stroke="#141414" strokeWidth={2}
+        fill="none" stroke="#141414" strokeWidth={1.5}
       />
       <text x={cx} y={cy - 4} textAnchor="middle" className="font-serif font-black" fontSize={28} fill="#141414">
         {pct}%
       </text>
-      <text x={cx} y={cy + 10} textAnchor="middle" className="font-sans font-black" fontSize={7} fill="#6B7280" letterSpacing={1.5}>
+      <text x={cx} y={cy + 10} textAnchor="middle" className="font-sans font-black" fontSize={7} fill="#4B4B4B" letterSpacing={1.5}>
         RETENTION
       </text>
     </svg>
@@ -123,7 +120,6 @@ function BarChart({ days }: { days: { date: string; new: number; review: number 
       {days.map((day, i) => {
         const total = day.new + day.review
         const heightPct = (total / max) * 100
-        const newPct = total > 0 ? (day.new / total) * 100 : 0
         const revPct = total > 0 ? (day.review / total) * 100 : 0
         
         const d = new Date(day.date + 'T00:00:00')
@@ -132,16 +128,16 @@ function BarChart({ days }: { days: { date: string; new: number; review: number 
           <div key={i} className="flex-1 flex flex-col items-center gap-3 h-full">
             <div className="flex-1 w-full flex flex-col justify-end items-center relative group">
               <div 
-                className="w-full border-[2px] border-newsprint-black overflow-hidden flex flex-col transition-all duration-700 shadow-brutalist-soft"
+                className="w-full border border-[#141414] overflow-hidden flex flex-col transition-all duration-700 group-hover:-translate-y-0.5"
                 style={{ height: `${Math.max(heightPct, total > 0 ? 10 : 2)}%` }}
               >
                 {/* Review part (Top) */}
                 <div className="bg-red-600 w-full" style={{ height: `${revPct}%` }} title="Ôn tập" />
                 {/* New part (Bottom) */}
-                <div className="bg-newsprint-black w-full flex-1" title="Từ mới" />
+                <div className="bg-[#141414] w-full flex-1" title="Từ mới" />
               </div>
             </div>
-            <span className="text-[10px] font-sans font-black text-newsprint-black uppercase tracking-tighter">{dayLabel}</span>
+            <span className="text-[10px] font-sans font-black text-[#141414] uppercase tracking-tighter">{dayLabel}</span>
           </div>
         )
       })}
@@ -159,11 +155,29 @@ export default async function ProgressPage() {
   const now    = new Date()
 
   // ---- 1. Fetch data with word info ----
-  const allProgress = await prisma.userProgress.findMany({
-    where: { userId },
-    include: { word: true },
-    orderBy: { lastReviewed: 'desc' },
-  })
+  // ---- 1. Fetch data with word info and tutor stats ----
+  const [
+    allProgress,
+    tutorL,
+    tutorR,
+    tutorS,
+    tutorE,
+  ] = await Promise.all([
+    prisma.userProgress.findMany({
+      where: { userId },
+      include: { word: true },
+      orderBy: { lastReviewed: 'desc' },
+    }),
+    prisma.tutorListeningSession.findMany({ where: { userId }, select: { createdAt: true } }),
+    prisma.tutorReadingSession.findMany({ where: { userId }, select: { createdAt: true } }),
+    prisma.tutorSpeakingSession.findMany({ where: { userId }, select: { createdAt: true } }),
+    prisma.tutorEditorSession.findMany({ where: { userId }, select: { createdAt: true } }),
+  ])
+
+  const tutorListeningCount = tutorL.length
+  const tutorReadingCount = tutorR.length
+  const tutorSpeakingCount = tutorS.length
+  const tutorWritingCount = tutorE.length
 
   // ---- 2. Retention Rate logic ----
   const studiedWords = allProgress.length
@@ -180,14 +194,23 @@ export default async function ProgressPage() {
     const dayActs = recentActivity.filter(p => p.lastReviewed && toVNDate(p.lastReviewed) === key)
     
     // New if learned today
-    const newCount = dayActs.filter(p => toVNDate((p as any).createdAt) === key).length
+    const newCount = dayActs.filter(p => toVNDate(p.createdAt) === key).length
     const revCount = dayActs.length - newCount
     
     return { date: key, new: newCount, review: revCount }
   })
+  const activeDaysCount = last7Days.filter(day => day.new + day.review > 0).length
+  const hasEnoughWeeklyData = activeDaysCount >= 2
 
   // ---- 4. Streak ----
-  const uniqueDays = [...new Set(allProgress.filter(p => p.lastReviewed).map(p => toVNDate(p.lastReviewed!)))].sort((a,b)=>b.localeCompare(a))
+  const allDates = [
+    ...allProgress.filter(p => p.lastReviewed).map(p => p.lastReviewed!),
+    ...tutorL.map(p => p.createdAt),
+    ...tutorR.map(p => p.createdAt),
+    ...tutorS.map(p => p.createdAt),
+    ...tutorE.map(p => p.createdAt),
+  ]
+  const uniqueDays = [...new Set(allDates.map(p => toVNDate(p)))].sort((a,b)=>b.localeCompare(a))
   let streak = 0
   if (uniqueDays.length > 0) {
     const todayVN  = toVNDate(now)
@@ -221,74 +244,97 @@ export default async function ProgressPage() {
         id: p.id,
         original: p.word.original,
         translation: p.word.translation,
-        masteryLevel: p.masteryLevel
+        masteryLevel: p.masteryLevel,
+        nextReview: p.nextReview,
+        lastReviewed: p.lastReviewed,
+        reviewCountEstimate: p.lastReviewed ? Math.max(1, p.masteryLevel) : 0,
       }))
     }
   })
 
-  const donutSegments = buckets.filter(b => b.count > 0).map(b => ({
-    label: b.label,
-    value: b.count,
-    color: b.bar
-  }))
+  const masteryOverview = [
+    { key: 'new', label: 'MỚI HỌC', value: buckets[1].count, color: '#3b82f6' },
+    { key: 'learning', label: 'ĐANG HỌC', value: buckets[2].count, color: '#14b8a6' },
+    { key: 'almost', label: 'KHÁ THUỘC', value: buckets[3].count + buckets[4].count, color: '#f59e0b' },
+    { key: 'mastered', label: 'THUỘC LÒNG', value: buckets[5].count, color: '#141414' },
+  ]
+  const donutSegments = masteryOverview.filter(segment => segment.value > 0)
 
   const dueNow = allProgress.filter(p => p.nextReview && p.nextReview <= now && p.masteryLevel < 5).length
   const masteredCount = allProgress.filter(p => p.masteryLevel >= 4).length
 
   return (
-    <div className="max-w-5xl mx-auto space-y-12 pb-24">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 px-2">
-        <div className="space-y-3">
-          <div className="inline-flex items-center gap-2 border-[2px] border-newsprint-black bg-newsprint-paper px-3 py-1 font-sans font-black text-[9px] uppercase tracking-widest">
+    <div className="w-full space-y-8 pb-16">
+      <div
+        className="group transition-all duration-300 hover:shadow-[8px_8px_0px_0px_rgba(220,38,38,0.2)]"
+        style={{
+          background: '#EDE8DF',
+          borderLeft: '4px solid #dc2626',
+          borderTop: '1px solid #141414',
+          borderRight: '1px solid #141414',
+          borderBottom: '1px solid #141414',
+          padding: '24px 36px',
+        }}
+      >
+        <div className="space-y-2 min-w-0">
+          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-red-600">Báo cáo tiến độ</p>
+          <h1 className="text-3xl md:text-4xl font-serif font-black text-[#141414] leading-tight vietnamese-text">
+            Toàn cảnh ghi nhớ theo <span className="italic underline underline-offset-4 decoration-2 decoration-red-600">SRS</span>
+          </h1>
+          <p className="text-[10px] text-[#4B4B4B] font-semibold uppercase tracking-widest vietnamese-text">
             REPORT • {toVNDate(now).toUpperCase()}
-          </div>
-          <h1 className="text-4xl md:text-5xl font-serif font-black text-newsprint-black uppercase tracking-tighter">Báo cáo <span className="text-red-600 italic">Progress</span></h1>
-          <p className="text-newsprint-gray-dark text-xs font-sans font-bold uppercase tracking-widest opacity-60">Phân tích khả năng ghi nhớ dài hạn (SRS Analytics).</p>
+          </p>
         </div>
-        <Link href="/dashboard" className="px-8 py-4 bg-newsprint-black text-white font-sans font-black text-[10px] border-[3px] border-newsprint-black shadow-brutalist-soft hover:bg-white hover:text-newsprint-black active:translate-y-1 transition-all flex items-center gap-2 uppercase tracking-widest">
-          <ArrowLeft size={16} strokeWidth={3} /> DASHBOARD
-        </Link>
       </div>
+      <ProgressSectionTabs />
 
       {/* TOP STATS */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div id="overview-section" className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 scroll-mt-28">
         {[
-          { label: 'TỔNG TỪ ĐÃ HỌC', value: studiedWords, unit: 'WORDS', Icon: BookOpen, color: 'text-newsprint-black' },
+          { label: 'TỔNG TỪ ĐÃ HỌC', value: studiedWords, unit: 'WORDS', Icon: BookOpen, color: 'text-[#141414]' },
           { label: 'ĐÃ THUỘC LÒNG', value: masteredCount, unit: 'MASTERED', Icon: Gem, color: 'text-green-600' },
           { label: 'CHUỖI HỌC TẬP', value: streak, unit: 'STREAK DAYS', Icon: Flame, color: 'text-red-600' },
           { label: 'CẦN ÔN TẬP', value: dueNow, unit: 'DUE NOW', Icon: Clock, color: 'text-blue-600' },
         ].map(stat => (
-          <div key={stat.label} className="bg-white border-[3px] border-newsprint-black shadow-brutalist-card p-6 flex flex-col gap-2 hover:-translate-y-1 transition-all group active:shadow-none active:translate-y-1">
+          <div
+            key={stat.label}
+            className="bg-[#F5F0E8] border border-[#141414] p-6 flex flex-col gap-2 transition-all duration-300 hover:shadow-[10px_10px_0px_0px_rgba(20,20,20,1)] hover:-translate-y-1 group"
+          >
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-sans font-black text-newsprint-gray-dark tracking-[0.15em] uppercase">{stat.label}</span>
-              <div className="w-10 h-10 bg-newsprint-paper border-[2px] border-newsprint-black flex items-center justify-center shadow-brutalist-soft group-hover:rotate-6 transition-transform">
+              <span className="text-[10px] font-sans font-black text-[#4B4B4B] tracking-[0.15em] uppercase">{stat.label}</span>
+              <div className="w-10 h-10 bg-white border border-[#141414] flex items-center justify-center transition-transform group-hover:rotate-6">
                 <stat.Icon size={18} strokeWidth={3} className={stat.color} />
               </div>
             </div>
             <div className={`text-5xl font-serif font-black ${stat.color}`}>{stat.value}</div>
-            <div className="text-[9px] font-sans font-black text-newsprint-gray uppercase tracking-widest">{stat.unit}</div>
+            <div className="text-[9px] font-sans font-black text-[#4B4B4B] uppercase tracking-widest">{stat.unit}</div>
+            {stat.label === 'CHUỖI HỌC TẬP' && stat.value === 0 ? (
+              <p className="text-[10px] font-bold text-[#4B4B4B] vietnamese-text mt-1">Bắt đầu chuỗi hôm nay nhé!</p>
+            ) : null}
           </div>
         ))}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* MASTERY DONUT */}
-        <div className="bg-white border-[3px] border-newsprint-black shadow-brutalist-card p-8 flex flex-col items-center gap-8 h-fit">
-           <div className="text-center border-b-[2px] border-newsprint-black pb-4 w-full">
-             <h2 className="text-xl font-serif font-black text-newsprint-black uppercase">Phân bổ Mastery</h2>
-             <p className="text-[9px] font-sans font-black text-newsprint-gray-dark uppercase tracking-widest mt-1 opacity-60">MEMORY DISTRIBUTION</p>
+        <div className="bg-[#F5F0E8] border border-[#141414] p-8 flex flex-col items-center gap-8 h-fit transition-all duration-300 hover:shadow-[10px_10px_0px_0px_rgba(20,20,20,1)] hover:-translate-y-1">
+           <div className="text-center border-b border-[#141414]/15 pb-4 w-full">
+             <h2 className="text-xl font-serif font-black text-[#141414] uppercase">Phân bổ Mastery</h2>
+             <p className="text-[9px] font-sans font-black text-[#4B4B4B] uppercase tracking-widest mt-1 opacity-70">MEMORY DISTRIBUTION</p>
            </div>
            
            <DonutChart segments={donutSegments.length > 0 ? donutSegments : [{ label: 'Empty', value: 1, color: '#E5E7EB' }]} />
            
-           <div className="w-full space-y-3 pt-4 border-t-[2px] border-newsprint-black/10">
-             {buckets.filter(b => b.count > 0).map(b => (
-               <div key={b.level} className="flex items-center justify-between group">
+           <div className="w-full space-y-3 pt-4 border-t border-[#141414]/10">
+             {masteryOverview.map((segment) => (
+               <div key={segment.key} className="flex items-center justify-between group">
                  <div className="flex items-center gap-3">
-                   <div className="w-3 h-3 border-[2px] border-newsprint-black shadow-sm" style={{ background: b.bar }} />
-                   <span className="text-[10px] font-sans font-black text-newsprint-black uppercase tracking-tight group-hover:text-red-600 transition-colors">{b.label}</span>
+                   <div className="w-3 h-3 border border-[#141414] shadow-sm" style={{ background: segment.color }} />
+                   <span className="text-[10px] font-sans font-black text-[#141414] uppercase tracking-tight group-hover:text-red-600 transition-colors">
+                     {segment.label}
+                   </span>
                  </div>
-                 <span className="text-[10px] font-sans font-black bg-newsprint-paper px-2 py-0.5 border-[1.5px] border-newsprint-black">{b.count}</span>
+                 <span className="text-[10px] font-sans font-black bg-white px-2 py-0.5 border border-[#141414]">{segment.value}</span>
                </div>
              ))}
            </div>
@@ -296,48 +342,56 @@ export default async function ProgressPage() {
 
         {/* RETENTION ARC + VELOCITY BARS */}
         <div className="lg:col-span-2 flex flex-col gap-8">
-          <div className="bg-white border-[3px] border-newsprint-black shadow-brutalist-card p-8 flex flex-col md:flex-row items-center gap-10">
+          <div className="bg-[#F5F0E8] border border-[#141414] p-8 flex flex-col md:flex-row items-center gap-10 transition-all duration-300 hover:shadow-[10px_10px_0px_0px_rgba(20,20,20,1)] hover:-translate-y-1">
             <div className="flex-1 text-center md:text-left space-y-6">
               <div className="space-y-1">
                 <div className="flex items-center gap-3 justify-center md:justify-start">
                   <Activity size={24} strokeWidth={3} className="text-red-600" />
-                  <h2 className="text-2xl font-serif font-black text-newsprint-black uppercase leading-none">Retention Rate</h2>
+                  <h2 className="text-2xl font-serif font-black text-[#141414] uppercase leading-none">Retention Rate</h2>
                 </div>
-                <p className="text-[11px] font-sans font-bold text-newsprint-gray-dark uppercase tracking-tighter italic pl-9">Khả năng ghi nhớ dựa trên thuật toán SRS.</p>
+                <p className="text-[11px] font-sans font-bold text-[#4B4B4B] uppercase tracking-tighter italic pl-9">Khả năng ghi nhớ dựa trên thuật toán SRS.</p>
               </div>
               <GaugeChart pct={retentionRate} />
             </div>
             
             <div className="w-full md:w-56 flex flex-col gap-5">
-              <div className="bg-newsprint-paper border-[3px] border-newsprint-black p-5 text-center shadow-brutalist-soft group relative overflow-hidden">
+              <div className="bg-white border border-[#141414] p-5 text-center group relative overflow-hidden transition-all duration-300 hover:shadow-[6px_6px_0px_0px_rgba(20,20,20,0.2)]">
                 <div className="absolute top-0 right-0 p-1 opacity-5"><Brain size={40} /></div>
-                <div className="text-4xl font-serif font-black text-newsprint-black relative z-10">{rememberedWords}</div>
-                <div className="text-[9px] font-sans font-black text-newsprint-gray-dark uppercase tracking-widest mt-1 relative z-10">TỪ CÒN NHỚ</div>
+                <div className="text-4xl font-serif font-black text-[#141414] relative z-10">{rememberedWords}</div>
+                <div className="text-[9px] font-sans font-black text-[#4B4B4B] uppercase tracking-widest mt-1 relative z-10">TỪ CÒN NHỚ</div>
               </div>
-              <div className="bg-newsprint-black border-[3px] border-newsprint-black p-5 text-center shadow-brutalist-soft group">
+              <div className="bg-[#141414] border border-[#141414] p-5 text-center transition-all duration-300 hover:bg-red-600 hover:border-red-600">
                 <div className="text-4xl font-serif font-black text-white">{studiedWords - rememberedWords}</div>
                 <div className="text-[9px] font-sans font-black text-white/60 uppercase tracking-widest mt-1">BỊ LÃNG QUÊN</div>
               </div>
             </div>
           </div>
 
-          <div className="bg-white border-[3px] border-newsprint-black shadow-brutalist-card p-8 space-y-8 relative overflow-hidden">
-             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b-[2px] border-newsprint-black pb-6">
+          <div className="bg-[#F5F0E8] border border-[#141414] p-8 space-y-8 relative overflow-hidden transition-all duration-300 hover:shadow-[10px_10px_0px_0px_rgba(20,20,20,1)] hover:-translate-y-1">
+             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#141414]/15 pb-6">
                <div className="space-y-1">
                  <div className="flex items-center gap-3">
-                   <TrendingUp size={24} strokeWidth={3} className="text-newsprint-black" />
-                   <h2 className="text-2xl font-serif font-black text-newsprint-black uppercase leading-none">Hoạt động tuần</h2>
+                   <TrendingUp size={24} strokeWidth={3} className="text-[#141414]" />
+                   <h2 className="text-2xl font-serif font-black text-[#141414] uppercase leading-none">Hoạt động tuần</h2>
                  </div>
-                 <p className="text-[11px] font-sans font-bold text-newsprint-gray-dark uppercase tracking-widest pl-9">NEW VS REVIEW FREQUENCY</p>
+                 <p className="text-[11px] font-sans font-bold text-[#4B4B4B] uppercase tracking-widest pl-9">NEW VS REVIEW FREQUENCY</p>
                </div>
                <div className="flex gap-6 pl-9 md:pl-0">
-                 <div className="flex items-center gap-2"><div className="w-3 h-3 bg-newsprint-black border border-white" /><span className="text-[9px] font-sans font-black text-newsprint-black uppercase tracking-widest">MỚI</span></div>
-                 <div className="flex items-center gap-2"><div className="w-3 h-3 bg-red-600 border border-white" /><span className="text-[9px] font-sans font-black text-newsprint-black uppercase tracking-widest">ÔN LẠI</span></div>
+                 <div className="flex items-center gap-2"><div className="w-3 h-3 bg-[#141414] border border-white" /><span className="text-[9px] font-sans font-black text-[#141414] uppercase tracking-widest">MỚI</span></div>
+                 <div className="flex items-center gap-2"><div className="w-3 h-3 bg-red-600 border border-white" /><span className="text-[9px] font-sans font-black text-[#141414] uppercase tracking-widest">ÔN LẠI</span></div>
                </div>
              </div>
              
              <div className="pt-2">
-               <BarChart days={last7Days} />
+               {hasEnoughWeeklyData ? (
+                 <BarChart days={last7Days} />
+               ) : (
+                 <div className="h-32 border border-dashed border-[#141414]/30 bg-white/60 flex items-center justify-center px-6">
+                   <p className="text-[11px] font-bold text-[#4B4B4B] uppercase tracking-[0.08em] text-center">
+                     Chưa đủ dữ liệu để hiển thị xu hướng
+                   </p>
+                 </div>
+               )}
              </div>
 
              <div className="absolute bottom-0 right-0 opacity-[0.02] pointer-events-none pr-8 pb-8">
@@ -347,9 +401,37 @@ export default async function ProgressPage() {
         </div>
       </div>
 
+      {/* AI TUTOR STATS */}
+      <div className="bg-[#F5F0E8] border border-[#141414] p-8 space-y-6 transition-all duration-300 hover:shadow-[10px_10px_0px_0px_rgba(20,20,20,1)] hover:-translate-y-1">
+        <div className="flex items-center gap-3 border-b border-[#141414]/15 pb-4">
+          <Brain size={24} strokeWidth={3} className="text-[#141414]" />
+          <h2 className="text-2xl font-serif font-black text-[#141414] uppercase leading-none">Hoạt động AI Tutor</h2>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="bg-white border border-[#141414] p-5 text-center transition-all duration-300 hover:shadow-[4px_4px_0px_0px_rgba(20,20,20,1)]">
+            <div className="text-3xl font-serif font-black text-[#141414]">{tutorListeningCount}</div>
+            <div className="text-[10px] font-sans font-black text-[#4B4B4B] uppercase tracking-widest mt-2">BÀI NGHE</div>
+          </div>
+          <div className="bg-white border border-[#141414] p-5 text-center transition-all duration-300 hover:shadow-[4px_4px_0px_0px_rgba(20,20,20,1)]">
+            <div className="text-3xl font-serif font-black text-[#141414]">{tutorSpeakingCount}</div>
+            <div className="text-[10px] font-sans font-black text-[#4B4B4B] uppercase tracking-widest mt-2">BÀI NÓI</div>
+          </div>
+          <div className="bg-white border border-[#141414] p-5 text-center transition-all duration-300 hover:shadow-[4px_4px_0px_0px_rgba(20,20,20,1)]">
+            <div className="text-3xl font-serif font-black text-[#141414]">{tutorReadingCount}</div>
+            <div className="text-[10px] font-sans font-black text-[#4B4B4B] uppercase tracking-widest mt-2">BÀI ĐỌC</div>
+          </div>
+          <div className="bg-white border border-[#141414] p-5 text-center transition-all duration-300 hover:shadow-[4px_4px_0px_0px_rgba(20,20,20,1)]">
+            <div className="text-3xl font-serif font-black text-[#141414]">{tutorWritingCount}</div>
+            <div className="text-[10px] font-sans font-black text-[#4B4B4B] uppercase tracking-widest mt-2">BÀI VIẾT</div>
+          </div>
+        </div>
+      </div>
+
 
       {/* MASTERY DETAILS TABLE */}
-      <MasteryDetails buckets={buckets} />
+      <section id="srs-details" className="scroll-mt-28">
+        <MasteryDetails buckets={buckets} />
+      </section>
     </div>
   )
 }

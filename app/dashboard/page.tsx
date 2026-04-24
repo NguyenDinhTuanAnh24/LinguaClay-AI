@@ -35,12 +35,27 @@ export default async function DashboardPage() {
   const progressPct    = totalProgress > 0 ? Math.round((totalMastered / totalProgress) * 100) : 0
 
   /* streak */
-  const allReviewed = await (prisma as any).userProgress.findMany({
-    where: { userId: user?.id || '', lastReviewed: { not: null } },
-    select: { lastReviewed: true },
-    orderBy: { lastReviewed: 'desc' },
-  })
-  const uniqueDays = [...new Set(allReviewed.map((p: any) => toVNDate(p.lastReviewed!)))] as string[]
+  const [allReviewed, tutorL, tutorR, tutorS, tutorE] = await Promise.all([
+    (prisma as any).userProgress.findMany({
+      where: { userId: user?.id || '', lastReviewed: { not: null } },
+      select: { lastReviewed: true },
+      orderBy: { lastReviewed: 'desc' },
+    }),
+    (prisma as any).tutorListeningSession.findMany({ where: { userId: user?.id || '' }, select: { createdAt: true } }),
+    (prisma as any).tutorReadingSession.findMany({ where: { userId: user?.id || '' }, select: { createdAt: true } }),
+    (prisma as any).tutorSpeakingSession.findMany({ where: { userId: user?.id || '' }, select: { createdAt: true } }),
+    (prisma as any).tutorEditorSession.findMany({ where: { userId: user?.id || '' }, select: { createdAt: true } }),
+  ])
+  
+  const allDates = [
+    ...allReviewed.map((p: any) => p.lastReviewed),
+    ...tutorL.map((p: any) => p.createdAt),
+    ...tutorR.map((p: any) => p.createdAt),
+    ...tutorS.map((p: any) => p.createdAt),
+    ...tutorE.map((p: any) => p.createdAt)
+  ]
+  
+  const uniqueDays = [...new Set(allDates.map((d: any) => toVNDate(d)))].sort((a, b) => b.localeCompare(a)) as string[]
 
   let streak = 0
   if (uniqueDays.length > 0) {
@@ -245,7 +260,7 @@ export default async function DashboardPage() {
             <p className="text-[11px] text-[#4B4B4B] font-medium leading-relaxed line-clamp-3 vietnamese-text">Luyện nói tiếng Anh mỗi ngày để tự tin giao tiết. AI sẵn sàng 24/7.</p>
           </div>
           <Link
-            href="/dashboard/ai-chat"
+            href="/dashboard/ai-chat?mode=speaking"
             className="mt-auto flex items-center justify-center gap-2 border-[2px] border-[#141414] py-3 text-[10px] font-black uppercase tracking-widest text-[#141414] hover:bg-[#141414] hover:text-white transition-all transform hover:-translate-y-1 active:translate-y-0"
           >
             Luyện nói <ArrowRight size={12} strokeWidth={2.5} />

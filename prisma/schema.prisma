@@ -53,6 +53,12 @@ model User {
   supportTickets   SupportTicket[]
   dailyStudyStats  UserDailyStudy[]
   notifications    UserNotification[]
+  tutorEditorSessions   TutorEditorSession[]
+  tutorRoleplayTurns    TutorRoleplayTurn[]
+  tutorFreeTalkSessions TutorFreeTalkSession[]
+  tutorListeningSessions TutorListeningSession[]
+  tutorReadingSessions TutorReadingSession[]
+  tutorSpeakingSessions TutorSpeakingSession[]
 }
 
 model Topic {
@@ -337,4 +343,118 @@ model UserNotification {
 
   @@index([userId, createdAt])
   @@index([userId, readAt, createdAt])
+}
+
+model TutorEditorSession {
+  id              String   @id @default(cuid())
+  userId          String
+  inputText       String   @db.Text
+  annotatedText   String   @db.Text
+  shortFeedbackVi String   @db.Text
+  notes           Json?
+  createdAt       DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+}
+
+model TutorRoleplayTurn {
+  id            String   @id @default(cuid())
+  userId        String
+  scenarioTitle String
+  turnCount     Int      @default(0)
+  targetWords   String[] @default([])
+  history       Json?
+  userMessage   String?  @db.Text
+  aiReply       String?  @db.Text
+  reminderVi    String?  @db.Text
+  wrapUpEn      String?  @db.Text
+  wrapUpVi      String?  @db.Text
+  createdAt     DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([userId, scenarioTitle, createdAt])
+}
+
+model TutorFreeTalkSession {
+  id        String   @id @default(cuid())
+  userId    String
+  question  String   @db.Text
+  answerEn  String   @db.Text
+  exampleEn String   @db.Text
+  explainVi String   @db.Text
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+}
+
+model TutorListeningSession {
+  id             String   @id @default(cuid())
+  userId         String
+  title          String
+  levelTarget    String
+  topicHint      String?
+  transcriptEn   String   @db.Text
+  questions      Json
+  blanks         Json?
+  userAnswers    Json
+  blankAnswers   Json?
+  score          Int
+  totalQuestions Int
+  feedbackVi     String?  @db.Text
+  wrongItems     Json?
+  createdAt      DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([userId, levelTarget, createdAt])
+}
+
+model TutorReadingSession {
+  id             String   @id @default(cuid())
+  userId         String
+  title          String
+  levelTarget    String
+  topicHint      String?
+  passageEn      String   @db.Text
+  questions      Json
+  blanks         Json?
+  userAnswers    Json
+  blankAnswers   Json?
+  score          Int
+  totalQuestions Int
+  feedbackVi     String?  @db.Text
+  wrongItems     Json?
+  createdAt      DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([userId, levelTarget, createdAt])
+}
+
+model TutorSpeakingSession {
+  id             String   @id @default(cuid())
+  userId         String
+  title          String
+  levelTarget    String
+  topicHint      String?
+  promptData     Json
+  userAnswers    Json
+  score          Int
+  feedbackVi     String?  @db.Text
+  criteria       Json?
+  improvements   Json?
+  createdAt      DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([userId, levelTarget, createdAt])
 }

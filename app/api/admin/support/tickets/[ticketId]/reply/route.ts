@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { createClient } from '@/utils/supabase/server'
 import { isAdminUser } from '@/lib/admin'
+import { sendSystemEmail } from '@/lib/email'
 
 type Payload = {
   reply?: string
@@ -65,8 +66,22 @@ export async function POST(req: Request, ctx: ReplyRouteContext) {
         adminReply: true,
         status: true,
         updatedAt: true,
+        user: { select: { email: true } },
       },
     })
+    
+    if (updated.user?.email) {
+      const subject = `Phản hồi hỗ trợ từ LinguaClay Admin`
+      const emailHtmlBody = `<p style="white-space: pre-wrap;">${updated.adminReply ?? ''}</p>`
+      const emailTextBody = updated.adminReply ?? ''
+      
+      const emailRes = await sendSystemEmail(updated.user.email, subject, emailHtmlBody, emailTextBody)
+      if (!emailRes.sent) {
+        console.error('Support reply email failed to send:', emailRes.error)
+      } else {
+        console.log(`[EMAIL DISPATCHED] Support reply to: ${updated.user.email} via ${emailRes.provider}`)
+      }
+    }
 
     return NextResponse.json({
       ok: true,
