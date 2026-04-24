@@ -883,33 +883,33 @@ export default function SettingsPage() {
           {historyLoading ? <p className="text-xs font-bold uppercase text-[#4B4B4B]">Đang tải lịch sử...</p> : null}
 
           <article className="space-y-3 transition-all duration-300">
-            <h4 className="text-[11px] font-black uppercase tracking-[0.16em] text-[#141414]">Phiếu hỗ trợ đã gửi</h4>
+            <h4 className="text-[12px] font-black uppercase tracking-[0.16em] text-[#141414]">Phiếu hỗ trợ đã gửi</h4>
             <div className="overflow-x-auto border-[2px] border-[#141414] bg-white transition-all duration-300 hover:shadow-[6px_6px_0px_0px_rgba(20,20,20,0.2)]">
-              <table className="min-w-[980px] w-full text-xs">
+              <table className="min-w-[980px] w-full text-sm">
                 <thead className="bg-[#ECE6DB]">
-                  <tr className="border-b border-[#141414] text-left font-black uppercase tracking-[0.08em]">
-                    <th className="px-3 py-2">Ngày gửi</th>
-                    <th className="px-3 py-2">Danh mục</th>
-                    <th className="px-3 py-2">Trạng thái</th>
-                    <th className="px-3 py-2">Chủ đề</th>
-                    <th className="px-3 py-2">Nội dung</th>
-                    <th className="px-3 py-2">Phản hồi admin</th>
+                  <tr className="border-b border-[#141414] text-left font-black uppercase tracking-[0.08em] text-xs">
+                    <th className="px-4 py-3">Ngày gửi</th>
+                    <th className="px-4 py-3">Danh mục</th>
+                    <th className="px-4 py-3">Trạng thái</th>
+                    <th className="px-4 py-3">Chủ đề</th>
+                    <th className="px-4 py-3">Nội dung</th>
+                    <th className="px-4 py-3">Phản hồi admin</th>
                   </tr>
                 </thead>
                 <tbody>
                   {supportHistory.map((item) => (
                     <tr key={item.id} className="border-b border-[#141414] align-top transition-colors hover:bg-[#F5F0E8]">
-                      <td className="px-3 py-2 whitespace-nowrap">{formatDateTimeVN(item.createdAt)}</td>
-                      <td className="px-3 py-2">{supportCategoryLabel(item.category)}</td>
-                      <td className="px-3 py-2">{supportStatusLabel(item.status)}</td>
-                      <td className="px-3 py-2">{item.subject || '--'}</td>
-                      <td className="px-3 py-2">{item.message}</td>
-                      <td className="px-3 py-2">{item.adminReply || '--'}</td>
+                      <td className="px-4 py-3 whitespace-nowrap">{formatDateTimeVN(item.createdAt)}</td>
+                      <td className="px-4 py-3">{supportCategoryLabel(item.category)}</td>
+                      <td className="px-4 py-3">{supportStatusLabel(item.status)}</td>
+                      <td className="px-4 py-3 font-semibold">{item.subject || '--'}</td>
+                      <td className="px-4 py-3 max-w-[260px]">{item.message}</td>
+                      <td className="px-4 py-3 text-[#166534] font-semibold">{item.adminReply || '--'}</td>
                     </tr>
                   ))}
                   {!supportHistory.length ? (
                     <tr>
-                      <td colSpan={6} className="px-3 py-5 text-center text-[#4B4B4B]">
+                      <td colSpan={6} className="px-4 py-6 text-center text-[#4B4B4B]">
                         Chưa có phiếu hỗ trợ nào.
                       </td>
                     </tr>
@@ -920,37 +920,37 @@ export default function SettingsPage() {
           </article>
 
           <article className="space-y-3 transition-all duration-300">
-            <h4 className="text-[11px] font-black uppercase tracking-[0.16em] text-[#141414]">Yêu cầu hoàn tiền đã gửi</h4>
+            <h4 className="text-[12px] font-black uppercase tracking-[0.16em] text-[#141414]">Yêu cầu hoàn tiền đã gửi</h4>
             <div className="overflow-x-auto border-[2px] border-[#141414] bg-white transition-all duration-300 hover:shadow-[6px_6px_0px_0px_rgba(20,20,20,0.2)]">
-              <table className="min-w-[1100px] w-full text-xs">
+              <table className="min-w-[1100px] w-full text-sm">
                 <thead className="bg-[#ECE6DB]">
-                  <tr className="border-b border-[#141414] text-left font-black uppercase tracking-[0.08em]">
-                    <th className="px-3 py-2">Đơn</th>
-                    <th className="px-3 py-2">Gói</th>
-                    <th className="px-3 py-2">Số tiền</th>
-                    <th className="px-3 py-2">Trạng thái</th>
-                    <th className="px-3 py-2">Lý do</th>
-                    <th className="px-3 py-2">Ghi chú</th>
-                    <th className="px-3 py-2">Gửi lúc</th>
-                    <th className="px-3 py-2">Xử lý lúc</th>
+                  <tr className="border-b border-[#141414] text-left font-black uppercase tracking-[0.08em] text-xs">
+                    <th className="px-4 py-3">Đơn</th>
+                    <th className="px-4 py-3">Gói</th>
+                    <th className="px-4 py-3">Số tiền</th>
+                    <th className="px-4 py-3">Trạng thái</th>
+                    <th className="px-4 py-3">Lý do</th>
+                    <th className="px-4 py-3">Ghi chú</th>
+                    <th className="px-4 py-3">Gửi lúc</th>
+                    <th className="px-4 py-3">Xử lý lúc</th>
                   </tr>
                 </thead>
                 <tbody>
                   {refundHistory.map((item) => (
                     <tr key={item.id} className="border-b border-[#141414] align-top transition-colors hover:bg-[#F5F0E8]">
-                      <td className="px-3 py-2 whitespace-nowrap">#{item.order.orderCode}</td>
-                      <td className="px-3 py-2">{item.order.planId}</td>
-                      <td className="px-3 py-2 whitespace-nowrap">{item.order.amount.toLocaleString('vi-VN')}đ</td>
-                      <td className="px-3 py-2">{refundStatusLabel(item.status)}</td>
-                      <td className="px-3 py-2">{item.reason || '--'}</td>
-                      <td className="px-3 py-2">{item.note || '--'}</td>
-                      <td className="px-3 py-2 whitespace-nowrap">{formatDateTimeVN(item.createdAt)}</td>
-                      <td className="px-3 py-2 whitespace-nowrap">{formatDateTimeVN(item.processedAt)}</td>
+                      <td className="px-4 py-3 whitespace-nowrap font-semibold">#{item.order.orderCode}</td>
+                      <td className="px-4 py-3 font-semibold">{item.order.planId}</td>
+                      <td className="px-4 py-3 whitespace-nowrap font-bold">{item.order.amount.toLocaleString('vi-VN')}đ</td>
+                      <td className="px-4 py-3">{refundStatusLabel(item.status)}</td>
+                      <td className="px-4 py-3">{item.reason || '--'}</td>
+                      <td className="px-4 py-3">{item.note || '--'}</td>
+                      <td className="px-4 py-3 whitespace-nowrap">{formatDateTimeVN(item.createdAt)}</td>
+                      <td className="px-4 py-3 whitespace-nowrap">{formatDateTimeVN(item.processedAt)}</td>
                     </tr>
                   ))}
                   {!refundHistory.length ? (
                     <tr>
-                      <td colSpan={8} className="px-3 py-5 text-center text-[#4B4B4B]">
+                      <td colSpan={8} className="px-4 py-6 text-center text-[#4B4B4B]">
                         Chưa có yêu cầu hoàn tiền nào.
                       </td>
                     </tr>
