@@ -3,6 +3,7 @@
 import React, { useState, useDeferredValue, useMemo } from 'react'
 import Link from 'next/link'
 import SentenceScramble from '@/components/study/SentenceScramble'
+import { CEFR_LEVELS, normalizeCefrLevel } from '@/lib/levels'
 import { 
   Search, 
   Compass, 
@@ -29,9 +30,12 @@ interface GrammarPoint {
 }
 
 const levelColors: Record<string, string> = {
-  'BEGINNER': 'bg-blue-600 text-white',
-  'ELEMENTARY': 'bg-green-600 text-white',
-  'INTERMEDIATE': 'bg-red-600 text-white',
+  A1: 'bg-blue-600 text-white',
+  A2: 'bg-green-600 text-white',
+  B1: 'bg-red-600 text-white',
+  B2: 'bg-orange-600 text-white',
+  C1: 'bg-purple-700 text-white',
+  C2: 'bg-black text-white',
 }
 
 export default function GrammarLibrary({ initialPoints }: { initialPoints: any[] }) {
@@ -41,14 +45,14 @@ export default function GrammarLibrary({ initialPoints }: { initialPoints: any[]
   const [visibleCount, setVisibleCount] = useState(12) 
   const deferredSearch = useDeferredValue(search)
 
-  const levels = ['All', 'Beginner', 'Elementary', 'Intermediate']
+  const levels = ['All', ...CEFR_LEVELS]
 
   const filteredPoints = useMemo(() => {
     return initialPoints.filter(p => {
       const matchesSearch =
         p.title.toLowerCase().includes(deferredSearch.toLowerCase()) ||
         (p.structure && p.structure.toLowerCase().includes(deferredSearch.toLowerCase()))
-      const matchesLevel = activeLevel === 'All' || p.level.toLowerCase() === activeLevel.toLowerCase()
+      const matchesLevel = activeLevel === 'All' || normalizeCefrLevel(p.level) === activeLevel
       return matchesSearch && matchesLevel
     })
   }, [deferredSearch, activeLevel, initialPoints])
@@ -121,8 +125,8 @@ export default function GrammarLibrary({ initialPoints }: { initialPoints: any[]
           >
             {/* Card Header */}
             <div className="flex items-start justify-between gap-3">
-              <span className={`px-3 py-1 font-sans font-black text-[9px] uppercase tracking-widest border-[2px] border-newsprint-black ${levelColors[gp.level] || 'bg-newsprint-gray text-white'}`}>
-                {gp.level}
+              <span className={`px-3 py-1 font-sans font-black text-[9px] uppercase tracking-widest border-[2px] border-newsprint-black ${levelColors[normalizeCefrLevel(gp.level)] || 'bg-newsprint-gray text-white'}`}>
+                {normalizeCefrLevel(gp.level)}
               </span>
               <div className="w-10 h-10 bg-newsprint-paper border-[3px] border-newsprint-black flex items-center justify-center shadow-brutalist-soft group-hover:rotate-6 transition-transform">
                 <Compass size={20} strokeWidth={3} />
@@ -210,8 +214,8 @@ export default function GrammarLibrary({ initialPoints }: { initialPoints: any[]
 
             {/* Context header */}
             <div className="mb-6 bg-white border-[3px] border-newsprint-black p-6 shadow-brutalist-card text-center relative z-10">
-              <span className={`px-4 py-1 font-sans font-black text-[10px] uppercase tracking-widest border-[2px] border-newsprint-black mb-4 inline-block ${levelColors[practicingPoint.level] || ''}`}>
-                {practicingPoint.level}
+              <span className={`px-4 py-1 font-sans font-black text-[10px] uppercase tracking-widest border-[2px] border-newsprint-black mb-4 inline-block ${levelColors[normalizeCefrLevel(practicingPoint.level)] || ''}`}>
+                {normalizeCefrLevel(practicingPoint.level)}
               </span>
               <h4 className="font-serif font-black text-newsprint-black text-2xl uppercase">{practicingPoint.title}</h4>
               {practicingPoint.structure && (

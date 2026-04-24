@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import Sidebar from '@/components/dashboard/Sidebar'
 import Header from '@/components/dashboard/Header'
 import MobileNav from '@/components/dashboard/MobileNav'
+import { StudyTimeProvider } from '@/components/study-time/StudyTimeProvider'
 
 type DashboardShellProps = {
   user: any
@@ -16,7 +17,8 @@ export default function DashboardShell({ user, dbUser, wordsToday = 0, children 
   const [collapsed, setCollapsed] = useState(false)
 
   return (
-    <div
+    <StudyTimeProvider>
+      <div
       style={{
         display: 'flex',
         width: '100vw',
@@ -83,6 +85,7 @@ export default function DashboardShell({ user, dbUser, wordsToday = 0, children 
       <div className="lg:hidden">
         <MobileNav />
       </div>
-    </div>
+      </div>
+    </StudyTimeProvider>
   )
 }

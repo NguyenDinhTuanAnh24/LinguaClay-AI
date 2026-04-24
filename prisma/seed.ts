@@ -43,8 +43,8 @@ async function main() {
       data: {
         name: topicName,
         slug: firstWord.topicSlug || topicName.toLowerCase().replace(/ /g, '-'),
-        description: `Kho tàng từ vựng chuyên sâu về ${topicName} dành cho trình độ Advanced.`,
-        level: 'Advanced',
+        description: `Kho tàng từ vựng chuyên sâu về ${topicName} dành cho trình độ C1.`,
+        level: 'C1',
         language: 'EN',
         image: `https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&q=80&w=400`,
       }
@@ -304,22 +304,22 @@ async function main() {
     ...BEGINNER_TOPICS.map((title, i) => ({
       slug: `beg-${i + 1}`,
       title,
-      level: 'Beginner',
-      explanation: `Giải thích về ${title} ở trình độ Beginner. Sẽ được AI cập nhật chi tiết.`,
+      level: 'A1',
+      explanation: `Giải thích về ${title} ở trình độ A1. Sẽ được AI cập nhật chi tiết.`,
       example: `Example sentence for ${title}`,
     })),
     ...ELEMENTARY_TOPICS.map((title, i) => ({
       slug: `elem-${i + 1}`,
       title,
-      level: 'Elementary',
-      explanation: `Giải thích về ${title} ở trình độ Elementary. Sẽ được AI cập nhật chi tiết.`,
+      level: 'A2',
+      explanation: `Giải thích về ${title} ở trình độ A2. Sẽ được AI cập nhật chi tiết.`,
       example: `Example sentence for ${title}`,
     })),
     ...INTERMEDIATE_TOPICS.map((title, i) => ({
       slug: `inter-${i + 1}`,
       title,
-      level: 'Intermediate',
-      explanation: `Giải thích về ${title} ở trình độ Intermediate. Sẽ được AI cập nhật chi tiết.`,
+      level: 'B1',
+      explanation: `Giải thích về ${title} ở trình độ B1. Sẽ được AI cập nhật chi tiết.`,
       example: `Example sentence for ${title}`,
     })),
   ]

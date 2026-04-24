@@ -3,6 +3,7 @@ import { createClient } from '@/utils/supabase/server'
 import { prisma } from '@/lib/prisma'
 import type { Prisma } from '@prisma/client'
 import Groq from 'groq-sdk'
+import { normalizeCefrLevel } from '@/lib/levels'
 
 // Khởi tạo công cụ Groq
 const groq = new Groq({
@@ -18,7 +19,8 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const { topic, language, level = 'Beginner' } = await req.json()
+    const { topic, language, level = 'A1' } = await req.json()
+    const normalizedLevel = normalizeCefrLevel(level)
 
     if (!topic || !language) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
@@ -31,7 +33,7 @@ export async function POST(req: Request) {
 
     // Step 2: Prompt khắt khe ép xuất JSON cho Groq
     const prompt = `Bạn là một chuyên gia ngôn ngữ học. Hãy tạo danh sách 10 từ vựng theo chủ đề: "${topic}" bằng ${normalizedLanguage.promptLabel}.
-      Cấp độ mục tiêu là: ${level}.
+      Cấp độ mục tiêu là: ${normalizedLevel}.
 
       YÊU CẦU BẮT BUỘC: 
       Xuất kết quả dưới định dạng JSON. Object JSON phải chứa một mảng có tên là "flashcards". KHÔNG trả lời thêm bất kỳ câu chữ nào khác.
@@ -72,7 +74,7 @@ export async function POST(req: Request) {
           slug: `${topic.toLowerCase().replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}-${Date.now()}`,
 
           description: `Chủ đề AI tạo ra theo yêu cầu về "${topic}"`,
-          level: level,
+          level: normalizedLevel,
           language: normalizedLanguage.code,
           isAIGenerated: true,
         }

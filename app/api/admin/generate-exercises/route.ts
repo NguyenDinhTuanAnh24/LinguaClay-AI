@@ -1,13 +1,31 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import Groq from 'groq-sdk'
+import { createClient } from '@/utils/supabase/server'
+import { isAdminUser } from '@/lib/admin'
 
 const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY,
 })
 
+type GeneratedExercise = {
+  type: string
+  question: string
+  correctAnswer: string
+  explanation?: string
+  difficulty?: number
+}
+
 export async function POST(req: Request) {
   try {
+    const supabase = await createClient()
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
+    if (!user || !isAdminUser(user)) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+    }
+
     const { topicId, count = 10 } = await req.json()
 
     if (!topicId) {
@@ -53,11 +71,12 @@ export async function POST(req: Request) {
     })
 
     const rawResponse = completion.choices[0].message.content || '{"exercises": []}'
-    const { exercises } = JSON.parse(rawResponse)
+    const parsed = JSON.parse(rawResponse) as { exercises?: GeneratedExercise[] }
+    const exercises = Array.isArray(parsed.exercises) ? parsed.exercises : []
 
     // Save to DB
     const created = await Promise.all(
-      exercises.map((ex: any) => 
+      exercises.map((ex) => 
         prisma.exercise.create({
           data: {
             type: ex.type,
@@ -74,8 +93,9 @@ export async function POST(req: Request) {
     )
 
     return NextResponse.json({ success: true, count: created.length })
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Exercise Gen Error:', error)
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    const message = error instanceof Error ? error.message : 'Internal Server Error'
+    return NextResponse.json({ error: message }, { status: 500 })
   }
 }

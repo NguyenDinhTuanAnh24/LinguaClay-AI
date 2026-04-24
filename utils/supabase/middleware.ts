@@ -1,5 +1,6 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
+import { isAdminUser } from '@/lib/admin'
 
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({
@@ -11,7 +12,9 @@ export async function updateSession(request: NextRequest) {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
-        get(name: string) { return request.cookies.get(name)?.value },
+        get(name: string) {
+          return request.cookies.get(name)?.value
+        },
         set(name: string, value: string, options: CookieOptions) {
           request.cookies.set({ name, value, ...options })
           response = NextResponse.next({ request: { headers: request.headers } })
@@ -26,17 +29,40 @@ export async function updateSession(request: NextRequest) {
     }
   )
 
-  const { data: { user } } = await supabase.auth.getUser()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
 
-  // Step 4: Logic điều hướng ngược
-  // Nếu đã đăng nhập mà truy cập vào trang login -> đẩy vào dashboard
-  if (user && request.nextUrl.pathname.startsWith('/login')) {
+  const pathname = request.nextUrl.pathname
+  const isAdminRoute = pathname.startsWith('/admin')
+  const isAdminLoginRoute = pathname === '/admin/login'
+  const isUserLoginRoute = pathname.startsWith('/login')
+  const isDashboardRoute = pathname.startsWith('/dashboard')
+
+  if (isAdminRoute) {
+    if (!user) {
+      if (isAdminLoginRoute) return response
+      return NextResponse.redirect(new URL('/admin/login', request.url))
+    }
+    if (!isAdminUser(user)) {
+      return NextResponse.redirect(new URL('/dashboard', request.url))
+    }
+    if (isAdminLoginRoute) {
+      return NextResponse.redirect(new URL('/admin', request.url))
+    }
+    return response
+  }
+
+  if (user && isAdminUser(user) && isDashboardRoute) {
+    return NextResponse.redirect(new URL('/admin', request.url))
+  }
+
+  if (user && isUserLoginRoute) {
     return NextResponse.redirect(new URL('/dashboard', request.url))
   }
 
-  // Nếu chưa đăng nhập mà truy cập các trang private (ví dụ /dashboard) -> đẩy về login
-  if (!user && request.nextUrl.pathname.startsWith('/dashboard')) {
-    return NextResponse.redirect(new URL('/login', request.url))
+  if (!user && isDashboardRoute) {
+    return NextResponse.redirect(new URL('/?login=true', request.url))
   }
 
   return response

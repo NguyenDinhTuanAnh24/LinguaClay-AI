@@ -35,7 +35,7 @@ export async function POST(req: Request) {
 
     const order = await prisma.order.findFirst({
       where: { orderCode, userId: user.id },
-      select: { id: true, status: true },
+      select: { id: true, status: true, cancelledAt: true },
     })
 
     if (!order) {
@@ -49,10 +49,25 @@ export async function POST(req: Request) {
     // Mandatory: cancel on PayOS first.
     const payosResult = await payos.paymentRequests.cancel(orderCode, reason)
 
-    await prisma.order.update({
-      where: { id: order.id },
-      data: { status: 'CANCELLED' },
-    })
+    await prisma.$transaction([
+      prisma.order.update({
+        where: { id: order.id },
+        data: {
+          status: 'CANCELLED',
+          cancelledAt: order.cancelledAt ?? new Date(),
+          verifiedAt: new Date(),
+        },
+      }),
+      prisma.paymentEvent.create({
+        data: {
+          orderId: order.id,
+          eventType: 'USER_CANCELLED',
+          payosStatus: String(payosResult.status ?? 'CANCELLED').toUpperCase(),
+          source: 'CANCEL_API',
+          payload: payosResult as unknown as Record<string, unknown>,
+        },
+      }),
+    ])
 
     return NextResponse.json({
       success: true,

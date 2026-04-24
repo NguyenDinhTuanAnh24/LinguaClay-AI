@@ -6,19 +6,38 @@ datasource db {
   provider = "postgresql"
 }
 
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum UserCouponStatus {
+  AVAILABLE
+  USED
+}
+
+enum MediaAssetType {
+  IMAGE
+  AUDIO
+}
+
 model User {
   id               String         @id @default(cuid())
   email            String         @unique
+  role             UserRole       @default(USER)
   name             String?
   image            String?
   targetLanguage   String         @default("EN")
-  proficiencyLevel String         @default("Beginner")
+  proficiencyLevel String         @default("A1")
   
   // Subscription Fields
   isPro           Boolean        @default(false)
   proType         String?        // "3_MONTHS", "6_MONTHS", "1_YEAR"
   proStartDate    DateTime?
   proEndDate      DateTime?
+  isActive        Boolean        @default(true)
+  isBanned        Boolean        @default(false)
+  themePreference String         @default("SYSTEM")
   phoneNumber     String?
   birthday        DateTime?
 
@@ -28,6 +47,12 @@ model User {
   exercises        Exercise[]
   writingSessions  WritingSession[]
   orders           Order[]
+  userCoupons      UserCoupon[]
+  createdTopics    Topic[]
+  refundRequests   RefundRequest[]
+  supportTickets   SupportTicket[]
+  dailyStudyStats  UserDailyStudy[]
+  notifications    UserNotification[]
 }
 
 model Topic {
@@ -39,12 +64,17 @@ model Topic {
   level         String
   language      String   @default("EN")
   isAIGenerated Boolean  @default(false)
+  userId        String?
 
+  owner           User?      @relation(fields: [userId], references: [id], onDelete: SetNull)
   words           Word[]
   writingSessions WritingSession[]
   grammarPoints   GrammarPoint[]
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+
+  @@index([userId, createdAt])
+  @@index([isAIGenerated, userId])
 }
 
 model Word {
@@ -142,14 +172,169 @@ model Order {
   userId          String
   planId          String
   amount          Int
+  originalAmount  Int?
+  discountAmount  Int      @default(0)
+  couponCode      String?
+  userCouponId    String?
   status          String   @default("PENDING") // PENDING, SUCCESS, CANCELLED
-  refundStatus       String?  @default("NONE")    // NONE, PENDING, APPROVED, REJECTED
-  refundReason       String?
-  refundBankName     String?
+  paidAt           DateTime?
+  cancelledAt      DateTime?
+  expiredAt        DateTime?
+  verifiedAt       DateTime?
+  payosTransactionId String?
+  payosReference   String?
+  refundStatus     String?  @default("NONE")    // NONE, PENDING, APPROVED, REJECTED
+  refundReason     String?
+  refundBankName   String?
   refundAccountNumber String?
   refundAccountName  String?
   createdAt          DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  updatedAt          DateTime @updatedAt
 
-  user            User     @relation(fields: [userId], references: [id])
+  user              User            @relation(fields: [userId], references: [id])
+  userCoupon        UserCoupon?     @relation(fields: [userCouponId], references: [id], onDelete: SetNull)
+  paymentEvents     PaymentEvent[]
+  refundRequests    RefundRequest[]
+
+  @@index([userId, createdAt])
+  @@index([status, createdAt])
+  @@index([planId, status])
+  @@index([payosTransactionId])
+  @@index([userCouponId])
+}
+
+model UserDailyStudy {
+  id            String   @id @default(cuid())
+  userId        String
+  date          DateTime
+  activeSeconds Int      @default(0)
+  lastActiveAt  DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, date])
+}
+
+model PaymentEvent {
+  id          String   @id @default(cuid())
+  orderId     String
+  eventType   String
+  payosStatus String?
+  source      String?
+  payload     Json?
+  createdAt   DateTime @default(now())
+
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([orderId, createdAt])
+  @@index([payosStatus])
+  @@index([eventType])
+}
+
+model RefundRequest {
+  id            String   @id @default(cuid())
+  orderId        String
+  userId         String
+  status         String   @default("PENDING") // PENDING, APPROVED, REJECTED, CANCELED
+  reason         String?
+  bankName       String?
+  accountNumber  String?
+  accountName    String?
+  processedBy    String?
+  processedAt    DateTime?
+  note           String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([orderId])
+  @@index([userId, createdAt])
+  @@index([status, createdAt])
+}
+
+model Coupon {
+  id              String   @id @default(cuid())
+  code            String   @unique
+  discountPercent Int
+  usageLimit      Int
+  usedCount       Int      @default(0)
+  expiresAt       DateTime
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  userCoupons     UserCoupon[]
+
+  @@index([isActive, expiresAt])
+}
+
+model UserCoupon {
+  id         String           @id @default(cuid())
+  userId     String
+  couponId   String
+  status     UserCouponStatus @default(AVAILABLE)
+  assignedAt DateTime         @default(now())
+  usedAt     DateTime?
+  usedOrderId String?
+
+  user       User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  coupon     Coupon @relation(fields: [couponId], references: [id], onDelete: Cascade)
+  orders     Order[]
+
+  @@index([userId, status, assignedAt])
+  @@index([couponId, status])
+}
+
+model MediaAsset {
+  id        String         @id @default(cuid())
+  type      MediaAssetType
+  name      String
+  url       String
+  size      String?
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+
+  @@index([type, createdAt])
+}
+
+model SupportTicket {
+  id             String   @id @default(cuid())
+  userId         String
+  category       String
+  subject        String?
+  message        String   @db.Text
+  attachmentUrl  String?
+  status         String   @default("OPEN") // OPEN, IN_PROGRESS, RESOLVED, CLOSED
+  device         String?
+  blockedLesson  String?
+  internalNote   String?
+  adminReply     String?  @db.Text
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([status, createdAt])
+  @@index([category, createdAt])
+}
+
+model UserNotification {
+  id        String    @id @default(cuid())
+  userId    String
+  type      String
+  title     String
+  message   String
+  metadata  Json?
+  dedupeKey String?   @unique
+  createdAt DateTime  @default(now())
+  readAt    DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([userId, readAt, createdAt])
 }

@@ -1,4 +1,4 @@
-import { redirect } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import { createClient } from '@/utils/supabase/server'
 import { prisma } from '@/lib/prisma'
 import DashboardShell from '@/components/dashboard/DashboardShell'
@@ -13,12 +13,16 @@ export default async function DashboardLayout({
     data: { user },
   } = await supabase.auth.getUser()
 
-  if (!user) redirect('/login')
+  if (!user) redirect('/?login=true')
 
   const dbUser = await prisma.user.findUnique({
     where: { id: user.id },
-    select: { name: true, image: true, proficiencyLevel: true, isPro: true },
+    select: { name: true, image: true, proficiencyLevel: true, isPro: true, proType: true, isBanned: true },
   })
+
+  if (dbUser?.isBanned) {
+    notFound()
+  }
 
   // Get words studied today
   const today = new Date()

@@ -1,15 +1,31 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import Groq from 'groq-sdk'
+import { createClient } from '@/utils/supabase/server'
+import { isAdminUser } from '@/lib/admin'
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY })
 
+type EnrichedGrammarPayload = {
+  structure?: string
+  exampleSentence?: string
+  exerciseData?: string[]
+}
+
 export async function POST(req: Request) {
   try {
+    const supabase = await createClient()
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
+    if (!user || !isAdminUser(user)) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+    }
+
     const { batchSize = 10 } = await req.json().catch(() => ({}))
 
     // Lấy các bản ghi chưa có dữ liệu bài tập
-    const points = await (prisma as any).grammarPoint.findMany({
+    const points = await prisma.grammarPoint.findMany({
       where: { structure: null },
       take: batchSize,
     })
@@ -19,7 +35,7 @@ export async function POST(req: Request) {
     }
 
     const results = await Promise.all(
-      points.map(async (p: any) => {
+      points.map(async (p) => {
         const prompt = `
 You are an English grammar expert.
 For the grammar topic: "${p.title}" (Level: ${p.level})
@@ -49,9 +65,9 @@ Rules:
         })
 
         const raw = completion.choices[0].message.content || '{}'
-        const data = JSON.parse(raw)
+        const data = JSON.parse(raw) as EnrichedGrammarPayload
 
-        return (prisma as any).grammarPoint.update({
+        return prisma.grammarPoint.update({
           where: { id: p.id },
           data: {
             structure: data.structure || 'S + V + O',
@@ -65,10 +81,11 @@ Rules:
     return NextResponse.json({
       success: true,
       enriched: results.length,
-      remaining: await (prisma as any).grammarPoint.count({ where: { structure: null } })
+      remaining: await prisma.grammarPoint.count({ where: { structure: null } })
     })
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Grammar enrichment error:', error)
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    const message = error instanceof Error ? error.message : 'Internal Server Error'
+    return NextResponse.json({ error: message }, { status: 500 })
   }
 }

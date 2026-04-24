@@ -2,8 +2,10 @@
 
 import React from 'react'
 import Link from 'next/link'
+import { useAuth } from '@/providers/AuthProvider'
 
 export default function Navbar() {
+  const { openAuth } = useAuth()
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-clay-cream/95 backdrop-blur-sm shadow-sm">
       <div className="max-w-7xl mx-auto px-6 md:px-12 py-4 flex justify-between items-center">
@@ -23,9 +25,9 @@ export default function Navbar() {
           <li><Link href="/company/about" className="text-clay-muted hover:text-clay-blue transition-colors font-medium">Về chúng tôi</Link></li>
           <li><Link href="/company/contact" className="text-clay-muted hover:text-clay-blue transition-colors font-medium">Liên hệ</Link></li>
         </ul>
-        <Link href="/login" className="px-6 md:px-8 py-3 bg-gradient-to-br from-clay-brown to-clay-brown-dark text-white text-sm md:text-base font-bold rounded-[50px] shadow-clay-button hover:shadow-clay-button-hover active:scale-[0.95] transition-all duration-100 font-heading">
+        <button onClick={() => openAuth('signin')} className="px-6 md:px-8 py-3 bg-gradient-to-br from-clay-brown to-clay-brown-dark text-white text-sm md:text-base font-bold rounded-[50px] shadow-clay-button hover:shadow-clay-button-hover active:scale-[0.95] transition-all duration-100 font-heading">
           Bắt Đầu
-        </Link>
+        </button>
       </div>
     </nav>
   )

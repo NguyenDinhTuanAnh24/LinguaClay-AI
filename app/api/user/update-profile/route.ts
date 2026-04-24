@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/utils/supabase/server'
 import { prisma } from '@/lib/prisma'
+import { normalizeCefrLevel } from '@/lib/levels'
 
 export async function POST(request: NextRequest) {
   try {
@@ -17,7 +18,7 @@ export async function POST(request: NextRequest) {
     if (name !== undefined && name !== null) updateData.name = name
     if (imageUrl !== undefined && imageUrl !== null) updateData.image = imageUrl
     if (targetLanguage) updateData.targetLanguage = targetLanguage
-    if (proficiencyLevel) updateData.proficiencyLevel = proficiencyLevel
+    if (proficiencyLevel) updateData.proficiencyLevel = normalizeCefrLevel(proficiencyLevel)
     if (phoneNumber !== undefined) updateData.phoneNumber = phoneNumber
     if (birthday !== undefined) updateData.birthday = birthday ? new Date(birthday) : null
 

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/utils/supabase/server'
 import { prisma } from '@/lib/prisma'
+import { normalizeCefrLevel } from '@/lib/levels'
 
 export const dynamic = 'force-dynamic'
 
@@ -15,31 +16,70 @@ export async function GET() {
 
     const dbUser = await prisma.user.findUnique({
       where: { id: user.id },
-      include: {
-        // @ts-ignore
-        orders: {
-          where: {
-            status: 'SUCCESS'
-          },
-          select: {
-            id: true,
-            orderCode: true,
-            refundStatus: true,
-            createdAt: true
-          },
-          orderBy: {
-            createdAt: 'desc'
-          },
-          take: 1
-        }
-      }
     })
 
     if (!dbUser) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 })
     }
 
-    return NextResponse.json(dbUser)
+    const latestOrder = await prisma.order.findFirst({
+      where: { userId: user.id, status: 'SUCCESS' },
+      select: {
+        id: true,
+        orderCode: true,
+        createdAt: true,
+      },
+      orderBy: { createdAt: 'desc' },
+    })
+
+    const latestRefundRows =
+      latestOrder
+        ? await prisma.$queryRaw<Array<{ id: string; status: string; createdAt: Date }>>`
+            SELECT id, status, "createdAt"
+            FROM "RefundRequest"
+            WHERE "orderId" = ${latestOrder.id}
+            ORDER BY "createdAt" DESC
+            LIMIT 1
+          `
+        : []
+
+    const latestRefundRequest = latestRefundRows[0]
+      ? {
+          id: latestRefundRows[0].id,
+          status: latestRefundRows[0].status,
+          createdAt: latestRefundRows[0].createdAt,
+        }
+      : null
+
+    const userWithoutOrders = {
+      id: dbUser.id,
+      email: dbUser.email,
+      name: dbUser.name,
+      image: dbUser.image,
+      targetLanguage: dbUser.targetLanguage,
+      proficiencyLevel: normalizeCefrLevel(dbUser.proficiencyLevel),
+      isPro: dbUser.isPro,
+      proType: dbUser.proType,
+      proStartDate: dbUser.proStartDate,
+      proEndDate: dbUser.proEndDate,
+      phoneNumber: dbUser.phoneNumber,
+      birthday: dbUser.birthday,
+      createdAt: dbUser.createdAt,
+      updatedAt: dbUser.updatedAt,
+      themePreference: dbUser.themePreference,
+    }
+
+    return NextResponse.json({
+      ...userWithoutOrders,
+      lastOrder: latestOrder
+        ? {
+            id: latestOrder.id,
+            orderCode: latestOrder.orderCode,
+            createdAt: latestOrder.createdAt,
+            latestRefundRequest,
+          }
+        : null,
+    })
   } catch (error) {
     console.error('API User Me Error:', error)
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })

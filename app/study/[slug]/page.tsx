@@ -35,7 +35,7 @@ export default async function StudyPage({
       id: user.id,
       email: user.email!,
       targetLanguage: 'EN',
-      proficiencyLevel: 'Beginner'
+      proficiencyLevel: 'A1'
     }
   })
 

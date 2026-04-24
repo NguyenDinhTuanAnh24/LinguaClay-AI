@@ -102,7 +102,7 @@ export default function CheckoutPage() {
 
       const data = await response.json()
       if (response.ok && data.success) {
-        const planLabel = detail ? PLAN_LABEL[detail.order.planId] : 'gói PRO'
+        const planLabel = detail ? PLAN_LABEL[detail.order.planId] : 'gói nâng cấp'
         setSuccessMessage(`Thanh toán thành công. Bạn đã kích hoạt ${planLabel}.`)
         
         // Redirect to history only on fresh success

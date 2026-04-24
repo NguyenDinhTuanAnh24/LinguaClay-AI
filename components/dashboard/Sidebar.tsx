@@ -21,6 +21,7 @@ import {
 
 type SidebarDbUser = {
   isPro?: boolean
+  proType?: '3_MONTHS' | '6_MONTHS' | '1_YEAR' | null
 }
 
 type SidebarProps = {
@@ -38,6 +39,15 @@ const menuItems = [
   { name: 'Lịch sử thanh toán', icon: ReceiptText, path: '/dashboard/payments/history' },
   { name: 'Tài khoản', icon: UserCircle, path: '/dashboard/settings' },
 ]
+
+function getPlanLabel(proType: SidebarDbUser['proType']) {
+  if (proType === '3_MONTHS') return 'Bản tiêu chuẩn'
+  if (proType === '6_MONTHS') return 'Bản chuyên sâu'
+  if (proType === '1_YEAR') return 'Bản toàn diện'
+  const adminMatch = typeof proType === 'string' ? (proType as string).match(/^ADMIN_GRANTED_(\d+)M$/) : null
+  if (adminMatch) return `ADMIN cấp ${adminMatch[1]} tháng`
+  return 'Đã nâng cấp'
+}
 
 export default function Sidebar({ dbUser, collapsed = false, onToggle }: SidebarProps) {
   const pathname = usePathname()
@@ -130,7 +140,7 @@ export default function Sidebar({ dbUser, collapsed = false, onToggle }: Sidebar
               border: '2px solid #141414',
               background: isPro ? '#FFD700' : 'rgba(255,255,255,0.45)',
             }}
-            title={collapsed ? (isPro ? 'Hội viên PRO' : 'Hội viên') : undefined}
+            title={collapsed ? (isPro ? getPlanLabel(dbUser?.proType ?? null) : 'Hội viên') : undefined}
           >
             {collapsed ? (
               <div className="flex items-center justify-center text-[#141414]">
@@ -139,13 +149,13 @@ export default function Sidebar({ dbUser, collapsed = false, onToggle }: Sidebar
             ) : (
               <>
                 <p className="uppercase font-black text-[#141414]" style={{ fontSize: 10, letterSpacing: '0.17em' }}>
-                  {isPro ? 'Hội viên PRO' : 'Hội viên'}
+                  {isPro ? 'Hội viên nâng cấp' : 'Hội viên'}
                 </p>
                 <p
                   className="uppercase font-semibold text-[#4B4B4B] group-hover:text-[#141414] transition-colors"
                   style={{ fontSize: 9, letterSpacing: '0.15em', marginTop: 2 }}
                 >
-                  {isPro ? 'Pro Plan' : 'Free Plan'}
+                  {isPro ? getPlanLabel(dbUser?.proType ?? null) : 'Bản miễn phí'}
                 </p>
               </>
             )}
@@ -175,6 +185,7 @@ export default function Sidebar({ dbUser, collapsed = false, onToggle }: Sidebar
         onConfirm={async () => {
           setShowLogout(false)
           await signOut()
+          if (typeof window !== 'undefined') window.location.replace('/')
         }}
         onCancel={() => setShowLogout(false)}
         confirmText="Đăng xuất"

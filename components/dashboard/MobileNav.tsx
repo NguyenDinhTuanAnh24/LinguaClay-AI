@@ -65,9 +65,10 @@ export default function MobileNav() {
             </Link>
           ))}
           <button
-            onClick={() => {
+            onClick={async () => {
               setIsOpen(false)
-              signOut()
+              await signOut()
+              if (typeof window !== 'undefined') window.location.replace('/')
             }}
             className="flex items-center gap-4 p-4 hover:bg-red-50 border-[2px] border-transparent hover:border-red-600 transition-all group mt-2"
           >

@@ -7,6 +7,8 @@ import ConfirmDialog from '@/components/ui/ConfirmDialog'
 import { signOut } from '@/app/actions/auth'
 import PricingSelector from '@/components/dashboard/PricingSelector'
 import PaymentModal from '@/components/dashboard/PaymentModal'
+import { formatHhMmSs, useStudyTime } from '@/components/study-time/StudyTimeProvider'
+import { normalizeCefrLevel } from '@/lib/levels'
 import { 
   Phone, 
   Calendar, 
@@ -91,8 +93,88 @@ interface UserData {
   lastOrder?: {
     id: string
     createdAt: string
-    refundStatus: string
+    latestRefundRequest?: {
+      id: string
+      status: string
+      createdAt: string
+    } | null
   } | null
+}
+
+interface SelectedPlan {
+  id: string
+  name: string
+  price: number
+  duration: string
+  originalPrice?: number
+  tag?: string
+  isPopular?: boolean
+}
+
+type SupportHistoryItem = {
+  id: string
+  category: string
+  subject: string | null
+  message: string
+  attachmentUrl: string | null
+  status: string
+  adminReply: string | null
+  createdAt: string
+}
+
+type RefundHistoryItem = {
+  id: string
+  status: string
+  reason: string | null
+  note: string | null
+  createdAt: string
+  processedAt: string | null
+  order: {
+    orderCode: number
+    planId: string
+    amount: number
+    status: string
+  }
+}
+
+function supportCategoryLabel(value: string) {
+  const key = value.toUpperCase()
+  if (key === 'TECHNICAL') return 'Lỗi kỹ thuật'
+  if (key === 'CONTENT') return 'Lỗi nội dung'
+  if (key === 'PAYMENT') return 'Thanh toán'
+  return 'Góp ý'
+}
+
+function supportStatusLabel(value: string) {
+  const key = value.toUpperCase()
+  if (key === 'OPEN') return 'Mới'
+  if (key === 'IN_PROGRESS') return 'Đang xử lý'
+  if (key === 'RESOLVED') return 'Đã xử lý'
+  if (key === 'CLOSED') return 'Đã đóng'
+  return key
+}
+
+function refundStatusLabel(value: string) {
+  const key = value.toUpperCase()
+  if (key === 'PENDING') return 'Đang xử lý'
+  if (key === 'APPROVED') return 'Đã duyệt'
+  if (key === 'REJECTED') return 'Từ chối'
+  if (key === 'CANCELED' || key === 'CANCELLED') return 'Đã hủy'
+  return key
+}
+
+function formatDateTimeVN(value: string | null) {
+  if (!value) return '--'
+  const date = new Date(value)
+  if (Number.isNaN(date.getTime())) return '--'
+  return new Intl.DateTimeFormat('vi-VN', {
+    timeZone: 'Asia/Ho_Chi_Minh',
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(date)
 }
 
 let toastCounter = 0
@@ -103,7 +185,7 @@ export default function SettingsPage() {
 
   const [userData, setUserData] = useState<UserData>({
     id: '', name: '', email: '', image: null, phoneNumber: '', birthday: '',
-    targetLanguage: 'EN', proficiencyLevel: 'Beginner',
+    targetLanguage: 'EN', proficiencyLevel: 'A1',
     isPro: false, proType: null, proEndDate: null, lastOrder: null
   })
   const [originalData, setOriginalData] = useState<UserData | null>(null)
@@ -120,6 +202,7 @@ export default function SettingsPage() {
   const [toasts, setToasts] = useState<Toast[]>([])
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false)
   const [showRefundConfirm, setShowRefundConfirm] = useState(false)
+  const [showSupportModal, setShowSupportModal] = useState(false)
   const [showPricing, setShowPricing] = useState(false)
 
   const [refundData, setRefundData] = useState({
@@ -129,19 +212,50 @@ export default function SettingsPage() {
     accountName: ''
   })
   const [isRefunding, setIsRefunding] = useState(false)
+  const [isSendingSupport, setIsSendingSupport] = useState(false)
+  const [historyLoading, setHistoryLoading] = useState(false)
+  const [supportHistory, setSupportHistory] = useState<SupportHistoryItem[]>([])
+  const [refundHistory, setRefundHistory] = useState<RefundHistoryItem[]>([])
+  const [supportData, setSupportData] = useState({
+    category: 'TECHNICAL',
+    subject: '',
+    reason: '',
+    attachmentFile: null as File | null,
+    attachmentPreview: '',
+  })
   
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false)
-  const [selectedPlan, setSelectedPlan] = useState<any>(null)
+  const [selectedPlan, setSelectedPlan] = useState<SelectedPlan | null>(null)
 
   const addToast = useCallback((message: string, type: ToastType = 'success') => {
     const id = ++toastCounter
     setToasts(prev => [...prev, { id, message, type }])
-    setTimeout(() => dismissToast(id), 4000)
+    setTimeout(() => {
+      setToasts(prev => prev.filter(t => t.id !== id))
+    }, 4000)
   }, [])
 
   const dismissToast = (id: number) => {
     setToasts(prev => prev.filter(t => t.id !== id))
   }
+
+  const fetchSupportRefundHistory = useCallback(async () => {
+    setHistoryLoading(true)
+    try {
+      const res = await fetch('/api/user/support-refund-history')
+      const data = await res.json()
+      if (!res.ok || !data?.ok) {
+        addToast(data?.error || 'Không thể tải lịch sử hỗ trợ/hoàn tiền', 'error')
+        return
+      }
+      setSupportHistory((data.supportTickets || []) as SupportHistoryItem[])
+      setRefundHistory((data.refundRequests || []) as RefundHistoryItem[])
+    } catch {
+      addToast('Không thể tải lịch sử hỗ trợ/hoàn tiền', 'error')
+    } finally {
+      setHistoryLoading(false)
+    }
+  }, [addToast])
 
   const fetchUser = useCallback(async () => {
     setIsLoading(true)
@@ -156,12 +270,12 @@ export default function SettingsPage() {
           image: data.image || null,
           phoneNumber: data.phoneNumber || '',
           birthday: data.birthday ? new Date(data.birthday).toISOString().split('T')[0] : '',
-          targetLanguage: data.targetLanguage || 'EN',
-          proficiencyLevel: data.proficiencyLevel || 'Beginner',
+          targetLanguage: data.targetLanguage === 'CN' ? 'EN' : (data.targetLanguage || 'EN'),
+          proficiencyLevel: normalizeCefrLevel(data.proficiencyLevel || 'A1'),
           isPro: !!data.isPro,
           proType: data.proType || null,
           proEndDate: data.proEndDate || null,
-          lastOrder: data.orders?.[0] || null
+          lastOrder: data.lastOrder || null
         }
         setUserData(initialData)
         setOriginalData(initialData)
@@ -174,7 +288,13 @@ export default function SettingsPage() {
     finally { setIsLoading(false) }
   }, [])
 
-  useEffect(() => { fetchUser() }, [fetchUser])
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      void fetchUser()
+      void fetchSupportRefundHistory()
+    }, 0)
+    return () => clearTimeout(timer)
+  }, [fetchSupportRefundHistory, fetchUser])
 
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -202,7 +322,7 @@ export default function SettingsPage() {
         newImageUrl = uploadResult.url
       }
 
-      const body: any = {}
+      const body: Record<string, string> = {}
       if (nameInput.trim() !== originalData?.name) body.name = nameInput.trim()
       if (phoneInput.trim() !== (originalData?.phoneNumber || '')) body.phoneNumber = phoneInput.trim()
       if (birthdayInput !== (originalData?.birthday || '')) body.birthday = birthdayInput
@@ -257,7 +377,8 @@ export default function SettingsPage() {
       if (res.ok) {
         addToast(result.message, 'success')
         setShowRefundConfirm(false)
-        fetchUser() 
+        fetchUser()
+        fetchSupportRefundHistory()
       } else {
         addToast(result.error, 'error')
       }
@@ -268,10 +389,63 @@ export default function SettingsPage() {
     }
   }
 
+  const handleSendSupportTicket = async () => {
+    if (!supportData.subject.trim() || !supportData.reason.trim()) {
+      addToast('Vui lòng nhập chủ đề và lý do hỗ trợ', 'error')
+      return
+    }
+    setIsSendingSupport(true)
+    try {
+      let attachmentUrl = ''
+      if (supportData.attachmentFile) {
+        const formData = new FormData()
+        formData.append('file', supportData.attachmentFile)
+        const uploadRes = await fetch('/api/support/upload-attachment', { method: 'POST', body: formData })
+        const uploadData = await uploadRes.json()
+        if (!uploadRes.ok || !uploadData?.ok || !uploadData?.url) {
+          addToast(uploadData?.error || 'Không thể tải ảnh đính kèm, hệ thống sẽ gửi phiếu không kèm ảnh', 'info')
+        } else {
+          attachmentUrl = uploadData.url
+        }
+      }
+
+      const res = await fetch('/api/support/tickets', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          category: supportData.category,
+          subject: supportData.subject,
+          message: supportData.reason,
+          attachmentUrl,
+          device: 'Web',
+        }),
+      })
+      const result = await res.json()
+      if (res.ok && result?.ok) {
+        setShowSupportModal(false)
+        addToast(result.message || 'Đã gửi phiếu hỗ trợ thành công', 'success')
+        setSupportData({
+          category: 'TECHNICAL',
+          subject: '',
+          reason: '',
+          attachmentFile: null,
+          attachmentPreview: '',
+        })
+        fetchSupportRefundHistory()
+      } else {
+        addToast(result?.error || 'Không thể gửi phiếu hỗ trợ', 'error')
+      }
+    } catch {
+      addToast('Lỗi gửi phiếu hỗ trợ', 'error')
+    } finally {
+      setIsSendingSupport(false)
+    }
+  }
+
   const canRefund = () => {
     if (!userData.isPro || !userData.lastOrder) return false
-    const status = userData.lastOrder.refundStatus
-    if (status && status !== 'NONE' && status !== 'null') return false
+    const latestRefundStatus = userData.lastOrder.latestRefundRequest?.status
+    if (latestRefundStatus && ['PENDING', 'APPROVED'].includes(latestRefundStatus.toUpperCase())) return false
     const createdAt = new Date(userData.lastOrder.createdAt)
     const diffTime = Math.abs(new Date().getTime() - createdAt.getTime())
     return Math.ceil(diffTime / (1000 * 60 * 60 * 24)) <= 7
@@ -279,6 +453,10 @@ export default function SettingsPage() {
 
   const displayName = nameInput || userData.name || userData.email?.split('@')[0] || 'Người dùng'
   const initials = displayName.charAt(0).toUpperCase()
+  const { activeSeconds, goalSeconds, progressPct, isLive } = useStudyTime()
+  const activeHours = (activeSeconds / 3600).toFixed(1)
+  const goalHours = (goalSeconds / 3600).toFixed(1)
+  const goalReached = activeSeconds >= goalSeconds
   
   const hasPendingChanges = pendingFile 
     || (nameInput.trim() !== (originalData?.name || ''))
@@ -354,6 +532,59 @@ export default function SettingsPage() {
               >
                 {isSaving ? 'ĐANG LƯU...' : 'LƯU THAY ĐỔI'}
               </button>
+            </div>
+            <div className="hidden mt-4 w-full bg-[#F5F0E8] border-[3px] border-[#141414] p-6 space-y-5">
+              <div className="flex items-center justify-between">
+                <h4 className="text-sm font-black uppercase tracking-[0.2em] text-[#141414]">LỊCH SỬ HỖ TRỢ & HOÀN TIỀN</h4>
+                <button
+                  type="button"
+                  onClick={fetchSupportRefundHistory}
+                  className="border-[2px] border-[#141414] bg-white px-3 py-1 text-[9px] font-black uppercase tracking-[0.15em] text-[#141414]"
+                >
+                  Làm mới
+                </button>
+              </div>
+
+              {historyLoading ? <p className="text-xs font-bold uppercase text-[#4B4B4B]">Đang tải lịch sử...</p> : null}
+
+              <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+                <div className="border-[2px] border-[#141414] bg-white p-3">
+                  <p className="text-[10px] font-black uppercase tracking-[0.15em] text-[#141414]">Phiếu hỗ trợ đã gửi</p>
+                  <div className="mt-2 space-y-2">
+                    {supportHistory.slice(0, 6).map((item) => (
+                      <div key={item.id} className="border border-[#141414] p-2 text-xs">
+                        <p className="font-black uppercase">
+                          {supportCategoryLabel(item.category)} • {supportStatusLabel(item.status)}
+                        </p>
+                        {item.subject ? <p className="mt-1 font-semibold">{item.subject}</p> : null}
+                        <p className="mt-1 line-clamp-2">{item.message}</p>
+                        {item.adminReply ? <p className="mt-1 font-semibold text-[#166534]">Admin: {item.adminReply}</p> : null}
+                        <p className="mt-1 text-[11px] text-[#4B4B4B]">{formatDateTimeVN(item.createdAt)}</p>
+                      </div>
+                    ))}
+                    {!supportHistory.length ? <p className="text-xs text-[#4B4B4B]">Chưa có phiếu hỗ trợ nào.</p> : null}
+                  </div>
+                </div>
+
+                <div className="border-[2px] border-[#141414] bg-white p-3">
+                  <p className="text-[10px] font-black uppercase tracking-[0.15em] text-[#141414]">Yêu cầu hoàn tiền đã gửi</p>
+                  <div className="mt-2 space-y-2">
+                    {refundHistory.slice(0, 6).map((item) => (
+                      <div key={item.id} className="border border-[#141414] p-2 text-xs">
+                        <p className="font-black uppercase">Đơn #{item.order.orderCode} • {refundStatusLabel(item.status)}</p>
+                        <p className="mt-1">
+                          {item.order.planId} • {item.order.amount.toLocaleString('vi-VN')}đ
+                        </p>
+                        {item.reason ? <p className="mt-1 line-clamp-2">{item.reason}</p> : null}
+                        {item.note ? <p className="mt-1 font-semibold">Ghi chú: {item.note}</p> : null}
+                        <p className="mt-1 text-[11px] text-[#4B4B4B]">Gửi: {formatDateTimeVN(item.createdAt)}</p>
+                        <p className="text-[11px] text-[#4B4B4B]">Xử lý: {formatDateTimeVN(item.processedAt)}</p>
+                      </div>
+                    ))}
+                    {!refundHistory.length ? <p className="text-xs text-[#4B4B4B]">Chưa có yêu cầu hoàn tiền nào.</p> : null}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -442,26 +673,37 @@ export default function SettingsPage() {
                   { code: 'EN', f: 'GB', n: 'Tiếng Anh' }, 
                   { code: 'CN', f: 'CN', n: 'Tiếng Trung' },
                 ].map(l => (
-                  <button 
-                    key={l.code} 
-                    onClick={() => setUserData(p => ({...p, targetLanguage: l.code}))} 
-                    className={`flex flex-col items-center gap-4 py-10 border-[3px] transition-all relative group overflow-hidden
-                      ${userData.targetLanguage === l.code 
-                        ? 'bg-[#141414] text-white border-[#141414] shadow-[6px_6px_0px_0px_rgba(20,20,20,1)] scale-[1.02] z-10' 
-                        : 'bg-white text-[#141414] border-[#141414] hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_rgba(20,20,20,0.1)] hover:bg-[#F5F0E8]'}`}
-                  >
-                    <div className={`w-14 h-10 flex items-center justify-center border-2 font-mono font-black text-xs ${userData.targetLanguage === l.code ? 'border-white/20' : 'border-[#141414]/10'}`}>
-                      {l.f}
-                    </div>
-                    <span className="text-[11px] font-black uppercase tracking-[0.2em]">{l.n}</span>
-                    {userData.targetLanguage === l.code && (
-                      <div className="absolute top-1 right-1">
-                        <div className="w-5 h-5 bg-white text-[#141414] rounded-full flex items-center justify-center border border-[#141414]">
-                          <Check size={10} strokeWidth={4} />
-                        </div>
-                      </div>
-                    )}
-                  </button>
+	                  <button 
+	                    key={l.code} 
+	                    disabled={l.code === 'CN'}
+	                    onClick={() => {
+	                      if (l.code === 'CN') return
+	                      setUserData(p => ({ ...p, targetLanguage: l.code }))
+	                    }} 
+	                    className={`flex flex-col items-center gap-4 py-10 border-[3px] transition-all relative group overflow-hidden
+	                      ${l.code === 'CN'
+	                        ? 'bg-[#F1ECE3] text-[#141414]/45 border-[#141414]/30 cursor-not-allowed opacity-75'
+	                        : userData.targetLanguage === l.code 
+	                        ? 'bg-[#141414] text-white border-[#141414] shadow-[6px_6px_0px_0px_rgba(20,20,20,1)] scale-[1.02] z-10' 
+	                        : 'bg-white text-[#141414] border-[#141414] hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_rgba(20,20,20,0.1)] hover:bg-[#F5F0E8]'}`}
+	                  >
+	                    <div className={`w-14 h-10 flex items-center justify-center border-2 font-mono font-black text-xs ${userData.targetLanguage === l.code && l.code !== 'CN' ? 'border-white/20' : 'border-[#141414]/10'}`}>
+	                      {l.f}
+	                    </div>
+	                    <span className="text-[11px] font-black uppercase tracking-[0.2em]">{l.n}</span>
+	                    {userData.targetLanguage === l.code && l.code !== 'CN' && (
+	                      <div className="absolute top-1 right-1">
+	                        <div className="w-5 h-5 bg-white text-[#141414] rounded-full flex items-center justify-center border border-[#141414]">
+	                          <Check size={10} strokeWidth={4} />
+	                        </div>
+	                      </div>
+	                    )}
+	                    {l.code === 'CN' ? (
+	                      <span className="px-3 text-center text-[9px] font-black uppercase tracking-[0.14em] text-[#141414]/70">
+	                        Ngôn ngữ này sẽ ra mắt trong thời gian sắp tới
+	                      </span>
+	                    ) : null}
+	                  </button>
                 ))}
               </div>
             </div>
@@ -508,26 +750,42 @@ export default function SettingsPage() {
           <div className="space-y-10">
             
             {/* Studied Today Timer Card */}
-            <div className="bg-[#141414] text-white border-[3px] border-[#141414] p-10 shadow-[8px_8px_0px_0px_rgba(20,20,20,0.1)] relative overflow-hidden transition-all duration-300 hover:shadow-[12px_12px_0px_0px_rgba(20,20,20,1)] hover:-translate-y-1 group">
+            <div
+              className={`text-white border-[3px] p-10 shadow-[8px_8px_0px_0px_rgba(20,20,20,0.1)] relative overflow-hidden transition-all duration-300 hover:shadow-[12px_12px_0px_0px_rgba(20,20,20,1)] hover:-translate-y-1 group ${
+                goalReached
+                  ? 'bg-[#052E16] border-[#16A34A]'
+                  : 'bg-[#141414] border-[#141414]'
+              }`}
+            >
                <div className="absolute top-0 right-0 w-48 h-48 bg-white/5 blur-3xl rounded-full transition-transform group-hover:scale-150" />
                <div className="relative z-10 space-y-6">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-white/10 border border-white/20 flex items-center justify-center rounded-sm">
-                    <Clock size={16} className="text-red-500" />
+                    <Clock size={16} className={goalReached ? 'text-[#22C55E]' : 'text-red-500'} />
                   </div>
-                  <span className="text-[12px] font-black uppercase tracking-[0.3em] text-white">ĐÃ HỌC HÔM NAY</span>
+                  <span className="text-[12px] font-black uppercase tracking-[0.3em] text-white">
+                    {goalReached ? 'MỤC TIÊU HÔM NAY ĐÃ HOÀN THÀNH' : `ĐÃ HỌC HÔM NAY ${isLive ? '• LIVE' : ''}`}
+                  </span>
                 </div>
                 <div>
-                   <h3 className="text-6xl font-mono font-black tracking-tighter tabular-nums transition-transform group-hover:scale-[1.02] text-white">02:15:25</h3>
+                   <h3 className="text-6xl font-mono font-black tracking-tighter tabular-nums transition-transform group-hover:scale-[1.02] text-white">{formatHhMmSs(activeSeconds)}</h3>
                    <div className="mt-6 flex items-center gap-4">
                       <div className="flex-1 h-3 bg-white/10 overflow-hidden rounded-full p-[1px] border border-white/5">
-                         <div className="w-[75%] h-full bg-red-600 rounded-full" />
+                         <div
+                           className={`h-full rounded-full transition-all duration-500 ${goalReached ? 'bg-[#22C55E]' : 'bg-red-600'}`}
+                           style={{ width: `${progressPct}%` }}
+                         />
                       </div>
-                      <span className="text-[14px] font-black text-white tabular-nums">75%</span>
+                      <span className="text-[14px] font-black text-white tabular-nums">{progressPct}%</span>
                    </div>
                    <div className="mt-3 flex items-center gap-2 text-[11px] font-black uppercase text-white/70 tracking-[0.2em] font-mono">
-                      <Target size={14} className="text-red-500" /> 2.2H / 3.0H MỤC TIÊU HOÀN THÀNH
+                      <Target size={14} className={goalReached ? 'text-[#22C55E]' : 'text-red-500'} /> {activeHours}H / {goalHours}H {goalReached ? 'ĐÃ ĐẠT MỤC TIÊU' : 'MỤC TIÊU HOÀN THÀNH'}
                    </div>
+                   {goalReached && (
+                     <div className="mt-3 inline-flex items-center gap-2 border border-[#22C55E]/60 bg-[#14532D] px-3 py-1 text-[10px] font-black uppercase tracking-[0.18em] text-[#DCFCE7]">
+                       Hoàn thành mục tiêu hôm nay
+                     </div>
+                   )}
                 </div>
                </div>
             </div>
@@ -583,6 +841,11 @@ export default function SettingsPage() {
 
 
             {/* Support / Quick Help */}
+            <div className="mb-4">
+              <button type="button" onClick={() => setShowSupportModal(true)} className="inline-block border-[2px] border-[#141414] bg-white px-4 py-2 text-[10px] font-black uppercase tracking-[0.18em] text-[#141414] hover:bg-[#141414] hover:text-white transition-colors">
+                GỬI PHIẾU HỖ TRỢ
+              </button>
+            </div>
             <div className="bg-[#F5F0E8] border-[3px] border-[#141414] border-dashed p-10 space-y-8 transition-all hover:bg-white hover:border-solid">
                <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-white border-[3px] border-[#141414] flex items-center justify-center shadow-[4px_4px_0px_0px_rgba(20,20,20,1)]">
@@ -593,10 +856,110 @@ export default function SettingsPage() {
                <p className="text-[12px] font-bold text-[#141414] leading-relaxed uppercase tracking-tight">
                 Gặp vấn đề về thanh toán hoặc tài khoản? Đừng lo, đội ngũ của chúng tôi hỗ trợ 24/7 để đảm bảo trải nghiệm của bạn không bị gián đoạn.
                </p>
-               <button className="text-[12px] font-black uppercase underline decoration-[3px] underline-offset-8 decoration-red-600 hover:text-red-600 transition-colors tracking-[0.2em]">LIÊN HỆ HỖ TRỢ NGAY</button>
+               <button type="button" onClick={() => setShowSupportModal(true)} className="text-[12px] font-black uppercase underline decoration-[3px] underline-offset-8 decoration-red-600 hover:text-red-600 transition-colors tracking-[0.2em]">LIÊN HỆ HỖ TRỢ NGAY</button>
             </div>
           </div>
         </div>
+
+        <section className="bg-[#F5F0E8] border-[3px] border-[#141414] p-6 md:p-8 space-y-6 transition-all duration-300 shadow-[8px_8px_0px_0px_rgba(20,20,20,0.08)] hover:shadow-[12px_12px_0px_0px_rgba(20,20,20,1)] hover:-translate-y-1">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-white border-[3px] border-[#141414] flex items-center justify-center text-[#141414] shadow-[3px_3px_0px_0px_rgba(20,20,20,1)] -rotate-2">
+              <Shield size={16} strokeWidth={2.4} />
+            </div>
+            <h3 className="text-sm md:text-base font-black uppercase tracking-[0.2em] text-[#141414]">
+              Lịch sử hỗ trợ & hoàn tiền
+            </h3>
+            </div>
+            <button
+              type="button"
+              onClick={fetchSupportRefundHistory}
+              className="border-[2px] border-[#141414] bg-white px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.15em] text-[#141414] hover:bg-[#141414] hover:text-white transition-colors"
+            >
+              Làm mới
+            </button>
+          </div>
+
+          {historyLoading ? <p className="text-xs font-bold uppercase text-[#4B4B4B]">Đang tải lịch sử...</p> : null}
+
+          <article className="space-y-3 transition-all duration-300">
+            <h4 className="text-[11px] font-black uppercase tracking-[0.16em] text-[#141414]">Phiếu hỗ trợ đã gửi</h4>
+            <div className="overflow-x-auto border-[2px] border-[#141414] bg-white transition-all duration-300 hover:shadow-[6px_6px_0px_0px_rgba(20,20,20,0.2)]">
+              <table className="min-w-[980px] w-full text-xs">
+                <thead className="bg-[#ECE6DB]">
+                  <tr className="border-b border-[#141414] text-left font-black uppercase tracking-[0.08em]">
+                    <th className="px-3 py-2">Ngày gửi</th>
+                    <th className="px-3 py-2">Danh mục</th>
+                    <th className="px-3 py-2">Trạng thái</th>
+                    <th className="px-3 py-2">Chủ đề</th>
+                    <th className="px-3 py-2">Nội dung</th>
+                    <th className="px-3 py-2">Phản hồi admin</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {supportHistory.map((item) => (
+                    <tr key={item.id} className="border-b border-[#141414] align-top transition-colors hover:bg-[#F5F0E8]">
+                      <td className="px-3 py-2 whitespace-nowrap">{formatDateTimeVN(item.createdAt)}</td>
+                      <td className="px-3 py-2">{supportCategoryLabel(item.category)}</td>
+                      <td className="px-3 py-2">{supportStatusLabel(item.status)}</td>
+                      <td className="px-3 py-2">{item.subject || '--'}</td>
+                      <td className="px-3 py-2">{item.message}</td>
+                      <td className="px-3 py-2">{item.adminReply || '--'}</td>
+                    </tr>
+                  ))}
+                  {!supportHistory.length ? (
+                    <tr>
+                      <td colSpan={6} className="px-3 py-5 text-center text-[#4B4B4B]">
+                        Chưa có phiếu hỗ trợ nào.
+                      </td>
+                    </tr>
+                  ) : null}
+                </tbody>
+              </table>
+            </div>
+          </article>
+
+          <article className="space-y-3 transition-all duration-300">
+            <h4 className="text-[11px] font-black uppercase tracking-[0.16em] text-[#141414]">Yêu cầu hoàn tiền đã gửi</h4>
+            <div className="overflow-x-auto border-[2px] border-[#141414] bg-white transition-all duration-300 hover:shadow-[6px_6px_0px_0px_rgba(20,20,20,0.2)]">
+              <table className="min-w-[1100px] w-full text-xs">
+                <thead className="bg-[#ECE6DB]">
+                  <tr className="border-b border-[#141414] text-left font-black uppercase tracking-[0.08em]">
+                    <th className="px-3 py-2">Đơn</th>
+                    <th className="px-3 py-2">Gói</th>
+                    <th className="px-3 py-2">Số tiền</th>
+                    <th className="px-3 py-2">Trạng thái</th>
+                    <th className="px-3 py-2">Lý do</th>
+                    <th className="px-3 py-2">Ghi chú</th>
+                    <th className="px-3 py-2">Gửi lúc</th>
+                    <th className="px-3 py-2">Xử lý lúc</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {refundHistory.map((item) => (
+                    <tr key={item.id} className="border-b border-[#141414] align-top transition-colors hover:bg-[#F5F0E8]">
+                      <td className="px-3 py-2 whitespace-nowrap">#{item.order.orderCode}</td>
+                      <td className="px-3 py-2">{item.order.planId}</td>
+                      <td className="px-3 py-2 whitespace-nowrap">{item.order.amount.toLocaleString('vi-VN')}đ</td>
+                      <td className="px-3 py-2">{refundStatusLabel(item.status)}</td>
+                      <td className="px-3 py-2">{item.reason || '--'}</td>
+                      <td className="px-3 py-2">{item.note || '--'}</td>
+                      <td className="px-3 py-2 whitespace-nowrap">{formatDateTimeVN(item.createdAt)}</td>
+                      <td className="px-3 py-2 whitespace-nowrap">{formatDateTimeVN(item.processedAt)}</td>
+                    </tr>
+                  ))}
+                  {!refundHistory.length ? (
+                    <tr>
+                      <td colSpan={8} className="px-3 py-5 text-center text-[#4B4B4B]">
+                        Chưa có yêu cầu hoàn tiền nào.
+                      </td>
+                    </tr>
+                  ) : null}
+                </tbody>
+              </table>
+            </div>
+          </article>
+        </section>
 
         {/* Logout Action */}
         <div className="flex justify-center">
@@ -679,7 +1042,91 @@ export default function SettingsPage() {
         </div>
       )}
 
-      <ConfirmDialog isOpen={showLogoutConfirm} title="XÁC NHẬN ĐĂNG XUẤT" message="Bạn sẽ không thể tiếp tục học tập nếu chưa đăng nhập lại." onConfirm={async () => { setShowLogoutConfirm(false); await signOut(); }} onCancel={() => setShowLogoutConfirm(false)} confirmText="ĐĂNG XUẤT NGAY" danger />
+      {showSupportModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/80 backdrop-blur-sm">
+          <div className="bg-[#F5F0E8] border-[5px] border-[#141414] shadow-[20px_20px_0px_0px_rgba(0,0,0,1)] p-10 max-w-lg w-full space-y-6 animate-in zoom-in-95 duration-200">
+            <h3 className="text-2xl font-serif font-black text-[#141414] uppercase border-b-[3px] border-[#141414] pb-4 tracking-tight">Gửi phiếu hỗ trợ</h3>
+            <div className="space-y-2">
+              <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#4B4B4B]">Danh mục</label>
+              <select
+                value={supportData.category}
+                onChange={(e) => setSupportData((p) => ({ ...p, category: e.target.value }))}
+                className="w-full h-12 px-4 bg-white border-[3px] border-[#141414] font-bold text-sm outline-none"
+              >
+                <option value="TECHNICAL">Lỗi kỹ thuật</option>
+                <option value="CONTENT">Lỗi nội dung</option>
+                <option value="PAYMENT">Thắc mắc thanh toán</option>
+                <option value="FEEDBACK">Góp ý</option>
+              </select>
+            </div>
+            <div className="space-y-2">
+              <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#4B4B4B]">Chủ đề</label>
+              <input
+                type="text"
+                value={supportData.subject}
+                onChange={(e) => setSupportData((p) => ({ ...p, subject: e.target.value }))}
+                placeholder="Ví dụ: Không đăng nhập được trên iPhone"
+                className="w-full h-12 px-4 bg-white border-[3px] border-[#141414] font-bold text-sm outline-none"
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#4B4B4B]">Lý do / Mô tả</label>
+              <textarea
+                value={supportData.reason}
+                onChange={(e) => setSupportData((p) => ({ ...p, reason: e.target.value }))}
+                rows={4}
+                placeholder="Mô tả chi tiết vấn đề bạn gặp..."
+                className="w-full p-4 bg-white border-[3px] border-[#141414] font-bold text-sm outline-none"
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="text-[10px] font-black uppercase tracking-[0.2em] text-[#4B4B4B]">Hình ảnh đính kèm (nếu có)</label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  const file = e.target.files?.[0] || null
+                  setSupportData((p) => ({
+                    ...p,
+                    attachmentFile: file,
+                    attachmentPreview: file ? URL.createObjectURL(file) : '',
+                  }))
+                }}
+                className="w-full bg-white border-[3px] border-[#141414] p-2 text-sm"
+              />
+              {supportData.attachmentPreview ? (
+                <img src={supportData.attachmentPreview} alt="Xem trước ảnh hỗ trợ" className="h-32 w-full object-cover border-[2px] border-[#141414]" />
+              ) : null}
+            </div>
+            <div className="flex gap-4">
+              <button
+                onClick={() => {
+                  setShowSupportModal(false)
+                  setSupportData({
+                    category: 'TECHNICAL',
+                    subject: '',
+                    reason: '',
+                    attachmentFile: null,
+                    attachmentPreview: '',
+                  })
+                }}
+                className="flex-1 py-4 border-[3px] border-[#141414] bg-white font-black uppercase text-xs hover:bg-[#EDE8DF] transition-all tracking-[0.2em]"
+              >
+                Đóng
+              </button>
+              <button
+                onClick={handleSendSupportTicket}
+                disabled={isSendingSupport}
+                className="flex-1 py-4 bg-[#141414] text-white border-[3px] border-[#141414] font-black uppercase text-xs hover:bg-red-600 hover:border-red-600 shadow-[6px_6px_0px_0px_rgba(20,20,20,1)] transition-all tracking-[0.2em]"
+              >
+                {isSendingSupport ? 'ĐANG GỬI...' : 'GỬI PHIẾU'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <ConfirmDialog isOpen={showLogoutConfirm} title="XÁC NHẬN ĐĂNG XUẤT" message="Bạn sẽ không thể tiếp tục học tập nếu chưa đăng nhập lại." onConfirm={async () => { setShowLogoutConfirm(false); await signOut(); if (typeof window !== 'undefined') window.location.replace('/'); }} onCancel={() => setShowLogoutConfirm(false)} confirmText="ĐĂNG XUẤT NGAY" danger />
     </>
   )
 }

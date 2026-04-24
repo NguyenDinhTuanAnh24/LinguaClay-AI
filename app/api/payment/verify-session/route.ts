@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import { PayOS } from '@payos/node'
 import { prisma } from '@/lib/prisma'
 import { createClient } from '@/utils/supabase/server'
+import { createUserNotification } from '@/lib/user-notifications'
 
 const payos = new PayOS({
   clientId: process.env.PAYOS_CLIENT_ID!,
@@ -70,7 +71,11 @@ async function verifyOrderForUser(orderCode: number, userId: string) {
       id: true,
       userId: true,
       planId: true,
+      userCouponId: true,
       status: true,
+      paidAt: true,
+      cancelledAt: true,
+      expiredAt: true,
     },
   })
 
@@ -78,8 +83,18 @@ async function verifyOrderForUser(orderCode: number, userId: string) {
     return NextResponse.json({ error: 'Order not found' }, { status: 404 })
   }
 
-  const paymentLinkInfo = (await payos.paymentRequests.get(orderCode)) as { status?: string }
-  const paymentStatus = paymentLinkInfo.status || 'UNKNOWN'
+  const paymentLinkInfo = (await payos.paymentRequests.get(orderCode)) as unknown
+  const payosRaw =
+    paymentLinkInfo && typeof paymentLinkInfo === 'object'
+      ? (paymentLinkInfo as Record<string, unknown>)
+      : {}
+  const paymentStatus = String(payosRaw.status || 'UNKNOWN').toUpperCase()
+  const now = new Date()
+
+  await prisma.order.update({
+    where: { id: order.id },
+    data: { verifiedAt: now },
+  })
 
   if (paymentStatus === 'PAID') {
     if (order.status !== 'SUCCESS') {
@@ -90,7 +105,16 @@ async function verifyOrderForUser(orderCode: number, userId: string) {
       await prisma.$transaction([
         prisma.order.update({
           where: { id: order.id },
-          data: { status: 'SUCCESS' },
+          data: {
+            status: 'SUCCESS',
+            paidAt: order.paidAt ?? now,
+            verifiedAt: now,
+            payosTransactionId: (payosRaw.transactionId as string | undefined) ?? orderCode.toString(),
+            payosReference:
+              (payosRaw.reference as string | undefined) ??
+              (payosRaw.checkoutUrl as string | undefined) ??
+              null,
+          },
         }),
         prisma.user.update({
           where: { id: order.userId },
@@ -101,7 +125,43 @@ async function verifyOrderForUser(orderCode: number, userId: string) {
             proEndDate,
           },
         }),
+        prisma.paymentEvent.create({
+          data: {
+            orderId: order.id,
+            eventType: 'VERIFY_PAID',
+            payosStatus: 'PAID',
+            source: 'VERIFY_SESSION',
+            payload: payosRaw,
+          },
+        }),
+        ...(order.userCouponId
+          ? [
+              prisma.userCoupon.update({
+                where: { id: order.userCouponId },
+                data: {
+                  status: 'USED',
+                  usedAt: now,
+                  usedOrderId: order.id,
+                  coupon: {
+                    update: {
+                      usedCount: { increment: 1 },
+                    },
+                  },
+                },
+              }),
+            ]
+          : []),
       ])
+
+      await createUserNotification({
+        userId: order.userId,
+        type: 'PURCHASE_SUCCESS',
+        title: 'Thanh toán thành công',
+        message: `Bạn đã nâng cấp gói ${order.planId}.`,
+        dedupeKey: `purchase_success:${order.id}`,
+      }).catch((error) => {
+        console.error('Create purchase notification error:', error)
+      })
     }
 
     return NextResponse.json({
@@ -113,10 +173,26 @@ async function verifyOrderForUser(orderCode: number, userId: string) {
   }
 
   if ((paymentStatus === 'CANCELLED' || paymentStatus === 'EXPIRED') && order.status === 'PENDING') {
-    await prisma.order.update({
-      where: { id: order.id },
-      data: { status: 'CANCELLED' },
-    })
+    await prisma.$transaction([
+      prisma.order.update({
+        where: { id: order.id },
+        data: {
+          status: 'CANCELLED',
+          cancelledAt: paymentStatus === 'CANCELLED' ? order.cancelledAt ?? now : order.cancelledAt,
+          expiredAt: paymentStatus === 'EXPIRED' ? order.expiredAt ?? now : order.expiredAt,
+          verifiedAt: now,
+        },
+      }),
+      prisma.paymentEvent.create({
+        data: {
+          orderId: order.id,
+          eventType: paymentStatus === 'EXPIRED' ? 'VERIFY_EXPIRED' : 'VERIFY_CANCELLED',
+          payosStatus: paymentStatus,
+          source: 'VERIFY_SESSION',
+          payload: payosRaw,
+        },
+      }),
+    ])
   }
 
   return NextResponse.json({

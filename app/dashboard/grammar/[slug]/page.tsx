@@ -2,6 +2,7 @@ import { prisma } from '@/lib/prisma'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import GrammarInteraction from '@/components/study/GrammarInteraction'
+import { normalizeCefrLevel } from '@/lib/levels'
 
 interface BreakdownItem { key: string; label: string; desc: string }
 interface GrammarContent {
@@ -26,9 +27,12 @@ const PILL_COLORS: Record<string, string> = {
 }
 
 const levelBadge: Record<string, string> = {
-  Beginner: 'bg-newsprint-black text-white',
-  Elementary: 'bg-white text-newsprint-black border-2 border-newsprint-black',
-  Intermediate: 'bg-red-600 text-white',
+  A1: 'bg-newsprint-black text-white',
+  A2: 'bg-white text-newsprint-black border-2 border-newsprint-black',
+  B1: 'bg-red-600 text-white',
+  B2: 'bg-orange-600 text-white',
+  C1: 'bg-purple-700 text-white',
+  C2: 'bg-black text-white',
 }
 
 export default async function GrammarDetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -56,8 +60,8 @@ export default async function GrammarDetailPage({ params }: { params: Promise<{ 
         </Link>
         <div className="flex-1 space-y-3 text-center md:text-left">
           <div className="flex items-center justify-center md:justify-start gap-4 flex-wrap">
-            <span className={`px-4 py-1 text-[10px] font-black uppercase tracking-widest ${levelBadge[point.level] || 'bg-newsprint-paper text-newsprint-black border-2 border-newsprint-black'}`}>
-              {point.level}
+            <span className={`px-4 py-1 text-[10px] font-black uppercase tracking-widest ${levelBadge[normalizeCefrLevel(point.level)] || 'bg-newsprint-paper text-newsprint-black border-2 border-newsprint-black'}`}>
+              {normalizeCefrLevel(point.level)}
             </span>
             <span className="text-newsprint-black/40 font-black text-[10px] uppercase tracking-[0.3em]">NGỮ PHÁP HỌC THUẬT</span>
           </div>

@@ -29,7 +29,7 @@ export async function GET(request: Request) {
             name: user.user_metadata?.full_name || user.user_metadata?.name || null,
             image: user.user_metadata?.avatar_url || user.user_metadata?.picture || null,
             targetLanguage: 'EN',
-            proficiencyLevel: 'Beginner',
+            proficiencyLevel: 'A1',
           },
         })
       }

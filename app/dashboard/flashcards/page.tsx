@@ -5,24 +5,13 @@ import { BookCopy, ChevronRight, Languages, SearchX } from 'lucide-react'
 import GenerateFlashcardButton from '@/components/dashboard/GenerateFlashcardButton'
 import SearchInput from '@/components/dashboard/SearchInput'
 import FlashcardFilters from '@/components/dashboard/FlashcardFilters'
+import { CEFR_LEVELS, normalizeCefrLevel } from '@/lib/levels'
 
 const LANGUAGE_LABEL: Record<string, string> = {
   EN: 'Tiếng Anh',
   CN: 'Tiếng Trung',
   JP: 'Tiếng Nhật',
   KR: 'Tiếng Hàn',
-}
-
-const LEVEL_LABEL: Record<string, string> = {
-  BEGINNER: 'Beginner',
-  INTERMEDIATE: 'Intermediate',
-  ADVANCED: 'Advanced',
-  A1: 'A1',
-  A2: 'A2',
-  B1: 'B1',
-  B2: 'B2',
-  C1: 'C1',
-  C2: 'C2',
 }
 
 const LANGUAGE_FILTERS = [
@@ -35,15 +24,7 @@ const LANGUAGE_FILTERS = [
 
 const LEVEL_FILTERS = [
   { value: 'all', label: 'Tất cả trình độ' },
-  { value: 'A1', label: 'A1' },
-  { value: 'A2', label: 'A2' },
-  { value: 'B1', label: 'B1' },
-  { value: 'B2', label: 'B2' },
-  { value: 'C1', label: 'C1' },
-  { value: 'C2', label: 'C2' },
-  { value: 'BEGINNER', label: 'Beginner' },
-  { value: 'INTERMEDIATE', label: 'Intermediate' },
-  { value: 'ADVANCED', label: 'Advanced' },
+  ...CEFR_LEVELS.map((level) => ({ value: level, label: level })),
 ]
 
 const SUMMARY_TEMPLATES = [
@@ -58,8 +39,7 @@ function formatLanguage(language: string) {
 }
 
 function formatLevel(level: string) {
-  const normalized = level.toUpperCase()
-  return LEVEL_LABEL[normalized] || level
+  return normalizeCefrLevel(level)
 }
 
 function getTopicSummary(topic: { name: string; description: string | null; wordsCount: number }) {
@@ -85,7 +65,7 @@ export default async function FlashcardsPage({
   const { q, lang, level } = await searchParams
   const qTrim = q?.trim()
   const selectedLang = lang && lang !== 'all' ? lang : 'all'
-  const selectedLevel = level && level !== 'all' ? level.toUpperCase() : 'all'
+  const selectedLevel = level && level !== 'all' ? normalizeCefrLevel(level) : 'all'
 
   const where: Prisma.TopicWhereInput = {
     ...(qTrim
@@ -110,13 +90,13 @@ export default async function FlashcardsPage({
     orderBy: { name: 'asc' },
   })
 
-  const uniqueLevels = [...new Set(topics.map((topic) => topic.level.toUpperCase()))]
+  const uniqueLevels = [...new Set(topics.map((topic) => normalizeCefrLevel(topic.level)))]
   const shouldDeriveLevels = uniqueLevels.length <= 1
-  const fallbackLevelCycle = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']
+  const fallbackLevelCycle = CEFR_LEVELS
 
   const topicsWithDisplayLevel = topics.map((topic, index) => ({
     ...topic,
-    displayLevel: shouldDeriveLevels ? fallbackLevelCycle[index % fallbackLevelCycle.length] : topic.level.toUpperCase(),
+    displayLevel: shouldDeriveLevels ? fallbackLevelCycle[index % fallbackLevelCycle.length] : normalizeCefrLevel(topic.level),
   }))
 
   const filteredTopics =
@@ -142,7 +122,7 @@ export default async function FlashcardsPage({
     (item) => item.value === 'all' || languages.some((langItem) => langItem.language === item.value),
   )
   const visibleLevelOptions = LEVEL_FILTERS.filter(
-    (item) => item.value === 'all' || levels.some((levelItem) => levelItem.level.toUpperCase() === item.value),
+    (item) => item.value === 'all' || levels.some((levelItem) => normalizeCefrLevel(levelItem.level) === item.value),
   )
 
   return (

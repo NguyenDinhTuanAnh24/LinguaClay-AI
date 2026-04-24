@@ -1,6 +1,6 @@
 'use client'
 
-import React, { createContext, useContext, useState } from 'react'
+import React, { createContext, useContext, useState, useEffect } from 'react'
 
 type AuthTab = 'signin' | 'signup'
 
@@ -18,6 +18,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isAuthOpen, setIsAuthOpen] = useState(false)
   const [authTab, setAuthTab] = useState<AuthTab>('signin')
   const [redirectAfterLogin, setRedirectAfterLogin] = useState('/dashboard')
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search)
+      if (urlParams.get('login') === 'true') {
+        setIsAuthOpen(true)
+        setAuthTab('signin')
+        urlParams.delete('login')
+        const newUrl = window.location.pathname + (urlParams.toString() ? `?${urlParams.toString()}` : '') + window.location.hash
+        window.history.replaceState({}, '', newUrl || '/')
+      }
+    }
+  }, [])
 
   const openAuth = (tab: AuthTab = 'signin', redirectTo = '/dashboard') => {
     setAuthTab(tab)
