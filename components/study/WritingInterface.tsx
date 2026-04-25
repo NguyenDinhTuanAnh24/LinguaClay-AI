@@ -109,7 +109,7 @@ export default function WritingInterface({ topic }: { topic: Topic }) {
 
             <div className="space-y-8">
               <div className="p-8 bg-clay-blue/5 rounded-[40px] border-2 border-white shadow-clay-inset text-xl leading-relaxed text-clay-deep font-medium italic">
-                "{result.feedback}"
+                &quot;{result.feedback}&quot;
               </div>
 
               {result.corrections.length > 0 && (

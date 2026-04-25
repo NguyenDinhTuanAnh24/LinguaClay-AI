@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma'
+import { Prisma } from '@prisma/client'
 
 type CreateNotificationInput = {
   userId: string
@@ -53,7 +54,7 @@ export async function createUserNotification(input: CreateNotificationInput) {
         type: input.type,
         title: input.title,
         message: input.message,
-        metadata: input.metadata ?? undefined,
+        metadata: input.metadata as Prisma.InputJsonValue | undefined,
         dedupeKey: input.dedupeKey,
         createdAt: input.createdAt ?? new Date(),
       },
@@ -66,11 +67,27 @@ export async function createUserNotification(input: CreateNotificationInput) {
       type: input.type,
       title: input.title,
       message: input.message,
-      metadata: input.metadata ?? undefined,
+      metadata: input.metadata as Prisma.InputJsonValue | undefined,
       createdAt: input.createdAt ?? new Date(),
     },
   })
 }
+
+/**
+ * Creates a user notification safely, catching and logging any errors 
+ * that occur during creation so it does not throw out of the current context.
+ * 
+ * @param {CreateNotificationInput} input The notification data
+ */
+export async function safeCreateUserNotification(input: CreateNotificationInput) {
+  try {
+    await createUserNotification(input)
+  } catch (error) {
+    // Optionally use logger.error if imported
+    console.error('Safe create notification error:', error)
+  }
+}
+
 
 export async function markAllUserNotificationsRead(userId: string) {
   await ensureNotificationTable()

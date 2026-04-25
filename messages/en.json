@@ -1,0 +1,102 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "search": "Search",
+    "noData": "No data available",
+    "success": "Success",
+    "forbidden": "Access denied",
+    "notFound": "Not found",
+    "internalError": "Internal server error"
+  },
+  "nav": {
+    "dashboard": "Overview",
+    "flashcards": "Flashcards",
+    "aiTutor": "AI Tutor",
+    "progress": "Progress",
+    "paymentHistory": "Payment History",
+    "account": "Account",
+    "logout": "Log out",
+    "plans": "Plans",
+    "collapse": "Collapse",
+    "expand": "Expand navigation"
+  },
+  "greeting": {
+    "morning": "Good morning",
+    "afternoon": "Good afternoon",
+    "evening": "Good evening",
+    "night": "Good night"
+  },
+  "dashboard": {
+    "goalComplete": "★ Goal completed ({count} words)!",
+    "goalProgress": "Today's goal: {current}/10 new words.",
+    "dailyGoal": "Daily goal"
+  },
+  "membership": {
+    "free": "Free plan",
+    "member": "Member",
+    "premium": "Premium member",
+    "standard": "Standard (3 months)",
+    "intensive": "Intensive (6 months)",
+    "comprehensive": "Comprehensive (1 year)",
+    "adminGrant": "ADMIN granted ({months} months)"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "refresh": "Refresh",
+    "empty": "No notifications yet.",
+    "loading": "Loading...",
+    "page": "Page {current}/{total}",
+    "prev": "Prev",
+    "next": "Next"
+  },
+  "auth": {
+    "login": "Log in",
+    "signup": "Sign up",
+    "logout": "Log out",
+    "logoutConfirm": "Are you sure you want to leave?",
+    "logoutTitle": "Log out"
+  },
+  "errors": {
+    "tooManyRequests": "Too many requests. Please try again later.",
+    "unauthorized": "You need to log in to continue.",
+    "sessionExpired": "Your session has expired. Please log in again."
+  },
+  "study": {
+    "checkAnswer": "Check answer",
+    "nextExercise": "Continue to next exercise",
+    "correct": "Excellent, correct!",
+    "incorrect": "Oops, that's wrong!",
+    "fillBlank": "Fill in the missing word",
+    "reorder": "Arrange the words into the correct sentence",
+    "progress": "Exercise {current} / {total}",
+    "placeholder": "Enter your answer...",
+    "selectBelow": "Select words below..."
+  },
+  "admin": {
+    "flashcards": {
+      "title": "Content - Flashcards",
+      "addNew": "Add new",
+      "importCsv": "Import CSV",
+      "topic": "Topic",
+      "wordCount": "Word count",
+      "level": "Level",
+      "createdAt": "Created",
+      "actions": "Actions",
+      "wordList": "Words in set: {topic}"
+    },
+    "support": {
+      "title": "Support & Refunds",
+      "reply": "Reply",
+      "internalNote": "Internal note",
+      "status": "Status"
+    }
+  }
+}

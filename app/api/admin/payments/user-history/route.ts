@@ -1,7 +1,7 @@
+import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { createClient } from '@/utils/supabase/server'
-import { isAdminUser } from '@/lib/admin'
+import { ensureAdminActor } from '@/lib/admin-auth'
 
 function formatDateTime(date: Date): string {
   return new Intl.DateTimeFormat('vi-VN', {
@@ -26,26 +26,10 @@ function normalizePlanLabel(planId: string): string {
 
 export async function GET(req: Request) {
   try {
-    const supabase = await createClient()
-    const {
-      data: { user },
-    } = await supabase.auth.getUser()
+    const admin = await ensureAdminActor()
 
-    if (!user || !isAdminUser(user)) {
+    if (!admin) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
-    }
-
-    try {
-      const actor = await prisma.user.findUnique({
-        where: { id: user.id },
-        select: { role: true },
-      })
-      if (!actor || (actor as { role?: string }).role !== 'ADMIN') {
-        return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
-      }
-    } catch {
-      // Backward compatibility: if running with stale Prisma client without `role`,
-      // rely on Supabase admin check above.
     }
 
     const url = new URL(req.url)
@@ -145,7 +129,7 @@ export async function GET(req: Request) {
       })),
     })
   } catch (error) {
-    console.error('Fetch user payment history error:', error)
+    logger.error('Fetch user payment history error:', error)
     return NextResponse.json({ error: 'Không thể tải lịch sử thanh toán' }, { status: 500 })
   }
 }

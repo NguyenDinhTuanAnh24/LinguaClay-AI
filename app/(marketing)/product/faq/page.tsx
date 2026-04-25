@@ -156,7 +156,7 @@ export default function FAQPage() {
           </div>
           {search && filtered.length === 0 && (
             <p className="mt-4 text-center font-sans text-sm text-newsprint-gray-dark">
-              Không tìm thấy kết quả cho "<strong>{search}</strong>".{' '}
+              Không tìm thấy kết quả cho &quot;<strong>{search}</strong>&quot;.{` `}
               <Link href="/company/contact" className="text-red-600 underline font-bold">Liên hệ hỗ trợ</Link>
             </p>
           )}

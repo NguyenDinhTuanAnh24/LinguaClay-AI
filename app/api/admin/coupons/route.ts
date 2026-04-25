@@ -1,7 +1,7 @@
+import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { createClient } from '@/utils/supabase/server'
-import { isAdminUser } from '@/lib/admin'
+import { ensureAdminActor } from '@/lib/admin-auth'
 
 type CouponPayload = {
   code?: string
@@ -10,25 +10,9 @@ type CouponPayload = {
   expiresAt?: string
 }
 
-async function ensureAdmin() {
-  const supabase = await createClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-
-  if (!user || !isAdminUser(user)) return null
-
-  const actor = await prisma.user.findUnique({
-    where: { id: user.id },
-    select: { role: true },
-  })
-  if (!actor || actor.role !== 'ADMIN') return null
-  return user
-}
-
 export async function POST(req: Request) {
   try {
-    const adminUser = await ensureAdmin()
+    const adminUser = await ensureAdminActor()
     if (!adminUser) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
 
     const body = (await req.json()) as CouponPayload
@@ -70,7 +54,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ ok: true, coupon: created })
   } catch (error) {
-    console.error('Create coupon error:', error)
+    logger.error('Create coupon error:', error)
     return NextResponse.json({ error: 'Không thể tạo mã khuyến mãi' }, { status: 500 })
   }
 }

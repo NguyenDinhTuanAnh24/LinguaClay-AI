@@ -1,32 +1,11 @@
+import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
+import { ensureAdminActor } from '@/lib/admin-auth'
 import { prisma } from '@/lib/prisma'
-import { createClient } from '@/utils/supabase/server'
-import { isAdminUser } from '@/lib/admin'
-
-async function ensureAdmin() {
-  const supabase = await createClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-
-  if (!user || !isAdminUser(user)) return null
-
-  try {
-    const actor = await prisma.user.findUnique({
-      where: { id: user.id },
-      select: { role: true },
-    })
-    if (!actor || (actor as { role?: string }).role !== 'ADMIN') return null
-  } catch {
-    // Backward compatibility fallback.
-  }
-
-  return user
-}
 
 export async function GET() {
   try {
-    const admin = await ensureAdmin()
+    const admin = await ensureAdminActor()
     if (!admin) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
 
     const rows = await prisma.supportTicket.findMany({
@@ -72,7 +51,7 @@ export async function GET() {
       })),
     })
   } catch (error) {
-    console.error('Admin support tickets GET error:', error)
+    logger.error('Admin support tickets GET error:', error)
     return NextResponse.json({ error: 'Không thể tải ticket hỗ trợ' }, { status: 500 })
   }
 }

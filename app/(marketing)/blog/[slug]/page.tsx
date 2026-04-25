@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import { ArrowLeft, Calendar, User, Clock, Facebook, Twitter, Linkedin, List, BrainCircuit, ArrowRight, ArrowUpRight, ChevronRight, Zap } from 'lucide-react'
 import AuthTrigger from '@/components/marketing/AuthTrigger'
+import Image from 'next/image'
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params
@@ -80,10 +81,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       {/* 3. Ảnh Cover Bài Viết - Width bằng với Hero */}
       <section className="w-full max-w-[1000px] mx-auto mt-12 mb-16 px-6">
          <div className="w-full aspect-video border-[3px] border-newsprint-black bg-newsprint-paper relative overflow-hidden shadow-[8px_8px_0px_0px_rgba(20,20,20,1)] group">
-            <img 
+            <Image 
                src="https://images.unsplash.com/photo-1513258496099-48168024aec0?q=80&w=2000&auto=format&fit=crop" 
                alt="Studying late" 
-               className="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+               fill
+               unoptimized
+               className="object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
             />
             {/* Filter Overlay */}
             <div className="absolute inset-0 bg-[#3A7642] opacity-30 mix-blend-multiply pointer-events-none"></div>
@@ -114,12 +117,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             </p>
 
             <blockquote className="vietnamese-text my-12 text-newsprint-black">
-               <p className="text-xl sm:text-2xl font-bold leading-relaxed !m-0 font-sans">"Não bộ con người không phải là một chiếc ổ cứng USB để cắm vào máy và chép dữ liệu. Nó đòi hỏi sự lặp lại có tính toán để hình thành nên nếp nhăn ký ức."</p>
+               <p className="text-xl sm:text-2xl font-bold leading-relaxed !m-0 font-sans">&quot;Não bộ con người không phải là một chiếc ổ cứng USB để cắm vào máy và chép dữ liệu. Nó đòi hỏi sự lặp lại có tính toán để hình thành nên nếp nhăn ký ức.&quot;</p>
             </blockquote>
 
             <h2 id="phan-2" className="vietnamese-text font-sans font-black text-2xl mt-12 mb-6 uppercase tracking-tight">{formatNumbers("2. Giải Pháp: Lặp Lại Ngắt Quãng")}</h2>
             <p className="vietnamese-text">
-               Tham khảo nền tảng khoa học vững chắc của một bộ công cụ gọi là <strong>Spaced Repetition System (SRS)</strong>. Thuật toán này cực kỳ thông minh: Nó vạch ra chính xác những khối lượng hình thái thông tin bạn sắp quên và nhắc nhở vào đúng "thời điểm vàng".
+               Tham khảo nền tảng khoa học vững chắc của một bộ công cụ gọi là <strong>Spaced Repetition System (SRS)</strong>. Thuật toán này cực kỳ thông minh: Nó vạch ra chính xác những khối lượng hình thái thông tin bạn sắp quên và nhắc nhở vào đúng &quot;thời điểm vàng&quot;.
             </p>
 
             {/* CTA GIỮA BÀI (Mid-Content Block) */}
@@ -148,7 +151,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   <ul className="!my-0 !pl-0 space-y-4 text-newsprint-white text-[17px] leading-relaxed list-none font-sans">
                      <li className="flex items-start gap-3">
                         <span className="text-red-500 font-black mt-1">✓</span>
-                        <span className="font-sans"><strong>{formatNumbers('20')} Phút đầu:</strong> Sau khi học xong, {formatNumbers('42%')} kiến thức "bốc hơi".</span>
+                        <span className="font-sans"><strong>{formatNumbers('20')} Phút đầu:</strong> Sau khi học xong, {formatNumbers('42%')} kiến thức &quot;bốc hơi&quot;.</span>
                      </li>
                      <li className="flex items-start gap-3">
                         <span className="text-red-500 font-black mt-1">✓</span>

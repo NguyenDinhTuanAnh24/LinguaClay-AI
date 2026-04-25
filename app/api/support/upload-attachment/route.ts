@@ -1,3 +1,4 @@
+import { logger } from '@/lib/logger'
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/utils/supabase/server'
 import { createClient as createSupabaseClient } from '@supabase/supabase-js'
@@ -43,7 +44,7 @@ export async function POST(request: NextRequest) {
     })
 
     if (error) {
-      console.error('Support attachment upload error:', error)
+      logger.error('Support attachment upload error:', error)
       return NextResponse.json(
         { error: `Lỗi tải ảnh đính kèm: ${error.message}` },
         { status: 500 }
@@ -56,7 +57,7 @@ export async function POST(request: NextRequest) {
       url: `${urlData.publicUrl}?t=${Date.now()}`,
     })
   } catch (error: unknown) {
-    console.error('Support attachment route error:', error)
+    logger.error('Support attachment route error:', error)
     const message = error instanceof Error ? error.message : 'Internal Server Error'
     return NextResponse.json({ error: message }, { status: 500 })
   }

@@ -136,7 +136,7 @@ export default function SentenceScramble({ sentence, translation, onSuccess }: S
                   className="mt-4 w-full"
                 >
                   <p className="px-6 py-4 bg-newsprint-paper border-[2px] border-newsprint-black text-newsprint-black text-xs font-sans font-bold uppercase tracking-tight italic text-center">
-                    "{translation}"
+                    &quot;{translation}&quot;
                   </p>
                 </motion.div>
               )}

@@ -2,10 +2,12 @@
 
 import React, { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { signOut } from '@/app/actions/auth'
 import ConfirmDialog from '@/components/ui/ConfirmDialog'
 import { motion } from 'framer-motion'
+import { getPlanLabel } from '@/lib/constants'
 import {
   LayoutDashboard,
   CreditCard,
@@ -40,14 +42,7 @@ const menuItems = [
   { name: 'Tài khoản', icon: UserCircle, path: '/dashboard/settings' },
 ]
 
-function getPlanLabel(proType: SidebarDbUser['proType']) {
-  if (proType === '3_MONTHS') return 'Bản tiêu chuẩn'
-  if (proType === '6_MONTHS') return 'Bản chuyên sâu'
-  if (proType === '1_YEAR') return 'Bản toàn diện'
-  const adminMatch = typeof proType === 'string' ? (proType as string).match(/^ADMIN_GRANTED_(\d+)M$/) : null
-  if (adminMatch) return `ADMIN cấp ${adminMatch[1]} tháng`
-  return 'Đã nâng cấp'
-}
+// getPlanLabel is now imported from @/lib/constants
 
 export default function Sidebar({ dbUser, collapsed = false, onToggle }: SidebarProps) {
   const pathname = usePathname()
@@ -59,16 +54,15 @@ export default function Sidebar({ dbUser, collapsed = false, onToggle }: Sidebar
       <div className="h-full flex flex-col bg-[#F5F0E8] border-r border-[#D6CFC4]">
         <div className={`flex items-center border-b border-[#D6CFC4] ${collapsed ? 'justify-center px-2 py-4' : 'gap-3 px-5 py-6'}`}>
           <div
-            className="w-9 h-9 rounded-full overflow-hidden flex items-center justify-center flex-shrink-0"
-            style={{ border: '1.5px solid #141414' }}
+            className="w-9 h-9 rounded-full overflow-hidden flex items-center justify-center flex-shrink-0 border-[1.5px] border-[#141414]"
           >
-            <img src="/logo.png" alt="Logo" className="w-full h-full object-cover" />
+            <Image src="/logo.png" alt="LinguaClay Logo" width={36} height={36} className="object-cover" />
           </div>
 
           {!collapsed && (
             <div>
               <p className="text-[17px] font-serif font-black text-[#141414] leading-none">LinguaClay</p>
-              <p className="mt-1 text-[10px] font-bold text-[#4B4B4B] uppercase" style={{ letterSpacing: '0.24em' }}>
+              <p className="mt-1 text-[10px] font-bold text-[#4B4B4B] uppercase tracking-[0.24em]">
                 Học hiệu quả
               </p>
             </div>
@@ -88,7 +82,7 @@ export default function Sidebar({ dbUser, collapsed = false, onToggle }: Sidebar
           </button>
         </div>
 
-        <nav className="flex-1 overflow-y-auto py-3" style={{ scrollbarWidth: 'none' }}>
+        <nav className="flex-1 overflow-y-auto py-3 [scrollbar-width:none]">
           {menuItems.map(({ name, icon: Icon, path }) => {
             const active = path === '/dashboard' ? pathname === '/dashboard' : pathname.startsWith(path)
             return (
@@ -97,30 +91,20 @@ export default function Sidebar({ dbUser, collapsed = false, onToggle }: Sidebar
                 href={path}
                 className={`relative flex items-center transition-all duration-300 group hover:bg-white/60 ${
                   collapsed ? 'justify-center px-3 py-3' : 'gap-3 px-5 py-3 hover:pl-7'
-                }`}
-                style={{
-                  color: active ? '#141414' : '#4B4B4B',
-                  background: active ? 'white' : 'transparent',
-                }}
+                } ${active ? 'text-[#141414] bg-white' : 'text-[#4B4B4B] bg-transparent'}`}
                 title={collapsed ? name : undefined}
               >
                 {active && (
                   <motion.span
                     layoutId="sidebar-bar"
-                    className="absolute left-0 top-0 bottom-0 bg-red-600"
-                    style={{ width: 3 }}
+                    className="absolute left-0 top-0 bottom-0 bg-red-600 w-[3px]"
                     transition={{ type: 'spring', stiffness: 400, damping: 36 }}
                   />
                 )}
                 <Icon size={15} strokeWidth={active ? 2.5 : 1.75} className="flex-shrink-0" />
                 {!collapsed && (
                   <span
-                    className="uppercase"
-                    style={{
-                      fontSize: 12,
-                      fontWeight: active ? 800 : 600,
-                      letterSpacing: '0.17em',
-                    }}
+                    className={`uppercase text-[12px] tracking-[0.17em] ${active ? 'font-extrabold' : 'font-semibold'}`}
                   >
                     {name}
                   </span>
@@ -133,13 +117,9 @@ export default function Sidebar({ dbUser, collapsed = false, onToggle }: Sidebar
         <div className={`pb-5 pt-4 border-t border-[#D6CFC4] space-y-2 ${collapsed ? 'px-2' : 'px-4'}`}>
           <Link
             href="/dashboard/plans"
-            className={`block shadow-[4px_4px_0px_0px_rgba(20,20,20,1)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[7px_7px_0px_0px_rgba(20,20,20,1)] group ${
+            className={`block shadow-[4px_4px_0px_0px_rgba(20,20,20,1)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[7px_7px_0px_0px_rgba(20,20,20,1)] group border-2 border-[#141414] ${
               collapsed ? 'px-2 py-3' : 'px-4 py-3'
-            }`}
-            style={{
-              border: '2px solid #141414',
-              background: isPro ? '#FFFFFF' : 'rgba(255,255,255,0.45)',
-            }}
+            } ${isPro ? 'bg-[#FFFFFF]' : 'bg-white/45'}`}
             title={collapsed ? (isPro ? getPlanLabel(dbUser?.proType ?? null) : 'Hội viên') : undefined}
           >
             {collapsed ? (
@@ -148,13 +128,10 @@ export default function Sidebar({ dbUser, collapsed = false, onToggle }: Sidebar
               </div>
             ) : (
               <>
-                <p className="uppercase font-black text-[#141414]" style={{ fontSize: 10, letterSpacing: '0.17em' }}>
+                <p className="uppercase font-black text-[#141414] text-[10px] tracking-[0.17em]">
                   {isPro ? 'Hội viên nâng cấp' : 'Hội viên'}
                 </p>
-                <p
-                  className="uppercase font-semibold text-[#4B4B4B] group-hover:text-[#141414] transition-colors"
-                  style={{ fontSize: 9, letterSpacing: '0.15em', marginTop: 2 }}
-                >
+                <p className="uppercase font-semibold text-[#4B4B4B] group-hover:text-[#141414] transition-colors text-[9px] tracking-[0.15em] mt-[2px]">
                   {isPro ? getPlanLabel(dbUser?.proType ?? null) : 'Bản miễn phí'}
                 </p>
               </>
@@ -170,7 +147,7 @@ export default function Sidebar({ dbUser, collapsed = false, onToggle }: Sidebar
           >
             <LogOut size={13} strokeWidth={2.5} className="group-hover:rotate-12 transition-transform" />
             {!collapsed && (
-              <span style={{ fontSize: 10, letterSpacing: '0.17em', fontWeight: 700, textTransform: 'uppercase' }}>
+              <span className="text-[10px] tracking-[0.17em] font-bold uppercase">
                 Đăng xuất
               </span>
             )}

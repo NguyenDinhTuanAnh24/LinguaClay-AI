@@ -1,5 +1,7 @@
+import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { PayOS } from '@payos/node'
+import { Prisma } from '@prisma/client'
 import { prisma } from '@/lib/prisma'
 import { createClient } from '@/utils/supabase/server'
 import { createUserNotification } from '@/lib/user-notifications'
@@ -33,7 +35,7 @@ export async function GET(req: Request) {
     return await verifyOrderForUser(orderCode, user.id)
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'Internal Server Error'
-    console.error('Verify Order Error:', error)
+    logger.error('Verify Order Error:', error)
     return NextResponse.json({ error: message }, { status: 500 })
   }
 }
@@ -55,7 +57,7 @@ export async function POST(req: Request) {
     return await verifyOrderForUser(orderCode, user.id)
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'Internal Server Error'
-    console.error('Verify Order Error:', error)
+    logger.error('Verify Order Error:', error)
     return NextResponse.json({ error: message }, { status: 500 })
   }
 }
@@ -131,7 +133,7 @@ async function verifyOrderForUser(orderCode: number, userId: string) {
             eventType: 'VERIFY_PAID',
             payosStatus: 'PAID',
             source: 'VERIFY_SESSION',
-            payload: payosRaw,
+            payload: payosRaw as Prisma.InputJsonValue,
           },
         }),
         ...(order.userCouponId
@@ -160,7 +162,7 @@ async function verifyOrderForUser(orderCode: number, userId: string) {
         message: `Bạn đã nâng cấp gói ${order.planId}.`,
         dedupeKey: `purchase_success:${order.id}`,
       }).catch((error) => {
-        console.error('Create purchase notification error:', error)
+        logger.error('Create purchase notification error:', error)
       })
     }
 
@@ -189,7 +191,7 @@ async function verifyOrderForUser(orderCode: number, userId: string) {
           eventType: paymentStatus === 'EXPIRED' ? 'VERIFY_EXPIRED' : 'VERIFY_CANCELLED',
           payosStatus: paymentStatus,
           source: 'VERIFY_SESSION',
-          payload: payosRaw,
+          payload: payosRaw as Prisma.InputJsonValue,
         },
       }),
     ])

@@ -346,8 +346,8 @@ export default function SettingsPage() {
       }
       addToast('Cập nhật hồ sơ thành công!', 'success')
       router.refresh()
-    } catch (err: any) {
-      addToast(err.message || 'Không thể lưu thay đổi', 'error')
+    } catch (err) {
+      addToast(err instanceof Error ? err.message : 'Không thể lưu thay đổi', 'error')
     } finally {
       setIsSaving(false)
       setPendingFile(null)

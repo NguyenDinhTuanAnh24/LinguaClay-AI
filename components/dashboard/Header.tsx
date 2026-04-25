@@ -149,46 +149,23 @@ export default function Header({ user, dbUser, wordsToday = 0 }: HeaderProps) {
 
   const nameParts = displayName.split(' ').filter(Boolean)
   const initials = nameParts.length >= 2
+
     ? (nameParts[0][0] + nameParts[1][0]).toUpperCase()
     : displayName.slice(0, 2).toUpperCase()
 
   const levelLabel = formatCefrLevel(dbUser?.proficiencyLevel, true)
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        gap: 16,
-        width: '100%',
-        minWidth: 0,
-      }}
-    >
+    <div className="flex items-center justify-between gap-4 w-full min-w-0">
       {/* ── Left: Greeting ── */}
-      <div style={{ minWidth: 0, flex: '1 1 auto' }}>
+      <div className="min-w-0 flex-auto">
         <h2
-          className="font-serif font-black text-[#141414] vietnamese-text"
-          style={{
-            fontSize: 'clamp(18px, 2.5vw, 24px)',
-            lineHeight: 1.2,
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-          }}
+          className="font-serif font-black text-[#141414] vietnamese-text text-[clamp(18px,2.5vw,24px)] leading-[1.2] whitespace-nowrap overflow-hidden text-ellipsis"
         >
           {greeting.text}, {displayName}!
         </h2>
         <p 
-          className="vietnamese-text"
-          style={{ 
-            fontSize: 11, 
-            color: wordsToday >= 10 ? '#dc2626' : '#4B4B4B', 
-            fontWeight: 800, 
-            marginTop: 4, 
-            textTransform: 'uppercase', 
-            letterSpacing: '0.05em' 
-          }}
+          className={`vietnamese-text text-[11px] font-extrabold mt-1 uppercase tracking-[0.05em] ${wordsToday >= 10 ? 'text-[#dc2626]' : 'text-[#4B4B4B]'}`}
         >
           {wordsToday >= 10 
             ? `★ Mục tiêu đã hoàn thành (${wordsToday} từ)!` 
@@ -197,61 +174,31 @@ export default function Header({ user, dbUser, wordsToday = 0 }: HeaderProps) {
       </div>
 
       {/* ── Right: Search + Bell + User ── */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
+      <div className="flex items-center gap-[10px] shrink-0">
 
         {/* Search */}
-        <div style={{ position: 'relative' }} className="hidden md:block">
+        <div className="hidden md:block relative">
           <Search
             size={13}
             strokeWidth={1.75}
-            style={{
-              position: 'absolute',
-              left: 10,
-              top: '50%',
-              transform: 'translateY(-50%)',
-              color: '#4B4B4B',
-              pointerEvents: 'none',
-            }}
+            className="absolute left-[10px] top-1/2 -translate-y-1/2 text-[#4B4B4B] pointer-events-none"
           />
           <input
             type="text"
             placeholder="Tìm bài học, từ vựng..."
-            style={{
-              height: 36,
-              width: 200,
-              paddingLeft: 30,
-              paddingRight: 12,
-              border: '2px solid #141414',
-              background: 'rgba(255,255,255,0.7)',
-              fontSize: 11,
-              color: '#141414',
-              outline: 'none',
-            }}
-            className="focus:border-[#141414] transition-colors"
+            className="h-[36px] w-[200px] pl-[30px] pr-3 border-2 border-[#141414] bg-white/70 text-[11px] text-[#141414] outline-none focus:border-[#141414] transition-colors"
           />
         </div>
 
         {/* Bell + Notification panel */}
-        <div ref={notifPanelRef} style={{ position: 'relative' }}>
+        <div ref={notifPanelRef} className="relative">
           <button
             onClick={() => {
               const nextOpen = !isNotifOpen
               setIsNotifOpen(nextOpen)
               if (nextOpen) void fetchNotifications(1, true)
             }}
-            style={{
-              width: 36,
-              height: 36,
-              border: '2px solid #141414',
-              background: 'rgba(255,255,255,0.7)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: '#141414',
-              cursor: 'pointer',
-              position: 'relative',
-            }}
-            className="hover:bg-white hover:shadow-[4px_4px_0px_0px_rgba(20,20,20,1)] hover:-translate-y-0.5 transition-all outline-none"
+            className="w-[36px] h-[36px] border-2 border-[#141414] bg-white/70 flex items-center justify-center text-[#141414] cursor-pointer relative hover:bg-white hover:shadow-[4px_4px_0px_0px_rgba(20,20,20,1)] hover:-translate-y-0.5 transition-all outline-none"
           >
             <Bell size={14} strokeWidth={2.5} />
             {unreadCount > 0 ? (
@@ -313,42 +260,22 @@ export default function Header({ user, dbUser, wordsToday = 0 }: HeaderProps) {
         {/* User chip */}
         <Link
           href="/dashboard/settings"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            border: '2px solid #141414',
-            background: 'rgba(255,255,255,0.7)',
-            textDecoration: 'none',
-          }}
-          className="w-9 h-9 sm:w-auto sm:h-auto justify-center sm:justify-start gap-0 sm:gap-2 sm:pr-3 hover:bg-white hover:shadow-[4px_4px_0px_0px_rgba(20,20,20,1)] hover:-translate-y-0.5 transition-all"
+          className="flex items-center border-2 border-[#141414] bg-white/70 no-underline w-9 h-9 sm:w-auto sm:h-auto justify-center sm:justify-start gap-0 sm:gap-2 sm:pr-3 hover:bg-white hover:shadow-[4px_4px_0px_0px_rgba(20,20,20,1)] hover:-translate-y-0.5 transition-all"
         >
-          <div
-            style={{
-              width: 36,
-              height: 36,
-              background: '#141414',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexShrink: 0,
-            }}
-          >
+          <div className="w-[36px] h-[36px] bg-[#141414] flex items-center justify-center shrink-0">
             {avatarUrl ? (
-              <img src={avatarUrl} alt="Avatar" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src={avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
             ) : (
-              <span style={{ fontSize: 11, fontWeight: 900, color: '#fff', letterSpacing: '0.05em' }}>
+              <span className="text-[11px] font-black text-white tracking-[0.05em]">
                 {initials}
               </span>
             )}
           </div>
           <div className="hidden sm:flex flex-col">
-            <span
-              className="vietnamese-text"
-              style={{ fontSize: 11, fontWeight: 800, color: '#141414', lineHeight: 1 }}
-            >
+            <span className="vietnamese-text text-[11px] font-extrabold text-[#141414] leading-none">
               {displayName}
             </span>
-            <span style={{ fontSize: 9, color: '#4B4B4B', fontWeight: 800, letterSpacing: '0.15em', textTransform: 'uppercase', marginTop: 2 }}>
+            <span className="text-[9px] text-[#4B4B4B] font-extrabold tracking-[0.15em] uppercase mt-[2px]">
               {levelLabel}
             </span>
           </div>

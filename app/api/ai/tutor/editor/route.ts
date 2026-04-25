@@ -1,8 +1,10 @@
+import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { createClient } from '@/utils/supabase/server'
 import { Prisma } from '@prisma/client'
 import { prisma } from '@/lib/prisma'
 import Groq from 'groq-sdk'
+import { sanitizeUserPrompt } from '@/lib/sanitizer'
 
 const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY,
@@ -44,9 +46,9 @@ export async function POST(req: Request) {
       promptTitle?: string
     }
     const action = body.action || 'gradeEssay'
-    const idea = (body.idea || '').trim()
-    const content = (body.content || '').trim()
-    const promptTitle = (body.promptTitle || '').trim()
+    const idea = sanitizeUserPrompt(body.idea || '', 600)
+    const content = sanitizeUserPrompt(body.content || '', 2500)
+    const promptTitle = sanitizeUserPrompt(body.promptTitle || '', 100)
 
     if (action === 'generatePrompt') {
       if (!idea) {
@@ -206,7 +208,7 @@ RÀNG BUỘC:
 
     return NextResponse.json({ result: safeResult })
   } catch (error) {
-    console.error('AI Tutor Editor Error:', error)
+    logger.error('AI Tutor Editor Error:', error)
     return NextResponse.json(
       {
         error: 'Editor failed',

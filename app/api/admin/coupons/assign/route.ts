@@ -1,3 +1,4 @@
+import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { createClient } from '@/utils/supabase/server'
@@ -95,7 +96,7 @@ export async function POST(req: Request) {
         assignmentId: assigned.id,
       },
     }).catch((error) => {
-      console.error('Create voucher notification error:', error)
+      logger.error('Create voucher notification error:', error)
     })
 
     return NextResponse.json({
@@ -106,7 +107,7 @@ export async function POST(req: Request) {
     })
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'Internal Server Error'
-    console.error('Assign coupon error:', error)
+    logger.error('Assign coupon error:', error)
     return NextResponse.json({ error: message }, { status: 500 })
   }
 }

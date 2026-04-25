@@ -38,7 +38,7 @@ const levelBadge: Record<string, string> = {
 export default async function GrammarDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
 
-  const point = await (prisma as any).grammarPoint.findUnique({
+  const point = await prisma.grammarPoint.findUnique({
     where: { slug },
     include: { topic: true, exercises: true }
   })

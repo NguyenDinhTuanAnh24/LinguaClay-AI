@@ -1,3 +1,4 @@
+import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { PayOS } from '@payos/node'
 import { prisma } from '@/lib/prisma'
@@ -76,7 +77,7 @@ export async function GET(req: Request) {
     })
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'Internal Server Error'
-    console.error('Order Detail Error:', error)
+    logger.error('Order Detail Error:', error)
     return NextResponse.json({ error: message }, { status: 500 })
   }
 }

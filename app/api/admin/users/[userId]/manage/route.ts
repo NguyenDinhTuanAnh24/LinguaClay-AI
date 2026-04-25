@@ -1,8 +1,9 @@
+import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import nodemailer from 'nodemailer'
 import { prisma } from '@/lib/prisma'
-import { createClient } from '@/utils/supabase/server'
+import { ensureAdminActor } from '@/lib/admin-auth'
 import { isAdminEmail, isAdminUser } from '@/lib/admin'
 import { createUserNotification } from '@/lib/user-notifications'
 
@@ -74,9 +75,9 @@ async function sendAccountStatusEmail(userEmail: string, status: 'banned' | 'unb
       if (!error) {
         return { sent: true, provider: 'resend' }
       }
-      console.error(`Resend email error [${status}]:`, error)
+      logger.error(`Resend email error [${status}]:`, error)
     } catch (error) {
-      console.error(`Resend email exception [${status}]:`, error)
+      logger.error(`Resend email exception [${status}]:`, error)
     }
   }
 
@@ -102,7 +103,7 @@ async function sendAccountStatusEmail(userEmail: string, status: 'banned' | 'unb
 
       return { sent: true, provider: 'gmail' }
     } catch (error) {
-      console.error(`Gmail email error [${status}]:`, error)
+      logger.error(`Gmail email error [${status}]:`, error)
       return { sent: false, provider: null, error: 'Gmail send failed' }
     }
   }
@@ -112,26 +113,10 @@ async function sendAccountStatusEmail(userEmail: string, status: 'banned' | 'unb
 
 export async function POST(req: Request, { params }: { params: Promise<{ userId: string }> }) {
   try {
-    const supabase = await createClient()
-    const {
-      data: { user },
-    } = await supabase.auth.getUser()
+    const admin = await ensureAdminActor()
 
-    if (!user || !isAdminUser(user)) {
+    if (!admin) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
-    }
-
-    try {
-      const actor = await prisma.user.findUnique({
-        where: { id: user.id },
-        select: { role: true },
-      })
-      if (!actor || (actor as { role?: string }).role !== 'ADMIN') {
-        return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
-      }
-    } catch {
-      // Backward compatibility for stale Prisma client without `role`.
-      // Keep relying on Supabase admin check above.
     }
 
     const { userId } = await params
@@ -218,7 +203,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ userId:
         dedupeKey: `admin_plan_upgraded:${userId}:${now.toISOString()}`,
         createdAt: now,
       }).catch((error) => {
-        console.error('Create admin plan upgraded notification error:', error)
+        logger.error('Create admin plan upgraded notification error:', error)
       })
     } else if (action === 'cancel_pro') {
       await createUserNotification({
@@ -229,17 +214,17 @@ export async function POST(req: Request, { params }: { params: Promise<{ userId:
         dedupeKey: `admin_plan_canceled:${userId}:${now.toISOString()}`,
         createdAt: now,
       }).catch((error) => {
-        console.error('Create admin plan canceled notification error:', error)
+        logger.error('Create admin plan canceled notification error:', error)
       })
     } else if (action === 'ban') {
       banEmailResult = await sendAccountStatusEmail(target.email, 'banned')
       if (!banEmailResult.sent) {
-        console.error('Ban email was not sent:', banEmailResult.error || 'Unknown error')
+        logger.error('Ban email was not sent:', banEmailResult.error || 'Unknown error')
       }
     } else if (action === 'unban') {
       banEmailResult = await sendAccountStatusEmail(target.email, 'unbanned')
       if (!banEmailResult.sent) {
-        console.error('Unban email was not sent:', banEmailResult.error || 'Unknown error')
+        logger.error('Unban email was not sent:', banEmailResult.error || 'Unknown error')
       }
     }
 
@@ -251,7 +236,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ userId:
       emailError: banEmailResult?.sent ? undefined : banEmailResult?.error,
     })
   } catch (error) {
-    console.error('Admin manage user error:', error)
+    logger.error('Admin manage user error:', error)
     return NextResponse.json({ error: 'Internal error' }, { status: 500 })
   }
 }

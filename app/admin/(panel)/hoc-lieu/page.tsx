@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma'
-import { HocLieuClient, type FlashcardSetView, type GrammarItemView, type MediaItemView } from './ui-client'
+import { HocLieuClient } from './ui-client'
+import { FlashcardSetView, GrammarItemView, MediaItemView } from './ui-client-types'
 
 type MediaAssetRow = {
   id: string

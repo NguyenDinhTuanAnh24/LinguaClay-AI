@@ -1,3 +1,4 @@
+import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { createClient } from '@/utils/supabase/server'
@@ -52,7 +53,7 @@ export async function GET() {
     })
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'Internal Server Error'
-    console.error('My coupons error:', error)
+    logger.error('My coupons error:', error)
     return NextResponse.json({ error: message }, { status: 500 })
   }
 }

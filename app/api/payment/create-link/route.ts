@@ -1,7 +1,20 @@
+import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { PayOS } from '@payos/node'
+import { Prisma } from '@prisma/client'
 import { createClient } from '@/utils/supabase/server'
 import { prisma } from '@/lib/prisma'
+import { z } from 'zod'
+import { applyRateLimit } from '@/lib/rate-limit'
+import { type NextRequest } from 'next/server'
+
+const CreateLinkSchema = z.object({
+  description: z.string().max(25, 'Mô tả quá dài'),
+  planId: z.enum(['3_MONTHS', '6_MONTHS', '1_YEAR'], {
+    message: 'Gói học không hợp lệ',
+  }),
+  userCouponId: z.string().optional(),
+})
 
 const payos = new PayOS({
   clientId: process.env.PAYOS_CLIENT_ID!,
@@ -15,8 +28,12 @@ const PLAN_PRICE: Record<string, number> = {
   '1_YEAR': 499000,
 }
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
+    // Rate limit: 10 requests/minute per IP
+    const rl = await applyRateLimit(req, 'payment')
+    if (!rl.ok) return rl.response
+
     const supabase = await createClient()
     const {
       data: { user },
@@ -26,15 +43,18 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const payload = (await req.json()) as {
-      description: string
-      planId: string
-      userCouponId?: string
+    const bodyRaw = await req.json()
+    const parseResult = CreateLinkSchema.safeParse(bodyRaw)
+
+    if (!parseResult.success) {
+      return NextResponse.json({ error: parseResult.error.issues[0]?.message || 'Invalid payload' }, { status: 400 })
     }
+
+    const payload = parseResult.data
 
     const originalAmount = PLAN_PRICE[payload.planId] ?? 0
     if (!originalAmount) {
-      return NextResponse.json({ error: 'Invalid plan' }, { status: 400 })
+      return NextResponse.json({ error: 'Invalid plan price configuration' }, { status: 500 })
     }
 
     let discountAmount = 0
@@ -131,7 +151,7 @@ export async function POST(req: Request) {
           payload: {
             request: body,
             response: payosRaw,
-          },
+          } as Prisma.InputJsonValue,
         },
       }),
     ])
@@ -150,7 +170,7 @@ export async function POST(req: Request) {
     })
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'Internal Server Error'
-    console.error('PayOS Create Link Error:', error)
+    logger.error('PayOS Create Link Error:', error)
     return NextResponse.json({ error: message }, { status: 500 })
   }
 }

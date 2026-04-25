@@ -1,9 +1,7 @@
 import { prisma } from '@/lib/prisma'
 import { NguoiDungClient, type UserPanelItem } from './ui-client'
 import { createClient } from '@/utils/supabase/server'
-import { isAdminUser } from '@/lib/admin'
-
-const ADMIN_EMAILS = ['admin@gmail.com']
+import { ADMIN_EMAILS, isAdminUser } from '@/lib/admin'
 
 function formatDate(date: Date): string {
   return new Intl.DateTimeFormat('vi-VN', {

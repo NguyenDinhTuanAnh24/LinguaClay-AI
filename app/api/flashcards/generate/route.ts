@@ -1,3 +1,4 @@
+import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { createClient } from '@/utils/supabase/server'
 import { prisma } from '@/lib/prisma'
@@ -98,7 +99,7 @@ export async function POST(req: Request) {
     return NextResponse.json(newTopic)
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'Internal Server Error'
-    console.error('Groq Generation Error:', error)
+    logger.error('Groq Generation Error:', error)
     return NextResponse.json({ error: message }, { status: 500 })
   }
 }

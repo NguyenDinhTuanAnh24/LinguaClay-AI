@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
 type TicketCategory = 'TECHNICAL' | 'CONTENT' | 'PAYMENT' | 'FEEDBACK'
@@ -232,7 +233,7 @@ export default function DashboardSupportPage() {
               }}
               className="w-full border border-[#141414] bg-white px-3 py-2 text-sm"
             />
-            {attachmentPreview ? <img src={attachmentPreview} alt="Xem trước ảnh đính kèm" className="h-28 w-full object-cover border border-[#141414]" /> : null}
+            {attachmentPreview ? <Image src={attachmentPreview} alt="Xem trước ảnh đính kèm" width={400} height={112} unoptimized className="h-28 w-full object-cover border border-[#141414]" /> : null}
           </div>
           <div className="flex items-center gap-2">
             <button
@@ -267,7 +268,7 @@ export default function DashboardSupportPage() {
                 <p className="mt-1">{ticket.message}</p>
                 {ticket.attachmentUrl ? (
                   <a href={ticket.attachmentUrl} target="_blank" rel="noreferrer" className="mt-2 block border border-[#141414] p-2">
-                    <img src={ticket.attachmentUrl} alt="Ảnh đính kèm" className="h-28 w-full object-cover" />
+                    <Image src={ticket.attachmentUrl} alt="Ảnh đính kèm" width={400} height={112} unoptimized className="h-28 w-full object-cover" />
                   </a>
                 ) : null}
                 {ticket.adminReply ? (

@@ -1,3 +1,4 @@
+import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { createClient } from '@/utils/supabase/server'
 import { prisma } from '@/lib/prisma'
@@ -70,7 +71,7 @@ export async function GET() {
       })),
     })
   } catch (error) {
-    console.error('User support-refund history error:', error)
+    logger.error('User support-refund history error:', error)
     return NextResponse.json({ error: 'Không thể tải lịch sử hỗ trợ/hoàn tiền' }, { status: 500 })
   }
 }

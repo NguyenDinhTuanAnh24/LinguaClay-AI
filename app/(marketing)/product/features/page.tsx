@@ -78,7 +78,7 @@ export default function FeaturesPage() {
               Lặp lại ngắt quãng<br/>Spaced Repetition
             </h2>
             <p className="text-base font-sans text-newsprint-gray-dark mb-6 vietnamese-text">
-              Bạn không cần phải tự hỏi "Hôm nay mình nên ôn gì?". Hệ thống sẽ tự động tính toán đường cong lãng quên của não bộ và gọi lại những thẻ từ bạn sắp quên nhất.
+              Bạn không cần phải tự hỏi &quot;Hôm nay mình nên ôn gì?&quot;. Hệ thống sẽ tự động tính toán đường cong lãng quên của não bộ và gọi lại những thẻ từ bạn sắp quên nhất.
             </p>
             <ul className="space-y-4 mb-8">
               <li className="flex items-start gap-3 text-sm font-sans text-newsprint-black font-bold vietnamese-text">
@@ -118,7 +118,7 @@ export default function FeaturesPage() {
                </div>
                <div className="w-full max-w-md bg-newsprint-black text-newsprint-white border-[2px] border-newsprint-black p-4 text-left rounded-xl rounded-tl-none text-sm font-sans shadow-sm hover:-translate-y-1 transition-transform">
                   <p className="font-bold text-newsprint-white mb-1 flex items-center gap-2"><Sparkles className="w-4 h-4"/> AI Tutor</p>
-                  <p className="text-newsprint-paper/90">Absolutely! I will be the waiter. Let's start: <br/><br/><i className="text-white">"Good evening. Here is your menu. Can I get you started with anything to drink?"</i></p>
+                  <p className="text-newsprint-paper/90">Absolutely! I will be the waiter. Let&apos;s start: <br/><br/><i className="text-white">&quot;Good evening. Here is your menu. Can I get you started with anything to drink?&quot;</i></p>
                </div>
                <div className="mt-8 flex gap-4">
                   <div className="w-14 h-14 rounded-full border-[3px] border-red-600 text-red-600 flex items-center justify-center hover:bg-red-600 hover:text-white transition-colors cursor-pointer shadow-md"><Mic className="w-6 h-6"/></div>

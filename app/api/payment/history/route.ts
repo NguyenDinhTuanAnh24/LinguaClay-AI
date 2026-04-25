@@ -1,3 +1,4 @@
+import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { createClient } from '@/utils/supabase/server'
@@ -56,7 +57,7 @@ export async function GET(req: Request) {
     })
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'Internal Server Error'
-    console.error('Payment History Error:', error)
+    logger.error('Payment History Error:', error)
     return NextResponse.json({ error: message }, { status: 500 })
   }
 }

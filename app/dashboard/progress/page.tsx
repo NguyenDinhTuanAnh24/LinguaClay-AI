@@ -1,5 +1,7 @@
 import { createClient } from '@/utils/supabase/server'
 import { prisma } from '@/lib/prisma'
+import { formatVNTime } from '@/utils/timezone'
+import { MS_PER_DAY } from '@/lib/constants'
 import MasteryDetails from '@/components/dashboard/MasteryDetails'
 import ProgressSectionTabs from '@/components/dashboard/ProgressSectionTabs'
 import { 
@@ -14,8 +16,7 @@ import {
 } from 'lucide-react'
 
 // ---- Helpers ----
-const toVNDate = (d: Date) =>
-  new Date(d.getTime() + 7 * 3600_000).toISOString().split('T')[0]
+const toVNDate = (d: Date) => formatVNTime(d, 'yyyy-MM-dd')
 
 // SVG Donut Chart — Brutalist Version
 function DonutChart({
@@ -158,10 +159,10 @@ export default async function ProgressPage() {
   // ---- 1. Fetch data with word info and tutor stats ----
   const [
     allProgress,
-    tutorL,
-    tutorR,
-    tutorS,
-    tutorE,
+    tutorListeningSessions,
+    tutorReadingSessions,
+    tutorSpeakingSessions,
+    tutorEditorSessions,
   ] = await Promise.all([
     prisma.userProgress.findMany({
       where: { userId },
@@ -174,10 +175,10 @@ export default async function ProgressPage() {
     prisma.tutorEditorSession.findMany({ where: { userId }, select: { createdAt: true } }),
   ])
 
-  const tutorListeningCount = tutorL.length
-  const tutorReadingCount = tutorR.length
-  const tutorSpeakingCount = tutorS.length
-  const tutorWritingCount = tutorE.length
+  const tutorListeningCount = tutorListeningSessions.length
+  const tutorReadingCount = tutorReadingSessions.length
+  const tutorSpeakingCount = tutorSpeakingSessions.length
+  const tutorWritingCount = tutorEditorSessions.length
 
   // ---- 2. Retention Rate logic ----
   const studiedWords = allProgress.length
@@ -185,11 +186,11 @@ export default async function ProgressPage() {
   const retentionRate   = studiedWords > 0 ? Math.round((rememberedWords / studiedWords) * 100) : 0
 
   // ---- 3. Velocity Logic ----
-  const days7Ago = new Date(now.getTime() - 7 * 86_400_000)
+  const days7Ago = new Date(now.getTime() - 7 * MS_PER_DAY)
   const recentActivity = allProgress.filter(p => p.lastReviewed && p.lastReviewed >= days7Ago)
 
   const last7Days = Array.from({ length: 7 }, (_, i) => {
-    const d   = new Date(now.getTime() - (6 - i) * 86_400_000)
+    const d   = new Date(now.getTime() - (6 - i) * MS_PER_DAY)
     const key = toVNDate(d)
     const dayActs = recentActivity.filter(p => p.lastReviewed && toVNDate(p.lastReviewed) === key)
     
@@ -205,21 +206,20 @@ export default async function ProgressPage() {
   // ---- 4. Streak ----
   const allDates = [
     ...allProgress.filter(p => p.lastReviewed).map(p => p.lastReviewed!),
-    ...tutorL.map(p => p.createdAt),
-    ...tutorR.map(p => p.createdAt),
-    ...tutorS.map(p => p.createdAt),
-    ...tutorE.map(p => p.createdAt),
+    ...tutorListeningSessions.map(p => p.createdAt),
+    ...tutorReadingSessions.map(p => p.createdAt),
+    ...tutorSpeakingSessions.map(p => p.createdAt),
+    ...tutorEditorSessions.map(p => p.createdAt),
   ]
   const uniqueDays = [...new Set(allDates.map(p => toVNDate(p)))].sort((a,b)=>b.localeCompare(a))
   let streak = 0
   if (uniqueDays.length > 0) {
     const todayVN  = toVNDate(now)
-    const msPerDay = 86_400_000
-    if (new Date(todayVN).getTime() - new Date(uniqueDays[0]).getTime() <= msPerDay) {
+    if (new Date(todayVN).getTime() - new Date(uniqueDays[0]).getTime() <= MS_PER_DAY) {
       streak = 1
       for (let i = 1; i < uniqueDays.length; i++) {
         const diff = new Date(uniqueDays[i - 1]).getTime() - new Date(uniqueDays[i]).getTime()
-        if (diff <= msPerDay + 1) streak++ 
+        if (diff <= MS_PER_DAY + 1) streak++ 
         else break
       }
     }

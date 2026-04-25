@@ -51,7 +51,7 @@ export default function AITutorPage() {
                 AI Tutor tạo ra một môi trường giả định an toàn nơi bạn có thể nói tiếng Anh (hoặc bất kỳ ngôn ngữ nào) thoải mái mà không lo bị soi xét.
               </p>
               <p className="font-sans text-base sm:text-lg text-newsprint-gray-medium leading-relaxed vietnamese-text">
-                Nói sai? AI sẽ chỉnh ngay tắp lự. Phát âm ngọng? Chỉnh phát âm tận gốc. Hàng chục tình huống luôn chực chờ để bạn "làm nóng" ngay tức khắc.
+                Nói sai? AI sẽ chỉnh ngay tắp lự. Phát âm ngọng? Chỉnh phát âm tận gốc. Hàng chục tình huống luôn chực chờ để bạn &quot;làm nóng&quot; ngay tức khắc.
               </p>
             </div>
           </div>
@@ -119,12 +119,12 @@ export default function AITutorPage() {
                 {/* User message */}
                 <div className="bg-newsprint-black border-[2px] border-newsprint-black p-3 max-w-[85%] self-end shadow-[2px_2px_0px_0px_rgba(20,20,20,0.2)] hover:-translate-y-1 transition-transform">
                   <p className="text-xs font-bold text-newsprint-gray-medium mb-1 drop-shadow">Bạn đang nói</p>
-                  <p className="text-sm font-sans text-newsprint-white italic opacity-80">"I want a coffee black..."</p>
+                  <p className="text-sm font-sans text-newsprint-white italic opacity-80">&quot;I want a coffee black...&quot;</p>
                 </div>
                 {/* AI Correction */}
                 <div className="bg-[#EBE3D5] border-[2px] border-dashed border-red-600 p-3 max-w-[85%] self-start">
                   <p className="text-[10px] font-bold text-red-600 mb-1 uppercase tracking-widest">Sửa lỗi lập tức</p>
-                  <p className="text-sm font-sans text-newsprint-gray-dark">Thay vì nói "I want a coffee black", hãy thử cách nói tự nhiên hơn: <strong className="text-newsprint-black">"I'll have a black coffee, please."</strong></p>
+                  <p className="text-sm font-sans text-newsprint-gray-dark">Thay vì nói &quot;I want a coffee black&quot;, hãy thử cách nói tự nhiên hơn: <strong className="text-newsprint-black">&quot;I&apos;ll have a black coffee, please.&quot;</strong></p>
                 </div>
               </div>
               {/* Input Area */}

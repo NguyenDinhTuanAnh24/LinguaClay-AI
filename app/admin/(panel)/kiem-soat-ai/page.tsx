@@ -117,7 +117,7 @@ export default async function KiemSoatAIPage() {
         messages: 2,
         tokens,
         flagged: tokens >= 3500,
-        uContent: '(Luyện nghe) Topic: ' + (s as any).topicHint || 'N/A',
+        uContent: '(Luyện nghe) Topic: ' + ((s as { topicHint?: string }).topicHint || 'N/A'),
         aiContent: `Transcript:\n${s.transcriptEn}\n\nFeedback:\n${s.feedbackVi}`,
       }
     }),
@@ -131,7 +131,7 @@ export default async function KiemSoatAIPage() {
         messages: 2,
         tokens,
         flagged: tokens >= 3500,
-        uContent: '(Luyện đọc) Topic: ' + (s as any).topicHint || 'N/A',
+        uContent: '(Luyện đọc) Topic: ' + ((s as { topicHint?: string }).topicHint || 'N/A'),
         aiContent: `Passage:\n${s.passageEn}\n\nFeedback:\n${s.feedbackVi}`,
       }
     }),

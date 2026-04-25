@@ -1,3 +1,5 @@
+import { ensureAdminActor } from '@/lib/admin-auth'
+import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { createClient } from '@/utils/supabase/server'
@@ -14,28 +16,7 @@ type ProcessPayload = {
   note?: string
 }
 
-async function ensureAdminActor() {
-  const supabase = await createClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
 
-  if (!user || !isAdminUser(user)) return null
-
-  try {
-    const actor = await prisma.user.findUnique({
-      where: { id: user.id },
-      select: { role: true },
-    })
-    if (!actor || (actor as { role?: string }).role !== 'ADMIN') {
-      return null
-    }
-  } catch {
-    // Fallback to Supabase admin check for backward compatibility.
-  }
-
-  return user
-}
 
 export async function POST(req: Request) {
   try {
@@ -143,7 +124,7 @@ export async function POST(req: Request) {
       message: `Admin đã xử lý hoàn tiền và hủy gói Pro của bạn (${refundType}).`,
       dedupeKey: `admin_refund_canceled:${requestRow.id}`,
     }).catch((error) => {
-      console.error('Create refund cancellation notification error:', error)
+      logger.error('Create refund cancellation notification error:', error)
     })
 
     const userToEmail = await prisma.user.findUnique({
@@ -158,9 +139,9 @@ export async function POST(req: Request) {
       
       const emailRes = await sendSystemEmail(userToEmail.email, subject, htmlBody, textBody)
       if (!emailRes.sent) {
-        console.error('Refund email failed to send:', emailRes.error)
+        logger.error('Refund email failed to send:', emailRes.error)
       } else {
-        console.log(`[EMAIL DISPATCHED] Refund confirmation to: ${userToEmail.email} via ${emailRes.provider}`)
+        logger.info(`[EMAIL DISPATCHED] Refund confirmation to user via ${emailRes.provider}`)
       }
     }
 
@@ -171,7 +152,7 @@ export async function POST(req: Request) {
       refundType,
     })
   } catch (error) {
-    console.error('Admin process refund error:', error)
+    logger.error('Admin process refund error:', error)
     return NextResponse.json({ error: 'Không thể xử lý hoàn tiền' }, { status: 500 })
   }
 }

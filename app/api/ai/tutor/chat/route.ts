@@ -1,8 +1,25 @@
+import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { createClient } from '@/utils/supabase/server'
 import { prisma } from '@/lib/prisma'
 import { Prisma } from '@prisma/client'
 import Groq from 'groq-sdk'
+import { z } from 'zod'
+import { VIETNAM_TIMEZONE_OFFSET } from '@/lib/constants'
+import { sanitizeUserPrompt } from '@/lib/sanitizer'
+import { applyRateLimit } from '@/lib/rate-limit'
+import { type NextRequest } from 'next/server'
+
+const ChatRequestSchema = z.object({
+  mode: z.enum(['roleplay', 'freeTalk']).optional(),
+  message: z.string().optional(),
+  history: z.unknown().optional(),
+  scenarioTitle: z.string().optional(),
+  start: z.boolean().optional(),
+  turnCount: z.number().optional(),
+  targetWords: z.array(z.string()).optional(),
+  roleplayAction: z.enum(['hint', 'explain']).optional()
+})
 
 const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY,
@@ -32,7 +49,7 @@ type FreeTalkResult = {
 function getVNDayStart(date = new Date()) {
   const localVN = new Date(date.toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' }))
   localVN.setHours(0, 0, 0, 0)
-  const utc = new Date(localVN.getTime() - 7 * 60 * 60 * 1000)
+  const utc = new Date(localVN.getTime() - VIETNAM_TIMEZONE_OFFSET)
   return utc
 }
 
@@ -41,15 +58,20 @@ function toSafeTurns(input: unknown): ChatTurn[] {
   return input
     .slice(-10)
     .map((item) => {
-      const role = item?.role === 'assistant' ? 'assistant' : 'user'
-      const content = typeof item?.content === 'string' ? item.content.trim() : ''
+      const maybeObject = item && typeof item === 'object' ? (item as { role?: unknown; content?: unknown }) : null
+      const role: ChatTurn['role'] = maybeObject?.role === 'assistant' ? 'assistant' : 'user'
+      const content = typeof maybeObject?.content === 'string' ? sanitizeUserPrompt(maybeObject.content) : ''
       return { role, content }
     })
     .filter((t) => t.content.length > 0)
 }
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
+    // Rate limit: 20 requests/minute per IP
+    const rl = await applyRateLimit(req, 'ai')
+    if (!rl.ok) return rl.response
+
     const supabase = await createClient()
     const {
       data: { user },
@@ -59,16 +81,14 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const body = (await req.json()) as {
-      mode?: 'roleplay' | 'freeTalk'
-      message?: string
-      history?: unknown
-      scenarioTitle?: string
-      start?: boolean
-      turnCount?: number
-      targetWords?: string[]
-      roleplayAction?: 'hint' | 'explain'
+    const bodyRaw = await req.json()
+    const parseResult = ChatRequestSchema.safeParse(bodyRaw)
+
+    if (!parseResult.success) {
+      return NextResponse.json({ error: 'Invalid request payload', details: parseResult.error.issues }, { status: 400 })
     }
+
+    const body = parseResult.data
 
     const mode = body.mode
     if (mode !== 'roleplay' && mode !== 'freeTalk') {
@@ -76,7 +96,7 @@ export async function POST(req: Request) {
     }
 
     const turns = toSafeTurns(body.history)
-    const message = (body.message || '').trim()
+    const message = sanitizeUserPrompt(body.message || '')
 
     if (mode === 'roleplay') {
       const scenarioTitle = (body.scenarioTitle || '').trim() || 'Conversation Practice'
@@ -273,7 +293,7 @@ Requirements:
 
     return NextResponse.json({ result })
   } catch (error) {
-    console.error('AI Tutor Chat Error:', error)
+    logger.error('AI Tutor Chat Error:', error)
     return NextResponse.json(
       {
         error: 'Chat failed',

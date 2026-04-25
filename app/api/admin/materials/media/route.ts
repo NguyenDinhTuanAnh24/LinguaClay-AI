@@ -1,3 +1,4 @@
+import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { createClient } from '@/utils/supabase/server'
@@ -76,7 +77,7 @@ export async function GET() {
     if (error instanceof Error && error.message === 'MEDIA_ASSET_MODEL_MISSING') {
       return NextResponse.json({ error: mediaNotReadyMessage }, { status: 503 })
     }
-    console.error('admin materials media GET error:', error)
+    logger.error('admin materials media GET error:', error)
     return NextResponse.json({ error: 'Internal error' }, { status: 500 })
   }
 }
@@ -163,7 +164,7 @@ export async function POST(req: Request) {
     const rows = await listMediaRows()
     return NextResponse.json({ ok: true, rows })
   } catch (error) {
-    console.error('admin materials media POST error:', error)
+    logger.error('admin materials media POST error:', error)
     return NextResponse.json({ error: 'Internal error' }, { status: 500 })
   }
 }

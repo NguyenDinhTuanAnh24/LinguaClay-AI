@@ -1,3 +1,4 @@
+import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import Groq from 'groq-sdk'
@@ -84,7 +85,7 @@ Rules:
       remaining: await prisma.grammarPoint.count({ where: { structure: null } })
     })
   } catch (error: unknown) {
-    console.error('Grammar enrichment error:', error)
+    logger.error('Grammar enrichment error:', error)
     const message = error instanceof Error ? error.message : 'Internal Server Error'
     return NextResponse.json({ error: message }, { status: 500 })
   }

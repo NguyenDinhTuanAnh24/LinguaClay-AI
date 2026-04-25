@@ -1,7 +1,7 @@
+import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { createClient } from '@/utils/supabase/server'
-import { isAdminUser } from '@/lib/admin'
+import { ensureAdminActor } from '@/lib/admin-auth'
 
 type Payload = {
   ticketId?: string
@@ -9,32 +9,9 @@ type Payload = {
   note?: string
 }
 
-async function ensureAdmin() {
-  const supabase = await createClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-
-  if (!user || !isAdminUser(user)) return null
-
-  try {
-    const actor = await prisma.user.findUnique({
-      where: { id: user.id },
-      select: { role: true },
-    })
-    if (!actor || (actor as { role?: string }).role !== 'ADMIN') {
-      return null
-    }
-  } catch {
-    // Fallback to Supabase admin check.
-  }
-
-  return user
-}
-
 export async function POST(req: Request) {
   try {
-    const admin = await ensureAdmin()
+    const admin = await ensureAdminActor()
     if (!admin) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
 
     const payload = (await req.json()) as Payload
@@ -55,7 +32,7 @@ export async function POST(req: Request) {
       note: updated.internalNote || '',
     })
   } catch (error) {
-    console.error('Admin save internal note error:', error)
+    logger.error('Admin save internal note error:', error)
     return NextResponse.json({ error: 'Không thể lưu ghi chú nội bộ' }, { status: 500 })
   }
 }

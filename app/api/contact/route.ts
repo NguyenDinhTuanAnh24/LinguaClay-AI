@@ -1,3 +1,4 @@
+import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
 
@@ -56,13 +57,13 @@ export async function POST(req: Request) {
     })
 
     if (error) {
-      console.error('Resend Error:', error)
+      logger.error('Resend Error:', error)
       return NextResponse.json({ message: 'Failed to send via Resend' }, { status: 500 })
     }
 
     return NextResponse.json({ message: 'Success', data }, { status: 200 })
   } catch (error) {
-    console.error('API Error:', error)
+    logger.error('API Error:', error)
     return NextResponse.json({ message: 'Internal Server Error' }, { status: 500 })
   }
 }

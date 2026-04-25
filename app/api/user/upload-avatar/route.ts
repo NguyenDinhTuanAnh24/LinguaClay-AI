@@ -1,3 +1,4 @@
+import { logger } from '@/lib/logger'
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/utils/supabase/server'
 import { createClient as createSupabaseClient } from '@supabase/supabase-js'
@@ -50,7 +51,7 @@ export async function POST(request: NextRequest) {
       })
 
     if (error) {
-      console.error('Storage upload error:', error)
+      logger.error('Storage upload error:', error)
 
       // Hướng dẫn cụ thể nếu lỗi RLS
       if (error.message?.includes('row-level security') || error.message?.includes('policy')) {
@@ -82,10 +83,11 @@ export async function POST(request: NextRequest) {
     })
 
     return NextResponse.json({ ok: true, url: publicUrl })
-  } catch (error: any) {
-    console.error('Upload avatar error:', error)
+  } catch (error: unknown) {
+    logger.error('Upload avatar error:', error)
+    const message = error instanceof Error ? error.message : 'Lỗi server'
     return NextResponse.json(
-      { error: error.message || 'Lỗi server' },
+      { error: message },
       { status: 500 }
     )
   }

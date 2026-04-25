@@ -1,3 +1,4 @@
+import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import Groq from 'groq-sdk'
@@ -94,7 +95,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ success: true, count: created.length })
   } catch (error: unknown) {
-    console.error('Exercise Gen Error:', error)
+    logger.error('Exercise Gen Error:', error)
     const message = error instanceof Error ? error.message : 'Internal Server Error'
     return NextResponse.json({ error: message }, { status: 500 })
   }

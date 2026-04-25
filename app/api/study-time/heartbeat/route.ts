@@ -1,3 +1,4 @@
+import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { createClient } from '@/utils/supabase/server'
@@ -71,7 +72,7 @@ export async function POST(req: Request) {
         message: 'Bạn đã hoàn thành mục tiêu học tập hôm nay.',
         dedupeKey: `goal_reached:${user.id}:${dayKey}`,
       }).catch((error) => {
-        console.error('Create study goal notification error:', error)
+        logger.error('Create study goal notification error:', error)
       })
     }
 

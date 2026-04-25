@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { prisma } from '@/lib/prisma'
+import { ADMIN_EMAILS } from '@/lib/admin'
 import { Activity, TrendingUp, Wallet, Users, BookOpenCheck, GraduationCap, Bot, Mic, Headphones, BookA, PencilLine } from 'lucide-react'
 
 export const dynamic = 'force-dynamic'
@@ -8,7 +9,6 @@ type RangeKey = 'today' | '7d' | '30d' | 'custom'
 type SearchParams = { range?: string; start?: string; end?: string; userPage?: string }
 type DayPoint = { dayKey: string; label: string; value: number }
 type RevenueBar = { label: string; amount: number; isEmpty: boolean }
-const ADMIN_EMAILS = ['admin@gmail.com']
 
 function getVNDayBoundary(day: string, endOfDay = false): Date {
   return new Date(`${day}T${endOfDay ? '23:59:59.999' : '00:00:00.000'}+07:00`)

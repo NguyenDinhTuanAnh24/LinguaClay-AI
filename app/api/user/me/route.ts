@@ -1,3 +1,4 @@
+import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { createClient } from '@/utils/supabase/server'
 import { prisma } from '@/lib/prisma'
@@ -81,7 +82,7 @@ export async function GET() {
         : null,
     })
   } catch (error) {
-    console.error('API User Me Error:', error)
+    logger.error('API User Me Error:', error)
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
   }
 }

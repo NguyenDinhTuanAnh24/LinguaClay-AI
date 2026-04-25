@@ -1,3 +1,4 @@
+import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { createClient } from '@/utils/supabase/server'
 import { Prisma } from '@prisma/client'
@@ -286,7 +287,7 @@ Trả JSON thuần:
 
     return NextResponse.json({ result })
   } catch (error) {
-    console.error('AI Tutor Speaking Error:', error)
+    logger.error('AI Tutor Speaking Error:', error)
     return NextResponse.json(
       {
         error: 'Speaking failed',

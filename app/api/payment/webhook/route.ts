@@ -1,5 +1,7 @@
+import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { PayOS } from '@payos/node'
+import { Prisma } from '@prisma/client'
 import { prisma } from '@/lib/prisma'
 import { createUserNotification } from '@/lib/user-notifications'
 
@@ -52,7 +54,7 @@ export async function POST(req: Request) {
           eventType: 'WEBHOOK_DUPLICATED',
           payosStatus: String(webhookRaw.status ?? 'PAID').toUpperCase(),
           source: 'WEBHOOK',
-          payload: webhookRaw,
+          payload: webhookRaw as Prisma.InputJsonValue,
         },
       })
       return NextResponse.json({ message: 'Already processed' })
@@ -95,7 +97,7 @@ export async function POST(req: Request) {
           eventType: 'WEBHOOK_PAID',
           payosStatus: String(webhookRaw.status ?? 'PAID').toUpperCase(),
           source: 'WEBHOOK',
-          payload: webhookRaw,
+          payload: webhookRaw as Prisma.InputJsonValue,
         },
       }),
     ])
@@ -107,13 +109,13 @@ export async function POST(req: Request) {
       message: `Bạn đã nâng cấp gói ${order.planId}.`,
       dedupeKey: `purchase_success:${order.id}`,
     }).catch((error) => {
-      console.error('Create webhook purchase notification error:', error)
+      logger.error('Create webhook purchase notification error:', error)
     })
 
-    console.log('PayOS webhook processed:', orderCode)
+    logger.info('payos.webhook.processed', { orderCode })
     return NextResponse.json({ success: true })
   } catch (error: unknown) {
-    console.error('PayOS Webhook Error:', error)
-    return NextResponse.json({ success: false }, { status: 200 })
+    logger.error('PayOS Webhook Error:', error)
+    return NextResponse.json({ success: false, error: error instanceof Error ? error.message : 'Unknown error' }, { status: 500 })
   }
 }

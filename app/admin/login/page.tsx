@@ -4,13 +4,12 @@ import { FormEvent, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/utils/supabase/client'
-import { ADMIN_EMAIL, ADMIN_ROLE } from '@/lib/admin'
 import { ArrowLeft, Eye, EyeOff, ShieldCheck } from 'lucide-react'
 
 export default function AdminLoginPage() {
   const router = useRouter()
   const supabase = createClient()
-  const [email, setEmail] = useState(ADMIN_EMAIL)
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -28,18 +27,17 @@ export default function AdminLoginPage() {
       return
     }
 
-    const { data, error: userError } = await supabase.auth.getUser()
-    const role = data.user?.app_metadata?.role || data.user?.user_metadata?.role
-    const isAdmin = data.user?.email?.toLowerCase() === ADMIN_EMAIL && role === ADMIN_ROLE
+    const syncRes = await fetch('/api/auth/sync-user', { method: 'POST' })
+    const syncData = (await syncRes.json()) as { ok?: boolean; role?: string }
+    const isAdmin = syncRes.ok && syncData.ok && syncData.role === 'ADMIN'
 
-    if (userError || !isAdmin) {
+    if (!isAdmin) {
       await supabase.auth.signOut()
       setError('Tài khoản không có quyền truy cập khu vực admin.')
       setLoading(false)
       return
     }
 
-    await fetch('/api/auth/sync-user', { method: 'POST' })
     router.push('/admin')
     router.refresh()
   }

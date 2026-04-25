@@ -1,3 +1,4 @@
+import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { createClient } from '@/utils/supabase/server'
 import { prisma } from '@/lib/prisma'
@@ -32,7 +33,7 @@ export async function GET() {
 
     return NextResponse.json({ topic })
   } catch (error) {
-    console.error('Recent topic error:', error)
+    logger.error('Recent topic error:', error)
     return NextResponse.json({ error: 'Internal error' }, { status: 500 })
   }
 }

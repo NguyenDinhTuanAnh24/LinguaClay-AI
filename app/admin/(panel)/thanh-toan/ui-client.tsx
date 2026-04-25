@@ -168,7 +168,8 @@ export function ThanhToanClient({
         return
       }
 
-      const expiresAt = new Date(data.coupon.expiresAt)
+      const coupon = data.coupon
+      const expiresAt = new Date(coupon.expiresAt)
       const formatted = new Intl.DateTimeFormat('vi-VN', {
         timeZone: 'Asia/Ho_Chi_Minh',
         day: '2-digit',
@@ -187,13 +188,13 @@ export function ThanhToanClient({
 
       setCouponRows((prev) => [
         {
-          id: data.coupon.id,
-          code: data.coupon.code,
-          discount: data.coupon.discountPercent,
+          id: coupon.id,
+          code: coupon.code,
+          discount: coupon.discountPercent,
           expiresAt: formatted,
           expiresAtDate: inputDate,
-          used: data.coupon.usedCount,
-          limit: data.coupon.usageLimit,
+          used: coupon.usedCount,
+          limit: coupon.usageLimit,
         },
         ...prev,
       ])

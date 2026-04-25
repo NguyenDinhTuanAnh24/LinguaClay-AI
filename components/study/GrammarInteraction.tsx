@@ -48,7 +48,7 @@ export default function GrammarInteraction({ point }: { point: any }) {
                sentence={point.example || ""} 
                translation={point.exampleSentence || ""}
                onSuccess={() => {
-                 console.log("Success! Practice completed.")
+                 // practice completed without errors
                }}
              />
           </div>

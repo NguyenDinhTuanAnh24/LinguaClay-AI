@@ -1,8 +1,21 @@
-export const ADMIN_EMAIL = 'admin@gmail.com'
-export const ADMIN_ROLE = 'admin'
+import { AppRoles } from '@/lib/constants'
+import { logger } from '@/lib/logger'
+
+/**
+ * Admin email sourced from environment variable.
+ * Set ADMIN_EMAIL in your .env file.
+ * Falls back to empty string (no admin access) if not configured.
+ */
+export const ADMIN_EMAIL = (process.env.ADMIN_EMAIL ?? '').trim().toLowerCase()
+
+if (!ADMIN_EMAIL && process.env.NODE_ENV !== 'test') {
+  logger.warn('admin.auth.no_env', { message: 'ADMIN_EMAIL env var is not set — admin access will be denied for everyone.' })
+}
+
+export const ADMIN_EMAILS = ADMIN_EMAIL ? [ADMIN_EMAIL] : []
 
 export function isAdminEmail(email: string | null | undefined): boolean {
-  if (!email) return false
+  if (!email || !ADMIN_EMAIL) return false
   return email.trim().toLowerCase() === ADMIN_EMAIL
 }
 
@@ -23,5 +36,10 @@ export function getUserRole(user: SupabaseUserLike | null | undefined): string |
 
 export function isAdminUser(user: SupabaseUserLike | null | undefined): boolean {
   if (!user) return false
-  return isAdminEmail(user.email) && getUserRole(user) === ADMIN_ROLE
+  if (!isAdminEmail(user.email)) return false
+  const role = getUserRole(user)
+  // If no role metadata, grant access based on email alone
+  if (!role) return true
+  return role === AppRoles.ADMIN || role.toLowerCase() === 'admin'
 }
+

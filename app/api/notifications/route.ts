@@ -1,3 +1,4 @@
+import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { createClient } from '@/utils/supabase/server'
 import { listUserNotifications, markAllUserNotificationsRead } from '@/lib/user-notifications'
@@ -27,7 +28,7 @@ export async function GET(req: Request) {
     return NextResponse.json({ ok: true, ...data })
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'Internal Server Error'
-    console.error('Notifications GET error:', error)
+    logger.error('Notifications GET error:', error)
     return NextResponse.json({ error: message }, { status: 500 })
   }
 }
@@ -52,7 +53,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: true, updated: updated.count })
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'Internal Server Error'
-    console.error('Notifications POST error:', error)
+    logger.error('Notifications POST error:', error)
     return NextResponse.json({ error: message }, { status: 500 })
   }
 }

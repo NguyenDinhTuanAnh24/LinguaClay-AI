@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Lexend, Playfair_Display, Inter, Be_Vietnam_Pro } from "next/font/google";
 import "./globals.css";
+import "@/lib/env.server"; // Validate environment variables on startup
 
 const lexend = Lexend({
   variable: "--font-lexend",

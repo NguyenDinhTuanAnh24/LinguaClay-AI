@@ -1,3 +1,4 @@
+import { logger } from '@/lib/logger'
 import { prisma } from '@/lib/prisma'
 import { NextResponse } from 'next/server'
 
@@ -22,7 +23,7 @@ export async function GET() {
 
     return NextResponse.json(selected)
   } catch (error) {
-    console.error("Quiz Data API Error:", error)
+    logger.error("Quiz Data API Error:", error)
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 })
   } finally {
     await prisma.$disconnect()

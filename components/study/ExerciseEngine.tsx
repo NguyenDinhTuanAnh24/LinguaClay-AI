@@ -9,12 +9,12 @@ interface Exercise {
   correctAnswer: string
   options?: string[]
   explanation?: string
-  content?: any
+  content?: unknown
 }
 
 interface ExerciseEngineProps {
-  exercises: any[]
-  onComplete: (data: any) => void
+  exercises: Exercise[]
+  onComplete: (data: { finished: boolean }) => void
 }
 
 export default function ExerciseEngine({ exercises, onComplete }: ExerciseEngineProps) {

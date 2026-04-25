@@ -1,5 +1,7 @@
+import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { PayOS } from '@payos/node'
+import { Prisma } from '@prisma/client'
 import { prisma } from '@/lib/prisma'
 import { createClient } from '@/utils/supabase/server'
 
@@ -64,7 +66,7 @@ export async function POST(req: Request) {
           eventType: 'USER_CANCELLED',
           payosStatus: String(payosResult.status ?? 'CANCELLED').toUpperCase(),
           source: 'CANCEL_API',
-          payload: payosResult as unknown as Record<string, unknown>,
+          payload: payosResult as Prisma.InputJsonValue,
         },
       }),
     ])
@@ -77,7 +79,7 @@ export async function POST(req: Request) {
     })
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'Internal Server Error'
-    console.error('Cancel Order Error:', error)
+    logger.error('Cancel Order Error:', error)
     return NextResponse.json({ error: message }, { status: 500 })
   }
 }

@@ -1,6 +1,8 @@
+import { logger } from '@/lib/logger'
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/utils/supabase/server'
 import { prisma } from '@/lib/prisma'
+import { Prisma } from '@prisma/client'
 import { normalizeCefrLevel } from '@/lib/levels'
 
 export async function POST(request: NextRequest) {
@@ -14,7 +16,7 @@ export async function POST(request: NextRequest) {
 
     const { name, imageUrl, targetLanguage, proficiencyLevel, phoneNumber, birthday } = await request.json()
 
-    const updateData: any = {}
+    const updateData: Prisma.UserUpdateInput = {}
     if (name !== undefined && name !== null) updateData.name = name
     if (imageUrl !== undefined && imageUrl !== null) updateData.image = imageUrl
     if (targetLanguage) updateData.targetLanguage = targetLanguage
@@ -29,7 +31,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ ok: true, user: updatedUser })
   } catch (error) {
-    console.error('Update profile error:', error)
+    logger.error('Update profile error:', error)
     return NextResponse.json({ error: 'Internal error' }, { status: 500 })
   }
 }

@@ -1,0 +1,102 @@
+{
+  "common": {
+    "loading": "Đang tải...",
+    "error": "Đã xảy ra lỗi",
+    "retry": "Thử lại",
+    "save": "Lưu",
+    "cancel": "Hủy",
+    "confirm": "Xác nhận",
+    "delete": "Xóa",
+    "edit": "Sửa",
+    "add": "Thêm",
+    "search": "Tìm kiếm",
+    "noData": "Không có dữ liệu",
+    "success": "Thành công",
+    "forbidden": "Không có quyền truy cập",
+    "notFound": "Không tìm thấy",
+    "internalError": "Lỗi máy chủ nội bộ"
+  },
+  "nav": {
+    "dashboard": "Tổng quan",
+    "flashcards": "Flashcard",
+    "aiTutor": "AI Tutor",
+    "progress": "Tiến độ",
+    "paymentHistory": "Lịch sử thanh toán",
+    "account": "Tài khoản",
+    "logout": "Đăng xuất",
+    "plans": "Gói học",
+    "collapse": "Thu gọn",
+    "expand": "Mở thanh điều hướng"
+  },
+  "greeting": {
+    "morning": "Chào buổi sáng",
+    "afternoon": "Chào buổi chiều",
+    "evening": "Chào buổi tối",
+    "night": "Chào đêm khuya"
+  },
+  "dashboard": {
+    "goalComplete": "★ Mục tiêu đã hoàn thành ({count} từ)!",
+    "goalProgress": "Mục tiêu hôm nay: {current}/10 từ mới.",
+    "dailyGoal": "Mục tiêu ngày"
+  },
+  "membership": {
+    "free": "Bản miễn phí",
+    "member": "Hội viên",
+    "premium": "Hội viên nâng cấp",
+    "standard": "Bản tiêu chuẩn",
+    "intensive": "Bản chuyên sâu",
+    "comprehensive": "Bản toàn diện",
+    "adminGrant": "ADMIN cấp {months} tháng"
+  },
+  "notifications": {
+    "title": "Thông báo",
+    "refresh": "Làm mới",
+    "empty": "Chưa có thông báo nào.",
+    "loading": "Đang tải...",
+    "page": "Trang {current}/{total}",
+    "prev": "Trước",
+    "next": "Sau"
+  },
+  "auth": {
+    "login": "Đăng nhập",
+    "signup": "Đăng ký",
+    "logout": "Đăng xuất",
+    "logoutConfirm": "Bạn có chắc chắn muốn rời khỏi ứng dụng không?",
+    "logoutTitle": "Đăng xuất"
+  },
+  "errors": {
+    "tooManyRequests": "Quá nhiều yêu cầu. Vui lòng thử lại sau.",
+    "unauthorized": "Bạn cần đăng nhập để tiếp tục.",
+    "sessionExpired": "Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại."
+  },
+  "study": {
+    "checkAnswer": "Kiểm tra đáp án",
+    "nextExercise": "Tiếp tục bài tiếp theo",
+    "correct": "Tuyệt vời, chính xác!",
+    "incorrect": "Hic, sai mất rồi!",
+    "fillBlank": "Điền từ còn thiếu vào ô trống",
+    "reorder": "Sắp xếp các từ thành câu đúng",
+    "progress": "Bài tập {current} / {total}",
+    "placeholder": "Nhập đáp án...",
+    "selectBelow": "Chọn các từ bên dưới..."
+  },
+  "admin": {
+    "flashcards": {
+      "title": "Học liệu - Flashcard",
+      "addNew": "Thêm mới",
+      "importCsv": "Import CSV",
+      "topic": "Chủ đề",
+      "wordCount": "Số từ",
+      "level": "Trình độ",
+      "createdAt": "Ngày tạo",
+      "actions": "Hành động",
+      "wordList": "Danh sách từ trong bộ: {topic}"
+    },
+    "support": {
+      "title": "Hỗ trợ & Hoàn tiền",
+      "reply": "Phản hồi",
+      "internalNote": "Ghi chú nội bộ",
+      "status": "Trạng thái"
+    }
+  }
+}

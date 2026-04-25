@@ -1,7 +1,9 @@
+import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { createClient } from '@/utils/supabase/server'
 import { prisma } from '@/lib/prisma'
-import { ADMIN_EMAIL, ADMIN_ROLE, getUserRole } from '@/lib/admin'
+import { getUserRole, isAdminEmail } from '@/lib/admin'
+import { AppRoles } from '@/lib/constants'
 
 export async function POST() {
   try {
@@ -15,7 +17,7 @@ export async function POST() {
     }
 
     const tokenRole = getUserRole(user)
-    const role = user.email?.toLowerCase() === ADMIN_EMAIL && tokenRole === ADMIN_ROLE ? 'ADMIN' : 'USER'
+    const role = (isAdminEmail(user.email) || tokenRole === AppRoles.ADMIN || tokenRole?.toLowerCase() === 'admin') ? AppRoles.ADMIN : AppRoles.USER
 
     await prisma.user.upsert({
       where: { id: user.id },
@@ -36,7 +38,7 @@ export async function POST() {
 
     return NextResponse.json({ ok: true, role })
   } catch (error) {
-    console.error('Sync user error:', error)
+    logger.error('Sync user error:', error)
     return NextResponse.json({ error: 'Internal error' }, { status: 500 })
   }
 }

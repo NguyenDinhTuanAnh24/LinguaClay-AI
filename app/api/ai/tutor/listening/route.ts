@@ -1,3 +1,4 @@
+import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { createClient } from '@/utils/supabase/server'
 import { Prisma } from '@prisma/client'
@@ -427,7 +428,7 @@ Trả JSON thuần:
 
     return NextResponse.json({ result })
   } catch (error) {
-    console.error('AI Tutor Listening Error:', error)
+    logger.error('AI Tutor Listening Error:', error)
     return NextResponse.json(
       {
         error: 'Listening failed',

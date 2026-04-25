@@ -1,12 +1,14 @@
 import { createClient } from '@/utils/supabase/server'
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowRight, Plus, Bot, Flame } from 'lucide-react'
 import DashboardFlashcard from '@/components/dashboard/DashboardFlashcard'
+import { formatVNTime } from '@/utils/timezone'
+import { MS_PER_DAY, VIETNAM_TIMEZONE_OFFSET } from '@/lib/constants'
 
 /* ─────────────── helpers ─────────────── */
-const toVNDate = (d: Date) =>
-  new Date(d.getTime() + 7 * 3600_000).toISOString().split('T')[0]
+const toVNDate = (d: Date) => formatVNTime(d, 'yyyy-MM-dd')
 
 function relativeTime(nextReview: Date | null): string {
   if (!nextReview) return '—'
@@ -24,54 +26,60 @@ export default async function DashboardPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
-  const userData = await (prisma as any).user.findUnique({
+  const userData = await prisma.user.findUnique({
     where: { id: user?.id || '' },
     include: { progress: true, exercises: true },
   })
 
-  const totalMastered  = userData?.progress.filter((p: any) => p.masteryLevel >= 4).length || 0
-  const totalToReview  = userData?.progress.filter((p: any) => p.masteryLevel < 4).length  || 0
+  const totalMastered  = userData?.progress.filter((p) => p.masteryLevel >= 4).length || 0
+  const totalToReview  = userData?.progress.filter((p) => p.masteryLevel < 4).length  || 0
   const totalProgress  = userData?.progress.length || 0
   const progressPct    = totalProgress > 0 ? Math.round((totalMastered / totalProgress) * 100) : 0
 
   /* streak */
-  const [allReviewed, tutorL, tutorR, tutorS, tutorE] = await Promise.all([
-    (prisma as any).userProgress.findMany({
+  const [
+    allReviewed, 
+    tutorListeningSessions, 
+    tutorReadingSessions, 
+    tutorSpeakingSessions, 
+    tutorEditorSessions
+  ] = await prisma.$transaction([
+    prisma.userProgress.findMany({
       where: { userId: user?.id || '', lastReviewed: { not: null } },
       select: { lastReviewed: true },
       orderBy: { lastReviewed: 'desc' },
     }),
-    (prisma as any).tutorListeningSession.findMany({ where: { userId: user?.id || '' }, select: { createdAt: true } }),
-    (prisma as any).tutorReadingSession.findMany({ where: { userId: user?.id || '' }, select: { createdAt: true } }),
-    (prisma as any).tutorSpeakingSession.findMany({ where: { userId: user?.id || '' }, select: { createdAt: true } }),
-    (prisma as any).tutorEditorSession.findMany({ where: { userId: user?.id || '' }, select: { createdAt: true } }),
+    prisma.tutorListeningSession.findMany({ where: { userId: user?.id || '' }, select: { createdAt: true } }),
+    prisma.tutorReadingSession.findMany({ where: { userId: user?.id || '' }, select: { createdAt: true } }),
+    prisma.tutorSpeakingSession.findMany({ where: { userId: user?.id || '' }, select: { createdAt: true } }),
+    prisma.tutorEditorSession.findMany({ where: { userId: user?.id || '' }, select: { createdAt: true } }),
   ])
   
   const allDates = [
-    ...allReviewed.map((p: any) => p.lastReviewed),
-    ...tutorL.map((p: any) => p.createdAt),
-    ...tutorR.map((p: any) => p.createdAt),
-    ...tutorS.map((p: any) => p.createdAt),
-    ...tutorE.map((p: any) => p.createdAt)
+    ...allReviewed.map((p) => p.lastReviewed).filter((d): d is Date => d instanceof Date),
+    ...tutorListeningSessions.map((p) => p.createdAt),
+    ...tutorReadingSessions.map((p) => p.createdAt),
+    ...tutorSpeakingSessions.map((p) => p.createdAt),
+    ...tutorEditorSessions.map((p) => p.createdAt)
   ]
   
-  const uniqueDays = [...new Set(allDates.map((d: any) => toVNDate(d)))].sort((a, b) => b.localeCompare(a)) as string[]
+  const uniqueDays = [...new Set(allDates.map((d) => toVNDate(d)))].sort((a, b) => b.localeCompare(a))
 
   let streak = 0
   if (uniqueDays.length > 0) {
-    const todayVN  = toVNDate(new Date())
-    const msPerDay = 86_400_000
-    if (new Date(todayVN).getTime() - new Date(uniqueDays[0]).getTime() <= msPerDay) {
+    const todayVN = toVNDate(new Date())
+    if (new Date(todayVN).getTime() - new Date(uniqueDays[0]).getTime() <= MS_PER_DAY) {
       streak = 1
       for (let i = 1; i < uniqueDays.length; i++) {
         const diff = new Date(uniqueDays[i - 1]).getTime() - new Date(uniqueDays[i]).getTime()
-        if (diff <= msPerDay + 1) streak++
-        else break
+        if (diff <= MS_PER_DAY + 1) {
+          streak++
+        } else {
+          break
+        }
       }
     }
-  }
-
-  // Các ngày thuộc chuỗi liên tiếp hiện tại (tính lùi từ hôm nay)
+  } // Các ngày thuộc chuỗi liên tiếp hiện tại (tính lùi từ hôm nay)
   const streakDaySet = new Set<string>()
   if (streak > 0) {
     for (let i = 0; i < streak; i++) {
@@ -100,7 +108,7 @@ export default async function DashboardPage() {
   })
 
   /* words due for review — top 5 */
-  const dueWords = await (prisma as any).userProgress.findMany({
+  const dueWords = await prisma.userProgress.findMany({
     where: { userId: user?.id || '', masteryLevel: { lt: 5 } },
     orderBy: { nextReview: 'asc' },
     take: 5,
@@ -115,14 +123,14 @@ export default async function DashboardPage() {
   /* words studied today */
   const today = new Date()
   today.setHours(0, 0, 0, 0)
-  const wordsToday = await (prisma as any).userProgress.count({
+  const wordsToday = await prisma.userProgress.count({
     where: {
       userId: user?.id || '',
       lastReviewed: { gte: today }
     }
   })
 
-  const previewWord = await (prisma as any).word.findFirst({
+  const previewWord = await prisma.word.findFirst({
     where: { topicId: { not: null } },
     include: { userProgress: { where: { userId: user?.id || '' }, take: 1 } },
     orderBy: { createdAt: 'asc' },
@@ -142,24 +150,11 @@ export default async function DashboardPage() {
   const isGoalAchieved = wordsToday >= 10
 
   return (
-    <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 24, minWidth: 0 }}>
+    <div className="flex flex-col gap-6 w-full min-w-0">
 
       {/* ── BANNER ── */}
       <div
-        className="group transition-all duration-300 hover:shadow-[8px_8px_0px_0px_rgba(220,38,38,0.2)]"
-        style={{
-          background: isGoalAchieved ? '#EEF4ED' : '#EDE8DF',
-          borderLeft: isGoalAchieved ? '4px solid #16a34a' : '4px solid #dc2626',
-          borderTop: '1px solid #141414',
-          borderRight: '1px solid #141414',
-          borderBottom: '1px solid #141414',
-          padding: '24px 36px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: 20,
-          minWidth: 0,
-        }}
+        className={`group transition-all duration-300 hover:shadow-[8px_8px_0px_0px_rgba(220,38,38,0.2)] flex items-center justify-between gap-5 min-w-0 px-9 py-6 border border-[#141414] border-l-[4px] ${isGoalAchieved ? 'bg-[#EEF4ED] border-l-[#16a34a]' : 'bg-[#EDE8DF] border-l-[#dc2626]'}`}
       >
         <div>
           <p 
@@ -252,8 +247,14 @@ export default async function DashboardPage() {
           <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#141414] flex items-center gap-2">
             <span className="w-6 border-t border-[#141414]" /> AI Partner
           </p>
-          <div className="w-12 h-12 bg-white border-[2px] border-[#141414] overflow-hidden shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)] flex items-center justify-center p-0">
-            <img src="/ai-partner.png" alt="AI AI" className="w-full h-full object-cover" />
+          <div className="w-12 h-12 bg-white border-[2px] border-[#141414] overflow-hidden shadow-[4px_4px_0px_0px_rgba(0,0,0,0.1)] flex items-center justify-center p-0 relative">
+            <Image 
+              src="/ai-partner.png" 
+              alt="AI Partner" 
+              fill 
+              sizes="48px"
+              className="object-cover" 
+            />
           </div>
           <div className="space-y-1">
             <h3 className="text-xl font-serif font-black text-[#141414] uppercase tracking-tight">AI Partner</h3>
@@ -323,7 +324,7 @@ export default async function DashboardPage() {
             </p>
           </div>
           <div className="space-y-0 divide-y divide-[#141414]/5">
-            {dueWords.length > 0 ? dueWords.map((pw: any) => {
+            {dueWords.length > 0 ? dueWords.map((pw) => {
               const isDue = !pw.nextReview || pw.nextReview <= new Date()
               const timeLabel = relativeTime(pw.nextReview)
               return (

@@ -18,19 +18,8 @@ export default function DashboardShell({ user, dbUser, wordsToday = 0, children 
 
   return (
     <StudyTimeProvider>
-      <div
-      style={{
-        display: 'flex',
-        width: '100vw',
-        height: '100vh',
-        background: '#F5F0E8',
-        overflow: 'hidden',
-      }}
-    >
-      <aside
-        className="hidden lg:flex flex-col flex-shrink-0 transition-[width] duration-300"
-        style={{ width: collapsed ? 92 : 260, height: '100vh', overflowY: 'auto' }}
-      >
+      <div className="flex w-screen h-screen bg-[#F5F0E8] overflow-hidden">
+      <aside className={`hidden lg:flex flex-col flex-shrink-0 transition-all duration-300 h-screen overflow-y-auto ${collapsed ? 'w-[92px]' : 'w-[260px]'}`}>
         <Sidebar
           user={user}
           dbUser={dbUser}
@@ -39,44 +28,15 @@ export default function DashboardShell({ user, dbUser, wordsToday = 0, children 
         />
       </aside>
 
-      <div
-        style={{
-          flex: 1,
-          minWidth: 0,
-          display: 'flex',
-          flexDirection: 'column',
-          height: '100vh',
-          overflow: 'hidden',
-        }}
-      >
-        <header
-          style={{
-            flexShrink: 0,
-            background: '#F5F0E8',
-            borderBottom: '1px solid #D6CFC4',
-            zIndex: 30,
-          }}
-        >
-          <div style={{ maxWidth: 1600, width: '100%', margin: '0 auto', padding: '16px 40px' }}>
+      <div className="flex-1 min-w-0 flex flex-col h-screen overflow-hidden">
+        <header className="shrink-0 bg-[#F5F0E8] border-b border-[#D6CFC4] z-30">
+          <div className="max-w-[1600px] w-full mx-auto px-10 py-4">
             <Header user={user} dbUser={dbUser} wordsToday={wordsToday} />
           </div>
         </header>
 
-        <main
-          style={{
-            flex: 1,
-            overflowY: 'auto',
-          }}
-          className="scrollbar-hide"
-        >
-          <div
-            style={{
-              maxWidth: 1600,
-              width: '100%',
-              margin: '0 auto',
-              padding: '40px 40px 60px',
-            }}
-          >
+        <main className="flex-1 overflow-y-auto scrollbar-hide">
+          <div className="max-w-[1600px] w-full mx-auto px-10 pt-10 pb-[60px]">
             {children}
           </div>
         </main>

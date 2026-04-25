@@ -1,21 +1,12 @@
+import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { createClient } from '@/utils/supabase/server'
-import { isAdminUser } from '@/lib/admin'
 import { parseCsvText, slugify } from '@/lib/csv'
 import { normalizeCefrLevel } from '@/lib/levels'
+import { cache, CACHE_KEYS } from '@/lib/cache'
+import { ensureAdminActor } from '@/lib/admin-auth'
 
 type FlashcardAction = 'create' | 'update' | 'delete' | 'import_csv'
-
-async function ensureAdmin() {
-  const supabase = await createClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-
-  if (!user || !isAdminUser(user)) return false
-  return true
-}
 
 function formatDate(date: Date): string {
   return new Intl.DateTimeFormat('vi-VN', {
@@ -78,18 +69,19 @@ async function createUniqueTopicSlug(name: string) {
 
 export async function GET() {
   try {
-    if (!(await ensureAdmin())) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
-    const sets = await listFlashcardSets()
+    if (!(await ensureAdminActor())) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+    // Cache for 2 minutes — invalidated on any write mutation
+    const sets = await cache.get(CACHE_KEYS.flashcardsAll, listFlashcardSets, 120)
     return NextResponse.json({ ok: true, sets })
   } catch (error) {
-    console.error('admin materials flashcards GET error:', error)
+    logger.error('admin.flashcards.get', error)
     return NextResponse.json({ error: 'Internal error' }, { status: 500 })
   }
 }
 
 export async function POST(req: Request) {
   try {
-    if (!(await ensureAdmin())) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+    if (!(await ensureAdminActor())) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     const body = (await req.json()) as {
       action?: FlashcardAction
       id?: string
@@ -192,10 +184,12 @@ export async function POST(req: Request) {
       }
     }
 
+    // Bust cache after any write mutation
+    await cache.invalidate(CACHE_KEYS.flashcardsAll)
     const sets = await listFlashcardSets()
     return NextResponse.json({ ok: true, sets })
   } catch (error) {
-    console.error('admin materials flashcards POST error:', error)
+    logger.error('admin.flashcards.post', error)
     return NextResponse.json({ error: 'Internal error' }, { status: 500 })
   }
 }

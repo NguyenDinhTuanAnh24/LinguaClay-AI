@@ -1,3 +1,4 @@
+import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { createClient } from '@/utils/supabase/server'
@@ -55,7 +56,7 @@ export async function GET() {
     const rows = await listGrammarRows()
     return NextResponse.json({ ok: true, rows })
   } catch (error) {
-    console.error('admin materials grammar GET error:', error)
+    logger.error('admin materials grammar GET error:', error)
     return NextResponse.json({ error: 'Internal error' }, { status: 500 })
   }
 }
@@ -145,7 +146,7 @@ export async function POST(req: Request) {
     const rows = await listGrammarRows()
     return NextResponse.json({ ok: true, rows })
   } catch (error) {
-    console.error('admin materials grammar POST error:', error)
+    logger.error('admin materials grammar POST error:', error)
     return NextResponse.json({ error: 'Internal error' }, { status: 500 })
   }
 }

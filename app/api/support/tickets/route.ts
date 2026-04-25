@@ -1,3 +1,4 @@
+import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { createClient } from '@/utils/supabase/server'
@@ -51,7 +52,7 @@ export async function GET() {
       })),
     })
   } catch (error) {
-    console.error('Support tickets GET error:', error)
+    logger.error('Support tickets GET error:', error)
     return NextResponse.json({ error: 'Không thể tải danh sách hỗ trợ' }, { status: 500 })
   }
 }
@@ -110,7 +111,7 @@ export async function POST(req: Request) {
       message: 'Đã gửi yêu cầu hỗ trợ thành công.',
     })
   } catch (error) {
-    console.error('Support tickets POST error:', error)
+    logger.error('Support tickets POST error:', error)
     return NextResponse.json({ error: 'Không thể gửi yêu cầu hỗ trợ' }, { status: 500 })
   }
 }
