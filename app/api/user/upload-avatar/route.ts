@@ -2,7 +2,7 @@ import { logger } from '@/lib/logger'
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/utils/supabase/server'
 import { createClient as createSupabaseClient } from '@supabase/supabase-js'
-import { prisma } from '@/lib/prisma'
+import { UserRepository } from '@/repositories/user.repository'
 
 export async function POST(request: NextRequest) {
   try {
@@ -77,10 +77,7 @@ export async function POST(request: NextRequest) {
     const publicUrl = `${urlData.publicUrl}?t=${Date.now()}`
 
     // Lưu vào Prisma
-    await prisma.user.update({
-      where: { id: user.id },
-      data: { image: publicUrl },
-    })
+    await UserRepository.update(user.id, { image: publicUrl })
 
     return NextResponse.json({ ok: true, url: publicUrl })
   } catch (error: unknown) {

@@ -7,8 +7,20 @@ import MobileNav from '@/components/dashboard/MobileNav'
 import { StudyTimeProvider } from '@/components/study-time/StudyTimeProvider'
 
 type DashboardShellProps = {
-  user: any
-  dbUser: any
+  user: {
+    email?: string | null
+    user_metadata?: {
+      full_name?: string | null
+      avatar_url?: string | null
+    } | null
+  } | null
+  dbUser: {
+    name?: string | null
+    image?: string | null
+    proficiencyLevel?: string | null
+    isPro?: boolean
+    proType?: string | null
+  } | null
   wordsToday?: number
   children: React.ReactNode
 }

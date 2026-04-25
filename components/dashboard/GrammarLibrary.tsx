@@ -25,7 +25,7 @@ interface GrammarPoint {
   structure: string | null
   example: string | null
   exampleSentence: string | null
-  exerciseData: string[] | null
+  exerciseData: unknown
   topic: { name: string } | null
 }
 
@@ -38,7 +38,7 @@ const levelColors: Record<string, string> = {
   C2: 'bg-black text-white',
 }
 
-export default function GrammarLibrary({ initialPoints }: { initialPoints: any[] }) {
+export default function GrammarLibrary({ initialPoints }: { initialPoints: GrammarPoint[] }) {
   const [search, setSearch] = useState('')
   const [activeLevel, setActiveLevel] = useState('All')
   const [practicingId, setPracticingId] = useState<string | null>(null)
@@ -59,14 +59,21 @@ export default function GrammarLibrary({ initialPoints }: { initialPoints: any[]
 
   const practicingPoint = practicingId ? initialPoints.find(p => p.id === practicingId) : null
   
-  const practicesentences: string[] = practicingPoint?.exerciseData ?? 
-    (practicingPoint?.example ? [practicingPoint.example] : ['I am learning English'])
+  const practiceSentences = (() => {
+    const source = practicingPoint?.exerciseData
+    if (Array.isArray(source)) {
+      const lines = source.filter((x): x is string => typeof x === 'string' && x.trim().length > 0)
+      if (lines.length > 0) return lines
+    }
+    if (practicingPoint?.example && practicingPoint.example.trim().length > 0) return [practicingPoint.example]
+    return ['I am learning English']
+  })()
   
   const [sentenceIndex, setSentenceIndex] = useState(0)
-  const currentSentence = practicesentences[sentenceIndex % practicesentences.length]
+  const currentSentence = practiceSentences[sentenceIndex % practiceSentences.length]
 
   const handlePracticeSuccess = () => {
-    if (sentenceIndex < practicesentences.length - 1) {
+    if (sentenceIndex < practiceSentences.length - 1) {
       setSentenceIndex(prev => prev + 1)
     }
   }
@@ -221,8 +228,8 @@ export default function GrammarLibrary({ initialPoints }: { initialPoints: any[]
               {practicingPoint.structure && (
                 <code className="text-sm font-black text-red-600 bg-newsprint-paper border-[2px] border-newsprint-black px-4 py-1 mt-3 inline-block">{practicingPoint.structure}</code>
               )}
-              {(practicesentences.length > 1) && (
-                <p className="text-[10px] text-newsprint-gray-dark mt-4 font-black uppercase tracking-[0.2em]">Tiến độ: {sentenceIndex + 1} / {practicesentences.length}</p>
+              {(practiceSentences.length > 1) && (
+                <p className="text-[10px] text-newsprint-gray-dark mt-4 font-black uppercase tracking-[0.2em]">Tiến độ: {sentenceIndex + 1} / {practiceSentences.length}</p>
               )}
             </div>
 

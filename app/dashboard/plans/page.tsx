@@ -8,7 +8,7 @@ import ConfirmDialog from '@/components/ui/ConfirmDialog'
 type Plan = {
   id: '3_MONTHS' | '6_MONTHS' | '1_YEAR'
   name: string
-  price: string
+  price: number
   period: string
   features: string[]
   highlight?: boolean
@@ -27,7 +27,7 @@ const PLANS: Plan[] = [
   {
     id: '3_MONTHS',
     name: 'BẢN TIÊU CHUẨN',
-    price: '299k',
+    price: 299000,
     period: '/3 Tháng',
     level: 1,
     features: [
@@ -40,7 +40,7 @@ const PLANS: Plan[] = [
   {
     id: '6_MONTHS',
     name: 'BẢN CHUYÊN SÂU',
-    price: '399k',
+    price: 399000,
     period: '/6 Tháng',
     level: 2,
     features: [
@@ -54,7 +54,7 @@ const PLANS: Plan[] = [
   {
     id: '1_YEAR',
     name: 'BẢN TOÀN DIỆN',
-    price: '499k',
+    price: 499000,
     period: '/1 Năm',
     level: 3,
     highlight: true,
@@ -73,27 +73,27 @@ const FEATURE_MATRIX: Array<{
   feature: string
   values: Record<Plan['id'], boolean>
 }> = [
-  {
-    feature: 'Flashcards không giới hạn',
-    values: { '3_MONTHS': true, '6_MONTHS': true, '1_YEAR': true },
-  },
-  {
-    feature: 'AI Tutor Pro (phản hồi giọng nói)',
-    values: { '3_MONTHS': false, '6_MONTHS': true, '1_YEAR': true },
-  },
-  {
-    feature: 'Chủ điểm ngữ pháp Pro nâng cao',
-    values: { '3_MONTHS': false, '6_MONTHS': true, '1_YEAR': true },
-  },
-  {
-    feature: 'Tải PDF bài học độc quyền',
-    values: { '3_MONTHS': false, '6_MONTHS': false, '1_YEAR': true },
-  },
-  {
-    feature: 'Hỗ trợ VIP 1:1 qua Zalo/Telegram',
-    values: { '3_MONTHS': false, '6_MONTHS': false, '1_YEAR': true },
-  },
-]
+    {
+      feature: 'Flashcards không giới hạn',
+      values: { '3_MONTHS': true, '6_MONTHS': true, '1_YEAR': true },
+    },
+    {
+      feature: 'AI Tutor Pro (phản hồi giọng nói)',
+      values: { '3_MONTHS': false, '6_MONTHS': true, '1_YEAR': true },
+    },
+    {
+      feature: 'Chủ điểm ngữ pháp Pro nâng cao',
+      values: { '3_MONTHS': false, '6_MONTHS': true, '1_YEAR': true },
+    },
+    {
+      feature: 'Tải PDF bài học độc quyền',
+      values: { '3_MONTHS': false, '6_MONTHS': false, '1_YEAR': true },
+    },
+    {
+      feature: 'Hỗ trợ VIP 1:1 qua Zalo/Telegram',
+      values: { '3_MONTHS': false, '6_MONTHS': false, '1_YEAR': true },
+    },
+  ]
 
 const FAQS = [
   {
@@ -137,6 +137,7 @@ function PlansContent() {
   const [message, setMessage] = useState<{ text: string; type: 'success' | 'error' | 'info' } | null>(null)
   const [couponOptions, setCouponOptions] = useState<UserCouponOption[]>([])
   const [selectedUserCouponId, setSelectedUserCouponId] = useState('')
+  const [appliedUserCouponId, setAppliedUserCouponId] = useState('')
 
   useEffect(() => {
     fetch('/api/user/me')
@@ -172,9 +173,51 @@ function PlansContent() {
     return Number(match[1])
   }, [proType])
 
+  const selectedCoupon = useMemo(
+    () => couponOptions.find((coupon) => coupon.userCouponId === selectedUserCouponId) ?? null,
+    [couponOptions, selectedUserCouponId]
+  )
+
+  const appliedCoupon = useMemo(
+    () => couponOptions.find((coupon) => coupon.userCouponId === appliedUserCouponId) ?? null,
+    [couponOptions, appliedUserCouponId]
+  )
+
+  const formatCompactPrice = (amount: number) => `${Math.round(amount / 1000)}k`
+
+  const getPlanDisplayPrice = (plan: Plan) => {
+    if (!appliedCoupon) {
+      return {
+        finalPriceText: formatCompactPrice(plan.price),
+        originalPriceText: null as string | null,
+      }
+    }
+    const discountAmount = Math.floor((plan.price * appliedCoupon.discountPercent) / 100)
+    const finalAmount = Math.max(1000, plan.price - discountAmount)
+    return {
+      finalPriceText: formatCompactPrice(finalAmount),
+      originalPriceText: formatCompactPrice(plan.price),
+    }
+  }
+
   const initiatePayment = (plan: Plan) => {
     setPendingPlan(plan)
     setShowConfirm(true)
+  }
+
+  const handleApplyCoupon = () => {
+    if (!selectedCoupon) return
+    setAppliedUserCouponId(selectedCoupon.userCouponId)
+    setMessage({
+      text: `Đã áp mã ${selectedCoupon.code} (-${selectedCoupon.discountPercent}%).`,
+      type: 'success',
+    })
+  }
+
+  const handleRemoveCoupon = () => {
+    setAppliedUserCouponId('')
+    setSelectedUserCouponId('')
+    setMessage({ text: 'Đã bỏ mã khuyến mãi.', type: 'info' })
   }
 
   const handlePayment = async () => {
@@ -189,10 +232,9 @@ function PlansContent() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          amount: parseInt(pendingPlan.price.replace('k', '000'), 10),
           description: `LinguaClay ${pendingPlan.period}`,
           planId: pendingPlan.id,
-          userCouponId: selectedUserCouponId || undefined,
+          userCouponId: appliedUserCouponId || undefined,
         }),
       })
 
@@ -241,22 +283,21 @@ function PlansContent() {
                 ? `Bạn đang dùng gói được ADMIN cấp ${adminGrantedMonths} tháng.`
                 : 'Bạn đang dùng gói nâng cấp được cấp bởi ADMIN.'
               : currentPlan
-              ? currentPlan.id === '1_YEAR'
-                ? `Bạn đang sở hữu ${currentPlan.name} - gói học cao cấp nhất.`
-                : `Bạn đang dùng ${currentPlan.name} - nâng cấp để mở thêm quyền lợi cao hơn.`
-              : 'Bạn đang dùng bản miễn phí - nâng cấp để mở khóa toàn bộ tính năng.'}
+                ? currentPlan.id === '1_YEAR'
+                  ? `Bạn đang sở hữu ${currentPlan.name} - gói học cao cấp nhất.`
+                  : `Bạn đang dùng ${currentPlan.name} - nâng cấp để mở thêm quyền lợi cao hơn.`
+                : 'Bạn đang dùng bản miễn phí - nâng cấp để mở khóa toàn bộ tính năng.'}
           </p>
         </div>
 
         {message && (
           <div
-            className={`mb-8 p-4 border-[3px] text-center font-bold uppercase tracking-widest text-[11px] ${
-              message.type === 'success'
-                ? 'bg-[#ECFDF3] border-[#027A48] text-[#027A48]'
-                : message.type === 'error'
-                  ? 'bg-[#FEF3F2] border-[#B42318] text-[#B42318]'
-                  : 'bg-[#EEF4FF] border-[#1849A9] text-[#1849A9]'
-            }`}
+            className={`mb-8 p-4 border-[3px] text-center font-bold uppercase tracking-widest text-[11px] ${message.type === 'success'
+              ? 'bg-[#ECFDF3] border-[#027A48] text-[#027A48]'
+              : message.type === 'error'
+                ? 'bg-[#FEF3F2] border-[#B42318] text-[#B42318]'
+                : 'bg-[#EEF4FF] border-[#1849A9] text-[#1849A9]'
+              }`}
           >
             {message.text}
           </div>
@@ -265,10 +306,14 @@ function PlansContent() {
         {couponOptions.length > 0 && (
           <div className="max-w-6xl mx-auto mb-8 border-[3px] border-newsprint-black bg-[#F5F0E8] p-4 shadow-[4px_4px_0px_0px_rgba(20,20,20,1)]">
             <p className="text-[11px] font-black uppercase tracking-[0.14em] text-newsprint-black">Khuyến mãi của bạn</p>
-            <div className="mt-2 grid grid-cols-1 gap-2 md:grid-cols-[1fr_auto]">
+            <div className="mt-2 grid grid-cols-1 gap-2 md:grid-cols-[1fr_auto_auto]">
               <select
                 value={selectedUserCouponId}
-                onChange={(e) => setSelectedUserCouponId(e.target.value)}
+                onChange={(e) => {
+                  const nextId = e.target.value
+                  setSelectedUserCouponId(nextId)
+                  setAppliedUserCouponId(nextId)
+                }}
                 className="h-10 border-2 border-newsprint-black bg-white px-3 text-sm font-semibold"
               >
                 <option value="">Không áp dụng khuyến mãi</option>
@@ -278,16 +323,29 @@ function PlansContent() {
                   </option>
                 ))}
               </select>
-              {selectedUserCouponId ? (
+              <button
+                type="button"
+                onClick={handleApplyCoupon}
+                disabled={!selectedCoupon}
+                className="h-10 border-2 border-newsprint-black px-3 text-[11px] font-black uppercase tracking-widest disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                Áp mã
+              </button>
+              {appliedCoupon ? (
                 <button
                   type="button"
-                  onClick={() => setSelectedUserCouponId('')}
+                  onClick={handleRemoveCoupon}
                   className="h-10 border-2 border-newsprint-black px-3 text-[11px] font-black uppercase tracking-widest"
                 >
                   Bỏ mã
                 </button>
               ) : null}
             </div>
+            {appliedCoupon ? (
+              <p className="mt-2 text-xs font-bold text-[#166534]">
+                Đã áp mã: {appliedCoupon.code} (-{appliedCoupon.discountPercent}%)
+              </p>
+            ) : null}
           </div>
         )}
 
@@ -299,13 +357,13 @@ function PlansContent() {
               const isLower = plan.level < currentLevel
               const isLockedByLoading = isLoadingPlan !== null && isLoadingPlan !== plan.id
               const isDisabled = isLockedByCurrentPro || isCurrent || isLower || isLockedByLoading || isLoadingPlan === plan.id
+              const displayPrice = getPlanDisplayPrice(plan)
 
               return (
                 <div
                   key={plan.id}
-                  className={`p-8 lg:p-9 min-h-150 flex flex-col relative group transition-all duration-300 ${
-                    index < PLANS.length - 1 ? 'border-b-[3px] md:border-b-0 md:border-r-[3px] border-newsprint-black' : ''
-                  } ${plan.highlight ? 'bg-[#fffdf7]' : 'bg-[#F5F0E8]'} ${!isDisabled ? 'hover:bg-white md:hover:-translate-y-1 md:hover:shadow-[0_8px_0px_0px_rgba(20,20,20,1)]' : ''}`}
+                  className={`p-8 lg:p-9 min-h-150 flex flex-col relative group transition-all duration-300 ${index < PLANS.length - 1 ? 'border-b-[3px] md:border-b-0 md:border-r-[3px] border-newsprint-black' : ''
+                    } ${plan.highlight ? 'bg-[#fffdf7]' : 'bg-[#F5F0E8]'} ${!isDisabled ? 'hover:bg-white md:hover:-translate-y-1 md:hover:shadow-[0_8px_0px_0px_rgba(20,20,20,1)]' : ''}`}
                 >
                   <div className="flex-1">
                     <div className="flex justify-between items-start mb-4">
@@ -320,9 +378,14 @@ function PlansContent() {
                     </div>
 
                     <div className="flex items-baseline gap-1 mb-3 font-sans border-newsprint-black/30">
-                      <span className="text-5xl font-black text-newsprint-black">{plan.price}</span>
+                      <span className="text-5xl font-black text-newsprint-black">{displayPrice.finalPriceText}</span>
                       <span className="text-base font-normal text-newsprint-black">{plan.period}</span>
                     </div>
+                    {displayPrice.originalPriceText ? (
+                      <p className="text-xs font-bold text-[#B42318] line-through mb-2">
+                        {displayPrice.originalPriceText}
+                      </p>
+                    ) : null}
 
                     <hr className="border-t-2 border-dotted border-newsprint-gray-medium my-6" />
 
@@ -348,25 +411,24 @@ function PlansContent() {
                   <button
                     disabled={isDisabled}
                     onClick={() => initiatePayment(plan)}
-                    className={`w-full text-center py-4 border-[3px] border-black font-bold uppercase text-sm tracking-wide transition-all duration-200 mt-auto ${
-                      isLockedByCurrentPro
-                        ? 'bg-[#166534] text-white border-[#166534] cursor-default'
-                        : isCurrent
+                    className={`w-full text-center py-4 border-[3px] border-black font-bold uppercase text-sm tracking-wide transition-all duration-200 mt-auto ${isLockedByCurrentPro
+                      ? 'bg-[#166534] text-white border-[#166534] cursor-default'
+                      : isCurrent
                         ? 'bg-[#166534] text-white border-[#166534] cursor-default'
                         : isLower
                           ? 'bg-[#E5E7EB] text-[#6B7280] border-[#9CA3AF] cursor-not-allowed'
                           : 'bg-transparent text-black hover:bg-black hover:text-white hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_0px_rgba(20,20,20,1)] active:translate-y-0 active:shadow-[2px_2px_0px_0px_rgba(20,20,20,1)]'
-                    }`}
+                      }`}
                   >
                     {isLoadingPlan === plan.id
                       ? 'Đang khởi tạo...'
                       : isLockedByCurrentPro
                         ? 'Đã có gói đang hoạt động'
-                      : isCurrent
-                        ? 'Đang sử dụng'
-                        : isLower
-                          ? 'Đã có gói cao hơn'
-                          : getCtaByPlan(plan)}
+                        : isCurrent
+                          ? 'Đang sử dụng'
+                          : isLower
+                            ? 'Đã có gói cao hơn'
+                            : getCtaByPlan(plan)}
                   </button>
                 </div>
               )
@@ -428,9 +490,8 @@ function PlansContent() {
             {FAQS.map((item, idx) => (
               <div
                 key={item.q}
-                className={`p-5 bg-[#F5F0E8] ${
-                  idx % 2 === 0 ? 'md:border-r-2 md:border-newsprint-black/30' : ''
-                } ${idx < FAQS.length - 2 ? 'md:border-b-2 md:border-newsprint-black/30' : ''} border-b border-newsprint-black/20`}
+                className={`p-5 bg-[#F5F0E8] ${idx % 2 === 0 ? 'md:border-r-2 md:border-newsprint-black/30' : ''
+                  } ${idx < FAQS.length - 2 ? 'md:border-b-2 md:border-newsprint-black/30' : ''} border-b border-newsprint-black/20`}
               >
                 <p className="text-sm font-black text-newsprint-black mb-2">{item.q}</p>
                 <p className="text-sm text-newsprint-gray-dark">{item.a}</p>

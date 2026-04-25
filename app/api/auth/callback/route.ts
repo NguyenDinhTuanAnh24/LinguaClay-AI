@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/utils/supabase/server'
-import { prisma } from '@/lib/prisma'
+import { UserRepository } from '@/repositories/user.repository'
 
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url)
@@ -12,25 +12,16 @@ export async function GET(request: Request) {
     const { error } = await supabase.auth.exchangeCodeForSession(code)
 
     if (!error) {
-      // Lấy thông tin user vừa đăng nhập từ Supabase Auth
-      const { data: { user } } = await supabase.auth.getUser()
+      const {
+        data: { user },
+      } = await supabase.auth.getUser()
 
       if (user) {
-        // Đồng bộ user sang Prisma DB (upsert: tạo mới nếu chưa có, bỏ qua nếu đã có)
-        await prisma.user.upsert({
-          where: { id: user.id },
-          update: {
-            email: user.email!,
-            // Chỉ cập nhật các thông tin hệ thống, giữ nguyên name/image người dùng đã sửa
-          },
-          create: {
-            id: user.id,
-            email: user.email!,
-            name: user.user_metadata?.full_name || user.user_metadata?.name || null,
-            image: user.user_metadata?.avatar_url || user.user_metadata?.picture || null,
-            targetLanguage: 'EN',
-            proficiencyLevel: 'A1',
-          },
+        await UserRepository.upsertFromAuth({
+          id: user.id,
+          email: user.email!,
+          name: user.user_metadata?.full_name || user.user_metadata?.name || null,
+          image: user.user_metadata?.avatar_url || user.user_metadata?.picture || null,
         })
       }
 
@@ -40,3 +31,4 @@ export async function GET(request: Request) {
 
   return NextResponse.redirect(`${origin}/login?message=Could not authenticate user`)
 }
+

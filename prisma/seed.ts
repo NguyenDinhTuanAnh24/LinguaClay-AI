@@ -11,6 +11,16 @@ const pool = new Pool({ connectionString: process.env.DATABASE_URL })
 const adapter = new PrismaPg(pool)
 const prisma = new PrismaClient({ adapter })
 
+type RawVocabularyWord = {
+  topicName: string
+  topicSlug?: string
+  term: string
+  definition: string
+  pronunciation?: string
+  example?: string
+  exampleTranslation?: string
+}
+
 async function main() {
   console.log('🏗️  BẮT ĐẦU CHIẾN DỊCH BƠM DỮ LIỆU KHỔNG LỒ (MASSIVE SEEDING)...')
 
@@ -21,11 +31,11 @@ async function main() {
     return
   }
 
-  const rawData = JSON.parse(fs.readFileSync(filePath, 'utf-8'))
+  const rawData = JSON.parse(fs.readFileSync(filePath, 'utf-8')) as RawVocabularyWord[]
   console.log(`📊 Đã đọc ${rawData.length} từ vựng từ tệp tin.`)
 
   // 1. Phân tách danh sách Topic duy nhất
-  const uniqueTopics = Array.from(new Set(rawData.map((w: any) => w.topicName))) as string[]
+  const uniqueTopics = Array.from(new Set(rawData.map((w) => w.topicName))) as string[]
   console.log(`📂 Tìm thấy ${uniqueTopics.length} chủ đề khác nhau.`)
 
   // 2. Dọn dẹp dữ liệu cũ (Xóa toàn bộ Topic và Word để nạp mới hoàn toàn cho sạch)
@@ -38,11 +48,11 @@ async function main() {
   const topicMap = new Map<string, string>() // Name -> ID
 
   for (const topicName of uniqueTopics) {
-    const firstWord = rawData.find((w: any) => w.topicName === topicName)
+    const firstWord = rawData.find((w) => w.topicName === topicName)
     const topic = await prisma.topic.create({
       data: {
         name: topicName,
-        slug: firstWord.topicSlug || topicName.toLowerCase().replace(/ /g, '-'),
+        slug: firstWord?.topicSlug || topicName.toLowerCase().replace(/ /g, '-'),
         description: `Kho tàng từ vựng chuyên sâu về ${topicName} dành cho trình độ C1.`,
         level: 'C1',
         language: 'EN',
@@ -57,7 +67,7 @@ async function main() {
   console.log('⚡ Đang thực hiện bơm từ vựng hàng loạt...')
   
   await prisma.word.createMany({
-    data: rawData.map((w: any) => ({
+    data: rawData.map((w) => ({
       original: w.term,
       translation: w.definition,
       pronunciation: w.pronunciation,

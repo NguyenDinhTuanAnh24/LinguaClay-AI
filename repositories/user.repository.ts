@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/prisma'
-import { Prisma, User } from '@prisma/client'
+import { Prisma, User, UserRole } from '@prisma/client'
 
 export class UserRepository {
   static async findById(id: string): Promise<User | null> {
@@ -18,6 +18,33 @@ export class UserRepository {
     return prisma.user.update({
       where: { id },
       data,
+    })
+  }
+
+  static async upsertFromAuth(data: {
+    id: string
+    email: string
+    role?: UserRole
+    name?: string | null
+    image?: string | null
+    targetLanguage?: string
+    proficiencyLevel?: string
+  }) {
+    return prisma.user.upsert({
+      where: { id: data.id },
+      update: {
+        email: data.email,
+        ...(data.role ? { role: data.role } : {}),
+      },
+      create: {
+        id: data.id,
+        email: data.email,
+        role: data.role ?? UserRole.USER,
+        name: data.name ?? null,
+        image: data.image ?? null,
+        targetLanguage: data.targetLanguage ?? 'EN',
+        proficiencyLevel: data.proficiencyLevel ?? 'A1',
+      },
     })
   }
 

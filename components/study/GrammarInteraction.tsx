@@ -4,7 +4,14 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import SentenceScramble from './SentenceScramble'
 
-export default function GrammarInteraction({ point }: { point: any }) {
+type GrammarPointLite = {
+  topicId?: string | null
+  topic?: { slug?: string | null } | null
+  example?: string | null
+  exampleSentence?: string | null
+}
+
+export default function GrammarInteraction({ point }: { point: GrammarPointLite }) {
   const [showExercise, setShowExercise] = useState(false)
 
   return (

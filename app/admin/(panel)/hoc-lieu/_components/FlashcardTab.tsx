@@ -2,11 +2,11 @@
 
 import { useState, useMemo } from 'react'
 import { Plus, FileUp, Pencil, Trash2 } from 'lucide-react'
-import { FlashcardSetView } from '@/app/admin/(panel)/hoc-lieu/ui-client-types'
+import { FlashcardSetView, FlashcardTabAction } from '@/app/admin/(panel)/hoc-lieu/ui-client-types'
 
 type Props = {
   sets: FlashcardSetView[]
-  onAction: (action: any) => Promise<void>
+  onAction: (action: FlashcardTabAction) => Promise<void>
 }
 
 function Pager({

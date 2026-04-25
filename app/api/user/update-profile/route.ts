@@ -1,10 +1,10 @@
 import { logger } from '@/lib/logger'
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/utils/supabase/server'
-import { prisma } from '@/lib/prisma'
 import { Prisma } from '@prisma/client'
 import { normalizeCefrLevel } from '@/lib/levels'
 import { z } from 'zod'
+import { UserRepository } from '@/repositories/user.repository'
 
 const UpdateProfileSchema = z
   .object({
@@ -64,10 +64,7 @@ export async function POST(request: NextRequest) {
     if (phoneNumber !== undefined) updateData.phoneNumber = phoneNumber
     if (birthday !== undefined) updateData.birthday = birthday ? new Date(birthday) : null
 
-    const updatedUser = await prisma.user.update({
-      where: { id: user.id },
-      data: updateData,
-    })
+    const updatedUser = await UserRepository.update(user.id, updateData)
 
     return NextResponse.json({ ok: true, user: updatedUser })
   } catch (error) {

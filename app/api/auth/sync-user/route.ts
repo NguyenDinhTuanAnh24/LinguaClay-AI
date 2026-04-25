@@ -1,9 +1,10 @@
 import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { createClient } from '@/utils/supabase/server'
-import { prisma } from '@/lib/prisma'
 import { getUserRole, isAdminEmail } from '@/lib/admin'
 import { AppRoles } from '@/lib/constants'
+import { UserRepository } from '@/repositories/user.repository'
+import { UserRole } from '@prisma/client'
 
 export async function POST() {
   try {
@@ -19,21 +20,12 @@ export async function POST() {
     const tokenRole = getUserRole(user)
     const role = (isAdminEmail(user.email) || tokenRole === AppRoles.ADMIN || tokenRole?.toLowerCase() === 'admin') ? AppRoles.ADMIN : AppRoles.USER
 
-    await prisma.user.upsert({
-      where: { id: user.id },
-      update: {
-        email: user.email!,
-        role,
-      },
-      create: {
-        id: user.id,
-        email: user.email!,
-        role,
-        name: user.user_metadata?.full_name || user.user_metadata?.name || null,
-        image: user.user_metadata?.avatar_url || null,
-        targetLanguage: 'EN',
-        proficiencyLevel: 'A1',
-      },
+    await UserRepository.upsertFromAuth({
+      id: user.id,
+      email: user.email!,
+      role: role === AppRoles.ADMIN ? UserRole.ADMIN : UserRole.USER,
+      name: user.user_metadata?.full_name || user.user_metadata?.name || null,
+      image: user.user_metadata?.avatar_url || null,
     })
 
     return NextResponse.json({ ok: true, role })

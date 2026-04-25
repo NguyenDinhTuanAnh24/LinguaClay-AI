@@ -5,8 +5,11 @@ import { AdminConfirmToast, AdminToastStack, useAdminConfirm, useAdminToast } fr
 import { CEFR_LEVELS } from '@/lib/levels'
 import { 
   FlashcardSetView, 
+  FlashcardTabAction,
   GrammarItemView, 
+  GrammarTabAction,
   MediaItemView, 
+  MediaTabAction,
   StudyTab 
 } from './ui-client-types'
 import FlashcardTab from './_components/FlashcardTab'
@@ -50,6 +53,8 @@ export function HocLieuClient({ flashcardSets, grammarRows, mediaItems }: Props)
   const { toasts, showToast } = useAdminToast()
   const { confirm, requestConfirm, confirmYes, confirmNo } = useAdminConfirm()
 
+  const getErrorMessage = (error: unknown) => (error instanceof Error ? error.message : 'Yêu cầu thất bại')
+
   const selectedSet = useMemo(
     () => flashcardSetsState.find((x) => x.id === selectedSetId) ?? flashcardSetsState[0],
     [selectedSetId, flashcardSetsState]
@@ -83,7 +88,7 @@ export function HocLieuClient({ flashcardSets, grammarRows, mediaItems }: Props)
 
   // ─── Action Handlers ─────────────────────────────────────────────────────
 
-  const handleFlashcardAction = async (action: any) => {
+  const handleFlashcardAction = async (action: FlashcardTabAction) => {
     switch (action.type) {
       case 'open_create':
         setFlashForm({ topic: '', level: 'A1' })
@@ -110,14 +115,14 @@ export function HocLieuClient({ flashcardSets, grammarRows, mediaItems }: Props)
             })
             showToast('Đã xóa bộ học liệu.', 'success')
             await refreshData.flashcards()
-          } catch (e: any) { showToast(e.message, 'error') }
+          } catch (e: unknown) { showToast(getErrorMessage(e), 'error') }
           finally { setLoading(false) }
         }
         break
     }
   }
 
-  const handleGrammarAction = async (action: any) => {
+  const handleGrammarAction = async (action: GrammarTabAction) => {
     switch (action.type) {
       case 'open_create':
         setGrammarForm({ title: '', level: 'A1', structure: '' })
@@ -138,14 +143,14 @@ export function HocLieuClient({ flashcardSets, grammarRows, mediaItems }: Props)
             })
             showToast('Đã xóa bài ngữ pháp.', 'success')
             await refreshData.grammar()
-          } catch (e: any) { showToast(e.message, 'error') }
+          } catch (e: unknown) { showToast(getErrorMessage(e), 'error') }
           finally { setLoading(false) }
         }
         break
     }
   }
 
-  const handleMediaAction = async (action: any) => {
+  const handleMediaAction = async (action: MediaTabAction) => {
      switch (action.type) {
       case 'open_create':
         setMediaForm({ type: 'Ảnh', name: '', url: '', size: '' })
@@ -166,7 +171,7 @@ export function HocLieuClient({ flashcardSets, grammarRows, mediaItems }: Props)
             })
             showToast('Đã xóa media.', 'success')
             await refreshData.media()
-          } catch (e: any) { showToast(e.message, 'error') }
+          } catch (e: unknown) { showToast(getErrorMessage(e), 'error') }
           finally { setLoading(false) }
         }
         break
@@ -186,7 +191,7 @@ export function HocLieuClient({ flashcardSets, grammarRows, mediaItems }: Props)
       showToast(flashForm.id ? 'Cập nhật thành công.' : 'Tạo mới thành công.', 'success')
       setShowFlashForm(false)
       await refreshData.flashcards()
-    } catch (e: any) { showToast(e.message, 'error') }
+    } catch (e: unknown) { showToast(getErrorMessage(e), 'error') }
     finally { setLoading(false) }
   }
 
@@ -203,7 +208,7 @@ export function HocLieuClient({ flashcardSets, grammarRows, mediaItems }: Props)
       setFlashCsv('')
       setShowFlashImport(false)
       await refreshData.flashcards()
-    } catch (e: any) { showToast(e.message, 'error') }
+    } catch (e: unknown) { showToast(getErrorMessage(e), 'error') }
     finally { setLoading(false) }
   }
 
@@ -219,7 +224,7 @@ export function HocLieuClient({ flashcardSets, grammarRows, mediaItems }: Props)
       showToast(grammarForm.id ? 'Cập nhật thành công.' : 'Tạo mới thành công.', 'success')
       setShowGrammarForm(false)
       await refreshData.grammar()
-    } catch (e: any) { showToast(e.message, 'error') }
+    } catch (e: unknown) { showToast(getErrorMessage(e), 'error') }
     finally { setLoading(false) }
   }
 
@@ -235,7 +240,7 @@ export function HocLieuClient({ flashcardSets, grammarRows, mediaItems }: Props)
       showToast(mediaForm.id ? 'Cập nhật thành công.' : 'Tạo mới thành công.', 'success')
       setShowMediaForm(false)
       await refreshData.media()
-    } catch (e: any) { showToast(e.message, 'error') }
+    } catch (e: unknown) { showToast(getErrorMessage(e), 'error') }
     finally { setLoading(false) }
   }
 

@@ -24,7 +24,7 @@ import {
 
 type SidebarDbUser = {
   isPro?: boolean
-  proType?: '3_MONTHS' | '6_MONTHS' | '1_YEAR' | null
+  proType?: string | null
 }
 
 type SidebarProps = {
@@ -35,6 +35,10 @@ type SidebarProps = {
 }
 
 export default function Sidebar({ dbUser, collapsed = false, onToggle }: SidebarProps) {
+  const normalizedProType: '3_MONTHS' | '6_MONTHS' | '1_YEAR' | null =
+    dbUser?.proType === '3_MONTHS' || dbUser?.proType === '6_MONTHS' || dbUser?.proType === '1_YEAR'
+      ? dbUser.proType
+      : null
   const t = useTranslations('dashboardUi.sidebar')
   const nav = [
     { name: t('overview'), icon: LayoutDashboard, path: '/dashboard' },
@@ -104,7 +108,7 @@ export default function Sidebar({ dbUser, collapsed = false, onToggle }: Sidebar
           <Link
             href="/dashboard/plans"
             className={`block shadow-[4px_4px_0px_0px_rgba(20,20,20,1)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[7px_7px_0px_0px_rgba(20,20,20,1)] group border-2 border-[#141414] ${collapsed ? 'px-2 py-3' : 'px-4 py-3'} ${isPro ? 'bg-[#FFFFFF]' : 'bg-white/45'}`}
-            title={collapsed ? (isPro ? getPlanLabel(dbUser?.proType ?? null) : t('member')) : undefined}
+            title={collapsed ? (isPro ? getPlanLabel(normalizedProType) : t('member')) : undefined}
           >
             {collapsed ? (
               <div className="flex items-center justify-center text-[#141414]">
@@ -114,7 +118,7 @@ export default function Sidebar({ dbUser, collapsed = false, onToggle }: Sidebar
               <>
                 <p className="uppercase font-black text-[#141414] text-[10px] tracking-[0.17em]">{isPro ? t('premium') : t('member')}</p>
                 <p className="uppercase font-semibold text-[#4B4B4B] group-hover:text-[#141414] transition-colors text-[9px] tracking-[0.15em] mt-[2px]">
-                  {isPro ? getPlanLabel(dbUser?.proType ?? null) : t('free')}
+                  {isPro ? getPlanLabel(normalizedProType) : t('free')}
                 </p>
               </>
             )}

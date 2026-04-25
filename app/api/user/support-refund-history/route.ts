@@ -1,7 +1,7 @@
 import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { createClient } from '@/utils/supabase/server'
-import { prisma } from '@/lib/prisma'
+import { SupportRepository } from '@/repositories/support.repository'
 
 export const dynamic = 'force-dynamic'
 
@@ -16,46 +16,7 @@ export async function GET() {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const [supportRows, refundRows] = await Promise.all([
-      prisma.supportTicket.findMany({
-        where: { userId: user.id },
-        orderBy: { createdAt: 'desc' },
-        take: 30,
-        select: {
-          id: true,
-          category: true,
-          subject: true,
-          message: true,
-          attachmentUrl: true,
-          status: true,
-          adminReply: true,
-          createdAt: true,
-          updatedAt: true,
-        },
-      }),
-      prisma.refundRequest.findMany({
-        where: { userId: user.id },
-        orderBy: { createdAt: 'desc' },
-        take: 30,
-        select: {
-          id: true,
-          orderId: true,
-          status: true,
-          reason: true,
-          note: true,
-          createdAt: true,
-          processedAt: true,
-          order: {
-            select: {
-              orderCode: true,
-              planId: true,
-              amount: true,
-              status: true,
-            },
-          },
-        },
-      }),
-    ])
+    const [supportRows, refundRows] = await SupportRepository.findSupportRefundHistoryByUserId(user.id)
 
     return NextResponse.json({
       ok: true,
@@ -75,4 +36,3 @@ export async function GET() {
     return NextResponse.json({ error: 'Không thể tải lịch sử hỗ trợ/hoàn tiền' }, { status: 500 })
   }
 }
-

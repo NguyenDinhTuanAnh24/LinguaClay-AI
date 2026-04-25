@@ -35,7 +35,7 @@ export function normalizeStringArray(items: string[]): string[] {
 /**
  * Normalize object values that contain Vietnamese text
  */
-export function normalizeObject<T extends Record<string, any>>(
+export function normalizeObject<T extends Record<string, unknown>>(
   obj: T,
   keys: (keyof T)[]
 ): T {

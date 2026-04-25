@@ -3,11 +3,11 @@
 import { useState, useMemo } from 'react'
 import { Plus, FileUp, Pencil, Trash2, ImageIcon, Music2 } from 'lucide-react'
 import Image from 'next/image'
-import { MediaItemView } from '@/app/admin/(panel)/hoc-lieu/ui-client-types'
+import { MediaItemView, MediaTabAction } from '@/app/admin/(panel)/hoc-lieu/ui-client-types'
 
 type Props = {
   items: MediaItemView[]
-  onAction: (action: any) => Promise<void>
+  onAction: (action: MediaTabAction) => Promise<void>
 }
 
 function Pager({

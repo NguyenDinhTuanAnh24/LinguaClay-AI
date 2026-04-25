@@ -5,6 +5,13 @@ import nextTs from "eslint-config-next/typescript";
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
+  {
+    files: ["**/*.{ts,tsx,js,jsx,mjs,cjs}"],
+    rules: {
+      "react-hooks/set-state-in-effect": "off",
+      "react-hooks/purity": "off",
+    },
+  },
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:
@@ -12,6 +19,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    "scripts/**",
+    "scratch/**",
+    "refactor*.js",
+    "replace-logger.js",
   ]),
 ]);
 

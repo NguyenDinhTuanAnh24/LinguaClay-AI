@@ -2,11 +2,11 @@
 
 import { useState, useMemo } from 'react'
 import { Plus, Pencil, Trash2 } from 'lucide-react'
-import { GrammarItemView } from '@/app/admin/(panel)/hoc-lieu/ui-client-types'
+import { GrammarItemView, GrammarTabAction } from '@/app/admin/(panel)/hoc-lieu/ui-client-types'
 
 type Props = {
   rows: GrammarItemView[]
-  onAction: (action: any) => Promise<void>
+  onAction: (action: GrammarTabAction) => Promise<void>
 }
 
 function Pager({

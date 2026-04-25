@@ -1,13 +1,16 @@
 import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
 import { createClient } from '@/utils/supabase/server'
 import { clampSeconds, getVNDayStartDate, STUDY_GOAL_SECONDS } from '@/app/api/study-time/_helpers'
 import { createUserNotification } from '@/lib/user-notifications'
+import { StudyTimeRepository } from '@/repositories/study-time.repository'
+import { z } from 'zod'
 
-type HeartbeatPayload = {
-  activeSeconds?: number
-}
+const HeartbeatPayloadSchema = z
+  .object({
+    activeSeconds: z.number().int().min(0).max(3600).optional(),
+  })
+  .strict()
 
 export async function POST(req: Request) {
   try {
@@ -20,47 +23,32 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const body = (await req.json()) as HeartbeatPayload
-    const incrementBy = clampSeconds(body.activeSeconds ?? 0)
+    let bodyRaw: unknown
+    try {
+      bodyRaw = await req.json()
+    } catch {
+      return NextResponse.json({ error: 'Invalid JSON payload' }, { status: 400 })
+    }
+    const parseResult = HeartbeatPayloadSchema.safeParse(bodyRaw)
+    if (!parseResult.success) {
+      return NextResponse.json({ error: 'Invalid payload', details: parseResult.error.flatten() }, { status: 400 })
+    }
+
+    const incrementBy = clampSeconds(parseResult.data.activeSeconds ?? 0)
     if (incrementBy <= 0) {
       return NextResponse.json({ activeSeconds: 0, goalSeconds: STUDY_GOAL_SECONDS })
     }
 
     const date = getVNDayStartDate()
     const now = new Date()
-    const existing = await prisma.userDailyStudy.findUnique({
-      where: {
-        userId_date: {
-          userId: user.id,
-          date,
-        },
-      },
-      select: {
-        activeSeconds: true,
-      },
-    })
+    const existing = await StudyTimeRepository.findDailyActiveSeconds(user.id, date)
     const previousActiveSeconds = existing?.activeSeconds ?? 0
 
-    const updated = await prisma.userDailyStudy.upsert({
-      where: {
-        userId_date: {
-          userId: user.id,
-          date,
-        },
-      },
-      update: {
-        activeSeconds: { increment: incrementBy },
-        lastActiveAt: now,
-      },
-      create: {
-        userId: user.id,
-        date,
-        activeSeconds: incrementBy,
-        lastActiveAt: now,
-      },
-      select: {
-        activeSeconds: true,
-      },
+    const updated = await StudyTimeRepository.upsertDailyActiveSeconds({
+      userId: user.id,
+      date,
+      incrementBy,
+      now,
     })
 
     if (previousActiveSeconds < STUDY_GOAL_SECONDS && updated.activeSeconds >= STUDY_GOAL_SECONDS) {

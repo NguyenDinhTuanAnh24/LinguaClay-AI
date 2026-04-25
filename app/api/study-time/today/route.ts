@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
 import { createClient } from '@/utils/supabase/server'
 import { getVNDayStartDate, STUDY_GOAL_SECONDS } from '@/app/api/study-time/_helpers'
+import { StudyTimeRepository } from '@/repositories/study-time.repository'
 
 export async function GET() {
   try {
@@ -16,17 +16,7 @@ export async function GET() {
 
     const date = getVNDayStartDate()
 
-    const stat = await prisma.userDailyStudy.findUnique({
-      where: {
-        userId_date: {
-          userId: user.id,
-          date,
-        },
-      },
-      select: {
-        activeSeconds: true,
-      },
-    })
+    const stat = await StudyTimeRepository.findDailyActiveSeconds(user.id, date)
 
     return NextResponse.json({
       activeSeconds: stat?.activeSeconds ?? 0,
