@@ -1,8 +1,8 @@
 import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
 import { ensureAdminActor } from '@/lib/admin-auth'
 import { sendSystemEmail } from '@/lib/email'
+import { SupportRepository } from '@/repositories/support.repository'
 
 type Payload = {
   reply?: string
@@ -31,29 +31,18 @@ export async function POST(req: Request, ctx: ReplyRouteContext) {
     const payload = (await req.json()) as Payload
     const reply = (payload.reply || '').trim()
     const status = normalizeStatus(payload.status || 'IN_PROGRESS')
-
     if (!reply) return NextResponse.json({ error: 'Thiếu nội dung phản hồi' }, { status: 400 })
 
-    const updated = await prisma.supportTicket.update({
-      where: { id },
-      data: {
-        adminReply: reply,
-        status,
-      },
-      select: {
-        id: true,
-        adminReply: true,
-        status: true,
-        updatedAt: true,
-        user: { select: { email: true } },
-      },
+    const updated = await SupportRepository.updateReply({
+      ticketId: id,
+      reply,
+      status,
     })
-    
+
     if (updated.user?.email) {
-      const subject = `Phản hồi hỗ trợ từ LinguaClay Admin`
+      const subject = 'Phản hồi hỗ trợ từ LinguaClay Admin'
       const emailHtmlBody = `<p style="white-space: pre-wrap;">${updated.adminReply ?? ''}</p>`
       const emailTextBody = updated.adminReply ?? ''
-      
       const emailRes = await sendSystemEmail(updated.user.email, subject, emailHtmlBody, emailTextBody)
       if (!emailRes.sent) {
         logger.error('Support reply email failed to send:', emailRes.error)

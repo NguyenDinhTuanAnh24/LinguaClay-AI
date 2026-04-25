@@ -24,4 +24,55 @@ export class UserRepository {
   static async countAll(where?: Prisma.UserWhereInput): Promise<number> {
     return prisma.user.count({ where })
   }
+
+  static async findProfileById(id: string) {
+    return prisma.user.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        image: true,
+        targetLanguage: true,
+        proficiencyLevel: true,
+        isPro: true,
+        proType: true,
+        proStartDate: true,
+        proEndDate: true,
+        phoneNumber: true,
+        birthday: true,
+        createdAt: true,
+        updatedAt: true,
+        themePreference: true,
+      },
+    })
+  }
+
+  static async findBasicIdentityById(id: string) {
+    return prisma.user.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+      },
+    })
+  }
+
+  static async findLatestRefundRequestByOrderId(orderId: string) {
+    const rows = await prisma.$queryRaw<Array<{ id: string; status: string; createdAt: Date }>>`
+      SELECT id, status, "createdAt"
+      FROM "RefundRequest"
+      WHERE "orderId" = ${orderId}
+      ORDER BY "createdAt" DESC
+      LIMIT 1
+    `
+
+    if (!rows[0]) return null
+    return {
+      id: rows[0].id,
+      status: rows[0].status,
+      createdAt: rows[0].createdAt,
+    }
+  }
 }

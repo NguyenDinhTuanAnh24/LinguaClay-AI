@@ -1,7 +1,7 @@
 import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
 import { createClient } from '@/utils/supabase/server'
+import { OrderRepository } from '@/repositories/order.repository'
 
 function parsePositiveInt(value: string | null, fallback: number) {
   const num = Number.parseInt(value || '', 10)
@@ -26,25 +26,8 @@ export async function GET(req: Request) {
     const skip = (page - 1) * pageSize
 
     const [total, orders] = await Promise.all([
-      prisma.order.count({
-        where: { userId: user.id },
-      }),
-      prisma.order.findMany({
-        where: { userId: user.id },
-        select: {
-          id: true,
-          orderCode: true,
-          planId: true,
-          amount: true,
-          status: true,
-          createdAt: true,
-          paidAt: true,
-          updatedAt: true,
-        },
-        orderBy: { createdAt: 'desc' },
-        skip,
-        take: pageSize,
-      }),
+      OrderRepository.countByUserId(user.id),
+      OrderRepository.findManyByUserId(user.id, { skip, take: pageSize }),
     ])
 
     return NextResponse.json({

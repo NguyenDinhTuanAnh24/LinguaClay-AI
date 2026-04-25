@@ -2,9 +2,10 @@ import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { createClient } from '@/utils/supabase/server'
 import { Prisma } from '@prisma/client'
-import { prisma } from '@/lib/prisma'
 import Groq from 'groq-sdk'
 import { sanitizeUserPrompt } from '@/lib/sanitizer'
+import { z } from 'zod'
+import { TutorRepository } from '@/repositories/tutor.repository'
 
 const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY,
@@ -28,6 +29,15 @@ type EditorResponse = {
   }>
 }
 
+const EditorBodySchema = z
+  .object({
+    action: z.enum(['generatePrompt', 'gradeEssay']).optional(),
+    idea: z.string().optional(),
+    content: z.string().optional(),
+    promptTitle: z.string().optional(),
+  })
+  .strict()
+
 export async function POST(req: Request) {
   try {
     const supabase = await createClient()
@@ -39,12 +49,21 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const body = (await req.json()) as {
-      action?: 'generatePrompt' | 'gradeEssay'
-      idea?: string
-      content?: string
-      promptTitle?: string
+    let bodyRaw: unknown
+    try {
+      bodyRaw = await req.json()
+    } catch {
+      return NextResponse.json({ error: 'Invalid JSON payload' }, { status: 400 })
     }
+    const parseResult = EditorBodySchema.safeParse(bodyRaw)
+    if (!parseResult.success) {
+      return NextResponse.json(
+        { error: 'Invalid payload', details: parseResult.error.flatten() },
+        { status: 400 }
+      )
+    }
+
+    const body = parseResult.data
     const action = body.action || 'gradeEssay'
     const idea = sanitizeUserPrompt(body.idea || '', 600)
     const content = sanitizeUserPrompt(body.content || '', 2500)
@@ -189,21 +208,19 @@ RÀNG BUỘC:
         : [],
     }
 
-    await prisma.tutorEditorSession.create({
-      data: {
-        userId: user.id,
-        inputText: content,
-        annotatedText: safeResult.revisedEssay,
-        shortFeedbackVi: safeResult.feedbackVi,
-        notes: {
-          promptTitle,
-          score: safeResult.score,
-          strengthsVi: safeResult.strengthsVi,
-          improvementsVi: safeResult.improvementsVi,
-          detailedFeedbackVi: safeResult.detailedFeedbackVi,
-          corrections: safeResult.notes,
-        } as unknown as Prisma.InputJsonValue,
-      },
+    await TutorRepository.createEditorSession({
+      userId: user.id,
+      inputText: content,
+      annotatedText: safeResult.revisedEssay,
+      shortFeedbackVi: safeResult.feedbackVi,
+      notes: {
+        promptTitle,
+        score: safeResult.score,
+        strengthsVi: safeResult.strengthsVi,
+        improvementsVi: safeResult.improvementsVi,
+        detailedFeedbackVi: safeResult.detailedFeedbackVi,
+        corrections: safeResult.notes,
+      } as unknown as Prisma.InputJsonValue,
     })
 
     return NextResponse.json({ result: safeResult })

@@ -2,8 +2,8 @@ import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { PayOS } from '@payos/node'
 import { Prisma } from '@prisma/client'
-import { prisma } from '@/lib/prisma'
 import { createClient } from '@/utils/supabase/server'
+import { PaymentRepository } from '@/repositories/payment.repository'
 
 const payos = new PayOS({
   clientId: process.env.PAYOS_CLIENT_ID!,
@@ -35,41 +35,21 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Missing or invalid orderCode' }, { status: 400 })
     }
 
-    const order = await prisma.order.findFirst({
-      where: { orderCode, userId: user.id },
-      select: { id: true, status: true, cancelledAt: true },
-    })
-
+    const order = await PaymentRepository.findOrderForCancel(orderCode, user.id)
     if (!order) {
       return NextResponse.json({ error: 'Order not found' }, { status: 404 })
     }
-
     if (order.status === 'SUCCESS') {
       return NextResponse.json({ error: 'Paid order cannot be canceled' }, { status: 409 })
     }
 
-    // Mandatory: cancel on PayOS first.
     const payosResult = await payos.paymentRequests.cancel(orderCode, reason)
-
-    await prisma.$transaction([
-      prisma.order.update({
-        where: { id: order.id },
-        data: {
-          status: 'CANCELLED',
-          cancelledAt: order.cancelledAt ?? new Date(),
-          verifiedAt: new Date(),
-        },
-      }),
-      prisma.paymentEvent.create({
-        data: {
-          orderId: order.id,
-          eventType: 'USER_CANCELLED',
-          payosStatus: String(payosResult.status ?? 'CANCELLED').toUpperCase(),
-          source: 'CANCEL_API',
-          payload: payosResult as Prisma.InputJsonValue,
-        },
-      }),
-    ])
+    await PaymentRepository.markUserCancelled({
+      orderId: order.id,
+      cancelledAt: order.cancelledAt,
+      payosStatus: String(payosResult.status ?? 'CANCELLED').toUpperCase(),
+      payload: payosResult as unknown as Prisma.InputJsonValue,
+    })
 
     return NextResponse.json({
       success: true,

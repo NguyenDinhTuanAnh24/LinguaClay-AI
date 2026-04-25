@@ -2,8 +2,8 @@ import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { PayOS } from '@payos/node'
 import { Prisma } from '@prisma/client'
-import { prisma } from '@/lib/prisma'
 import { createUserNotification } from '@/lib/user-notifications'
+import { PaymentRepository } from '@/repositories/payment.repository'
 
 const payos = new PayOS({
   clientId: process.env.PAYOS_CLIENT_ID!,
@@ -21,7 +21,6 @@ export async function POST(req: Request) {
   try {
     const body = await req.json()
     const webhookData = await payos.webhooks.verify(body)
-
     if (!webhookData) {
       return NextResponse.json({ success: true })
     }
@@ -32,30 +31,17 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Invalid orderCode' }, { status: 400 })
     }
 
-    const order = await prisma.order.findUnique({
-      where: { orderCode },
-      select: {
-        id: true,
-        userId: true,
-        planId: true,
-        status: true,
-        paidAt: true,
-      },
-    })
-
+    const order = await PaymentRepository.findOrderByCode(orderCode)
     if (!order) {
       return NextResponse.json({ error: 'Order not found' }, { status: 404 })
     }
 
+    const payosStatus = String(webhookRaw.status ?? 'PAID').toUpperCase()
     if (order.status === 'SUCCESS') {
-      await prisma.paymentEvent.create({
-        data: {
-          orderId: order.id,
-          eventType: 'WEBHOOK_DUPLICATED',
-          payosStatus: String(webhookRaw.status ?? 'PAID').toUpperCase(),
-          source: 'WEBHOOK',
-          payload: webhookRaw as Prisma.InputJsonValue,
-        },
+      await PaymentRepository.createWebhookDuplicatedEvent({
+        orderId: order.id,
+        payosStatus,
+        payload: webhookRaw as Prisma.InputJsonValue,
       })
       return NextResponse.json({ message: 'Already processed' })
     }
@@ -65,42 +51,24 @@ export async function POST(req: Request) {
     const proEndDate = new Date(now)
     proEndDate.setMonth(proEndDate.getMonth() + durationInMonths)
 
-    await prisma.$transaction([
-      prisma.order.update({
-        where: { id: order.id },
-        data: {
-          status: 'SUCCESS',
-          paidAt: order.paidAt ?? now,
-          verifiedAt: now,
-          payosTransactionId:
-            (webhookRaw.transactionId as string | undefined) ??
-            (webhookRaw.id as string | undefined) ??
-            orderCode.toString(),
-          payosReference:
-            (webhookRaw.reference as string | undefined) ??
-            (webhookRaw.paymentLinkId as string | undefined) ??
-            null,
-        },
-      }),
-      prisma.user.update({
-        where: { id: order.userId },
-        data: {
-          isPro: true,
-          proType: order.planId,
-          proStartDate: now,
-          proEndDate,
-        },
-      }),
-      prisma.paymentEvent.create({
-        data: {
-          orderId: order.id,
-          eventType: 'WEBHOOK_PAID',
-          payosStatus: String(webhookRaw.status ?? 'PAID').toUpperCase(),
-          source: 'WEBHOOK',
-          payload: webhookRaw as Prisma.InputJsonValue,
-        },
-      }),
-    ])
+    await PaymentRepository.markWebhookPaid({
+      orderId: order.id,
+      orderUserId: order.userId,
+      planId: order.planId,
+      paidAt: order.paidAt,
+      now,
+      proEndDate,
+      payosTransactionId:
+        (webhookRaw.transactionId as string | undefined) ??
+        (webhookRaw.id as string | undefined) ??
+        orderCode.toString(),
+      payosReference:
+        (webhookRaw.reference as string | undefined) ??
+        (webhookRaw.paymentLinkId as string | undefined) ??
+        null,
+      payosStatus,
+      payload: webhookRaw as Prisma.InputJsonValue,
+    })
 
     await createUserNotification({
       userId: order.userId,
@@ -116,6 +84,9 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: true })
   } catch (error: unknown) {
     logger.error('PayOS Webhook Error:', error)
-    return NextResponse.json({ success: false, error: error instanceof Error ? error.message : 'Unknown error' }, { status: 500 })
+    return NextResponse.json(
+      { success: false, error: error instanceof Error ? error.message : 'Unknown error' },
+      { status: 500 }
+    )
   }
 }

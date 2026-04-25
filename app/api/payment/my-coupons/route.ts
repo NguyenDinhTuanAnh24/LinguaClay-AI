@@ -1,7 +1,7 @@
 import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
 import { createClient } from '@/utils/supabase/server'
+import { PaymentRepository } from '@/repositories/payment.repository'
 
 export async function GET() {
   try {
@@ -15,30 +15,7 @@ export async function GET() {
     }
 
     const now = new Date()
-    const rows = await prisma.userCoupon.findMany({
-      where: {
-        userId: user.id,
-        status: 'AVAILABLE',
-        coupon: {
-          isActive: true,
-          expiresAt: { gt: now },
-        },
-      },
-      orderBy: { assignedAt: 'desc' },
-      select: {
-        id: true,
-        assignedAt: true,
-        coupon: {
-          select: {
-            code: true,
-            discountPercent: true,
-            expiresAt: true,
-            usedCount: true,
-            usageLimit: true,
-          },
-        },
-      },
-    })
+    const rows = await PaymentRepository.findAvailableCouponsByUserId(user.id, now)
 
     return NextResponse.json({
       coupons: rows

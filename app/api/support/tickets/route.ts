@@ -1,7 +1,7 @@
 import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
 import { createClient } from '@/utils/supabase/server'
+import { SupportRepository } from '@/repositories/support.repository'
 
 type CreatePayload = {
   category?: string
@@ -26,23 +26,7 @@ export async function GET() {
     } = await supabase.auth.getUser()
     if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-    const rows = await prisma.supportTicket.findMany({
-      where: { userId: user.id },
-      orderBy: { createdAt: 'desc' },
-      take: 60,
-      select: {
-        id: true,
-        category: true,
-        subject: true,
-        message: true,
-        attachmentUrl: true,
-        status: true,
-        adminReply: true,
-        createdAt: true,
-        updatedAt: true,
-      },
-    })
-
+    const rows = await SupportRepository.findManyByUserId(user.id, 60)
     return NextResponse.json({
       ok: true,
       tickets: rows.map((row) => ({
@@ -77,28 +61,14 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Nội dung hỗ trợ không được để trống' }, { status: 400 })
     }
 
-    const created = await prisma.supportTicket.create({
-      data: {
-        userId: user.id,
-        category,
-        subject: subject || null,
-        message,
-        attachmentUrl: attachmentUrl || null,
-        status: 'OPEN',
-        device: device || null,
-        blockedLesson: blockedLesson || null,
-      },
-      select: {
-        id: true,
-        category: true,
-        subject: true,
-        message: true,
-        attachmentUrl: true,
-        status: true,
-        adminReply: true,
-        createdAt: true,
-        updatedAt: true,
-      },
+    const created = await SupportRepository.createUserTicket({
+      userId: user.id,
+      category,
+      subject: subject || null,
+      message,
+      attachmentUrl: attachmentUrl || null,
+      device: device || null,
+      blockedLesson: blockedLesson || null,
     })
 
     return NextResponse.json({

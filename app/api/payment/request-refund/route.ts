@@ -1,7 +1,7 @@
 import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
 import { createClient } from '@/utils/supabase/server'
+import { PaymentRepository } from '@/repositories/payment.repository'
 
 type RefundPayload = {
   orderId?: string
@@ -36,16 +36,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Vui lòng cung cấp đầy đủ thông tin ngân hàng' }, { status: 400 })
     }
 
-    const order = await prisma.order.findUnique({
-      where: { id: orderId },
-      select: {
-        id: true,
-        userId: true,
-        status: true,
-        createdAt: true,
-      },
-    })
-
+    const order = await PaymentRepository.findOrderForRefund(orderId)
     if (!order || order.userId !== user.id) {
       return NextResponse.json({ error: 'Order not found' }, { status: 404 })
     }
@@ -59,51 +50,19 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Refund period has expired (7 days)' }, { status: 400 })
     }
 
-    const existingPending = await prisma.refundRequest.findFirst({
-      where: { orderId, status: 'PENDING' },
-      select: { id: true },
-    })
+    const existingPending = await PaymentRepository.findPendingRefundByOrderId(orderId)
     if (existingPending) {
       return NextResponse.json({ error: 'Đơn này đã có yêu cầu hoàn tiền đang xử lý' }, { status: 409 })
     }
 
-    await prisma.$transaction([
-      prisma.refundRequest.create({
-        data: {
-          orderId,
-          userId: user.id,
-          status: 'PENDING',
-          reason,
-          bankName,
-          accountNumber,
-          accountName,
-        },
-      }),
-      prisma.order.update({
-        where: { id: orderId },
-        data: {
-          refundStatus: 'PENDING',
-          refundReason: reason,
-          refundBankName: bankName,
-          refundAccountNumber: accountNumber,
-          refundAccountName: accountName,
-        },
-      }),
-      prisma.paymentEvent.create({
-        data: {
-          orderId,
-          eventType: 'REFUND_REQUESTED',
-          payosStatus: 'SUCCESS',
-          source: 'REFUND_API',
-          payload: {
-            reason,
-            bankName,
-            accountNumber,
-            accountName,
-          },
-        },
-      }),
-    ])
+    await PaymentRepository.createRefundRequestFlow({
+      orderId,
+      userId: user.id,
+      reason,
+      bankName,
+      accountNumber,
+      accountName,
+    })
 
     return NextResponse.json({
       success: true,

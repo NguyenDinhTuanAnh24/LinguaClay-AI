@@ -1,58 +1,34 @@
 import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { createClient } from '@/utils/supabase/server'
-import { prisma } from '@/lib/prisma'
 import { normalizeCefrLevel } from '@/lib/levels'
+import { UserRepository } from '@/repositories/user.repository'
+import { OrderRepository } from '@/repositories/order.repository'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET() {
   try {
     const supabase = await createClient()
-    const { data: { user } } = await supabase.auth.getUser()
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
 
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const dbUser = await prisma.user.findUnique({
-      where: { id: user.id },
-    })
-
+    const dbUser = await UserRepository.findProfileById(user.id)
     if (!dbUser) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 })
     }
 
-    const latestOrder = await prisma.order.findFirst({
-      where: { userId: user.id, status: 'SUCCESS' },
-      select: {
-        id: true,
-        orderCode: true,
-        createdAt: true,
-      },
-      orderBy: { createdAt: 'desc' },
-    })
-
-    const latestRefundRows =
-      latestOrder
-        ? await prisma.$queryRaw<Array<{ id: string; status: string; createdAt: Date }>>`
-            SELECT id, status, "createdAt"
-            FROM "RefundRequest"
-            WHERE "orderId" = ${latestOrder.id}
-            ORDER BY "createdAt" DESC
-            LIMIT 1
-          `
-        : []
-
-    const latestRefundRequest = latestRefundRows[0]
-      ? {
-          id: latestRefundRows[0].id,
-          status: latestRefundRows[0].status,
-          createdAt: latestRefundRows[0].createdAt,
-        }
+    const latestOrder = await OrderRepository.findLatestSuccessByUserId(user.id)
+    const latestRefundRequest = latestOrder
+      ? await UserRepository.findLatestRefundRequestByOrderId(latestOrder.id)
       : null
 
-    const userWithoutOrders = {
+    return NextResponse.json({
       id: dbUser.id,
       email: dbUser.email,
       name: dbUser.name,
@@ -68,10 +44,6 @@ export async function GET() {
       createdAt: dbUser.createdAt,
       updatedAt: dbUser.updatedAt,
       themePreference: dbUser.themePreference,
-    }
-
-    return NextResponse.json({
-      ...userWithoutOrders,
       lastOrder: latestOrder
         ? {
             id: latestOrder.id,

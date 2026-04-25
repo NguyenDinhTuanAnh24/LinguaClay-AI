@@ -1,7 +1,7 @@
 import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
 import { ensureAdminActor } from '@/lib/admin-auth'
+import { loadUserPaymentReport } from '@/services/reporting/user-payment-report.loader'
 
 function formatDateTime(date: Date): string {
   return new Intl.DateTimeFormat('vi-VN', {
@@ -27,7 +27,6 @@ function normalizePlanLabel(planId: string): string {
 export async function GET(req: Request) {
   try {
     const admin = await ensureAdminActor()
-
     if (!admin) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
@@ -38,85 +37,21 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: 'Missing userId' }, { status: 400 })
     }
 
-    const targetUser = await prisma.user.findUnique({
-      where: { id: userId },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-      },
-    })
-    if (!targetUser) {
+    const report = await loadUserPaymentReport(userId)
+    if (!report) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 })
     }
 
-    let orders: Array<{
-      id: string
-      orderCode: number
-      planId: string
-      amount: number
-      status: string
-      createdAt: Date
-      paidAt: Date | null
-      cancelledAt: Date | null
-    }> = []
-
-    try {
-      orders = await prisma.order.findMany({
-        where: { userId: targetUser.id },
-        orderBy: { createdAt: 'desc' },
-        take: 100,
-        select: {
-          id: true,
-          orderCode: true,
-          planId: true,
-          amount: true,
-          status: true,
-          createdAt: true,
-          paidAt: true,
-          cancelledAt: true,
-        },
-      })
-    } catch {
-      const legacyOrders = await prisma.order.findMany({
-        where: { userId: targetUser.id },
-        orderBy: { createdAt: 'desc' },
-        take: 100,
-        select: {
-          id: true,
-          orderCode: true,
-          planId: true,
-          amount: true,
-          status: true,
-          createdAt: true,
-        },
-      })
-
-      orders = legacyOrders.map((o) => ({
-        ...o,
-        paidAt: null,
-        cancelledAt: null,
-      }))
-    }
-
-    const totalPaid = orders
-      .filter((o) => o.status === 'SUCCESS')
-      .reduce((sum, o) => sum + o.amount, 0)
+    const { user, orders, summary } = report
 
     return NextResponse.json({
       ok: true,
       user: {
-        id: targetUser.id,
-        name: targetUser.name || 'Chưa cập nhật',
-        email: targetUser.email,
+        id: user.id,
+        name: user.name || 'Chưa cập nhật',
+        email: user.email,
       },
-      summary: {
-        totalOrders: orders.length,
-        successOrders: orders.filter((o) => o.status === 'SUCCESS').length,
-        pendingOrders: orders.filter((o) => o.status === 'PENDING').length,
-        cancelledOrders: orders.filter((o) => o.status === 'CANCELLED').length,
-        totalPaid,
-      },
+      summary,
       orders: orders.map((o) => ({
         id: o.id,
         orderCode: `OD-${o.orderCode}`,

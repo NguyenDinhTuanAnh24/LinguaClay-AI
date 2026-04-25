@@ -35,7 +35,7 @@
     "night": "Good night"
   },
   "dashboard": {
-    "goalComplete": "★ Goal completed ({count} words)!",
+    "goalComplete": "Goal completed ({count} words)!",
     "goalProgress": "Today's goal: {current}/10 new words.",
     "dailyGoal": "Daily goal"
   },
@@ -97,6 +97,52 @@
       "reply": "Reply",
       "internalNote": "Internal note",
       "status": "Status"
+    }
+  },
+  "marketing": {
+    "header": {
+      "features": "Features",
+      "pricing": "Pricing",
+      "about": "About us",
+      "startFree": "Start free"
+    },
+    "footer": {
+      "description": "Learn languages smarter with AI. We combine proven SRS and distinctive design for a better learning experience.",
+      "product": "Product",
+      "company": "Company",
+      "legal": "Legal",
+      "featureItem": "Features",
+      "priceItem": "Pricing",
+      "aboutItem": "About us",
+      "contactItem": "Contact & Support",
+      "terms": "Terms of service",
+      "privacy": "Privacy policy",
+      "rights": "© 2026 LINGUACLAY. ALL RIGHTS RESERVED."
+    }
+  },
+  "dashboardUi": {
+    "sidebar": {
+      "overview": "Overview",
+      "flashcard": "Flashcard",
+      "aiTutor": "AI Tutor",
+      "progress": "Progress",
+      "paymentHistory": "Payment History",
+      "account": "Account",
+      "learningTag": "Study better",
+      "member": "Member",
+      "premium": "Premium member",
+      "free": "Free plan",
+      "logout": "Log out"
+    },
+    "mobileNav": {
+      "plans": "Plans",
+      "history": "History",
+      "close": "Close",
+      "more": "More"
+    },
+    "header": {
+      "student": "Student",
+      "searchPlaceholder": "Search lessons, vocabulary..."
     }
   }
 }

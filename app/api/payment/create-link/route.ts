@@ -1,12 +1,11 @@
 import { logger } from '@/lib/logger'
-import { NextResponse } from 'next/server'
+import { NextResponse, type NextRequest } from 'next/server'
 import { PayOS } from '@payos/node'
 import { Prisma } from '@prisma/client'
 import { createClient } from '@/utils/supabase/server'
-import { prisma } from '@/lib/prisma'
 import { z } from 'zod'
 import { applyRateLimit } from '@/lib/rate-limit'
-import { type NextRequest } from 'next/server'
+import { PaymentRepository } from '@/repositories/payment.repository'
 
 const CreateLinkSchema = z.object({
   description: z.string().max(25, 'Mô tả quá dài'),
@@ -30,7 +29,6 @@ const PLAN_PRICE: Record<string, number> = {
 
 export async function POST(req: NextRequest) {
   try {
-    // Rate limit: 10 requests/minute per IP
     const rl = await applyRateLimit(req, 'payment')
     if (!rl.ok) return rl.response
 
@@ -38,18 +36,15 @@ export async function POST(req: NextRequest) {
     const {
       data: { user },
     } = await supabase.auth.getUser()
-
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     const bodyRaw = await req.json()
     const parseResult = CreateLinkSchema.safeParse(bodyRaw)
-
     if (!parseResult.success) {
       return NextResponse.json({ error: parseResult.error.issues[0]?.message || 'Invalid payload' }, { status: 400 })
     }
-
     const payload = parseResult.data
 
     const originalAmount = PLAN_PRICE[payload.planId] ?? 0
@@ -62,27 +57,10 @@ export async function POST(req: NextRequest) {
     let userCouponId: string | null = null
 
     if (payload.userCouponId) {
-      const assignment = await prisma.userCoupon.findFirst({
-        where: {
-          id: payload.userCouponId,
-          userId: user.id,
-          status: 'AVAILABLE',
-        },
-        select: {
-          id: true,
-          coupon: {
-            select: {
-              code: true,
-              discountPercent: true,
-              usageLimit: true,
-              usedCount: true,
-              isActive: true,
-              expiresAt: true,
-            },
-          },
-        },
+      const assignment = await PaymentRepository.findAvailableUserCouponAssignment({
+        userCouponId: payload.userCouponId,
+        userId: user.id,
       })
-
       if (!assignment) {
         return NextResponse.json({ error: 'Khuyến mãi không hợp lệ hoặc đã dùng' }, { status: 400 })
       }
@@ -101,25 +79,20 @@ export async function POST(req: NextRequest) {
     }
 
     const finalAmount = Math.max(1000, originalAmount - discountAmount)
-
     const orderCode = Number(Date.now().toString().slice(-9))
 
-    const createdOrder = await prisma.order.create({
-      data: {
-        orderCode,
-        userId: user.id,
-        planId: payload.planId,
-        amount: finalAmount,
-        originalAmount,
-        discountAmount,
-        couponCode,
-        userCouponId,
-        status: 'PENDING',
-      },
+    const createdOrder = await PaymentRepository.createPendingOrder({
+      orderCode,
+      userId: user.id,
+      planId: payload.planId,
+      amount: finalAmount,
+      originalAmount,
+      discountAmount,
+      couponCode,
+      userCouponId,
     })
 
     const checkoutBaseUrl = `${process.env.NEXT_PUBLIC_DOMAIN}/dashboard/payments/checkout?orderCode=${orderCode}`
-
     const body = {
       orderCode,
       amount: finalAmount,
@@ -134,27 +107,12 @@ export async function POST(req: NextRequest) {
         ? (paymentLinkResponse as Record<string, unknown>)
         : {}
 
-    await prisma.$transaction([
-      prisma.order.update({
-        where: { id: createdOrder.id },
-        data: {
-          payosReference: (payosRaw.checkoutUrl as string | undefined) ?? null,
-          verifiedAt: new Date(),
-        },
-      }),
-      prisma.paymentEvent.create({
-        data: {
-          orderId: createdOrder.id,
-          eventType: 'ORDER_CREATED',
-          payosStatus: 'PENDING',
-          source: 'CREATE_LINK',
-          payload: {
-            request: body,
-            response: payosRaw,
-          } as Prisma.InputJsonValue,
-        },
-      }),
-    ])
+    await PaymentRepository.markOrderCreatedWithEvent({
+      orderId: createdOrder.id,
+      payosReference: (payosRaw.checkoutUrl as string | undefined) ?? null,
+      requestPayload: body as unknown as Prisma.InputJsonValue,
+      responsePayload: payosRaw as Prisma.InputJsonValue,
+    })
 
     return NextResponse.json({
       checkoutUrl: paymentLinkResponse.checkoutUrl,

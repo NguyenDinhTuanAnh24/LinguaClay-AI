@@ -1,8 +1,8 @@
 import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { PayOS } from '@payos/node'
-import { prisma } from '@/lib/prisma'
 import { createClient } from '@/utils/supabase/server'
+import { PaymentRepository } from '@/repositories/payment.repository'
 
 const payos = new PayOS({
   clientId: process.env.PAYOS_CLIENT_ID!,
@@ -28,30 +28,12 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: 'Missing or invalid orderCode' }, { status: 400 })
     }
 
-    const order = await prisma.order.findUnique({
-      where: { orderCode },
-      select: {
-        id: true,
-        orderCode: true,
-        planId: true,
-        amount: true,
-        originalAmount: true,
-        discountAmount: true,
-        couponCode: true,
-        status: true,
-        createdAt: true,
-      },
-    })
-
+    const order = await PaymentRepository.findOrderByCode(orderCode)
     if (!order) {
       return NextResponse.json({ error: 'Order not found' }, { status: 404 })
     }
 
-    const ownedOrder = await prisma.order.findFirst({
-      where: { orderCode, userId: user.id },
-      select: { id: true },
-    })
-
+    const ownedOrder = await PaymentRepository.findOwnedOrder(orderCode, user.id)
     if (!ownedOrder) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
@@ -63,7 +45,17 @@ export async function GET(req: Request) {
         : {}
 
     return NextResponse.json({
-      order,
+      order: {
+        id: order.id,
+        orderCode: order.orderCode,
+        planId: order.planId,
+        amount: order.amount,
+        originalAmount: order.originalAmount,
+        discountAmount: order.discountAmount,
+        couponCode: order.couponCode,
+        status: order.status,
+        createdAt: order.createdAt,
+      },
       payos: {
         status: (payosRaw.status as string | null) ?? null,
         checkoutUrl: (payosRaw.checkoutUrl as string | null) ?? null,

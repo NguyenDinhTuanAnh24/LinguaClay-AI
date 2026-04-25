@@ -2,9 +2,9 @@ import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { PayOS } from '@payos/node'
 import { Prisma } from '@prisma/client'
-import { prisma } from '@/lib/prisma'
 import { createClient } from '@/utils/supabase/server'
 import { createUserNotification } from '@/lib/user-notifications'
+import { PaymentRepository } from '@/repositories/payment.repository'
 
 const payos = new PayOS({
   clientId: process.env.PAYOS_CLIENT_ID!,
@@ -24,14 +24,11 @@ export async function GET(req: Request) {
     const {
       data: { user },
     } = await supabase.auth.getUser()
-
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
-
     const { searchParams } = new URL(req.url)
     const orderCode = Number(searchParams.get('orderCode'))
-
     return await verifyOrderForUser(orderCode, user.id)
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'Internal Server Error'
@@ -46,14 +43,11 @@ export async function POST(req: Request) {
     const {
       data: { user },
     } = await supabase.auth.getUser()
-
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
-
     const body = (await req.json()) as { orderCode?: number }
     const orderCode = Number(body.orderCode)
-
     return await verifyOrderForUser(orderCode, user.id)
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'Internal Server Error'
@@ -67,20 +61,7 @@ async function verifyOrderForUser(orderCode: number, userId: string) {
     return NextResponse.json({ error: 'Missing or invalid orderCode' }, { status: 400 })
   }
 
-  const order = await prisma.order.findFirst({
-    where: { orderCode, userId },
-    select: {
-      id: true,
-      userId: true,
-      planId: true,
-      userCouponId: true,
-      status: true,
-      paidAt: true,
-      cancelledAt: true,
-      expiredAt: true,
-    },
-  })
-
+  const order = await PaymentRepository.findOrderForVerify(orderCode, userId)
   if (!order) {
     return NextResponse.json({ error: 'Order not found' }, { status: 404 })
   }
@@ -93,10 +74,7 @@ async function verifyOrderForUser(orderCode: number, userId: string) {
   const paymentStatus = String(payosRaw.status || 'UNKNOWN').toUpperCase()
   const now = new Date()
 
-  await prisma.order.update({
-    where: { id: order.id },
-    data: { verifiedAt: now },
-  })
+  await PaymentRepository.touchOrderVerifiedAt(order.id, now)
 
   if (paymentStatus === 'PAID') {
     if (order.status !== 'SUCCESS') {
@@ -104,56 +82,21 @@ async function verifyOrderForUser(orderCode: number, userId: string) {
       const proEndDate = new Date()
       proEndDate.setMonth(proEndDate.getMonth() + durationInMonths)
 
-      await prisma.$transaction([
-        prisma.order.update({
-          where: { id: order.id },
-          data: {
-            status: 'SUCCESS',
-            paidAt: order.paidAt ?? now,
-            verifiedAt: now,
-            payosTransactionId: (payosRaw.transactionId as string | undefined) ?? orderCode.toString(),
-            payosReference:
-              (payosRaw.reference as string | undefined) ??
-              (payosRaw.checkoutUrl as string | undefined) ??
-              null,
-          },
-        }),
-        prisma.user.update({
-          where: { id: order.userId },
-          data: {
-            isPro: true,
-            proType: order.planId,
-            proStartDate: new Date(),
-            proEndDate,
-          },
-        }),
-        prisma.paymentEvent.create({
-          data: {
-            orderId: order.id,
-            eventType: 'VERIFY_PAID',
-            payosStatus: 'PAID',
-            source: 'VERIFY_SESSION',
-            payload: payosRaw as Prisma.InputJsonValue,
-          },
-        }),
-        ...(order.userCouponId
-          ? [
-              prisma.userCoupon.update({
-                where: { id: order.userCouponId },
-                data: {
-                  status: 'USED',
-                  usedAt: now,
-                  usedOrderId: order.id,
-                  coupon: {
-                    update: {
-                      usedCount: { increment: 1 },
-                    },
-                  },
-                },
-              }),
-            ]
-          : []),
-      ])
+      await PaymentRepository.markVerifyPaid({
+        orderId: order.id,
+        orderUserId: order.userId,
+        planId: order.planId,
+        paidAt: order.paidAt,
+        userCouponId: order.userCouponId,
+        now,
+        proEndDate,
+        payosTransactionId: ((payosRaw.transactionId as string | undefined) ?? orderCode.toString()),
+        payosReference:
+          (payosRaw.reference as string | undefined) ??
+          (payosRaw.checkoutUrl as string | undefined) ??
+          null,
+        payosRaw: payosRaw as Prisma.InputJsonValue,
+      })
 
       await createUserNotification({
         userId: order.userId,
@@ -175,26 +118,14 @@ async function verifyOrderForUser(orderCode: number, userId: string) {
   }
 
   if ((paymentStatus === 'CANCELLED' || paymentStatus === 'EXPIRED') && order.status === 'PENDING') {
-    await prisma.$transaction([
-      prisma.order.update({
-        where: { id: order.id },
-        data: {
-          status: 'CANCELLED',
-          cancelledAt: paymentStatus === 'CANCELLED' ? order.cancelledAt ?? now : order.cancelledAt,
-          expiredAt: paymentStatus === 'EXPIRED' ? order.expiredAt ?? now : order.expiredAt,
-          verifiedAt: now,
-        },
-      }),
-      prisma.paymentEvent.create({
-        data: {
-          orderId: order.id,
-          eventType: paymentStatus === 'EXPIRED' ? 'VERIFY_EXPIRED' : 'VERIFY_CANCELLED',
-          payosStatus: paymentStatus,
-          source: 'VERIFY_SESSION',
-          payload: payosRaw as Prisma.InputJsonValue,
-        },
-      }),
-    ])
+    await PaymentRepository.markVerifyNonPaid({
+      orderId: order.id,
+      paymentStatus,
+      cancelledAt: order.cancelledAt,
+      expiredAt: order.expiredAt,
+      now,
+      payosRaw: payosRaw as Prisma.InputJsonValue,
+    })
   }
 
   return NextResponse.json({

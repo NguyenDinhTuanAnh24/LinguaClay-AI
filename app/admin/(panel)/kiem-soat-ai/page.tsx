@@ -1,5 +1,5 @@
-import { prisma } from '@/lib/prisma'
 import { KiemSoatAIClient, type ChatLogView, type TokenDayView } from './ui-client'
+import { loadAiControlReportData } from '@/services/reporting/ai-control.loader'
 
 function getVNDayKey(date: Date): string {
   return new Intl.DateTimeFormat('en-CA', {
@@ -28,69 +28,7 @@ function estimateTokens(userContent: string, aiFeedback: unknown): number {
 }
 
 export default async function KiemSoatAIPage() {
-  const [
-    writingSessions,
-    listening,
-    reading,
-    speaking,
-    editor
-  ] = await Promise.all([
-    prisma.writingSession.findMany({
-      orderBy: { createdAt: 'desc' },
-      take: 200,
-      select: {
-        id: true,
-        createdAt: true,
-        userContent: true,
-        aiFeedback: true,
-        user: { select: { name: true, email: true } },
-      },
-    }),
-    prisma.tutorListeningSession.findMany({
-      orderBy: { createdAt: 'desc' },
-      take: 100,
-      select: {
-        id: true,
-        createdAt: true,
-        transcriptEn: true,
-        feedbackVi: true,
-        user: { select: { name: true, email: true } },
-      },
-    }),
-    prisma.tutorReadingSession.findMany({
-      orderBy: { createdAt: 'desc' },
-      take: 100,
-      select: {
-        id: true,
-        createdAt: true,
-        passageEn: true,
-        feedbackVi: true,
-        user: { select: { name: true, email: true } },
-      },
-    }),
-    prisma.tutorSpeakingSession.findMany({
-      orderBy: { createdAt: 'desc' },
-      take: 100,
-      select: {
-        id: true,
-        createdAt: true,
-        userAnswers: true,
-        feedbackVi: true,
-        user: { select: { name: true, email: true } },
-      },
-    }),
-    prisma.tutorEditorSession.findMany({
-      orderBy: { createdAt: 'desc' },
-      take: 100,
-      select: {
-        id: true,
-        createdAt: true,
-        inputText: true,
-        shortFeedbackVi: true,
-        user: { select: { name: true, email: true } },
-      },
-    }),
-  ])
+  const { writingSessions, listening, reading, speaking, editor } = await loadAiControlReportData()
 
   const chatLogs: ChatLogView[] = [
     ...writingSessions.map((s) => {
@@ -117,7 +55,7 @@ export default async function KiemSoatAIPage() {
         messages: 2,
         tokens,
         flagged: tokens >= 3500,
-        uContent: '(Luyện nghe) Topic: ' + ((s as { topicHint?: string }).topicHint || 'N/A'),
+        uContent: '(Luyen nghe) Topic: ' + ((s as { topicHint?: string }).topicHint || 'N/A'),
         aiContent: `Transcript:\n${s.transcriptEn}\n\nFeedback:\n${s.feedbackVi}`,
       }
     }),
@@ -131,7 +69,7 @@ export default async function KiemSoatAIPage() {
         messages: 2,
         tokens,
         flagged: tokens >= 3500,
-        uContent: '(Luyện đọc) Topic: ' + ((s as { topicHint?: string }).topicHint || 'N/A'),
+        uContent: '(Luyen doc) Topic: ' + ((s as { topicHint?: string }).topicHint || 'N/A'),
         aiContent: `Passage:\n${s.passageEn}\n\nFeedback:\n${s.feedbackVi}`,
       }
     }),
@@ -145,7 +83,7 @@ export default async function KiemSoatAIPage() {
         messages: 2,
         tokens,
         flagged: tokens >= 3500,
-        uContent: '(Luyện nói) Answers: ' + JSON.stringify(s.userAnswers),
+        uContent: '(Luyen noi) Answers: ' + JSON.stringify(s.userAnswers),
         aiContent: `Feedback:\n${s.feedbackVi}`,
       }
     }),
@@ -163,7 +101,7 @@ export default async function KiemSoatAIPage() {
         aiContent: s.shortFeedbackVi,
       }
     }),
-  ].sort((a, b) => new Date(b.dayKey + 'T' + b.time.slice(0,5)).getTime() - new Date(a.dayKey + 'T' + a.time.slice(0,5)).getTime())
+  ].sort((a, b) => new Date(b.dayKey + 'T' + b.time.slice(0, 5)).getTime() - new Date(a.dayKey + 'T' + a.time.slice(0, 5)).getTime())
 
   const tokenByDay = new Map<string, number>()
   for (const log of chatLogs) {

@@ -35,7 +35,7 @@
     "night": "Chào đêm khuya"
   },
   "dashboard": {
-    "goalComplete": "★ Mục tiêu đã hoàn thành ({count} từ)!",
+    "goalComplete": "Mục tiêu đã hoàn thành ({count} từ)!",
     "goalProgress": "Mục tiêu hôm nay: {current}/10 từ mới.",
     "dailyGoal": "Mục tiêu ngày"
   },
@@ -73,7 +73,7 @@
     "checkAnswer": "Kiểm tra đáp án",
     "nextExercise": "Tiếp tục bài tiếp theo",
     "correct": "Tuyệt vời, chính xác!",
-    "incorrect": "Hic, sai mất rồi!",
+    "incorrect": "Sai mất rồi!",
     "fillBlank": "Điền từ còn thiếu vào ô trống",
     "reorder": "Sắp xếp các từ thành câu đúng",
     "progress": "Bài tập {current} / {total}",
@@ -97,6 +97,53 @@
       "reply": "Phản hồi",
       "internalNote": "Ghi chú nội bộ",
       "status": "Trạng thái"
+    }
+  },
+  "marketing": {
+    "header": {
+      "features": "Tính năng",
+      "pricing": "Gói học",
+      "about": "Về chúng tôi",
+      "startFree": "Bắt đầu miễn phí"
+    },
+    "footer": {
+      "description": "Học ngôn ngữ thông minh với AI. Kết hợp SRS khoa học và thiết kế độc đáo để tối ưu trải nghiệm học tập.",
+      "product": "Sản phẩm",
+      "company": "Công ty",
+      "legal": "Pháp lý",
+      "featureItem": "Tính năng",
+      "priceItem": "Bảng giá",
+      "aboutItem": "Về chúng tôi",
+      "contactItem": "Liên hệ & Trợ giúp",
+      "terms": "Điều khoản dịch vụ",
+      "privacy": "Chính sách bảo mật",
+      "rights": "© 2026 LINGUACLAY. ALL RIGHTS RESERVED."
+    }
+  },
+  "dashboardUi": {
+    "sidebar": {
+      "overview": "Tổng quan",
+      "flashcard": "Flashcard",
+      "aiTutor": "AI Tutor",
+      "progress": "Tiến độ",
+      "paymentHistory": "Lịch sử thanh toán",
+      "account": "Tài khoản",
+      "learningTag": "Học hiệu quả",
+      "member": "Hội viên",
+      "premium": "Hội viên nâng cấp",
+      "free": "Bản miễn phí",
+      "logout": "Đăng xuất",
+      "collapse": "Thu gọn"
+    },
+    "mobileNav": {
+      "plans": "Gói học",
+      "history": "Lịch sử",
+      "close": "Đóng",
+      "more": "Thêm"
+    },
+    "header": {
+      "student": "Học viên",
+      "searchPlaceholder": "Tìm bài học, từ vựng..."
     }
   }
 }

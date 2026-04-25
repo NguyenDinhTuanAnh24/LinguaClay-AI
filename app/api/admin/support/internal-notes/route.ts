@@ -1,7 +1,7 @@
 import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
 import { ensureAdminActor } from '@/lib/admin-auth'
+import { SupportRepository } from '@/repositories/support.repository'
 
 type Payload = {
   ticketId?: string
@@ -20,12 +20,7 @@ export async function POST(req: Request) {
 
     if (!ticketId) return NextResponse.json({ error: 'Missing ticketId' }, { status: 400 })
 
-    const updated = await prisma.supportTicket.update({
-      where: { id: ticketId },
-      data: { internalNote: note || null },
-      select: { id: true, internalNote: true },
-    })
-
+    const updated = await SupportRepository.updateInternalNote(ticketId, note || null)
     return NextResponse.json({
       ok: true,
       ticketId: updated.id,

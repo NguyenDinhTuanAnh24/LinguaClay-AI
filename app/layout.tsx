@@ -2,6 +2,11 @@ import type { Metadata } from "next";
 import { Lexend, Playfair_Display, Inter, Be_Vietnam_Pro } from "next/font/google";
 import "./globals.css";
 import "@/lib/env.server"; // Validate environment variables on startup
+import { NextIntlClientProvider } from 'next-intl'
+import { cookies } from 'next/headers'
+import { defaultLocale, locales, type Locale } from '@/i18n.config'
+import enMessages from '@/messages/en.json'
+import viMessages from '@/messages/vi.json'
 
 const lexend = Lexend({
   variable: "--font-lexend",
@@ -46,21 +51,36 @@ export const viewport: Viewport = {
   userScalable: false,
 };
 
-export default function RootLayout({
+function resolveLocale(value?: string): Locale {
+  if (value && (locales as readonly string[]).includes(value)) {
+    return value as Locale
+  }
+  return defaultLocale
+}
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = await cookies()
+  const locale = resolveLocale(cookieStore.get('NEXT_LOCALE')?.value)
+  const messages = locale === 'en' ? enMessages : viMessages
+
   return (
     <html
-      lang="vi"
+      lang={locale}
       className={`${lexend.variable} ${playfair.variable} ${inter.variable} ${beVietnamPro.variable} h-full antialiased`}
     >
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body className="min-h-full flex flex-col font-sans">{children}</body>
+      <body className="min-h-full flex flex-col font-sans">
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          {children}
+        </NextIntlClientProvider>
+      </body>
     </html>
   );
 }

@@ -1,13 +1,12 @@
 import Link from 'next/link'
-import { prisma } from '@/lib/prisma'
-import { ADMIN_EMAILS } from '@/lib/admin'
-import { Activity, TrendingUp, Wallet, Users, BookOpenCheck, GraduationCap, Bot, Mic, Headphones, BookA, PencilLine } from 'lucide-react'
+import { Activity, TrendingUp, Wallet, Users, BookOpenCheck, GraduationCap, Mic, Headphones, BookA, PencilLine } from 'lucide-react'
+import { loadAdminOverviewData } from '@/services/reporting/admin-overview.loader'
 
 export const dynamic = 'force-dynamic'
 
 type RangeKey = 'today' | '7d' | '30d' | 'custom'
 type SearchParams = { range?: string; start?: string; end?: string; userPage?: string }
-type DayPoint = { dayKey: string; label: string; value: number }
+type UserRow = { dayKey: string; label: string; value: number; delta: number; cumulative: number }
 type RevenueBar = { label: string; amount: number; isEmpty: boolean }
 
 function getVNDayBoundary(day: string, endOfDay = false): Date {
@@ -26,6 +25,13 @@ function getVNDayKey(date: Date): string {
 function parseDateInput(value?: string): string | null {
   if (!value) return null
   return /^\d{4}-\d{2}-\d{2}$/.test(value) ? value : null
+}
+
+function parsePositiveInt(value?: string): number | null {
+  if (!value) return null
+  const num = Number.parseInt(value, 10)
+  if (!Number.isFinite(num) || num <= 0) return null
+  return num
 }
 
 function resolveRange(searchParams: SearchParams): {
@@ -71,6 +77,7 @@ function resolveRange(searchParams: SearchParams): {
       endInput: vnToday,
     }
   }
+
   return { range, startAt, endAt, startInput: parsedStart, endInput: parsedEnd }
 }
 
@@ -90,157 +97,24 @@ function formatCompact(value: number): string {
   }).format(value)
 }
 
-function normalizePlanLabel(planId: string): string {
-  const key = (planId || '').toUpperCase()
-  if (key.includes('3_MONTHS') || key.includes('TRIAL')) return 'Bản tiêu chuẩn (3 tháng)'
-  if (key.includes('6_MONTHS') || key.includes('FLEX')) return 'Bản chuyên sâu (6 tháng)'
-  if (key.includes('1_YEAR') || key.includes('12') || key.includes('YEAR')) return 'Bản toàn diện (1 năm)'
-  const adminMatch = key.match(/ADMIN_GRANTED_(\d+)M/)
-  if (adminMatch) return `Gói ADMIN cấp (${adminMatch[1]} tháng)`
-  return planId || 'Khác'
-}
-
-function estimatePlanMonths(planId: string): number {
-  const key = (planId || '').toUpperCase()
-  if (key.includes('3') || key.includes('TRIAL')) return 3
-  if (key.includes('6') || key.includes('FLEX')) return 6
-  if (key.includes('1_YEAR') || key.includes('12') || key.includes('YEAR')) return 12
-  return 1
-}
-
-function buildDaySeries(startAt: Date, endAt: Date): DayPoint[] {
-  const list: DayPoint[] = []
-  const cursor = new Date(startAt)
-  while (cursor <= endAt) {
-    const key = getVNDayKey(cursor)
-    list.push({ dayKey: key, label: `${key.slice(8, 10)}/${key.slice(5, 7)}`, value: 0 })
-    cursor.setDate(cursor.getDate() + 1)
-  }
-  return list
-}
-
-function buildRevenueBars(planRevenueMap: Map<string, number>): RevenueBar[] {
-  const canonicalPlans = ['Bản tiêu chuẩn (3 tháng)', 'Bản chuyên sâu (6 tháng)', 'Bản toàn diện (1 năm)']
-  return canonicalPlans.map((label) => {
-    const amount = planRevenueMap.get(label) || 0
-    return { label, amount, isEmpty: amount <= 0 }
-  })
-}
-
-function parsePositiveInt(value?: string): number | null {
-  if (!value) return null
-  const num = Number.parseInt(value, 10)
-  if (!Number.isFinite(num) || num <= 0) return null
-  return num
-}
-
 export default async function AdminOverviewPage({ searchParams }: { searchParams: Promise<SearchParams> }) {
   const params = await searchParams
   const { range, startAt, endAt, startInput, endInput } = resolveRange(params)
-
-  const mauStart = (() => {
-    const d = new Date(endAt)
-    d.setDate(d.getDate() - 29)
-    d.setHours(0, 0, 0, 0)
-    return d
-  })()
-
-  const vnToday = getVNDayKey(new Date())
-  const todayStart = getVNDayBoundary(vnToday)
-  const todayEnd = getVNDayBoundary(vnToday, true)
-
-  const [
-    newUsers,
-    successfulOrders,
-    dauRows,
-    mauRows,
-    createdUsers,
-    flashcardsReviewedToday,
-    totalGrammarPoints,
-    completedGrammarRows,
-    tutorListeningTotal,
-    tutorReadingTotal,
-    tutorSpeakingTotal,
-    tutorWritingTotal,
-  ] = await Promise.all([
-    prisma.user.count({ where: { email: { notIn: ADMIN_EMAILS }, createdAt: { gte: startAt, lte: endAt } } }),
-    prisma.order.findMany({
-      where: { status: 'SUCCESS', createdAt: { gte: startAt, lte: endAt } },
-      select: { amount: true, planId: true },
-    }),
-    prisma.userProgress.findMany({
-      where: { user: { email: { notIn: ADMIN_EMAILS } }, lastReviewed: { gte: startAt, lte: endAt } },
-      distinct: ['userId'],
-      select: { userId: true },
-    }),
-    prisma.userProgress.findMany({
-      where: { user: { email: { notIn: ADMIN_EMAILS } }, lastReviewed: { gte: mauStart, lte: endAt } },
-      distinct: ['userId'],
-      select: { userId: true },
-    }),
-    prisma.user.findMany({
-      where: { email: { notIn: ADMIN_EMAILS }, createdAt: { gte: startAt, lte: endAt } },
-      select: { createdAt: true },
-      orderBy: { createdAt: 'asc' },
-    }),
-    prisma.userProgress.count({
-      where: { user: { email: { notIn: ADMIN_EMAILS } }, lastReviewed: { gte: todayStart, lte: todayEnd } },
-    }),
-    prisma.grammarPoint.count(),
-    prisma.exercise.findMany({
-      where: {
-        grammarPointId: { not: null },
-        userId: { not: null },
-      },
-      distinct: ['grammarPointId'],
-      select: { grammarPointId: true },
-    }),
-    prisma.tutorListeningSession.count({ where: { user: { email: { notIn: ADMIN_EMAILS } }, createdAt: { gte: startAt, lte: endAt } } }),
-    prisma.tutorReadingSession.count({ where: { user: { email: { notIn: ADMIN_EMAILS } }, createdAt: { gte: startAt, lte: endAt } } }),
-    prisma.tutorSpeakingSession.count({ where: { user: { email: { notIn: ADMIN_EMAILS } }, createdAt: { gte: startAt, lte: endAt } } }),
-    prisma.tutorEditorSession.count({ where: { user: { email: { notIn: ADMIN_EMAILS } }, createdAt: { gte: startAt, lte: endAt } } }),
-  ])
-
-  const totalRevenue = successfulOrders.reduce((sum: number, row) => sum + row.amount, 0)
-  const mrr = Math.round(
-    successfulOrders.reduce((sum: number, row) => sum + row.amount / estimatePlanMonths(row.planId), 0)
-  )
-  const dau = dauRows.length
-  const mau = mauRows.length
-  const dauMauPct = mau > 0 ? Math.round((dau / mau) * 100) : 0
-
-  const completedGrammarPoints = completedGrammarRows.length
-  const grammarCompletionRate = totalGrammarPoints > 0 ? Math.round((completedGrammarPoints / totalGrammarPoints) * 100) : 0
-
-  const userSeries = buildDaySeries(startAt, endAt)
-  const seriesMap = new Map(userSeries.map((x) => [x.dayKey, x]))
-  for (const row of createdUsers) {
-    const key = getVNDayKey(row.createdAt)
-    const target = seriesMap.get(key)
-    if (target) target.value += 1
-  }
-
-  const planRevenueMap = new Map<string, number>()
-  for (const row of successfulOrders) {
-    const label = normalizePlanLabel(row.planId)
-    planRevenueMap.set(label, (planRevenueMap.get(label) || 0) + row.amount)
-  }
-  const revenueBars = buildRevenueBars(planRevenueMap)
-  const maxPlanRevenue = Math.max(1, ...revenueBars.map((x) => x.amount))
-
-  const userRows = userSeries.map((row, idx) => {
-    const prev = idx > 0 ? userSeries[idx - 1].value : 0
-    const delta = row.value - prev
-    const cumulative = (idx > 0 ? userSeries.slice(0, idx).reduce((sum, x) => sum + x.value, 0) : 0) + row.value
-    return { ...row, delta, cumulative }
-  })
-  const userRowsNewestFirst = [...userRows].reverse()
-  const userRowsPerPage = 5
-  const totalUserPages = Math.max(1, Math.ceil(userRowsNewestFirst.length / userRowsPerPage))
   const requestedUserPage = parsePositiveInt(params.userPage) || 1
-  const userPage = Math.min(totalUserPages, requestedUserPage)
-  const userPageStart = (userPage - 1) * userRowsPerPage
-  const pagedUserRows = userRowsNewestFirst.slice(userPageStart, userPageStart + userRowsPerPage)
+
+  const overview = await loadAdminOverviewData({
+    startAt,
+    endAt,
+    userPage: requestedUserPage,
+  })
+
+  const summary = overview.summary
+  const revenueBars = overview.revenueBars as RevenueBar[]
+  const maxPlanRevenue = overview.maxPlanRevenue
+  const pagedUserRows = overview.userRows as UserRow[]
+  const userPage = overview.userPage
+  const totalUserPages = overview.totalUserPages
+  const userRowsCount = overview.userRowsCount
 
   const buildUserPageHref = (targetPage: number) => {
     const query = new URLSearchParams()
@@ -314,10 +188,10 @@ export default async function AdminOverviewPage({ searchParams }: { searchParams
 
       <section className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
         {[
-          { title: 'User mới', value: formatCompact(newUsers), note: `${startInput} → ${endInput}`, icon: Users },
-          { title: 'DAU/MAU', value: `${dauMauPct}% (${dau}/${mau})`, note: 'Tỷ lệ người dùng hoạt động', icon: Activity },
-          { title: 'MRR', value: formatCurrencyVND(mrr), icon: TrendingUp },
-          { title: 'Tổng doanh thu', value: formatCurrencyVND(totalRevenue), icon: Wallet },
+          { title: 'User mới', value: formatCompact(summary.newUsers), note: `${startInput} → ${endInput}`, icon: Users },
+          { title: 'DAU/MAU', value: `${summary.dauMauPct}% (${summary.dau}/${summary.mau})`, note: 'Tỷ lệ người dùng hoạt động', icon: Activity },
+          { title: 'MRR', value: formatCurrencyVND(summary.mrr), icon: TrendingUp },
+          { title: 'Tổng doanh thu', value: formatCurrencyVND(summary.totalRevenue), icon: Wallet },
         ].map((card) => {
           const Icon = card.icon
           return (
@@ -341,14 +215,14 @@ export default async function AdminOverviewPage({ searchParams }: { searchParams
         {[
           {
             title: 'Flashcard đã review hôm nay',
-            value: String(flashcardsReviewedToday),
+            value: String(summary.flashcardsReviewedToday),
             note: 'Tổng lượt ôn tập từ UserProgress trong ngày',
             icon: BookOpenCheck,
           },
           {
             title: 'Tỷ lệ hoàn thành ngữ pháp',
-            value: `${grammarCompletionRate}%`,
-            note: `${completedGrammarPoints}/${totalGrammarPoints} điểm ngữ pháp đã có hoạt động`,
+            value: `${summary.grammarCompletionRate}%`,
+            note: `${summary.completedGrammarPoints}/${summary.totalGrammarPoints} điểm ngữ pháp đã có hoạt động`,
             icon: GraduationCap,
           },
         ].map((card) => {
@@ -372,30 +246,10 @@ export default async function AdminOverviewPage({ searchParams }: { searchParams
 
       <section className="grid grid-cols-1 gap-4 md:grid-cols-4">
         {[
-          {
-            title: 'Lượt luyện Nghe',
-            value: String(tutorListeningTotal),
-            note: 'Tổng số bài giải',
-            icon: Headphones,
-          },
-          {
-            title: 'Lượt luyện Nói',
-            value: String(tutorSpeakingTotal),
-            note: 'Tổng số phiên nói',
-            icon: Mic,
-          },
-          {
-            title: 'Lượt luyện Đọc',
-            value: String(tutorReadingTotal),
-            note: 'Tổng số bài đọc',
-            icon: BookA,
-          },
-          {
-            title: 'Lượt luyện Viết',
-            value: String(tutorWritingTotal),
-            note: 'Tổng số bài viết',
-            icon: PencilLine,
-          },
+          { title: 'Lượt luyện Nghe', value: String(summary.tutorListeningTotal), note: 'Tổng số bài giải', icon: Headphones },
+          { title: 'Lượt luyện Nói', value: String(summary.tutorSpeakingTotal), note: 'Tổng số phiên nói', icon: Mic },
+          { title: 'Lượt luyện Đọc', value: String(summary.tutorReadingTotal), note: 'Tổng số bài đọc', icon: BookA },
+          { title: 'Lượt luyện Viết', value: String(summary.tutorWritingTotal), note: 'Tổng số bài viết', icon: PencilLine },
         ].map((card) => {
           const Icon = card.icon
           return (
@@ -435,36 +289,32 @@ export default async function AdminOverviewPage({ searchParams }: { searchParams
                 </tr>
               </thead>
               <tbody>
-                {pagedUserRows.map((row) => {
-                  return (
-                    <tr key={row.dayKey} className="odd:bg-[#F5F0E8] even:bg-[#EFEAE0]">
-                      <td className="border border-[#141414] px-3 py-2 font-semibold text-[#141414]">{row.label}</td>
-                      <td className="border border-[#141414] px-3 py-2 text-right font-bold tabular-nums">{row.value}</td>
-                      <td
-                        className={`border border-[#141414] px-3 py-2 text-right font-bold tabular-nums ${
-                          row.delta > 0 ? 'text-[#166534]' : row.delta < 0 ? 'text-[#B91C1C]' : 'text-[#4B4B4B]'
-                        }`}
-                      >
-                        {row.delta >= 0 ? '+' : ''}
-                        {row.delta}
-                      </td>
-                      <td className="border border-[#141414] px-3 py-2 text-right font-bold tabular-nums">{row.cumulative}</td>
-                    </tr>
-                  )
-                })}
+                {pagedUserRows.map((row) => (
+                  <tr key={row.dayKey} className="odd:bg-[#F5F0E8] even:bg-[#EFEAE0]">
+                    <td className="border border-[#141414] px-3 py-2 font-semibold text-[#141414]">{row.label}</td>
+                    <td className="border border-[#141414] px-3 py-2 text-right font-bold tabular-nums">{row.value}</td>
+                    <td
+                      className={`border border-[#141414] px-3 py-2 text-right font-bold tabular-nums ${
+                        row.delta > 0 ? 'text-[#166534]' : row.delta < 0 ? 'text-[#B91C1C]' : 'text-[#4B4B4B]'
+                      }`}
+                    >
+                      {row.delta >= 0 ? '+' : ''}
+                      {row.delta}
+                    </td>
+                    <td className="border border-[#141414] px-3 py-2 text-right font-bold tabular-nums">{row.cumulative}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
           <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-[11px] font-semibold text-[#4B4B4B]">
             <span>
-              Trang {userPage}/{totalUserPages} • Hiển thị {pagedUserRows.length} ngày/trang
+              Trang {userPage}/{totalUserPages} • Hiển thị {userRowsCount} ngày/trang
             </span>
             <div className="flex items-center gap-2">
               <Link
                 href={buildUserPageHref(Math.max(1, userPage - 1))}
-                className={`border px-3 py-1 uppercase tracking-[0.08em] ${
-                  userPage <= 1 ? 'pointer-events-none opacity-40' : ''
-                }`}
+                className={`border px-3 py-1 uppercase tracking-[0.08em] ${userPage <= 1 ? 'pointer-events-none opacity-40' : ''}`}
                 style={{ borderColor: '#141414' }}
               >
                 Trước
@@ -487,9 +337,7 @@ export default async function AdminOverviewPage({ searchParams }: { searchParams
               </div>
               <Link
                 href={buildUserPageHref(Math.min(totalUserPages, userPage + 1))}
-                className={`border px-3 py-1 uppercase tracking-[0.08em] ${
-                  userPage >= totalUserPages ? 'pointer-events-none opacity-40' : ''
-                }`}
+                className={`border px-3 py-1 uppercase tracking-[0.08em] ${userPage >= totalUserPages ? 'pointer-events-none opacity-40' : ''}`}
                 style={{ borderColor: '#141414' }}
               >
                 Sau
@@ -522,7 +370,7 @@ export default async function AdminOverviewPage({ searchParams }: { searchParams
                     <tr key={item.label} className="odd:bg-[#F5F0E8] even:bg-[#EFEAE0]">
                       <td className="border border-[#141414] px-3 py-2 font-semibold text-[#141414]">{item.label}</td>
                       <td className="border border-[#141414] px-3 py-2 text-right font-bold tabular-nums">
-                        {item.isEmpty ? 'Chua co' : formatCurrencyVND(item.amount)}
+                        {item.isEmpty ? 'Chưa có' : formatCurrencyVND(item.amount)}
                       </td>
                       <td className="border border-[#141414] px-3 py-2 text-right font-bold tabular-nums">
                         {item.isEmpty ? '0%' : `${ratio}%`}
