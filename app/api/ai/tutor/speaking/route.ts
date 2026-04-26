@@ -2,9 +2,8 @@ import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { createClient } from '@/utils/supabase/server'
 import { Prisma } from '@prisma/client'
-import { prisma } from '@/lib/prisma'
+import { TutorRepository } from '@/repositories/tutor.repository'
 import Groq from 'groq-sdk'
-import { randomUUID } from 'crypto'
 
 const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY,
@@ -34,6 +33,38 @@ type SpeakingGradeResult = {
   }>
 }
 
+type SpeakingSessionSummary = {
+  id: string
+  title: string
+  levelTarget: string
+  topicHint: string | null
+  score: number
+  createdAt: string
+}
+
+async function persistSpeakingSession(params: {
+  userId: string
+  title: string
+  levelTarget: string
+  topicHint: string | null
+  promptData: SpeakingPrompt
+  userAnswers: string[]
+  result: SpeakingGradeResult
+}) {
+  await TutorRepository.createSpeakingSession({
+    userId: params.userId,
+    title: params.title,
+    levelTarget: params.levelTarget,
+    topicHint: params.topicHint,
+    promptData: params.promptData as unknown as Prisma.InputJsonValue,
+    userAnswers: params.userAnswers as unknown as Prisma.InputJsonValue,
+    score: params.result.score,
+    feedbackVi: params.result.feedbackVi,
+    criteria: params.result.criteria as unknown as Prisma.InputJsonValue,
+    improvements: params.result.improvements as unknown as Prisma.InputJsonValue,
+  })
+}
+
 function toSafePrompt(input: unknown): SpeakingPrompt | null {
   if (!input || typeof input !== 'object') return null
   const raw = input as { title?: unknown; introVi?: unknown; questions?: unknown }
@@ -59,74 +90,27 @@ function estimateLevel(score: number) {
   return 'A1'
 }
 
-async function persistSpeakingSession(params: {
-  userId: string
-  title: string
-  levelTarget: string
-  topicHint: string | null
-  promptData: SpeakingPrompt
-  userAnswers: string[]
-  result: SpeakingGradeResult
-}) {
-  const delegate = (prisma as unknown as {
-    tutorSpeakingSession?: {
-      create: (args: {
-        data: {
-          userId: string
-          title: string
-          levelTarget: string
-          topicHint: string | null
-          promptData: Prisma.InputJsonValue
-          userAnswers: Prisma.InputJsonValue
-          score: number
-          feedbackVi: string
-          criteria: Prisma.InputJsonValue
-          improvements: Prisma.InputJsonValue
-        }
-      }) => Promise<unknown>
+// GET /api/ai/tutor/speaking - Lấy danh sách sessions speaking của user
+export async function GET(req: Request) {
+  try {
+    const supabase = await createClient()
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
+
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
-  }).tutorSpeakingSession
 
-  if (delegate?.create) {
-    await delegate.create({
-      data: {
-        userId: params.userId,
-        title: params.title,
-        levelTarget: params.levelTarget,
-        topicHint: params.topicHint,
-        promptData: params.promptData as unknown as Prisma.InputJsonValue,
-        userAnswers: params.userAnswers as unknown as Prisma.InputJsonValue,
-        score: params.result.score,
-        feedbackVi: params.result.feedbackVi,
-        criteria: params.result.criteria as unknown as Prisma.InputJsonValue,
-        improvements: params.result.improvements as unknown as Prisma.InputJsonValue,
-      },
-    })
-    return
+    const sessions = await TutorRepository.findSpeakingSessionsByUser(user.id, 50)
+    return NextResponse.json({ ok: true, sessions })
+  } catch (error) {
+    logger.error('AI Tutor Speaking GET Error:', error)
+    return NextResponse.json({ error: 'Internal error' }, { status: 500 })
   }
-
-  await prisma.$executeRaw(
-    Prisma.sql`
-      INSERT INTO "TutorSpeakingSession"
-        ("id","userId","title","levelTarget","topicHint","promptData","userAnswers","score","feedbackVi","criteria","improvements")
-      VALUES
-        (
-          ${randomUUID()},
-          ${params.userId},
-          ${params.title},
-          ${params.levelTarget},
-          ${params.topicHint},
-          CAST(${JSON.stringify(params.promptData)} AS jsonb),
-          CAST(${JSON.stringify(params.userAnswers)} AS jsonb),
-          ${params.result.score},
-          ${params.result.feedbackVi},
-          CAST(${JSON.stringify(params.result.criteria)} AS jsonb),
-          CAST(${JSON.stringify(params.result.improvements)} AS jsonb)
-        )
-    `
-  )
 }
 
+// POST /api/ai/tutor/speaking - Tạo prompt speaking hoặc chấm bài
 export async function POST(req: Request) {
   try {
     const supabase = await createClient()

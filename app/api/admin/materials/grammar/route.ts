@@ -1,10 +1,10 @@
 import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
 import { createClient } from '@/utils/supabase/server'
 import { isAdminUser } from '@/lib/admin'
 import { parseCsvText, slugify } from '@/lib/csv'
 import { normalizeCefrLevel } from '@/lib/levels'
+import { GrammarRepository } from '@/repositories/grammar.repository'
 
 type GrammarAction = 'create' | 'update' | 'delete' | 'import_csv'
 
@@ -19,16 +19,7 @@ async function ensureAdmin() {
 }
 
 async function listGrammarRows() {
-  const rows = await prisma.grammarPoint.findMany({
-    orderBy: { id: 'desc' },
-    take: 400,
-    select: {
-      id: true,
-      title: true,
-      level: true,
-      structure: true,
-    },
-  })
+  const rows = await GrammarRepository.listRows(400)
 
   return rows.map((g) => ({
     id: g.id,
@@ -43,7 +34,7 @@ async function createUniqueGrammarSlug(title: string) {
   const base = slugify(title) || 'grammar'
   let candidate = base
   let index = 1
-  while (await prisma.grammarPoint.findUnique({ where: { slug: candidate }, select: { id: true } })) {
+  while (await GrammarRepository.findUnique(candidate)) {
     candidate = `${base}-${index}`
     index += 1
   }
@@ -84,15 +75,13 @@ export async function POST(req: Request) {
       const title = (body.title || '').trim()
       if (!title) return NextResponse.json({ error: 'Tên cấu trúc không hợp lệ' }, { status: 400 })
       const slug = await createUniqueGrammarSlug(title)
-      await prisma.grammarPoint.create({
-        data: {
-          slug,
-          title,
-          level: normalizeCefrLevel((body.level || '').trim() || 'A1'),
-          structure: (body.structure || '').trim() || null,
-          explanation: (body.explanation || '').trim() || 'Chưa có mô tả',
-          example: (body.example || '').trim() || '-',
-        },
+      await GrammarRepository.create({
+        slug,
+        title,
+        level: normalizeCefrLevel((body.level || '').trim() || 'A1'),
+        structure: (body.structure || '').trim() || null,
+        explanation: (body.explanation || '').trim() || 'Chưa có mô tả',
+        example: (body.example || '').trim() || '-',
       })
     }
 
@@ -101,22 +90,19 @@ export async function POST(req: Request) {
       if (!id) return NextResponse.json({ error: 'Thiếu ID ngữ pháp' }, { status: 400 })
       const title = (body.title || '').trim()
       if (!title) return NextResponse.json({ error: 'Tên cấu trúc không hợp lệ' }, { status: 400 })
-      await prisma.grammarPoint.update({
-        where: { id },
-        data: {
-          title,
-          level: normalizeCefrLevel((body.level || '').trim() || 'A1'),
-          structure: (body.structure || '').trim() || null,
-          explanation: (body.explanation || '').trim() || 'Chưa có mô tả',
-          example: (body.example || '').trim() || '-',
-        },
+      await GrammarRepository.update(id, {
+        title,
+        level: normalizeCefrLevel((body.level || '').trim() || 'A1'),
+        structure: (body.structure || '').trim() || null,
+        explanation: (body.explanation || '').trim() || 'Chưa có mô tả',
+        example: (body.example || '').trim() || '-',
       })
     }
 
     if (action === 'delete') {
       const id = body.id || ''
       if (!id) return NextResponse.json({ error: 'Thiếu ID ngữ pháp' }, { status: 400 })
-      await prisma.grammarPoint.delete({ where: { id } })
+      await GrammarRepository.delete(id)
     }
 
     if (action === 'import_csv') {
@@ -128,22 +114,20 @@ export async function POST(req: Request) {
         const title = (row.title || row.name || '').trim()
         if (!title) continue
         const slug = await createUniqueGrammarSlug(title)
-        await prisma.grammarPoint.create({
-          data: {
-            slug,
-            title,
-            level: normalizeCefrLevel((row.level || '').trim() || 'A1'),
-            structure: (row.structure || '').trim() || null,
-            explanation: (row.explanation || '').trim() || 'Chưa có mô tả',
-            example: (row.example || '').trim() || '-',
-          },
+        await GrammarRepository.create({
+          slug,
+          title,
+          level: normalizeCefrLevel((row.level || '').trim() || 'A1'),
+          structure: (row.structure || '').trim() || null,
+          explanation: (row.explanation || '').trim() || 'Chưa có mô tả',
+          example: (row.example || '').trim() || '-',
         })
         imported += 1
       }
       if (!imported) return NextResponse.json({ error: 'CSV thiếu cột title' }, { status: 400 })
     }
 
-    const rows = await listGrammarRows()
+    const rows = await GrammarRepository.listRows(400)
     return NextResponse.json({ ok: true, rows })
   } catch (error) {
     logger.error('admin materials grammar POST error:', error)

@@ -2,9 +2,8 @@ import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { createClient } from '@/utils/supabase/server'
 import { Prisma } from '@prisma/client'
-import { prisma } from '@/lib/prisma'
+import { TutorRepository } from '@/repositories/tutor.repository'
 import Groq from 'groq-sdk'
-import { randomUUID } from 'crypto'
 
 const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY,
@@ -49,6 +48,16 @@ type ListeningGradeResult = {
   wrongItems: WrongItem[]
 }
 
+type ListeningSessionSummary = {
+  id: string
+  title: string
+  levelTarget: string
+  topicHint: string | null
+  score: number
+  totalQuestions: number
+  createdAt: string
+}
+
 async function persistListeningSession(params: {
   userId: string
   title: string
@@ -64,73 +73,21 @@ async function persistListeningSession(params: {
   feedbackVi: string
   wrongItems: WrongItem[]
 }) {
-  const delegate = (prisma as unknown as {
-    tutorListeningSession?: {
-      create: (args: {
-        data: {
-          userId: string
-          title: string
-          levelTarget: string
-          topicHint: string | null
-          transcriptEn: string
-          questions: Prisma.InputJsonValue
-          blanks: Prisma.InputJsonValue
-          userAnswers: Prisma.InputJsonValue
-          blankAnswers: Prisma.InputJsonValue
-          score: number
-          totalQuestions: number
-          feedbackVi: string
-          wrongItems: Prisma.InputJsonValue
-        }
-      }) => Promise<unknown>
-    }
-  }).tutorListeningSession
-
-  if (delegate?.create) {
-    await delegate.create({
-      data: {
-        userId: params.userId,
-        title: params.title,
-        levelTarget: params.levelTarget,
-        topicHint: params.topicHint,
-        transcriptEn: params.transcriptEn,
-        questions: params.questions as unknown as Prisma.InputJsonValue,
-        blanks: params.blanks as unknown as Prisma.InputJsonValue,
-        userAnswers: params.userAnswers as unknown as Prisma.InputJsonValue,
-        blankAnswers: params.blankAnswers as unknown as Prisma.InputJsonValue,
-        score: params.score,
-        totalQuestions: params.totalQuestions,
-        feedbackVi: params.feedbackVi,
-        wrongItems: params.wrongItems as unknown as Prisma.InputJsonValue,
-      },
-    })
-    return
-  }
-
-  // Fallback when dev server still holds an old Prisma client instance without the new delegate.
-  await prisma.$executeRaw(
-    Prisma.sql`
-      INSERT INTO "TutorListeningSession"
-        ("id","userId","title","levelTarget","topicHint","transcriptEn","questions","blanks","userAnswers","blankAnswers","score","totalQuestions","feedbackVi","wrongItems")
-      VALUES
-        (
-          ${randomUUID()},
-          ${params.userId},
-          ${params.title},
-          ${params.levelTarget},
-          ${params.topicHint},
-          ${params.transcriptEn},
-          CAST(${JSON.stringify(params.questions)} AS jsonb),
-          CAST(${JSON.stringify(params.blanks)} AS jsonb),
-          CAST(${JSON.stringify(params.userAnswers)} AS jsonb),
-          CAST(${JSON.stringify(params.blankAnswers)} AS jsonb),
-          ${params.score},
-          ${params.totalQuestions},
-          ${params.feedbackVi},
-          CAST(${JSON.stringify(params.wrongItems)} AS jsonb)
-        )
-    `
-  )
+  await TutorRepository.createListeningSession({
+    userId: params.userId,
+    title: params.title,
+    levelTarget: params.levelTarget,
+    topicHint: params.topicHint,
+    transcriptEn: params.transcriptEn,
+    questions: params.questions as unknown as Prisma.InputJsonValue,
+    blanks: params.blanks as unknown as Prisma.InputJsonValue,
+    userAnswers: params.userAnswers as unknown as Prisma.InputJsonValue,
+    blankAnswers: params.blankAnswers as unknown as Prisma.InputJsonValue,
+    score: params.score,
+    totalQuestions: params.totalQuestions,
+    feedbackVi: params.feedbackVi,
+    wrongItems: params.wrongItems as unknown as Prisma.InputJsonValue,
+  })
 }
 
 function toLevelEstimate(correctCount: number, total: number) {
@@ -202,6 +159,27 @@ function toSafeTest(input: unknown): ListeningTest | null {
   }
 }
 
+// GET /api/ai/tutor/listening - Lấy danh sách sessions listening của user
+export async function GET(req: Request) {
+  try {
+    const supabase = await createClient()
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
+
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    const sessions = await TutorRepository.findListeningSessionsByUser(user.id, 50)
+    return NextResponse.json({ ok: true, sessions })
+  } catch (error) {
+    logger.error('AI Tutor Listening GET Error:', error)
+    return NextResponse.json({ error: 'Internal error' }, { status: 500 })
+  }
+}
+
+// POST /api/ai/tutor/listening - Tạo đề nghe hoặc chấm bài
 export async function POST(req: Request) {
   try {
     const supabase = await createClient()

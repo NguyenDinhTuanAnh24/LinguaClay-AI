@@ -1,10 +1,12 @@
 import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
+import { createClient } from '@/utils/supabase/server'
+import { isAdminUser } from '@/lib/admin'
 import { parseCsvText, slugify } from '@/lib/csv'
 import { normalizeCefrLevel } from '@/lib/levels'
 import { cache, CACHE_KEYS } from '@/lib/cache'
-import { ensureAdminActor } from '@/lib/admin-auth'
+import { TopicRepository } from '@/repositories/topic.repository'
+import { WordRepository } from '@/repositories/word.repository'
 
 type FlashcardAction = 'create' | 'update' | 'delete' | 'import_csv'
 
@@ -18,27 +20,7 @@ function formatDate(date: Date): string {
 }
 
 async function listFlashcardSets() {
-  const topics = await prisma.topic.findMany({
-    orderBy: { createdAt: 'desc' },
-    take: 200,
-    select: {
-      id: true,
-      name: true,
-      level: true,
-      createdAt: true,
-      words: {
-        select: {
-          id: true,
-          original: true,
-          translation: true,
-          example: true,
-          pronunciation: true,
-        },
-        orderBy: { createdAt: 'asc' },
-        take: 200,
-      },
-    },
-  })
+  const topics = await TopicRepository.findWithWords(200)
 
   return topics.map((topic) => ({
     id: topic.id,
@@ -60,16 +42,25 @@ async function createUniqueTopicSlug(name: string) {
   const base = slugify(name) || 'topic'
   let candidate = base
   let index = 1
-  while (await prisma.topic.findUnique({ where: { slug: candidate }, select: { id: true } })) {
+  while (await TopicRepository.findFirst({ slug: candidate })) {
     candidate = `${base}-${index}`
     index += 1
   }
   return candidate
 }
 
+async function ensureAdmin() {
+  const supabase = await createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+  if (!user || !isAdminUser(user)) return false
+  return true
+}
+
 export async function GET() {
   try {
-    if (!(await ensureAdminActor())) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+    if (!(await ensureAdmin())) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     // Cache for 2 minutes — invalidated on any write mutation
     const sets = await cache.get(CACHE_KEYS.flashcardsAll, listFlashcardSets, 120)
     return NextResponse.json({ ok: true, sets })
@@ -81,7 +72,7 @@ export async function GET() {
 
 export async function POST(req: Request) {
   try {
-    if (!(await ensureAdminActor())) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+    if (!(await ensureAdmin())) return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     const body = (await req.json()) as {
       action?: FlashcardAction
       id?: string
@@ -101,13 +92,11 @@ export async function POST(req: Request) {
       if (!topic) return NextResponse.json({ error: 'Tên chủ đề không hợp lệ' }, { status: 400 })
 
       const slug = await createUniqueTopicSlug(topic)
-      await prisma.topic.create({
-        data: {
-          name: topic,
-          slug,
-          level,
-          language: 'EN',
-        },
+      await TopicRepository.create({
+        name: topic,
+        slug,
+        level,
+        language: 'EN',
       })
     }
 
@@ -118,19 +107,16 @@ export async function POST(req: Request) {
       if (!id) return NextResponse.json({ error: 'Thiếu ID chủ đề' }, { status: 400 })
       if (!topic) return NextResponse.json({ error: 'Tên chủ đề không hợp lệ' }, { status: 400 })
 
-      await prisma.topic.update({
-        where: { id },
-        data: {
-          name: topic,
-          level: normalizeCefrLevel(level || 'A1'),
-        },
+      await TopicRepository.update(id, {
+        name: topic,
+        level: normalizeCefrLevel(level || 'A1'),
       })
     }
 
     if (action === 'delete') {
       const id = body.id || ''
       if (!id) return NextResponse.json({ error: 'Thiếu ID chủ đề' }, { status: 400 })
-      await prisma.topic.delete({ where: { id } })
+      await TopicRepository.delete(id)
     }
 
     if (action === 'import_csv') {
@@ -150,31 +136,28 @@ export async function POST(req: Request) {
         const level = normalizeCefrLevel((row.level || '').trim() || 'A1')
         let topicId = topicCache.get(topicName)
         if (!topicId) {
-          const existing = await prisma.topic.findFirst({
-            where: { name: topicName },
-            select: { id: true },
-          })
+          const existing = await TopicRepository.findFirst({ name: topicName })
           if (existing) {
             topicId = existing.id
           } else {
             const slug = await createUniqueTopicSlug(topicName)
-            const created = await prisma.topic.create({
-              data: { name: topicName, slug, level, language: 'EN' },
-              select: { id: true },
+            const created = await TopicRepository.create({
+              name: topicName,
+              slug,
+              level,
+              language: 'EN',
             })
             topicId = created.id
           }
           topicCache.set(topicName, topicId)
         }
 
-        await prisma.word.create({
-          data: {
-            topicId,
-            original: term,
-            translation: definition,
-            example: (row.example || '').trim() || null,
-            pronunciation: (row.pronunciation || '').trim() || null,
-          },
+        await WordRepository.create({
+          topicId,
+          original: term,
+          translation: definition,
+          example: (row.example || '').trim() || null,
+          pronunciation: (row.pronunciation || '').trim() || null,
         })
         imported += 1
       }

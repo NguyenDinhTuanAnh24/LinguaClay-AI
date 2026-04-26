@@ -2,9 +2,8 @@ import { logger } from '@/lib/logger'
 import { NextResponse } from 'next/server'
 import { createClient } from '@/utils/supabase/server'
 import { Prisma } from '@prisma/client'
-import { prisma } from '@/lib/prisma'
+import { TutorRepository } from '@/repositories/tutor.repository'
 import Groq from 'groq-sdk'
-import { randomUUID } from 'crypto'
 
 const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY,
@@ -47,6 +46,48 @@ type ReadingGradeResult = {
   levelEstimate: string
   feedbackVi: string
   wrongItems: WrongItem[]
+}
+
+type ReadingSessionSummary = {
+  id: string
+  title: string
+  levelTarget: string
+  topicHint: string | null
+  score: number
+  totalQuestions: number
+  createdAt: string
+}
+
+async function persistReadingSession(params: {
+  userId: string
+  title: string
+  levelTarget: string
+  topicHint: string | null
+  passageEn: string
+  questions: ReadingQuestion[]
+  blanks: ReadingBlank[]
+  userAnswers: Record<string, number>
+  blankAnswers: Record<string, string>
+  score: number
+  totalQuestions: number
+  feedbackVi: string
+  wrongItems: WrongItem[]
+}) {
+  await TutorRepository.createReadingSession({
+    userId: params.userId,
+    title: params.title,
+    levelTarget: params.levelTarget,
+    topicHint: params.topicHint,
+    passageEn: params.passageEn,
+    questions: params.questions as unknown as Prisma.InputJsonValue,
+    blanks: params.blanks as unknown as Prisma.InputJsonValue,
+    userAnswers: params.userAnswers as unknown as Prisma.InputJsonValue,
+    blankAnswers: params.blankAnswers as unknown as Prisma.InputJsonValue,
+    score: params.score,
+    totalQuestions: params.totalQuestions,
+    feedbackVi: params.feedbackVi,
+    wrongItems: params.wrongItems as unknown as Prisma.InputJsonValue,
+  })
 }
 
 function toLevelEstimate(correctCount: number, total: number) {
@@ -118,89 +159,27 @@ function toSafeTest(input: unknown): ReadingTest | null {
   }
 }
 
-async function persistReadingSession(params: {
-  userId: string
-  title: string
-  levelTarget: string
-  topicHint: string | null
-  passageEn: string
-  questions: ReadingQuestion[]
-  blanks: ReadingBlank[]
-  userAnswers: Record<string, number>
-  blankAnswers: Record<string, string>
-  score: number
-  totalQuestions: number
-  feedbackVi: string
-  wrongItems: WrongItem[]
-}) {
-  const delegate = (prisma as unknown as {
-    tutorReadingSession?: {
-      create: (args: {
-        data: {
-          userId: string
-          title: string
-          levelTarget: string
-          topicHint: string | null
-          passageEn: string
-          questions: Prisma.InputJsonValue
-          blanks: Prisma.InputJsonValue
-          userAnswers: Prisma.InputJsonValue
-          blankAnswers: Prisma.InputJsonValue
-          score: number
-          totalQuestions: number
-          feedbackVi: string
-          wrongItems: Prisma.InputJsonValue
-        }
-      }) => Promise<unknown>
+// GET /api/ai/tutor/reading - Lấy danh sách sessions reading của user
+export async function GET(req: Request) {
+  try {
+    const supabase = await createClient()
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
+
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
-  }).tutorReadingSession
 
-  if (delegate?.create) {
-    await delegate.create({
-      data: {
-        userId: params.userId,
-        title: params.title,
-        levelTarget: params.levelTarget,
-        topicHint: params.topicHint,
-        passageEn: params.passageEn,
-        questions: params.questions as unknown as Prisma.InputJsonValue,
-        blanks: params.blanks as unknown as Prisma.InputJsonValue,
-        userAnswers: params.userAnswers as unknown as Prisma.InputJsonValue,
-        blankAnswers: params.blankAnswers as unknown as Prisma.InputJsonValue,
-        score: params.score,
-        totalQuestions: params.totalQuestions,
-        feedbackVi: params.feedbackVi,
-        wrongItems: params.wrongItems as unknown as Prisma.InputJsonValue,
-      },
-    })
-    return
+    const sessions = await TutorRepository.findReadingSessionsByUser(user.id, 50)
+    return NextResponse.json({ ok: true, sessions })
+  } catch (error) {
+    logger.error('AI Tutor Reading GET Error:', error)
+    return NextResponse.json({ error: 'Internal error' }, { status: 500 })
   }
-
-  await prisma.$executeRaw(
-    Prisma.sql`
-      INSERT INTO "TutorReadingSession"
-        ("id","userId","title","levelTarget","topicHint","passageEn","questions","blanks","userAnswers","blankAnswers","score","totalQuestions","feedbackVi","wrongItems")
-      VALUES
-        (
-          ${randomUUID()},
-          ${params.userId},
-          ${params.title},
-          ${params.levelTarget},
-          ${params.topicHint},
-          ${params.passageEn},
-          CAST(${JSON.stringify(params.questions)} AS jsonb),
-          CAST(${JSON.stringify(params.blanks)} AS jsonb),
-          CAST(${JSON.stringify(params.userAnswers)} AS jsonb),
-          CAST(${JSON.stringify(params.blankAnswers)} AS jsonb),
-          ${params.score},
-          ${params.totalQuestions},
-          ${params.feedbackVi},
-          CAST(${JSON.stringify(params.wrongItems)} AS jsonb)
-        )
-    `
-  )
 }
 
+// POST /api/ai/tutor/reading - Tạo bài đọc hoặc chấm bài
 export async function POST(req: Request) {
   try {
     const supabase = await createClient()
