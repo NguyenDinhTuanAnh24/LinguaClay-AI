@@ -11,6 +11,8 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage",
+    "test:coverage:lib": "vitest run --config vitest.lib.config.ts --coverage",
+    "test:coverage:api": "vitest run --config vitest.api.config.ts --coverage",
     "test:watch": "vitest --watch",
     "audit": "npm audit --audit-level=moderate",
     "audit:fix": "npm audit fix",
